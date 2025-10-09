@@ -1,0 +1,134 @@
+{
+  "personal": {
+    "name": "Your Name",
+    "title": "Full Stack Developer & Creative Designer",
+    "tagline": "Crafting digital experiences through code and creativity",
+    "location": "San Francisco, CA",
+    "email": "your.email@example.com",
+    "phone": "+1 (555) 123-4567",
+    "interests": ["Gaming", "Animation", "UI/UX Design", "Open Source"],
+    "social": {
+      "github": "https://github.com/yourusername",
+      "linkedin": "https://linkedin.com/in/yourusername",
+      "twitter": "https://twitter.com/yourusername",
+      "portfolio": "https://yourportfolio.com",
+      "dribbble": "https://dribbble.com/yourusername"
+    }
+  },
+  "skills": {
+    "design": [
+      { "name": "Photoshop", "level": 5, "proficiency": "Expert" },
+      { "name": "Illustrator", "level": 4, "proficiency": "Advanced" },
+      { "name": "Figma", "level": 5, "proficiency": "Expert" },
+      { "name": "XD", "level": 4, "proficiency": "Advanced" },
+      { "name": "Sketch", "level": 3, "proficiency": "Intermediate" }
+    ],
+    "programming": [
+      { "name": "HTML5", "level": 5, "proficiency": "Expert" },
+      { "name": "CSS3/SASS", "level": 5, "proficiency": "Expert" },
+      { "name": "JavaScript", "level": 5, "proficiency": "Expert" },
+      { "name": "React", "level": 4, "proficiency": "Advanced" },
+      { "name": "Vue.js", "level": 4, "proficiency": "Advanced" },
+      { "name": "Node.js", "level": 4, "proficiency": "Advanced" },
+      { "name": "Python", "level": 3, "proficiency": "Intermediate" },
+      { "name": "TypeScript", "level": 4, "proficiency": "Advanced" }
+    ],
+    "tools": [
+      { "name": "After Effects", "level": 4, "proficiency": "Advanced" },
+      { "name": "Blender", "level": 3, "proficiency": "Intermediate" },
+      { "name": "Premiere Pro", "level": 4, "proficiency": "Advanced" },
+      { "name": "Git", "level": 5, "proficiency": "Expert" },
+      { "name": "Webpack", "level": 4, "proficiency": "Advanced" },
+      { "name": "Docker", "level": 3, "proficiency": "Intermediate" }
+    ]
+  },
+  "experience": [
+    {
+      "company": "Tech Startup Inc.",
+      "role": "Senior Frontend Developer",
+      "dates": "2022 - Present",
+      "description": "Leading the frontend team in building responsive web applications. Implemented design system and improved performance by 40%.",
+      "skills": {
+        "design": 30,
+        "code": 60,
+        "other": 10
+      },
+      "theme": "tech",
+      "color": "#4A90E2"
+    },
+    {
+      "company": "Digital Agency Co.",
+      "role": "Full Stack Developer",
+      "dates": "2020 - 2022",
+      "description": "Developed custom web solutions for clients. Built 20+ websites and web applications using modern frameworks.",
+      "skills": {
+        "design": 40,
+        "code": 50,
+        "other": 10
+      },
+      "theme": "creative",
+      "color": "#F5A623"
+    },
+    {
+      "company": "Design Studio",
+      "role": "UI/UX Designer & Developer",
+      "dates": "2018 - 2020",
+      "description": "Created engaging user interfaces and interactive experiences. Collaborated with clients to bring their visions to life.",
+      "skills": {
+        "design": 60,
+        "code": 30,
+        "other": 10
+      },
+      "theme": "design",
+      "color": "#7B68EE"
+    },
+    {
+      "company": "Freelance",
+      "role": "Web Developer & Designer",
+      "dates": "2016 - 2018",
+      "description": "Built websites for small businesses and startups. Managed full project lifecycle from concept to deployment.",
+      "skills": {
+        "design": 50,
+        "code": 40,
+        "other": 10
+      },
+      "theme": "indie",
+      "color": "#50E3C2"
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Design & Technology",
+      "degree": "Bachelor of Science in Computer Science",
+      "dates": "2012 - 2016",
+      "description": "Focus on Human-Computer Interaction and Web Development"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Interactive Portfolio",
+      "description": "Game-inspired portfolio website with parallax scrolling",
+      "tech": ["JavaScript", "GSAP", "Canvas"],
+      "link": "https://example.com/project1"
+    },
+    {
+      "name": "E-commerce Platform",
+      "description": "Full-stack shopping platform with real-time inventory",
+      "tech": ["React", "Node.js", "MongoDB"],
+      "link": "https://example.com/project2"
+    },
+    {
+      "name": "Animation Library",
+      "description": "Lightweight CSS animation library for web developers",
+      "tech": ["CSS", "JavaScript", "Sass"],
+      "link": "https://example.com/project3"
+    }
+  ],
+  "achievements": [
+    { "id": 1, "name": "First Scroll", "icon": "🎮", "description": "Started the journey" },
+    { "id": 2, "name": "Skills Unlocked", "icon": "⭐", "description": "Viewed all skills" },
+    { "id": 3, "name": "Experience Master", "icon": "🏆", "description": "Explored work history" },
+    { "id": 4, "name": "Contact Made", "icon": "📧", "description": "Reached the end" },
+    { "id": 5, "name": "Secret Found", "icon": "🎁", "description": "Found the easter egg" }
+  ]
+}

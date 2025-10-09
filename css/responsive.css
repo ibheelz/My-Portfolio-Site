@@ -1,0 +1,808 @@
+/* ==========================================
+   RESPONSIVE DESIGN
+   Mobile-first responsive breakpoints
+   ========================================== */
+
+/* Tablet and Below (1199px) */
+@media (max-width: 1199px) {
+    :root {
+        --spacing-xl: 72px;
+        --spacing-lg: 36px;
+    }
+
+    .game-section {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .section-title {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    /* Skills Section */
+    .skills-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+    }
+
+    /* Timeline */
+    .timeline-level {
+        min-width: 350px;
+    }
+
+    /* Contact Section */
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-info {
+        order: 2;
+    }
+
+    /* Quick Nav */
+    .quick-nav {
+        right: 20px;
+    }
+
+    /* Controls Info */
+    .controls-info {
+        bottom: 20px;
+        padding: 12px 24px;
+        gap: 20px;
+    }
+}
+
+/* Tablet Portrait (768px - 1023px) */
+@media (max-width: 1023px) {
+    /* Simplify Parallax */
+    .parallax-layer.buildings {
+        display: none;
+    }
+
+    .parallax-layer.clouds {
+        opacity: 0.5;
+    }
+
+    /* Hero Section */
+    .hero-details {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .hero-name {
+        font-size: clamp(2.5rem, 7vw, 4rem);
+    }
+
+    .hero-title {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    /* Skills */
+    .skill-category {
+        padding: var(--spacing-md);
+    }
+
+    .category-title {
+        font-size: 1.3rem;
+    }
+
+    /* Timeline */
+    .timeline-container {
+        gap: var(--spacing-lg);
+    }
+
+    .timeline-level {
+        min-width: 320px;
+    }
+
+    .company-name {
+        font-size: 1.5rem;
+    }
+
+    .job-role {
+        font-size: 1.1rem;
+    }
+
+    /* Accessibility Toggles */
+    .accessibility-toggle,
+    .sound-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .sound-toggle {
+        top: 70px;
+    }
+}
+
+/* Mobile Landscape (768px) */
+@media (max-width: 768px) {
+    :root {
+        --spacing-xl: 48px;
+        --spacing-lg: 24px;
+        --spacing-md: 16px;
+    }
+
+    /* Convert to Vertical Scroll Alternative */
+    .game-container {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        transform: none !important;
+    }
+
+    .game-section {
+        min-width: 100%;
+        min-height: auto;
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    /* Reduce Parallax Layers */
+    .parallax-layer.mountains {
+        opacity: 0.3;
+    }
+
+    .parallax-wrapper {
+        position: absolute;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        height: 3px;
+    }
+
+    .progress-percentage {
+        top: 8px;
+        right: 10px;
+        font-size: 10px;
+    }
+
+    /* Quick Nav - Move to Bottom */
+    .quick-nav {
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: 80px;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .nav-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .nav-dot::after {
+        display: none;
+    }
+
+    /* Controls Info */
+    .controls-info {
+        bottom: 15px;
+        padding: 10px 20px;
+        gap: 15px;
+        font-size: 12px;
+    }
+
+    .control-item {
+        gap: 5px;
+    }
+
+    .control-icon {
+        font-size: 16px;
+    }
+
+    /* Hide Keyboard Control on Mobile */
+    .control-item:nth-child(2) {
+        display: none;
+    }
+
+    /* Hero Section */
+    .hero-content {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .character-container {
+        margin-bottom: var(--spacing-md);
+    }
+
+    #characterCanvas {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hero-name {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .hero-title {
+        font-size: clamp(0.9rem, 3vw, 1.2rem);
+    }
+
+    .detail-item {
+        font-size: 0.9rem;
+    }
+
+    .detail-item .icon {
+        font-size: 1.2rem;
+    }
+
+    /* Scroll Hint */
+    .scroll-hint {
+        bottom: 20px;
+    }
+
+    .mouse-icon {
+        width: 25px;
+        height: 40px;
+    }
+
+    .scroll-hint p {
+        font-size: 12px;
+    }
+
+    /* Section Titles */
+    .section-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .title-decoration {
+        margin: 0 10px;
+    }
+
+    /* Skills Section */
+    .skills-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .skill-category {
+        padding: var(--spacing-md);
+    }
+
+    .category-title {
+        font-size: 1.2rem;
+    }
+
+    .category-icon {
+        font-size: 1.5rem;
+    }
+
+    .skill-name {
+        font-size: 0.9rem;
+    }
+
+    .skill-level {
+        font-size: 0.75rem;
+    }
+
+    .skill-bar {
+        height: 8px;
+    }
+
+    /* Experience Section */
+    .timeline-container {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        align-items: stretch;
+    }
+
+    .timeline-level {
+        min-width: 100%;
+        padding: var(--spacing-md);
+    }
+
+    .company-name {
+        font-size: 1.3rem;
+    }
+
+    .job-role {
+        font-size: 1rem;
+    }
+
+    .job-description {
+        font-size: 0.9rem;
+    }
+
+    .skill-distribution {
+        gap: 10px;
+    }
+
+    .bubble-percentage {
+        font-size: 1.2rem;
+    }
+
+    .bubble-label {
+        font-size: 0.75rem;
+    }
+
+    /* Contact Section */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .contact-form-wrapper {
+        padding: var(--spacing-md);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .label-icon {
+        font-size: 1rem;
+    }
+
+    .pixel-button {
+        padding: 12px 30px;
+        font-size: 0.9rem;
+    }
+
+    /* Social Links */
+    .social-link {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .social-icon {
+        font-size: 1.3rem;
+    }
+
+    /* Achievements */
+    .achievements h3 {
+        font-size: 1.1rem;
+    }
+
+    .achievement-list {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 8px;
+    }
+
+    .achievement-icon {
+        font-size: 1.5rem;
+    }
+
+    .achievement-name {
+        font-size: 0.7rem;
+    }
+
+    /* Accessibility Toggles */
+    .accessibility-toggle,
+    .sound-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .sound-toggle {
+        top: 60px;
+    }
+
+    /* Easter Egg */
+    .easter-egg-content {
+        padding: var(--spacing-lg);
+        max-width: 90%;
+    }
+
+    .easter-egg-content h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile Portrait (576px and below) */
+@media (max-width: 576px) {
+    :root {
+        --spacing-xl: 32px;
+        --spacing-lg: 20px;
+        --spacing-md: 12px;
+        --spacing-sm: 8px;
+    }
+
+    /* Game Sections */
+    .game-section {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    /* Hero Section */
+    .hero-name {
+        font-size: clamp(1.8rem, 10vw, 2.5rem);
+    }
+
+    .hero-title {
+        font-size: clamp(0.85rem, 4vw, 1rem);
+    }
+
+    .hero-details {
+        font-size: 0.85rem;
+    }
+
+    /* Section Titles */
+    .section-title {
+        font-size: clamp(1.3rem, 7vw, 1.8rem);
+        letter-spacing: 2px;
+    }
+
+    .title-decoration {
+        margin: 0 5px;
+        font-size: 0.8em;
+    }
+
+    /* Skills */
+    .category-title {
+        font-size: 1.1rem;
+    }
+
+    .skill-name {
+        font-size: 0.85rem;
+    }
+
+    .skill-level {
+        font-size: 0.7rem;
+    }
+
+    /* Experience */
+    .timeline-level {
+        padding: var(--spacing-sm);
+    }
+
+    .company-name {
+        font-size: 1.2rem;
+    }
+
+    .job-dates {
+        font-size: 0.8rem;
+    }
+
+    .job-role {
+        font-size: 0.95rem;
+    }
+
+    .job-description {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+
+    /* Contact */
+    .contact-form-wrapper {
+        padding: var(--spacing-sm);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .pixel-button {
+        padding: 10px 24px;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    /* Social Links */
+    .social-link {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Achievements */
+    .achievement-list {
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    }
+
+    .achievement-icon {
+        font-size: 1.3rem;
+    }
+
+    .achievement-name {
+        font-size: 0.65rem;
+    }
+
+    /* Controls Info */
+    .controls-info {
+        padding: 8px 16px;
+        gap: 12px;
+    }
+
+    .control-item {
+        font-size: 11px;
+    }
+
+    .control-icon {
+        font-size: 14px;
+    }
+
+    /* Quick Nav */
+    .quick-nav {
+        bottom: 70px;
+        gap: 12px;
+    }
+
+    .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-width: 1px;
+    }
+
+    /* Accessibility Toggles */
+    .accessibility-toggle,
+    .sound-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        top: 12px;
+        right: 12px;
+    }
+
+    .sound-toggle {
+        top: 52px;
+    }
+
+    /* Easter Egg */
+    .easter-egg-content {
+        padding: var(--spacing-md);
+    }
+
+    .easter-egg-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .easter-egg-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile (400px and below) */
+@media (max-width: 400px) {
+    .hero-name {
+        font-size: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 0.8rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .skills-container {
+        gap: var(--spacing-sm);
+    }
+
+    .skill-category {
+        padding: var(--spacing-sm);
+    }
+
+    .timeline-level {
+        min-width: 100%;
+    }
+
+    .contact-form-wrapper {
+        border-width: 1px;
+    }
+
+    .pixel-button {
+        padding: 8px 20px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape Orientation on Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .game-section {
+        min-height: auto;
+        padding: var(--spacing-md);
+    }
+
+    .hero-content {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--spacing-md);
+        align-items: center;
+        text-align: left;
+    }
+
+    .character-container {
+        margin-bottom: 0;
+    }
+
+    .scroll-hint {
+        display: none;
+    }
+
+    .quick-nav {
+        display: none;
+    }
+
+    .controls-info {
+        padding: 6px 12px;
+        gap: 10px;
+    }
+}
+
+/* Large Touch Targets for Mobile */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase button sizes */
+    .pixel-button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .nav-dot {
+        min-width: 44px;
+        min-height: 44px;
+        border-radius: 22px;
+    }
+
+    .social-link {
+        min-height: 44px;
+    }
+
+    /* Ensure form inputs are accessible */
+    .form-group input,
+    .form-group textarea {
+        min-height: 44px;
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Use higher quality images if needed */
+    .parallax-layer {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Print Styles */
+@media print {
+    /* Hide interactive elements */
+    .preloader,
+    .progress-container,
+    .quick-nav,
+    .controls-info,
+    .accessibility-toggle,
+    .sound-toggle,
+    .easter-egg,
+    .scroll-hint,
+    .parallax-wrapper {
+        display: none !important;
+    }
+
+    /* Reset layout for printing */
+    body {
+        background: white;
+        color: black;
+    }
+
+    .game-container {
+        overflow: visible;
+    }
+
+    .content-wrapper {
+        display: block;
+        transform: none !important;
+    }
+
+    .game-section {
+        min-width: 100%;
+        min-height: auto;
+        page-break-inside: avoid;
+        padding: 20px;
+        border-bottom: 2px solid #ccc;
+    }
+
+    .section-title {
+        color: black;
+        text-shadow: none;
+    }
+
+    /* Simplify colors for print */
+    .skill-category,
+    .timeline-level,
+    .contact-form-wrapper {
+        background: white;
+        border: 2px solid #ccc;
+        box-shadow: none;
+    }
+
+    /* Hide form, show contact info */
+    .contact-form {
+        display: none;
+    }
+
+    .contact-info {
+        display: block;
+    }
+
+    /* Format links */
+    a::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    /* Adjust font sizes */
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    .hero-name {
+        font-size: 24pt;
+    }
+
+    .section-title {
+        font-size: 18pt;
+    }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    /* Disable parallax */
+    .parallax-layer {
+        transform: none !important;
+    }
+
+    /* Disable smooth scrolling */
+    html {
+        scroll-behavior: auto;
+    }
+
+    /* Simplify animations */
+    .content-wrapper {
+        transition: none;
+    }
+
+    .scroll-hint {
+        animation: none;
+    }
+
+    .character-container {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #ffffff;
+        --text-secondary: #ffffff;
+        --bg-dark: #000000;
+    }
+
+    .skill-category,
+    .timeline-level,
+    .contact-form-wrapper {
+        border: 3px solid #ffffff;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        border: 2px solid #ffffff;
+    }
+
+    .pixel-button {
+        border: 3px solid #ffffff;
+    }
+}
