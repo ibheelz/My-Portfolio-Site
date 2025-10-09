@@ -62,24 +62,128 @@ class InteractiveResume {
     onPreloaderComplete() {
         this.isReady = true;
 
-        // Initialize game engine first
-        this.modules.gameEngine = new window.GameEngine();
+        // Initialize platformer game engine
+        this.modules.platformer = new window.PlatformerEngine('gameCanvas');
 
         // Initialize other modules
         this.modules.scrollController = new window.ScrollController();
         this.modules.parallax = new window.Parallax();
-        this.modules.characterAnimation = new window.CharacterAnimation('characterCanvas');
         this.modules.skillsAnimation = new window.SkillsAnimation();
         this.modules.timeline = new window.Timeline();
         this.modules.contactForm = new window.ContactForm();
 
-        // Trigger hero animations
+        // Populate resume data
         this.animateHeroSection();
 
         // Unlock first achievement
         setTimeout(() => {
             this.unlockAchievement('First Scroll');
         }, 2000);
+
+        // Set up mobile controls if needed
+        this.setupMobileControls();
+    }
+
+    setupMobileControls() {
+        if ('ontouchstart' in window) {
+            this.createVirtualControls();
+        }
+    }
+
+    createVirtualControls() {
+        // Create mobile control overlay
+        const controlsDiv = document.createElement('div');
+        controlsDiv.id = 'mobileControls';
+        controlsDiv.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            pointer-events: none;
+        `;
+
+        // D-pad
+        const dpad = document.createElement('div');
+        dpad.style.cssText = `
+            width: 120px;
+            height: 120px;
+            position: relative;
+            pointer-events: auto;
+        `;
+
+        const createButton = (text, style) => {
+            const btn = document.createElement('button');
+            btn.textContent = text;
+            btn.style.cssText = `
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                background: rgba(0, 0, 0, 0.5);
+                border: 2px solid #fff;
+                border-radius: 8px;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                ${style}
+            `;
+            return btn;
+        };
+
+        const leftBtn = createButton('◄', 'left: 0; top: 40px;');
+        const rightBtn = createButton('►', 'right: 0; top: 40px;');
+
+        leftBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.modules.platformer.keys['ArrowLeft'] = true;
+        });
+        leftBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.modules.platformer.keys['ArrowLeft'] = false;
+        });
+
+        rightBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.modules.platformer.keys['ArrowRight'] = true;
+        });
+        rightBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.modules.platformer.keys['ArrowRight'] = false;
+        });
+
+        dpad.appendChild(leftBtn);
+        dpad.appendChild(rightBtn);
+
+        // Jump button
+        const jumpBtn = document.createElement('button');
+        jumpBtn.textContent = 'JUMP';
+        jumpBtn.style.cssText = `
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 215, 0, 0.7);
+            border: 3px solid #fff;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            pointer-events: auto;
+        `;
+
+        jumpBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.modules.platformer.keys['Space'] = true;
+        });
+        jumpBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.modules.platformer.keys['Space'] = false;
+        });
+
+        controlsDiv.appendChild(dpad);
+        controlsDiv.appendChild(jumpBtn);
+        document.body.appendChild(controlsDiv);
     }
 
     /**
