@@ -16,6 +16,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
 
@@ -69,19 +70,42 @@
         <button class="nav-dot" data-section="contact" aria-label="Go to contact section"></button>
     </nav>
 
+    <!-- Game HUD -->
+    <div class="game-hud" id="gameHUD">
+        <div class="hud-left">
+            <div class="hud-item score">
+                <span class="hud-label">SCORE</span>
+                <span class="hud-value" id="gameScore">0000</span>
+            </div>
+            <div class="hud-item coins">
+                <span class="coin-icon">⭐</span>
+                <span class="hud-value" id="coinsCollected">0</span>
+                <span class="hud-max">/20</span>
+            </div>
+        </div>
+        <div class="hud-center">
+            <div class="level-name" id="levelName">LEVEL 1 - WELCOME</div>
+        </div>
+        <div class="hud-right">
+            <div class="health-bar">
+                <div class="health-fill" id="healthFill"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Controls Info -->
     <div class="controls-info" id="controlsInfo">
         <div class="control-item">
+            <span class="control-icon">←→</span>
+            <span>MOVE</span>
+        </div>
+        <div class="control-item">
+            <span class="control-icon">SPACE</span>
+            <span>JUMP</span>
+        </div>
+        <div class="control-item">
             <span class="control-icon">🖱️</span>
-            <span>Scroll</span>
-        </div>
-        <div class="control-item">
-            <span class="control-icon">⌨️</span>
-            <span>← →</span>
-        </div>
-        <div class="control-item">
-            <span class="control-icon">👆</span>
-            <span>Swipe</span>
+            <span>SCROLL</span>
         </div>
     </div>
 
@@ -96,36 +120,40 @@
             <div class="parallax-layer ground" data-speed="1.0"></div>
         </div>
 
+        <!-- Game Canvas Layer -->
+        <canvas id="gameCanvas" class="game-canvas"></canvas>
+
         <!-- Scrollable Content -->
         <div class="content-wrapper" id="contentWrapper">
             <!-- Hero Section -->
             <section id="hero" class="game-section hero-section" data-section="hero">
-                <div class="hero-content">
-                    <div class="character-container" id="characterContainer">
-                        <canvas id="characterCanvas" width="120" height="120"></canvas>
-                    </div>
+                <!-- Platforms -->
+                <div class="platform" style="bottom: 0; left: 0; width: 100%;"></div>
+                <div class="platform" style="bottom: 150px; left: 200px; width: 200px;"></div>
+                <div class="platform" style="bottom: 280px; left: 450px; width: 180px;"></div>
 
-                    <div class="hero-text">
-                        <h1 class="hero-name" id="heroName"></h1>
-                        <p class="hero-title" id="heroTitle"></p>
-                        <div class="hero-details">
-                            <div class="detail-item">
-                                <span class="icon">📍</span>
-                                <span id="heroLocation"></span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="icon">💼</span>
-                                <span id="heroInterests"></span>
-                            </div>
+                <!-- Collectibles -->
+                <div class="collectible coin" data-points="100" style="bottom: 200px; left: 250px;"></div>
+                <div class="collectible coin" data-points="100" style="bottom: 200px; left: 300px;"></div>
+                <div class="collectible coin" data-points="100" style="bottom: 330px; left: 500px;"></div>
+                <div class="collectible star" data-points="500" style="bottom: 350px; left: 550px;"></div>
+
+                <!-- Info Sign -->
+                <div class="info-sign" style="bottom: 100px; left: 100px;">
+                    <div class="sign-post"></div>
+                    <div class="sign-board">
+                        <h2 class="pixel-text" id="heroName">PLAYER NAME</h2>
+                        <p id="heroTitle">Full Stack Developer</p>
+                        <div class="sign-details">
+                            <div>📍 <span id="heroLocation">Location</span></div>
+                            <div>💼 <span id="heroInterests">Interests</span></div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="scroll-hint" id="scrollHint">
-                        <div class="mouse-icon">
-                            <div class="mouse-wheel"></div>
-                        </div>
-                        <p>Scroll to explore</p>
-                    </div>
+                <!-- Floating Platform with Arrow -->
+                <div class="platform floating" style="bottom: 100px; right: 200px; width: 150px;">
+                    <div class="arrow-sign">→</div>
                 </div>
             </section>
 
@@ -313,6 +341,7 @@
 
     <!-- Custom Scripts -->
     <script src="js/preloader.js"></script>
+    <script src="js/game-engine.js"></script>
     <script src="js/scroll-controller.js"></script>
     <script src="js/character-animation.js"></script>
     <script src="js/parallax.js"></script>

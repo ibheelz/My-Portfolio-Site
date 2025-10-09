@@ -62,7 +62,10 @@ class InteractiveResume {
     onPreloaderComplete() {
         this.isReady = true;
 
-        // Initialize modules
+        // Initialize game engine first
+        this.modules.gameEngine = new window.GameEngine();
+
+        // Initialize other modules
         this.modules.scrollController = new window.ScrollController();
         this.modules.parallax = new window.Parallax();
         this.modules.characterAnimation = new window.CharacterAnimation('characterCanvas');

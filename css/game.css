@@ -1,0 +1,571 @@
+/* ==========================================
+   GAME ELEMENTS
+   Platforms, collectibles, and game mechanics
+   ========================================== */
+
+/* Game Canvas */
+.game-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Game HUD */
+.game-hud {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 30px;
+    z-index: 100;
+    font-family: 'Courier New', monospace;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.game-hud.visible {
+    opacity: 1;
+}
+
+.hud-left, .hud-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hud-item {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #FFD700;
+    border-radius: 8px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hud-label {
+    color: #FFD700;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.hud-value {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 50px;
+}
+
+.coin-icon {
+    font-size: 20px;
+    animation: spin 3s linear infinite;
+}
+
+.hud-max {
+    color: #888;
+    font-size: 14px;
+}
+
+.hud-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.level-name {
+    background: linear-gradient(135deg, #7B68EE, #4A90E2);
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+}
+
+/* Health Bar */
+.health-bar {
+    width: 200px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #FFD700;
+    border-radius: 8px;
+    padding: 3px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.health-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #FF6B6B, #FFD700, #4CAF50);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Platforms */
+.platform {
+    position: absolute;
+    height: 40px;
+    background: linear-gradient(180deg, #8B4513 0%, #654321 50%, #3E2723 100%);
+    border: 3px solid #2C1810;
+    border-radius: 8px 8px 0 0;
+    box-shadow:
+        0 8px 0 #2C1810,
+        inset 0 -5px 10px rgba(0, 0, 0, 0.5),
+        inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.platform::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        #A0522D 0px,
+        #A0522D 20px,
+        transparent 20px,
+        transparent 30px
+    );
+}
+
+.platform::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 5px;
+    right: 5px;
+    height: 8px;
+    background: repeating-linear-gradient(
+        90deg,
+        #1A0F08 0px,
+        #1A0F08 15px,
+        transparent 15px,
+        transparent 20px
+    );
+}
+
+/* Floating Platform Animation */
+.platform.floating {
+    animation: floatPlatform 3s ease-in-out infinite;
+}
+
+@keyframes floatPlatform {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Arrow Sign on Platform */
+.arrow-sign {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #FFD700;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+/* Collectibles */
+.collectible {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: collectibleFloat 2s ease-in-out infinite;
+}
+
+.collectible::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 20px currentColor;
+}
+
+/* Coin */
+.collectible.coin {
+    color: #FFD700;
+}
+
+.collectible.coin::after {
+    content: '●';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #FFD700;
+    text-shadow:
+        0 0 10px #FFD700,
+        2px 2px 0 #FFA500,
+        -2px -2px 0 #FFFF00;
+    animation: spin 3s linear infinite;
+}
+
+/* Star */
+.collectible.star {
+    color: #00F;
+    width: 35px;
+    height: 35px;
+}
+
+.collectible.star::after {
+    content: '⭐';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    animation: twinkle 1.5s ease-in-out infinite, spin 4s linear infinite;
+}
+
+.collectible:hover {
+    transform: scale(1.2);
+}
+
+.collectible.collected {
+    animation: collectAnimation 0.5s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes collectAnimation {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) translateY(-30px);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) translateY(-60px);
+        opacity: 0;
+    }
+}
+
+/* Info Sign */
+.info-sign {
+    position: absolute;
+    z-index: 5;
+}
+
+.sign-post {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 80px;
+    background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.sign-board {
+    position: relative;
+    background: linear-gradient(145deg, #FFE4B5 0%, #DEB887 100%);
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    padding: 15px 20px;
+    min-width: 250px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 2px 5px rgba(255, 255, 255, 0.5);
+    transform: translateY(-10px);
+}
+
+.sign-board::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid rgba(139, 69, 19, 0.3);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.sign-board h2 {
+    color: #2C1810;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.sign-board p {
+    color: #5D4037;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.sign-details {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px dashed #8B4513;
+    font-size: 12px;
+    color: #5D4037;
+}
+
+.sign-details div {
+    margin: 3px 0;
+}
+
+/* Skill Tower */
+.skill-tower {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+.tower-sign {
+    background: linear-gradient(135deg, #7B68EE, #4A90E2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px 10px 0 0;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.tower-icon {
+    font-size: 24px;
+}
+
+.tower-label {
+    font-size: 14px;
+}
+
+.skill-blocks {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3px;
+    width: 100%;
+}
+
+.skill-block {
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    border: 2px solid #2C5F8D;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: 'Courier New', monospace;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.skill-block.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.skill-block:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.skill-block-name {
+    display: block;
+    font-size: 13px;
+}
+
+.skill-block-level {
+    display: block;
+    font-size: 10px;
+    color: #FFD700;
+    margin-top: 2px;
+}
+
+/* Game Level Blocks */
+.game-level {
+    position: absolute;
+    background: linear-gradient(145deg, #5C6BC0 0%, #3F51B5 100%);
+    border: 4px solid #283593;
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 300px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.game-level:hover {
+    transform: translateY(-5px);
+}
+
+.level-flag {
+    position: absolute;
+    top: -40px;
+    right: 20px;
+    font-size: 32px;
+    animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.level-header {
+    color: #FFD700;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 10px;
+}
+
+.level-title {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.level-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Particle Effects */
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFall 1s ease-out forwards;
+}
+
+@keyframes particleFall {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100px) translateX(var(--particle-x, 0)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Power-up Effects */
+.power-up-effect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+    animation: expandFade 0.8s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes expandFade {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* Score Popup */
+.score-popup {
+    position: absolute;
+    color: #FFD700;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow:
+        0 0 10px #FFD700,
+        2px 2px 0 #000;
+    pointer-events: none;
+    animation: scoreFloat 1s ease-out forwards;
+    z-index: 100;
+}
+
+@keyframes scoreFloat {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-80px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Responsive Game Elements */
+@media (max-width: 768px) {
+    .game-hud {
+        padding: 0 15px;
+        font-size: 12px;
+    }
+
+    .hud-item {
+        padding: 6px 10px;
+        border-width: 2px;
+    }
+
+    .hud-value {
+        font-size: 16px;
+    }
+
+    .level-name {
+        font-size: 12px;
+        padding: 8px 20px;
+    }
+
+    .health-bar {
+        width: 120px;
+        height: 24px;
+    }
+
+    .platform {
+        height: 30px;
+    }
+
+    .collectible {
+        width: 25px;
+        height: 25px;
+    }
+
+    .sign-board {
+        min-width: 200px;
+        padding: 12px 15px;
+    }
+
+    .skill-tower {
+        width: 150px;
+    }
+}
