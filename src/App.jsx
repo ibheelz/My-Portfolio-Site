@@ -5,15 +5,23 @@ function App() {
       <div className="w-full min-h-[500px] sm:min-h-[600px] md:min-h-[705px] rounded-[20px] sm:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden" style={{ backgroundImage: 'url(/hero-bg.png)' }}>
 
         {/* Logo */}
-        <div className="absolute left-1/2 transform -translate-x-1/2" style={{ top: 'calc(2.4rem)' }}>
-          <img src="/ibheelz-logo.png" alt="ibheelz" className="h-9 sm:h-10 md:h-14 w-auto" />
+        <div className="absolute left-1/2 transform -translate-x-1/2 animate-slideDown" style={{ top: 'calc(1.5rem + 0.5vw)' }}>
+          <img src="/ibheelz-logo.png" alt="ibheelz" className="h-[clamp(3.5rem,8vw,4.25rem)] lg:h-[68px] w-auto" />
         </div>
 
+        {/* Left SVG */}
+        <img src="/left.svg" alt="" className="absolute h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 w-auto opacity-60 top-1/2 lg:top-32 transform -translate-y-1/2 lg:translate-y-0 svg-left" />
+
+        {/* Right SVG */}
+        <img src="/right.svg" alt="" className="absolute h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 w-auto opacity-60 top-1/2 lg:top-32 transform -translate-y-1/2 lg:translate-y-0 svg-right" />
+
         {/* Hero text */}
-        <div className="absolute top-1/2 md:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:translate-y-0 text-center px-4 sm:px-6 w-full">
-          <div className="text-white leading-tight sm:leading-snug md:leading-relaxed -mt-12 sm:-mt-16 md:mt-0">
-            <div className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight">I craft digital experiences</div>
-            <div className="text-base sm:text-lg md:text-2xl mt-2 sm:mt-2 md:mt-3 font-light font-['Jost',sans-serif] text-[#a5c8e4]">where art, code, and intelligence converge.</div>
+        <div className="absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full">
+          <div className="text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed lg:mt-0">
+            <div className="text-[clamp(2rem,5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+              I craft digital<br className="lg:hidden" /> experiences
+            </div>
+            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] text-[#a5c8e4] mt-3 lg:mt-2">where art, code, and intelligence converge.</div>
           </div>
         </div>
 
@@ -84,6 +92,21 @@ function App() {
           animation: slideUp 1s ease-out forwards;
         }
 
+        @keyframes slideDown {
+          from {
+            transform: translate(-50%, -100%);
+            opacity: 0;
+          }
+          to {
+            transform: translate(-50%, 0);
+            opacity: 1;
+          }
+        }
+
+        .animate-slideDown {
+          animation: slideDown 1s ease-out forwards;
+        }
+
         @keyframes scrollMobile {
           from {
             transform: translateX(0);
@@ -96,6 +119,25 @@ function App() {
         .animate-scroll-mobile {
           animation: scrollMobile 12s linear infinite;
           will-change: transform;
+        }
+
+        /* SVG positioning - reduces from 50px on desktop to less on mobile */
+        .svg-left {
+          left: calc(50% - 140px - 8vw);
+        }
+
+        .svg-right {
+          right: calc(50% - 140px - 8vw);
+        }
+
+        @media (min-width: 1024px) {
+          .svg-left {
+            left: calc(50% - 420px);
+          }
+
+          .svg-right {
+            right: calc(50% - 420px);
+          }
         }
       `}</style>
     </div>
