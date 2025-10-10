@@ -163,25 +163,49 @@ function Home() {
         <img
           src="/left.svg"
           alt=""
-          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto top-1/2 lg:top-[148px] transform -translate-y-1/2 lg:translate-y-0 svg-left svg-gold transition-opacity duration-700"
-          style={{ opacity: activeChar ? 0 : 1 }}
+          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto lg:top-[148px] transform -translate-y-1/2 lg:translate-y-0 svg-left svg-gold transition-opacity duration-700"
+          style={{ opacity: activeChar ? 0 : 1, top: window.innerWidth < 1024 ? 'calc(50% - 30px)' : undefined }}
         />
 
         {/* Right SVG - hidden on mobile */}
         <img
           src="/right.svg"
           alt=""
-          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto top-1/2 lg:top-[148px] transform -translate-y-1/2 lg:translate-y-0 svg-right svg-gold transition-opacity duration-700"
-          style={{ opacity: activeChar ? 0 : 1 }}
+          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto lg:top-[148px] transform -translate-y-1/2 lg:translate-y-0 svg-right svg-gold transition-opacity duration-700"
+          style={{ opacity: activeChar ? 0 : 1, top: window.innerWidth < 1024 ? 'calc(50% - 30px)' : undefined }}
         />
 
         {/* Mobile Hero text */}
         <div className="sm:hidden absolute left-1/2 transform -translate-x-1/2 text-center px-6 w-full z-10 pointer-events-none" style={{ top: 'calc(clamp(3.5rem, 7vw, 4.25rem) + clamp(1rem, 2vh, 2rem) + 50px)' }}>
-          <div className="text-white">
+          <div className="text-white relative">
+            {/* Left SVG for mobile - aligned with role title */}
+            <img
+              src="/left.svg"
+              alt=""
+              className="absolute h-[20px] w-auto svg-gold transition-opacity duration-700 svg-mobile-left"
+              style={{
+                top: 'calc(clamp(1.75rem,5.5vw,2.3rem) / 2)',
+                transform: 'translateY(-50%)',
+                opacity: activeSlide >= 1 && activeSlide <= 5 ? 1 : 0
+              }}
+            />
+
+            {/* Right SVG for mobile - aligned with role title */}
+            <img
+              src="/right.svg"
+              alt=""
+              className="absolute h-[20px] w-auto svg-gold transition-opacity duration-700 svg-mobile-right"
+              style={{
+                top: 'calc(clamp(1.75rem,5.5vw,2.3rem) / 2)',
+                transform: 'translateY(-50%)',
+                opacity: activeSlide >= 1 && activeSlide <= 5 ? 1 : 0
+              }}
+            />
+
             {/* Character 1: Creative Designer */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 1 ? 1 : 0, position: activeSlide === 1 ? 'relative' : 'absolute', top: 0, left: 0, right: 0 }}>
               <div className="text-[clamp(1.75rem,5.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3">
-                Creative Designer
+                Creative<br />Designer
               </div>
               <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
                 crafting visual stories that inspire and engage.
@@ -827,6 +851,25 @@ function Home() {
 
           .svg-right {
             right: calc(50% - 380px);
+          }
+        }
+
+        /* Mobile SVG positioning for role text */
+        .svg-mobile-left {
+          left: 40px;
+        }
+
+        .svg-mobile-right {
+          right: 40px;
+        }
+
+        @media (max-width: 399px) {
+          .svg-mobile-left {
+            left: 0px;
+          }
+
+          .svg-mobile-right {
+            right: 0px;
           }
         }
 
