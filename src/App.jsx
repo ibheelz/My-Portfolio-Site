@@ -8,6 +8,7 @@ function App() {
 
   const activeChar = clickedChar || hoveredChar
 
+
   const handleCharClick = (charNum) => {
     isCharacterClickRef.current = true
     if (clickedChar === charNum) {
@@ -127,15 +128,20 @@ function App() {
         />
 
         {/* Hero text */}
-        <div
-          className="absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full transition-opacity duration-700"
-          style={{ opacity: clickedChar ? 0 : 1 }}
-        >
+        <div className="absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full">
           <div className="text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed lg:mt-0">
-            <div className="text-[clamp(2rem,5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+            <div
+              className="text-[clamp(2rem,5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700"
+              style={{ opacity: clickedChar ? 0 : 1 }}
+            >
               I craft digital<br className="lg:hidden" /> experiences
             </div>
-            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] text-[#a5c8e4] mt-3 lg:mt-2">where art, code, and intelligence converge.</div>
+            <div
+              className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700"
+              style={{ opacity: clickedChar ? 0 : 1, color: '#d0dadf' }}
+            >
+              where art, code, and intelligence converge.
+            </div>
           </div>
         </div>
 
