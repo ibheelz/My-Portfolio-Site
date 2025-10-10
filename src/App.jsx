@@ -1,8 +1,102 @@
+import { useState, useEffect, useRef } from 'react'
+
 function App() {
+  const [hoveredChar, setHoveredChar] = useState(null)
+  const [clickedChar, setClickedChar] = useState(null)
+  const isCharacterClickRef = useRef(false)
+  const justUnfocusedRef = useRef(false)
+
+  const activeChar = clickedChar || hoveredChar
+
+  const handleCharClick = (charNum) => {
+    isCharacterClickRef.current = true
+    if (clickedChar === charNum) {
+      // Clicking same character - unfocus and clear hover
+      setClickedChar(null)
+      setHoveredChar(null)
+      justUnfocusedRef.current = true
+      // Reset after a short delay
+      setTimeout(() => {
+        justUnfocusedRef.current = false
+      }, 100)
+    } else {
+      // Clicking new character - focus it
+      setClickedChar(charNum)
+    }
+  }
+
+  const handleMouseEnter = (charNum) => {
+    if (!clickedChar && !justUnfocusedRef.current) {
+      setHoveredChar(charNum)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (!clickedChar) {
+      setHoveredChar(null)
+    }
+  }
+
+  useEffect(() => {
+    const handlePageClick = () => {
+      if (!isCharacterClickRef.current && clickedChar) {
+        setClickedChar(null)
+      }
+      isCharacterClickRef.current = false
+    }
+
+    document.addEventListener('click', handlePageClick)
+    return () => document.removeEventListener('click', handlePageClick)
+  }, [clickedChar])
+
   return (
     <div className="min-h-screen bg-[#15222c] p-[8px] sm:p-[12px]">
       {/* White container with responsive margins */}
-      <div className="w-full min-h-[500px] sm:min-h-[600px] md:min-h-[705px] rounded-[20px] sm:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden" style={{ backgroundImage: 'url(/hero-bg.png)' }}>
+      <div
+        className="w-full min-h-[500px] sm:min-h-[600px] md:min-h-[705px] rounded-[20px] sm:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden"
+        style={{
+          backgroundImage: 'url(/hero-bg.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Gradient overlays */}
+        <div
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          style={{
+            background: 'linear-gradient(to bottom, #1f1e1e 0%, #4f3231 40%, #ae504d 100%)',
+            opacity: activeChar === 1 ? 1 : 0
+          }}
+        />
+        <div
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          style={{
+            background: 'linear-gradient(to bottom, #1e1e1f 0%, #32314f 40%, #6e4dae 100%)',
+            opacity: activeChar === 2 ? 1 : 0
+          }}
+        />
+        <div
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          style={{
+            background: 'linear-gradient(to bottom, #1e1f1e 0%, #314f36 40%, #4dae72 100%)',
+            opacity: activeChar === 3 ? 1 : 0
+          }}
+        />
+        <div
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          style={{
+            background: 'linear-gradient(to bottom, #1f1e1e 0%, #4f3f31 40%, #ae764d 100%)',
+            opacity: activeChar === 4 ? 1 : 0
+          }}
+        />
+        <div
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          style={{
+            background: 'linear-gradient(to bottom, #1e1e1f 0%, #314a4f 40%, #4d8eae 100%)',
+            opacity: activeChar === 5 ? 1 : 0
+          }}
+        />
 
         {/* Logo */}
         <div className="absolute left-1/2 transform -translate-x-1/2 animate-slideDown" style={{ top: 'calc(1.5rem + 0.5vw)' }}>
@@ -27,11 +121,51 @@ function App() {
 
         {/* Characters at the bottom - responsive */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] flex justify-center items-end gap-5 animate-slideUp">
-          <img src="/characters/1.png" alt="Character 1" className="h-auto w-[20%]" />
-          <img src="/characters/2.png" alt="Character 2" className="h-auto w-[14%]" />
-          <img src="/characters/3.png" alt="Character 3" className="h-auto w-[20%]" />
-          <img src="/characters/4.png" alt="Character 4" className="h-auto w-[20%]" />
-          <img src="/characters/5.png" alt="Character 5" className="h-auto w-[20%]" />
+          <img
+            src="/characters/1.png"
+            alt="Character 1"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            onMouseEnter={() => handleMouseEnter(1)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleCharClick(1)}
+            style={{ transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : 'translateY(0)' }}
+          />
+          <img
+            src="/characters/2.png"
+            alt="Character 2"
+            className="h-auto w-[14%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            onMouseEnter={() => handleMouseEnter(2)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleCharClick(2)}
+            style={{ transform: activeChar && activeChar !== 2 ? 'translateY(100%)' : 'translateY(0)' }}
+          />
+          <img
+            src="/characters/3.png"
+            alt="Character 3"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            onMouseEnter={() => handleMouseEnter(3)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleCharClick(3)}
+            style={{ transform: activeChar && activeChar !== 3 ? 'translateY(100%)' : 'translateY(0)' }}
+          />
+          <img
+            src="/characters/4.png"
+            alt="Character 4"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            onMouseEnter={() => handleMouseEnter(4)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleCharClick(4)}
+            style={{ transform: activeChar && activeChar !== 4 ? 'translateY(100%)' : 'translateY(0)' }}
+          />
+          <img
+            src="/characters/5.png"
+            alt="Character 5"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            onMouseEnter={() => handleMouseEnter(5)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleCharClick(5)}
+            style={{ transform: activeChar && activeChar !== 5 ? 'translateY(100%)' : 'translateY(0)' }}
+          />
         </div>
       </div>
 
