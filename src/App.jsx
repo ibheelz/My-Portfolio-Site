@@ -4,8 +4,18 @@ function App() {
       {/* White container with responsive margins */}
       <div className="w-full min-h-[500px] sm:min-h-[600px] md:min-h-[705px] rounded-[20px] sm:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden" style={{ backgroundImage: 'url(/hero-bg.png)' }}>
 
+        {/* Logo */}
+        <div className="absolute left-1/2 transform -translate-x-1/2" style={{ top: 'calc(2.4rem)' }}>
+          <img src="/ibheelz-logo.png" alt="ibheelz" className="h-9 sm:h-10 md:h-14 w-auto" />
+        </div>
 
-        {/* Content goes here */}
+        {/* Hero text */}
+        <div className="absolute top-1/2 md:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:translate-y-0 text-center px-4 sm:px-6 w-full">
+          <div className="text-white leading-tight sm:leading-snug md:leading-relaxed -mt-12 sm:-mt-16 md:mt-0">
+            <div className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight">I craft digital experiences</div>
+            <div className="text-base sm:text-lg md:text-2xl mt-2 sm:mt-2 md:mt-3 font-light font-['Jost',sans-serif] text-[#a5c8e4]">where art, code, and intelligence converge.</div>
+          </div>
+        </div>
 
         {/* Zazzy image at the bottom - responsive */}
         <img
@@ -16,7 +26,7 @@ function App() {
       </div>
 
       {/* Selected Brands text - responsive */}
-      <p className="text-[#d4e2f3] text-center mt-8 sm:mt-12 md:mt-20 text-xs sm:text-sm uppercase tracking-wider font-['Space_Grotesk',sans-serif] font-medium px-4">
+      <p className="text-[#d4e2f3] text-center mt-8 sm:mt-12 md:mt-20 text-xs sm:text-sm uppercase tracking-wider font-['Jost',sans-serif] font-medium px-4">
        Selected Brands I've Worked On
       </p>
 
