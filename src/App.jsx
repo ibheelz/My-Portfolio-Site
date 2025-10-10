@@ -65,35 +65,35 @@ function App() {
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #3d3535 0%, #6e4d4a 40%, #ae504d 100%)',
+            background: 'linear-gradient(to bottom, #6e3534 0%, #ae504d 40%, #d88078 100%)',
             opacity: activeChar === 1 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #35353d 0%, #4d4a6e 40%, #6e4dae 100%)',
+            background: 'linear-gradient(to bottom, #4a346e 0%, #6e4dae 40%, #a378d8 100%)',
             opacity: activeChar === 2 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #353d35 0%, #4a6e55 40%, #4dae72 100%)',
+            background: 'linear-gradient(to bottom, #346e4a 0%, #4dae72 40%, #78d8a3 100%)',
             opacity: activeChar === 3 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #3d3835 0%, #6e5d4a 40%, #ae764d 100%)',
+            background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #d8a378 100%)',
             opacity: activeChar === 4 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #35383d 0%, #4a5d6e 40%, #4d8eae 100%)',
+            background: 'linear-gradient(to bottom, #344a6e 0%, #4d8eae 40%, #78bcd8 100%)',
             opacity: activeChar === 5 ? 1 : 0
           }}
         />
