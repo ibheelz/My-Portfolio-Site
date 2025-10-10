@@ -102,20 +102,12 @@ function Home() {
         }}
       >
         {/* Gradient overlays */}
-        {/* Blue gradient for character 1 on desktop only */}
-        <div
-          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
-          style={{
-            background: 'linear-gradient(to bottom, #344a6e 0%, #4d8eae 40%, #78bcd8 100%)',
-            opacity: (window.innerWidth >= 640 && activeChar === 1) ? 1 : 0
-          }}
-        />
-        {/* Red gradient for first slide after swipe (mobile only) */}
+        {/* Red gradient for character 1: desktop OR mobile after swipe */}
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #6e3534 0%, #ae504d 40%, #d88078 100%)',
-            opacity: (window.innerWidth < 640 && activeSlide === 1 && hasSwipedFromFirst) ? 1 : 0
+            opacity: (window.innerWidth >= 640 ? activeChar === 1 : (activeSlide === 1 && hasSwipedFromFirst)) ? 1 : 0
           }}
         />
         <div
@@ -163,16 +155,16 @@ function Home() {
         <img
           src="/left.svg"
           alt=""
-          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto lg:top-[148px] transform -translate-y-1/2 lg:translate-y-0 svg-left svg-gold transition-opacity duration-700"
-          style={{ opacity: activeChar ? 0 : 1, top: window.innerWidth < 1024 ? 'calc(50% - 30px)' : undefined }}
+          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto transform svg-left svg-gold transition-opacity duration-700 svg-desktop-left"
+          style={{ opacity: activeChar ? 0 : 1 }}
         />
 
         {/* Right SVG - hidden on mobile */}
         <img
           src="/right.svg"
           alt=""
-          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto lg:top-[148px] transform -translate-y-1/2 lg:translate-y-0 svg-right svg-gold transition-opacity duration-700"
-          style={{ opacity: activeChar ? 0 : 1, top: window.innerWidth < 1024 ? 'calc(50% - 30px)' : undefined }}
+          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto transform svg-right svg-gold transition-opacity duration-700 svg-desktop-right"
+          style={{ opacity: activeChar ? 0 : 1 }}
         />
 
         {/* Mobile Hero text */}
@@ -314,7 +306,7 @@ function Home() {
             </div>
             <button
               onClick={() => navigate('/creative-designer')}
-              className="apple-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -334,7 +326,7 @@ function Home() {
             </div>
             <button
               onClick={() => navigate('/branding')}
-              className="apple-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -354,7 +346,7 @@ function Home() {
             </div>
             <button
               onClick={() => navigate('/ai-creator')}
-              className="apple-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -374,7 +366,7 @@ function Home() {
             </div>
             <button
               onClick={() => navigate('/3d-design')}
-              className="apple-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -394,7 +386,7 @@ function Home() {
             </div>
             <button
               onClick={() => navigate('/game-design')}
-              className="apple-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -851,6 +843,28 @@ function Home() {
 
           .svg-right {
             right: calc(50% - 380px);
+          }
+        }
+
+        /* Desktop SVG positioning */
+        .svg-desktop-left,
+        .svg-desktop-right {
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .svg-desktop-left,
+          .svg-desktop-right {
+            top: calc(50% - 30px);
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .svg-desktop-left,
+          .svg-desktop-right {
+            top: 148px;
+            transform: translateY(0);
           }
         }
 
