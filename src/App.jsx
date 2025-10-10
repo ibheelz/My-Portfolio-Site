@@ -65,52 +65,72 @@ function App() {
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #1f1e1e 0%, #4f3231 40%, #ae504d 100%)',
+            background: 'linear-gradient(to bottom, #3d3535 0%, #6e4d4a 40%, #ae504d 100%)',
             opacity: activeChar === 1 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #1e1e1f 0%, #32314f 40%, #6e4dae 100%)',
+            background: 'linear-gradient(to bottom, #35353d 0%, #4d4a6e 40%, #6e4dae 100%)',
             opacity: activeChar === 2 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #1e1f1e 0%, #314f36 40%, #4dae72 100%)',
+            background: 'linear-gradient(to bottom, #353d35 0%, #4a6e55 40%, #4dae72 100%)',
             opacity: activeChar === 3 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #1f1e1e 0%, #4f3f31 40%, #ae764d 100%)',
+            background: 'linear-gradient(to bottom, #3d3835 0%, #6e5d4a 40%, #ae764d 100%)',
             opacity: activeChar === 4 ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #1e1e1f 0%, #314a4f 40%, #4d8eae 100%)',
+            background: 'linear-gradient(to bottom, #35383d 0%, #4a5d6e 40%, #4d8eae 100%)',
             opacity: activeChar === 5 ? 1 : 0
           }}
         />
 
         {/* Logo */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 animate-slideDown" style={{ top: 'calc(1.5rem + 0.5vw)' }}>
+        <div
+          className="absolute animate-slideDown transition-all duration-700"
+          style={{
+            top: 'calc(1.5rem + 0.5vw)',
+            left: clickedChar ? '50px' : '50%',
+            transform: clickedChar ? 'translateX(0)' : 'translateX(-50%)'
+          }}
+        >
           <img src="/ibheelz-logo.png" alt="ibheelz" className="h-[clamp(3.5rem,8vw,4.25rem)] lg:h-[68px] w-auto" />
         </div>
 
         {/* Left SVG */}
-        <img src="/left.svg" alt="" className="absolute h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 w-auto opacity-60 top-1/2 lg:top-32 transform -translate-y-1/2 lg:translate-y-0 svg-left" />
+        <img
+          src="/left.svg"
+          alt=""
+          className="absolute h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 w-auto opacity-60 top-1/2 lg:top-32 transform -translate-y-1/2 lg:translate-y-0 svg-left transition-opacity duration-700"
+          style={{ opacity: clickedChar ? 0 : 0.6 }}
+        />
 
         {/* Right SVG */}
-        <img src="/right.svg" alt="" className="absolute h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 w-auto opacity-60 top-1/2 lg:top-32 transform -translate-y-1/2 lg:translate-y-0 svg-right" />
+        <img
+          src="/right.svg"
+          alt=""
+          className="absolute h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 w-auto opacity-60 top-1/2 lg:top-32 transform -translate-y-1/2 lg:translate-y-0 svg-right transition-opacity duration-700"
+          style={{ opacity: clickedChar ? 0 : 0.6 }}
+        />
 
         {/* Hero text */}
-        <div className="absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full">
+        <div
+          className="absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full transition-opacity duration-700"
+          style={{ opacity: clickedChar ? 0 : 1 }}
+        >
           <div className="text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed lg:mt-0">
             <div className="text-[clamp(2rem,5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
               I craft digital<br className="lg:hidden" /> experiences
