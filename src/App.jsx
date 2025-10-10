@@ -299,16 +299,35 @@ function App() {
         .apple-glass-button-accent {
           background: linear-gradient(
             135deg,
-            rgba(165, 200, 228, 0.5) 0%,
-            rgba(165, 200, 228, 0.3) 100%
+            rgba(165, 200, 228, 0.25) 0%,
+            rgba(165, 200, 228, 0.15) 50%,
+            rgba(165, 200, 228, 0.25) 100%
           );
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
-          border: 1px solid rgba(165, 200, 228, 0.6);
-          box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+          backdrop-filter: blur(30px) saturate(200%);
+          -webkit-backdrop-filter: blur(30px) saturate(200%);
+          border: 1px solid rgba(165, 200, 228, 0.4);
+          box-shadow:
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 0 rgba(165, 200, 228, 0.3),
+            0 8px 32px 0 rgba(165, 200, 228, 0.15);
         }
 
         .apple-glass-button-accent::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.3) 0%,
+            transparent 60%
+          );
+          animation: liquidMove 4s ease-in-out infinite;
+        }
+
+        .apple-glass-button-accent::after {
           content: '';
           position: absolute;
           top: 0;
@@ -318,7 +337,7 @@ function App() {
           background: linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.5),
             transparent
           );
           animation: glossyShine 3s ease-in-out infinite;
@@ -328,10 +347,29 @@ function App() {
         .apple-glass-button-accent:hover {
           background: linear-gradient(
             135deg,
-            rgba(165, 200, 228, 0.4) 0%,
-            rgba(165, 200, 228, 0.2) 100%
+            rgba(165, 200, 228, 0.35) 0%,
+            rgba(165, 200, 228, 0.25) 50%,
+            rgba(165, 200, 228, 0.35) 100%
           );
-          box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+          box-shadow:
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+            inset 0 -1px 0 0 rgba(165, 200, 228, 0.4),
+            0 8px 32px 0 rgba(165, 200, 228, 0.25);
+        }
+
+        @keyframes liquidMove {
+          0%, 100% {
+            transform: translate(0, 0);
+          }
+          25% {
+            transform: translate(10%, 10%);
+          }
+          50% {
+            transform: translate(0, 20%);
+          }
+          75% {
+            transform: translate(-10%, 10%);
+          }
         }
 
         @keyframes glossyShine {
