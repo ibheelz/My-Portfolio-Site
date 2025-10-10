@@ -25,12 +25,14 @@ function App() {
           </div>
         </div>
 
-        {/* Zazzy image at the bottom - responsive */}
-        <img
-          src="/zazzy.webp"
-          alt="Zazzy"
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] animate-slideUp"
-        />
+        {/* Characters at the bottom - responsive */}
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] flex justify-center items-end gap-5 animate-slideUp">
+          <img src="/characters/1.png" alt="Character 1" className="h-auto w-[20%]" />
+          <img src="/characters/2.png" alt="Character 2" className="h-auto w-[14%]" />
+          <img src="/characters/3.png" alt="Character 3" className="h-auto w-[20%]" />
+          <img src="/characters/4.png" alt="Character 4" className="h-auto w-[20%]" />
+          <img src="/characters/5.png" alt="Character 5" className="h-auto w-[20%]" />
+        </div>
       </div>
 
       {/* Selected Brands text - responsive */}
