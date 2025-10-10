@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-function CreativeDesigner() {
+function GameDesign() {
   const navigate = useNavigate()
 
   return (
@@ -52,16 +52,16 @@ function CreativeDesigner() {
           {/* Background text for mobile square */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 px-[clamp(12px,4vw,20px)]">
             <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(2.5rem, 12vw, 5rem)', color: '#2c3c4b', marginBottom: 'clamp(-0.5rem, -1vw, -1rem)' }}>
-              CREATIVE
+              GAME
             </h1>
             <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(2.5rem, 12vw, 5rem)', color: '#2c3c4b' }}>
-              DESIGNER
+              DESIGN
             </h1>
           </div>
           {/* Hero image for mobile */}
           <img
             src="/pages-hero-1.webp"
-            alt="Creative Designer Hero"
+            alt="Game Design Hero"
             className="absolute bottom-0 left-1/2 w-auto object-contain animate-slideUpHero z-10"
             style={{ height: 'clamp(60%, 20vw, 85%)' }}
           />
@@ -72,17 +72,17 @@ function CreativeDesigner() {
           {/* Background text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 px-[clamp(12px,4vw,20px)]">
             <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(4rem, 28vh, 17rem)', color: '#2c3c4b', marginBottom: 'clamp(-2rem, -4vh, -3rem)' }}>
-              CREATIVE
+              GAME
             </h1>
             <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(4rem, 28vh, 17rem)', color: '#2c3c4b' }}>
-              DESIGNER
+              DESIGN
             </h1>
           </div>
 
           {/* Hero image on top */}
           <img
             src="/pages-hero-1.webp"
-            alt="Creative Designer Hero"
+            alt="Game Design Hero"
             className="absolute bottom-0 left-1/2 w-auto object-contain animate-slideUpHero z-10"
             style={{ height: 'clamp(85%, 38vh, 92%)' }}
           />
@@ -164,4 +164,4 @@ function CreativeDesigner() {
   )
 }
 
-export default CreativeDesigner
+export default GameDesign
