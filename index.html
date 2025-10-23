@@ -17,10 +17,12 @@
       // Wait for the React app to load
       window.addEventListener('load', function() {
         setTimeout(function() {
-          // Find all elements with text "Hire Me" or similar
+          // Find all elements with text "Hire Me" or "View Resume"
           const buttons = document.querySelectorAll('button, a');
           buttons.forEach(function(btn) {
             const text = btn.textContent.trim().toLowerCase();
+
+            // Handle "Hire Me" buttons
             if (text.includes('hire me') || text === 'hire me') {
               // Create mailto link
               const subject = encodeURIComponent('Project Inquiry');
@@ -37,6 +39,27 @@
               // If it's an <a> tag, also update the href
               if (btn.tagName === 'A') {
                 btn.href = mailtoLink;
+              }
+            }
+
+            // Handle "View Resume" buttons
+            if (text.includes('view resume') || text.includes('resume')) {
+              btn.style.cursor = 'pointer';
+              btn.onclick = function(e) {
+                e.preventDefault();
+                // Create a temporary link to download the PDF
+                const link = document.createElement('a');
+                link.href = '/Resume.pdf';
+                link.download = 'Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              };
+
+              // If it's an <a> tag, also update the href
+              if (btn.tagName === 'A') {
+                btn.href = '/Resume.pdf';
+                btn.download = 'Resume.pdf';
               }
             }
           });
