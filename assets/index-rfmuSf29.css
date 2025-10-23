@@ -26,3 +26,9 @@
   }
 }
 
+
+/* Custom font family for Josefin Sans */
+.font-josefin-sans,
+.font-\[\'Josefin_Sans\',sans-serif\] {
+  font-family: 'Josefin Sans', sans-serif !important;
+}
