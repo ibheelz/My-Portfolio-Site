@@ -151,30 +151,30 @@ function Home() {
           <img src="/ibheelz-logo.webp" alt="ibheelz" className="h-[clamp(3.5rem,7vw,4.25rem)] w-auto" style={{ maxHeight: '68px' }} />
         </div>
 
-        {/* Left SVG - hidden on mobile */}
+        {/* Left SVG - now visible on mobile too */}
         <img
           src="/left.svg"
           alt=""
-          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto transform svg-left svg-gold transition-opacity duration-700 svg-desktop-left"
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold transition-opacity duration-700 svg-desktop-left svg-logo-left"
           style={{ opacity: activeChar ? 0 : 1 }}
         />
 
-        {/* Right SVG - hidden on mobile */}
+        {/* Right SVG - now visible on mobile too */}
         <img
           src="/right.svg"
           alt=""
-          className="hidden sm:block absolute h-[26px] sm:h-[29px] md:h-[32px] lg:h-[32px] xl:h-[32px] w-auto transform svg-right svg-gold transition-opacity duration-700 svg-desktop-right"
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold transition-opacity duration-700 svg-desktop-right svg-logo-right"
           style={{ opacity: activeChar ? 0 : 1 }}
         />
 
         {/* Mobile Hero text */}
         <div className="sm:hidden absolute left-1/2 transform -translate-x-1/2 text-center px-6 w-full z-10 pointer-events-none" style={{ top: 'calc(clamp(3.5rem, 7vw, 4.25rem) + clamp(1rem, 2vh, 2rem) + 50px)' }}>
           <div className="text-white relative">
-            {/* Left SVG for mobile - aligned with role title */}
+            {/* Left SVG for mobile - aligned with role title - HIDDEN, using logo arrows instead */}
             <img
               src="/left.svg"
               alt=""
-              className="absolute h-[20px] w-auto svg-gold transition-opacity duration-700 svg-mobile-left"
+              className="hidden absolute h-[20px] w-auto svg-gold transition-opacity duration-700 svg-mobile-left"
               style={{
                 top: 'calc(clamp(1.75rem,5.5vw,2.3rem) / 2)',
                 transform: 'translateY(-50%)',
@@ -182,11 +182,11 @@ function Home() {
               }}
             />
 
-            {/* Right SVG for mobile - aligned with role title */}
+            {/* Right SVG for mobile - aligned with role title - HIDDEN, using logo arrows instead */}
             <img
               src="/right.svg"
               alt=""
-              className="absolute h-[20px] w-auto svg-gold transition-opacity duration-700 svg-mobile-right"
+              className="hidden absolute h-[20px] w-auto svg-gold transition-opacity duration-700 svg-mobile-right"
               style={{
                 top: 'calc(clamp(1.75rem,5.5vw,2.3rem) / 2)',
                 transform: 'translateY(-50%)',
@@ -490,7 +490,7 @@ function Home() {
 
       <div className="flex-1 flex flex-col justify-center overflow-auto">
         {/* Selected Brands text - responsive */}
-        <p className="text-[#d4e2f3] text-center text-xs sm:text-sm uppercase tracking-wider font-['Jost',sans-serif] font-medium px-4 mt-5">
+        <p className="text-[#d4e2f3] text-center text-xs sm:text-sm tracking-wider font-['Jost',sans-serif] font-medium px-4 mt-5">
          Selected Brands I've Worked On
         </p>
 
@@ -835,71 +835,117 @@ function Home() {
 
         /* SVG positioning */
         .svg-left {
-          left: calc(50% - 130px - 5vw);
+          left: calc(50% - 70px);
         }
 
         .svg-right {
-          right: calc(50% - 130px - 5vw);
+          right: calc(50% - 70px);
         }
 
         @media (min-width: 768px) {
           .svg-left {
-            left: calc(50% - 250px);
+            left: calc(50% - 120px);
           }
 
           .svg-right {
-            right: calc(50% - 250px);
+            right: calc(50% - 120px);
+          }
+
+          .svg-logo-left {
+            left: calc(50% - 120px);
+          }
+
+          .svg-logo-right {
+            right: calc(50% - 120px);
           }
         }
 
         @media (min-width: 1024px) {
           .svg-left {
-            left: calc(50% - 380px);
+            left: calc(50% - 160px);
           }
 
           .svg-right {
-            right: calc(50% - 380px);
+            right: calc(50% - 160px);
+          }
+
+          .svg-logo-left {
+            left: calc(50% - 160px);
+          }
+
+          .svg-logo-right {
+            right: calc(50% - 160px);
           }
         }
 
-        /* Desktop SVG positioning */
+        @media (min-width: 1280px) {
+          .svg-left {
+            left: calc(50% - 200px);
+          }
+
+          .svg-right {
+            right: calc(50% - 200px);
+          }
+
+          .svg-logo-left {
+            left: calc(50% - 200px);
+          }
+
+          .svg-logo-right {
+            right: calc(50% - 200px);
+          }
+        }
+
+        /* Desktop SVG positioning - beside logo */
         .svg-desktop-left,
         .svg-desktop-right {
-          top: 50%;
+          top: calc(clamp(1rem, 2vh, 2rem) + clamp(3.5rem, 7vw, 4.25rem) / 2);
           transform: translateY(-50%);
         }
 
-        @media (min-width: 640px) and (max-width: 1023px) {
-          .svg-desktop-left,
-          .svg-desktop-right {
-            top: calc(50% - 30px);
-          }
+        /* Mobile: arrows beside logo */
+        .svg-logo-left {
+          left: calc(50% - 70px);
         }
 
-        @media (min-width: 1024px) {
-          .svg-desktop-left,
-          .svg-desktop-right {
-            top: 148px;
-            transform: translateY(0);
+        .svg-logo-right {
+          right: calc(50% - 70px);
+        }
+
+        @media (min-width: 640px) {
+          .svg-left {
+            left: calc(50% - 90px);
+          }
+
+          .svg-right {
+            right: calc(50% - 90px);
+          }
+
+          .svg-logo-left {
+            left: calc(50% - 90px);
+          }
+
+          .svg-logo-right {
+            right: calc(50% - 90px);
           }
         }
 
         /* Mobile SVG positioning for role text */
         .svg-mobile-left {
-          left: 40px;
+          left: 10px;
         }
 
         .svg-mobile-right {
-          right: 40px;
+          right: 10px;
         }
 
         @media (max-width: 399px) {
           .svg-mobile-left {
-            left: 0px;
+            left: 5px;
           }
 
           .svg-mobile-right {
-            right: 0px;
+            right: 5px;
           }
         }
 
