@@ -365,6 +365,7 @@ function Home() {
             <button
               onClick={() => navigate('/creative-designer')}
               className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              style={{ opacity: clickedChar === 1 ? 1 : 0, pointerEvents: clickedChar === 1 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -385,6 +386,7 @@ function Home() {
             <button
               onClick={() => navigate('/branding')}
               className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              style={{ opacity: clickedChar === 2 ? 1 : 0, pointerEvents: clickedChar === 2 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -405,6 +407,7 @@ function Home() {
             <button
               onClick={() => navigate('/ai-creator')}
               className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              style={{ opacity: clickedChar === 3 ? 1 : 0, pointerEvents: clickedChar === 3 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -425,6 +428,7 @@ function Home() {
             <button
               onClick={() => navigate('/3d-design')}
               className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              style={{ opacity: clickedChar === 4 ? 1 : 0, pointerEvents: clickedChar === 4 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -445,6 +449,7 @@ function Home() {
             <button
               onClick={() => navigate('/game-design')}
               className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+              style={{ opacity: clickedChar === 5 ? 1 : 0, pointerEvents: clickedChar === 5 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
