@@ -638,6 +638,7 @@ function Home() {
             width: 11% !important;
             max-height: 50%;
             margin-right: 0.7% !important;
+            transform: translate(180px, 0) !important;
           }
 
           .char-2 {
@@ -648,9 +649,9 @@ function Home() {
           }
 
           .char-3 {
-            width: 11% !important;
+            width: 12% !important;
             max-height: 50%;
-            margin-left: -5.5% !important;
+            margin-left: -6% !important;
           }
 
           .char-4 {
