@@ -22,7 +22,7 @@ function Branding() {
 
         {/* Logo centered - clickable */}
         <img
-          src="/ibheelz-logo.png"
+          src="/ibheelz-logo.webp"
           alt="ibheelz"
           className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer"
           style={{ maxHeight: '68px' }}
@@ -58,7 +58,7 @@ function Branding() {
           </div>
           {/* Hero image for mobile */}
           <img
-            src="/pages-hero-1.webp"
+            src="/branding-hero.webp"
             alt="Branding Hero"
             className="absolute bottom-0 left-1/2 w-auto object-contain animate-slideUpHero z-10"
             style={{ height: 'clamp(60%, 20vw, 85%)' }}
@@ -76,7 +76,7 @@ function Branding() {
 
           {/* Hero image on top */}
           <img
-            src="/pages-hero-1.webp"
+            src="/branding-hero.webp"
             alt="Branding Hero"
             className="absolute bottom-0 left-1/2 w-auto object-contain animate-slideUpHero z-10"
             style={{ height: 'clamp(85%, 38vh, 92%)' }}
@@ -142,11 +142,11 @@ function Branding() {
 
         @keyframes slideUpHero {
           from {
-            transform: translateX(calc(-50% + clamp(200px, 25vw, 400px))) translateY(100%);
+            transform: translateX(-50%) translateY(100%);
             opacity: 0;
           }
           to {
-            transform: translateX(calc(-50% + clamp(200px, 25vw, 400px))) translateY(0);
+            transform: translateX(-50%) translateY(0);
             opacity: 1;
           }
         }

@@ -94,7 +94,7 @@ function Home() {
       <div
         className="w-full rounded-[20px] sm:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden"
         style={{
-          backgroundImage: 'url(/hero-bg.png)',
+          backgroundImage: 'url(/hero-bg.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -148,7 +148,7 @@ function Home() {
             transform: 'translateX(-50%)'
           }}
         >
-          <img src="/ibheelz-logo.png" alt="ibheelz" className="h-[clamp(3.5rem,7vw,4.25rem)] w-auto" style={{ maxHeight: '68px' }} />
+          <img src="/ibheelz-logo.webp" alt="ibheelz" className="h-[clamp(3.5rem,7vw,4.25rem)] w-auto" style={{ maxHeight: '68px' }} />
         </div>
 
         {/* Left SVG - hidden on mobile */}
@@ -410,7 +410,7 @@ function Home() {
               style={{ scrollSnapAlign: 'center' }}
             >
               <img
-                src={`/characters/${charNum}.png`}
+                src={`/characters/${charNum}.webp`}
                 alt={`Character ${charNum}`}
                 className="h-auto w-auto object-contain object-bottom"
                 style={{
@@ -425,7 +425,7 @@ function Home() {
         {/* Desktop: All characters at bottom */}
         <div className="hidden sm:flex absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] justify-center items-end gap-5 animate-slideUp">
           <img
-            src="/characters/1.png"
+            src="/characters/1.webp"
             alt="Character 1"
             className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(1)}
@@ -437,7 +437,7 @@ function Home() {
             }}
           />
           <img
-            src="/characters/2.png"
+            src="/characters/2.webp"
             alt="Character 2"
             className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(2)}
@@ -450,7 +450,7 @@ function Home() {
             }}
           />
           <img
-            src="/characters/3.png"
+            src="/characters/3.webp"
             alt="Character 3"
             className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 absolute"
             onMouseEnter={() => handleMouseEnter(3)}
@@ -464,7 +464,7 @@ function Home() {
             }}
           />
           <img
-            src="/characters/4.png"
+            src="/characters/4.webp"
             alt="Character 4"
             className="h-auto w-[19%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(4)}
@@ -477,7 +477,7 @@ function Home() {
             }}
           />
           <img
-            src="/characters/5.png"
+            src="/characters/5.webp"
             alt="Character 5"
             className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(5)}
@@ -500,35 +500,35 @@ function Home() {
         <div className="max-[870px]:block hidden overflow-hidden">
           <div className="flex animate-scroll-mobile">
             <div className="flex gap-8 shrink-0">
-              <img src="/logos/1xbet.png" alt="1xBet" className="h-5 w-auto logo-color" />
-              <img src="/logos/betsson.png" alt="Betsson" className="h-5 w-auto logo-color" />
-              <img src="/logos/parimatch.png" alt="Parimatch" className="h-5 w-auto logo-color" />
-              <img src="/logos/pinup.png" alt="Pin-Up" className="h-5 w-auto logo-color" />
-              <img src="/logos/stake.png" alt="Stake" className="h-5 w-auto logo-color" />
-              <img src="/logos/thunderpick.png" alt="Thunderpick" className="h-5 w-auto logo-color" />
-              <img src="/logos/wow.png" alt="WOW" className="h-5 w-auto logo-color" />
+              <img src="/logos/1xbet.webp" alt="1xBet" className="h-5 w-auto logo-color" />
+              <img src="/logos/betsson.webp" alt="Betsson" className="h-5 w-auto logo-color" />
+              <img src="/logos/parimatch.webp" alt="Parimatch" className="h-5 w-auto logo-color" />
+              <img src="/logos/pinup.webp" alt="Pin-Up" className="h-5 w-auto logo-color" />
+              <img src="/logos/stake.webp" alt="Stake" className="h-5 w-auto logo-color" />
+              <img src="/logos/thunderpick.webp" alt="Thunderpick" className="h-5 w-auto logo-color" />
+              <img src="/logos/wow.webp" alt="WOW" className="h-5 w-auto logo-color" />
             </div>
             <div className="flex gap-8 shrink-0 ml-8">
-              <img src="/logos/1xbet.png" alt="1xBet" className="h-5 w-auto logo-color" />
-              <img src="/logos/betsson.png" alt="Betsson" className="h-5 w-auto logo-color" />
-              <img src="/logos/parimatch.png" alt="Parimatch" className="h-5 w-auto logo-color" />
-              <img src="/logos/pinup.png" alt="Pin-Up" className="h-5 w-auto logo-color" />
-              <img src="/logos/stake.png" alt="Stake" className="h-5 w-auto logo-color" />
-              <img src="/logos/thunderpick.png" alt="Thunderpick" className="h-5 w-auto logo-color" />
-              <img src="/logos/wow.png" alt="WOW" className="h-5 w-auto logo-color" />
+              <img src="/logos/1xbet.webp" alt="1xBet" className="h-5 w-auto logo-color" />
+              <img src="/logos/betsson.webp" alt="Betsson" className="h-5 w-auto logo-color" />
+              <img src="/logos/parimatch.webp" alt="Parimatch" className="h-5 w-auto logo-color" />
+              <img src="/logos/pinup.webp" alt="Pin-Up" className="h-5 w-auto logo-color" />
+              <img src="/logos/stake.webp" alt="Stake" className="h-5 w-auto logo-color" />
+              <img src="/logos/thunderpick.webp" alt="Thunderpick" className="h-5 w-auto logo-color" />
+              <img src="/logos/wow.webp" alt="WOW" className="h-5 w-auto logo-color" />
             </div>
           </div>
         </div>
 
         {/* Desktop: Static grid - 870px and above */}
         <div className="min-[871px]:flex hidden items-center justify-center gap-6 md:gap-8 flex-wrap px-4 max-w-4xl mx-auto">
-          <img src="/logos/1xbet.png" alt="1xBet" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
-          <img src="/logos/betsson.png" alt="Betsson" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
-          <img src="/logos/parimatch.png" alt="Parimatch" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
-          <img src="/logos/pinup.png" alt="Pin-Up" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
-          <img src="/logos/stake.png" alt="Stake" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
-          <img src="/logos/thunderpick.png" alt="Thunderpick" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
-          <img src="/logos/wow.png" alt="WOW" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/1xbet.webp" alt="1xBet" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/betsson.webp" alt="Betsson" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/parimatch.webp" alt="Parimatch" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/pinup.webp" alt="Pin-Up" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/stake.webp" alt="Stake" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/thunderpick.webp" alt="Thunderpick" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
+          <img src="/logos/wow.webp" alt="WOW" className="h-6 md:h-[26.6px] logo-color hover:opacity-60 transition-opacity duration-300" />
         </div>
       </div>
 
