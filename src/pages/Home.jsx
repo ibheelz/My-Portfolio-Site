@@ -633,14 +633,30 @@ function Home() {
             height: clamp(420px, calc(100vh - 280px), 850px);
           }
 
-          /* Constrain desktop character images to max 50% of container height */
-          .char-1,
-          .char-2,
-          .char-3,
-          .char-4,
-          .char-5 {
+          /* Reduce character widths and constrain height on ultra-wide screens */
+          .char-1 {
+            width: 11%;
             max-height: 50%;
-            width: auto;
+          }
+
+          .char-2 {
+            width: 14%;
+            max-height: 50%;
+          }
+
+          .char-3 {
+            width: 11%;
+            max-height: 50%;
+          }
+
+          .char-4 {
+            width: 13%;
+            max-height: 50%;
+          }
+
+          .char-5 {
+            width: 14%;
+            max-height: 50%;
           }
         }
 
