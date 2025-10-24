@@ -29,3 +29,19 @@
 .text-\[22px\]{font-size:22px!important}
 .h-\[clamp\(200px\,25vh\,400px\)\]{height:clamp(200px,25vh,400px)\!important}
 .h-\[280px\]{height:280px\!important}
+
+/* Image Protection - Prevent right-click saving */
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+}
+
+/* Disable context menu on images */
+img {
+  -webkit-touch-callout: none !important;
+}

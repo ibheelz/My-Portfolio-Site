@@ -65,6 +65,30 @@
           });
         }, 1000); // Wait 1 second for React to render
       });
+
+      // IMAGE PROTECTION: Prevent right-click and drag-save on all images
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Prevent keyboard shortcuts for saving images
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+S or Cmd+S
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          return false;
+        }
+      });
     </script>
   </body>
 </html>
