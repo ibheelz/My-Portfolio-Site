@@ -344,7 +344,7 @@ function Home() {
               where art, code, and intelligence converge.
             </div>
             <button
-              className="mt-6 px-4 py-2 rounded-full border-2 border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
+              className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
               style={{ opacity: activeChar ? 0 : 1, letterSpacing: '0.2em' }}
             >
               CLICK ANY CHARACTER
