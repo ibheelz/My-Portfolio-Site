@@ -47,19 +47,14 @@
               btn.style.cursor = 'pointer';
               btn.onclick = function(e) {
                 e.preventDefault();
-                // Create a temporary link to download the PDF
-                const link = document.createElement('a');
-                link.href = '/Resume.pdf';
-                link.download = 'Resume.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                // Open PDF in new tab
+                window.open('/Resume.pdf', '_blank');
               };
 
               // If it's an <a> tag, also update the href
               if (btn.tagName === 'A') {
                 btn.href = '/Resume.pdf';
-                btn.download = 'Resume.pdf';
+                btn.target = '_blank';
               }
             }
           });
