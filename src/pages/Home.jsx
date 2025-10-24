@@ -200,7 +200,7 @@ function Home() {
                 Creative<br />Designer
               </div>
               <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
-                crafting visual stories that inspire and engage.
+                I hunt the perfect balance between aesthetics and functionality, leading every project with purpose.
               </div>
             </div>
 
@@ -210,7 +210,7 @@ function Home() {
                 Branding
               </div>
               <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
-                building memorable identities that resonate and endure.
+                I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
               </div>
             </div>
 
@@ -220,7 +220,7 @@ function Home() {
                 AI Creator
               </div>
               <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
-                harnessing artificial intelligence for innovative solutions.
+                In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
               </div>
             </div>
 
@@ -230,7 +230,7 @@ function Home() {
                 3D Design
               </div>
               <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
-                creating immersive worlds that captivate and inspire.
+                What I build doesn't just look good, it's engineered for perfection.
               </div>
             </div>
 
@@ -240,7 +240,7 @@ function Home() {
                 Game Design
               </div>
               <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
-                designing interactive experiences that thrill and entertain.
+                I design games that roar to life and leave lasting impressions.
               </div>
             </div>
 
@@ -302,7 +302,7 @@ function Home() {
               Creative Designer
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
-              crafting visual stories that inspire and engage.
+              I hunt the perfect balance between aesthetics and functionality, leading every project with purpose.
             </div>
             <button
               onClick={() => navigate('/creative-designer')}
@@ -322,7 +322,7 @@ function Home() {
               Branding
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
-              building memorable identities that resonate and endure.
+              I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
             </div>
             <button
               onClick={() => navigate('/branding')}
@@ -342,7 +342,7 @@ function Home() {
               AI Creator
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
-              harnessing artificial intelligence for innovative solutions.
+              In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
             </div>
             <button
               onClick={() => navigate('/ai-creator')}
@@ -362,7 +362,7 @@ function Home() {
               3D Design
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
-              creating immersive worlds that captivate and inspire.
+              What I build doesn't just look good, it's engineered for perfection.
             </div>
             <button
               onClick={() => navigate('/3d-design')}
@@ -382,7 +382,7 @@ function Home() {
               Game Design
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
-              designing interactive experiences that thrill and entertain.
+              I design games that roar to life and leave lasting impressions.
             </div>
             <button
               onClick={() => navigate('/game-design')}
