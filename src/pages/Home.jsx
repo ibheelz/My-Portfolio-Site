@@ -507,12 +507,16 @@ function Home() {
           <img
             src="/characters/3.webp"
             alt="Character 3"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 absolute char-3"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 absolute char-3"
             onMouseEnter={() => handleMouseEnter(3)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(3)}
             style={{
-              transform: activeChar && activeChar !== 3 ? 'translateY(100%)' : undefined,
+              transform: activeChar && activeChar !== 3
+                ? 'translateY(100%)'
+                : (hoveredChar === 3 || activeChar === 3)
+                  ? 'translateY(0) scale(0.99)'
+                  : undefined,
               left: '50%',
               marginLeft: '-8%',
               bottom: 0
