@@ -650,7 +650,6 @@ function Home() {
 
           .char-3 {
             width: 12% !important;
-            max-height: 50%;
             margin-left: -6% !important;
           }
 
