@@ -93,13 +93,12 @@ function Home() {
     <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
       {/* White container with responsive margins */}
       <div
-        className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden"
+        className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
         style={{
           backgroundImage: 'url(/hero-bg.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          height: 'clamp(420px, calc(100vh - 280px), 650px)'
+          backgroundRepeat: 'no-repeat'
         }}
       >
         {/* Gradient overlays */}
@@ -623,6 +622,39 @@ function Home() {
       </div>
 
       <style jsx>{`
+        /* Hero container height - responsive across all screen sizes */
+        .hero-container {
+          height: clamp(420px, calc(100vh - 280px), 650px);
+        }
+
+        /* Ultra-wide screens: increase max height for better proportions */
+        @media (min-width: 1920px) {
+          .hero-container {
+            height: clamp(420px, calc(100vh - 280px), 850px);
+          }
+
+          /* Scale desktop character images proportionally with container */
+          .char-1 {
+            width: 21%;
+          }
+
+          .char-2 {
+            width: 26%;
+          }
+
+          .char-3 {
+            width: 21%;
+          }
+
+          .char-4 {
+            width: 25%;
+          }
+
+          .char-5 {
+            width: 26%;
+          }
+        }
+
         /* Character positioning - responsive on smaller screens, fixed on desktop */
         .char-1 {
           transform: translate(clamp(50px, 10vw, 150px), 0);
