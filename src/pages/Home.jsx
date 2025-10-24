@@ -90,7 +90,7 @@ function Home() {
   }, [hasSwipedFromFirst])
 
   return (
-    <div className="h-screen overflow-hidden bg-[#15222c] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
+    <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
       {/* White container with responsive margins */}
       <div
         className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden"
@@ -486,7 +486,7 @@ function Home() {
           <img
             src="/characters/1.webp"
             alt="Character 1"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-1"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] char-1"
             onMouseEnter={() => handleMouseEnter(1)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(1)}
@@ -542,7 +542,7 @@ function Home() {
           <img
             src="/characters/5.webp"
             alt="Character 5"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-5"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] char-5"
             onMouseEnter={() => handleMouseEnter(5)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(5)}
@@ -736,7 +736,7 @@ function Home() {
           background: #d8ac65;
           border: none;
           box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
-          color: #15222c;
+          color: #10171d;
         }
 
         .apple-glass-button::before {

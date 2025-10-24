@@ -4,7 +4,7 @@ function CreativeDesigner() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-[#15222c] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative">
+    <div className="min-h-screen bg-[#10171d] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative">
       {/* Header with logo and buttons */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
@@ -181,7 +181,7 @@ function CreativeDesigner() {
           background: #ffffff;
           border-color: #ffffff;
           box-shadow: none;
-          color: #15222c;
+          color: #10171d;
         }
 
         @keyframes fadeIn {
