@@ -7,6 +7,7 @@ function Home() {
   const [bigCharAnimation, setBigCharAnimation] = useState(null)
   const [activeSlide, setActiveSlide] = useState(1)
   const [hasSwipedFromFirst, setHasSwipedFromFirst] = useState(false)
+  const [expandedDesc, setExpandedDesc] = useState(null)
   const isCharacterClickRef = useRef(false)
   const justUnfocusedRef = useRef(false)
   const sliderRef = useRef(null)
@@ -18,8 +19,8 @@ function Home() {
   const handleCharClick = (charNum) => {
     isCharacterClickRef.current = true
 
-    // Check if we're on a small screen (below sm breakpoint - 640px)
-    const isSmallScreen = window.innerWidth < 640
+    // Check if we're on a small screen (below lg breakpoint - 1024px)
+    const isSmallScreen = window.innerWidth < 1024
 
     if (isSmallScreen) {
       // On small screens, trigger big character animation
@@ -89,10 +90,10 @@ function Home() {
   }, [hasSwipedFromFirst])
 
   return (
-    <div className="h-screen overflow-hidden bg-[#15222c] p-[8px] sm:p-[12px] flex flex-col animate-fadeIn">
+    <div className="h-screen overflow-hidden bg-[#15222c] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
       {/* White container with responsive margins */}
       <div
-        className="w-full rounded-[20px] sm:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden"
+        className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden"
         style={{
           backgroundImage: 'url(/hero-bg.webp)',
           backgroundSize: 'cover',
@@ -107,35 +108,35 @@ function Home() {
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #6e3534 0%, #ae504d 40%, #d88078 100%)',
-            opacity: (window.innerWidth >= 640 ? activeChar === 1 : (activeSlide === 1 && hasSwipedFromFirst)) ? 1 : 0
+            opacity: (window.innerWidth >= 1024 ? activeChar === 1 : (activeSlide === 1 && hasSwipedFromFirst)) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #4a346e 0%, #6e4dae 40%, #a378d8 100%)',
-            opacity: (window.innerWidth < 640 ? activeSlide === 2 : activeChar === 2) ? 1 : 0
+            opacity: (window.innerWidth < 1024 ? activeSlide === 2 : activeChar === 2) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #346e4a 0%, #4dae72 40%, #78d8a3 100%)',
-            opacity: (window.innerWidth < 640 ? activeSlide === 3 : activeChar === 3) ? 1 : 0
+            opacity: (window.innerWidth < 1024 ? activeSlide === 3 : activeChar === 3) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #d8a378 100%)',
-            opacity: (window.innerWidth < 640 ? activeSlide === 4 : activeChar === 4) ? 1 : 0
+            opacity: (window.innerWidth < 1024 ? activeSlide === 4 : activeChar === 4) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #344a6e 0%, #4d8eae 40%, #78bcd8 100%)',
-            opacity: (window.innerWidth < 640 ? activeSlide === 5 : activeChar === 5) ? 1 : 0
+            opacity: (window.innerWidth < 1024 ? activeSlide === 5 : activeChar === 5) ? 1 : 0
           }}
         />
 
@@ -156,7 +157,6 @@ function Home() {
           src="/left.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold transition-opacity duration-700 svg-desktop-left svg-logo-left"
-          style={{ opacity: activeChar ? 0 : 1 }}
         />
 
         {/* Right SVG - now visible on mobile too */}
@@ -164,11 +164,10 @@ function Home() {
           src="/right.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold transition-opacity duration-700 svg-desktop-right svg-logo-right"
-          style={{ opacity: activeChar ? 0 : 1 }}
         />
 
         {/* Mobile Hero text */}
-        <div className="sm:hidden absolute left-1/2 transform -translate-x-1/2 text-center px-6 w-full z-10 pointer-events-none" style={{ top: 'calc(clamp(3.5rem, 7vw, 4.25rem) + clamp(1rem, 2vh, 2rem) + 50px)' }}>
+        <div className="lg:hidden absolute left-1/2 transform -translate-x-1/2 text-center px-6 w-full z-10 pointer-events-none" style={{ top: 'calc(clamp(3.5rem, 7vw, 4.25rem) + clamp(1rem, 2vh, 2rem) + 50px)' }}>
           <div className="text-white relative">
             {/* Left SVG for mobile - aligned with role title - HIDDEN, using logo arrows instead */}
             <img
@@ -195,51 +194,106 @@ function Home() {
             />
 
             {/* Character 1: Creative Designer */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 1 ? 1 : 0, position: activeSlide === 1 ? 'relative' : 'absolute', top: 0, left: 0, right: 0 }}>
-              <div className="text-[clamp(1.75rem,5.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3">
-                Creative<br />Designer
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 1 ? 1 : 0, position: activeSlide === 1 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 1 ? 10 : 1 }}>
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+                Creative Designer
               </div>
-              <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
+              <div
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                style={{
+                  color: '#d0dadf',
+                  overflow: expandedDesc === 1 ? 'visible' : 'hidden',
+                  textOverflow: expandedDesc === 1 ? 'clip' : 'ellipsis',
+                  whiteSpace: expandedDesc === 1 ? 'normal' : 'nowrap',
+                  lineHeight: '1.5',
+                  pointerEvents: 'auto'
+                }}
+                onClick={() => setExpandedDesc(expandedDesc === 1 ? null : 1)}
+              >
                 I hunt the perfect balance between aesthetics and functionality, leading every project with purpose.
               </div>
             </div>
 
             {/* Character 2: Branding */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 2 ? 1 : 0, position: activeSlide === 2 ? 'relative' : 'absolute', top: 0, left: 0, right: 0 }}>
-              <div className="text-[clamp(1.75rem,5.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3">
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 2 ? 1 : 0, position: activeSlide === 2 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 2 ? 10 : 1 }}>
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Branding
               </div>
-              <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
+              <div
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                style={{
+                  color: '#d0dadf',
+                  overflow: expandedDesc === 2 ? 'visible' : 'hidden',
+                  textOverflow: expandedDesc === 2 ? 'clip' : 'ellipsis',
+                  whiteSpace: expandedDesc === 2 ? 'normal' : 'nowrap',
+                  lineHeight: '1.5',
+                  pointerEvents: 'auto'
+                }}
+                onClick={() => setExpandedDesc(expandedDesc === 2 ? null : 2)}
+              >
                 I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
               </div>
             </div>
 
             {/* Character 3: AI Creator */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0 }}>
-              <div className="text-[clamp(1.75rem,5.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3">
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 3 ? 10 : 1 }}>
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 AI Creator
               </div>
-              <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
+              <div
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                style={{
+                  color: '#d0dadf',
+                  overflow: expandedDesc === 3 ? 'visible' : 'hidden',
+                  textOverflow: expandedDesc === 3 ? 'clip' : 'ellipsis',
+                  whiteSpace: expandedDesc === 3 ? 'normal' : 'nowrap',
+                  lineHeight: '1.5',
+                  pointerEvents: 'auto'
+                }}
+                onClick={() => setExpandedDesc(expandedDesc === 3 ? null : 3)}
+              >
                 In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
               </div>
             </div>
 
             {/* Character 4: 3D Design */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 4 ? 1 : 0, position: activeSlide === 4 ? 'relative' : 'absolute', top: 0, left: 0, right: 0 }}>
-              <div className="text-[clamp(1.75rem,5.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3">
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 4 ? 1 : 0, position: activeSlide === 4 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 4 ? 10 : 1 }}>
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 3D Design
               </div>
-              <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
+              <div
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                style={{
+                  color: '#d0dadf',
+                  overflow: expandedDesc === 4 ? 'visible' : 'hidden',
+                  textOverflow: expandedDesc === 4 ? 'clip' : 'ellipsis',
+                  whiteSpace: expandedDesc === 4 ? 'normal' : 'nowrap',
+                  lineHeight: '1.5',
+                  pointerEvents: 'auto'
+                }}
+                onClick={() => setExpandedDesc(expandedDesc === 4 ? null : 4)}
+              >
                 What I build doesn't just look good, it's engineered for perfection.
               </div>
             </div>
 
             {/* Character 5: Game Design */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 5 ? 1 : 0, position: activeSlide === 5 ? 'relative' : 'absolute', top: 0, left: 0, right: 0 }}>
-              <div className="text-[clamp(1.75rem,5.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3">
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 5 ? 1 : 0, position: activeSlide === 5 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 5 ? 10 : 1 }}>
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Game Design
               </div>
-              <div className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 leading-relaxed" style={{ color: '#d0dadf' }}>
+              <div
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                style={{
+                  color: '#d0dadf',
+                  overflow: expandedDesc === 5 ? 'visible' : 'hidden',
+                  textOverflow: expandedDesc === 5 ? 'clip' : 'ellipsis',
+                  whiteSpace: expandedDesc === 5 ? 'normal' : 'nowrap',
+                  lineHeight: '1.5',
+                  pointerEvents: 'auto'
+                }}
+                onClick={() => setExpandedDesc(expandedDesc === 5 ? null : 5)}
+              >
                 I design games that roar to life and leave lasting impressions.
               </div>
             </div>
@@ -254,7 +308,7 @@ function Home() {
         </div>
 
         {/* Mobile: Slider indicator dots */}
-        <div className="sm:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+        <div className="lg:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
           {[1, 2, 3, 4, 5].map((dotNum) => (
             <div
               key={dotNum}
@@ -271,34 +325,34 @@ function Home() {
         </div>
 
         {/* Hero text - desktop/tablet */}
-        <div className="hidden sm:block absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full">
+        <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl">
           <div className="text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed lg:mt-0">
             <div
-              className="text-[clamp(2rem,5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700"
+              className="text-[clamp(1.5rem,4.5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700"
               style={{ opacity: activeChar ? 0 : 1 }}
             >
               I craft digital<br className="lg:hidden" /> experiences
             </div>
             <div
-              className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700"
+              className="text-[clamp(0.875rem,2.5vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700"
               style={{ opacity: activeChar ? 0 : 1, color: '#d0dadf' }}
             >
               where art, code, and intelligence converge.
             </div>
             <button
-              className="mt-6 px-4 py-2 rounded-full border-2 border-white/30 text-white font-['Jost',sans-serif] font-medium text-xs transition-opacity duration-700 cursor-default"
+              className="mt-6 px-4 py-2 rounded-full border-2 border-white/30 text-white font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
               style={{ opacity: activeChar ? 0 : 1, letterSpacing: '0.2em' }}
             >
-              PICK ANY CHARACTER
+              CLICK ANY CHARACTER
             </button>
           </div>
         </div>
 
         {/* Character-specific text - hidden on mobile */}
-        <div className="hidden sm:block absolute top-1/2 lg:top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full">
+        <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl">
           {/* Character 1: Creative Designer */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 1 ? 1 : 0, pointerEvents: activeChar === 1 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Creative Designer
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
@@ -318,7 +372,7 @@ function Home() {
 
           {/* Character 2: Branding */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 2 ? 1 : 0, pointerEvents: activeChar === 2 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Branding
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
@@ -338,7 +392,7 @@ function Home() {
 
           {/* Character 3: AI Creator */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 3 ? 1 : 0, pointerEvents: activeChar === 3 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               AI Creator
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
@@ -358,7 +412,7 @@ function Home() {
 
           {/* Character 4: 3D Design */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 4 ? 1 : 0, pointerEvents: activeChar === 4 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               3D Design
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
@@ -378,7 +432,7 @@ function Home() {
 
           {/* Character 5: Game Design */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 5 ? 1 : 0, pointerEvents: activeChar === 5 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight">
+            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Game Design
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
@@ -400,7 +454,7 @@ function Home() {
         {/* Mobile: Horizontal slider with one character per slide */}
         <div
           ref={sliderRef}
-          className="sm:hidden absolute inset-0 flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
+          className="lg:hidden absolute inset-0 flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
           style={{ scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' }}
         >
           {[1, 2, 3, 4, 5].map((charNum) => (
@@ -412,10 +466,11 @@ function Home() {
               <img
                 src={`/characters/${charNum}.webp`}
                 alt={`Character ${charNum}`}
-                className="h-auto w-auto object-contain object-bottom"
+                className="h-auto w-auto object-contain object-bottom mobile-char-img"
                 style={{
-                  width: charNum === 1 ? '49%' : charNum === 2 ? '53%' : charNum === 3 ? '51%' : charNum === 4 ? '54%' : '55%',
-                  maxHeight: '70%'
+                  width: charNum === 1 ? '49%' : charNum === 2 ? '53%' : charNum === 3 ? '51%' : charNum === 4 ? '54%' : '60%',
+                  maxHeight: '50%',
+                  transform: (charNum === 1 || charNum === 3) ? 'translateY(13px)' : 'none'
                 }}
               />
             </div>
@@ -423,28 +478,28 @@ function Home() {
         </div>
 
         {/* Desktop: All characters at bottom */}
-        <div className="hidden sm:flex absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] justify-center items-end gap-5 animate-slideUp">
+        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5 animate-slideUp" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
           <img
             src="/characters/1.webp"
             alt="Character 1"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 char-1"
             onMouseEnter={() => handleMouseEnter(1)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(1)}
             style={{
-              transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : 'translate(150px, 0)',
+              transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : undefined,
               marginRight: '1%'
             }}
           />
           <img
             src="/characters/2.webp"
             alt="Character 2"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105 char-2"
             onMouseEnter={() => handleMouseEnter(2)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(2)}
             style={{
-              transform: activeChar && activeChar !== 2 ? 'translateY(100%)' : 'translate(0, 22px)',
+              transform: activeChar && activeChar !== 2 ? 'translateY(100%)' : undefined,
               marginLeft: '10%',
               marginRight: '12%'
             }}
@@ -452,12 +507,12 @@ function Home() {
           <img
             src="/characters/3.webp"
             alt="Character 3"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 absolute"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 absolute char-3"
             onMouseEnter={() => handleMouseEnter(3)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(3)}
             style={{
-              transform: activeChar && activeChar !== 3 ? 'translateY(100%)' : 'translateY(0)',
+              transform: activeChar && activeChar !== 3 ? 'translateY(100%)' : undefined,
               left: '50%',
               marginLeft: '-8%',
               bottom: 0
@@ -466,12 +521,12 @@ function Home() {
           <img
             src="/characters/4.webp"
             alt="Character 4"
-            className="h-auto w-[19%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[19%] cursor-pointer transition-transform duration-700 hover:scale-105 char-4"
             onMouseEnter={() => handleMouseEnter(4)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(4)}
             style={{
-              transform: activeChar && activeChar !== 4 ? 'translateY(100%)' : 'translate(-100px, 15px)',
+              transform: activeChar && activeChar !== 4 ? 'translateY(100%)' : undefined,
               marginLeft: '12%',
               marginRight: '1%'
             }}
@@ -479,11 +534,11 @@ function Home() {
           <img
             src="/characters/5.webp"
             alt="Character 5"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105 char-5"
             onMouseEnter={() => handleMouseEnter(5)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(5)}
-            style={{ transform: activeChar && activeChar !== 5 ? 'translateY(100%)' : 'translate(-120px, 0)' }}
+            style={{ transform: activeChar && activeChar !== 5 ? 'translateY(100%)' : undefined }}
           />
         </div>
       </div>
@@ -555,6 +610,50 @@ function Home() {
       </div>
 
       <style jsx>{`
+        /* Character positioning - responsive on smaller screens, fixed on desktop */
+        .char-1 {
+          transform: translate(clamp(50px, 10vw, 150px), 0);
+        }
+
+        .char-2 {
+          transform: translate(0, clamp(10px, 2vh, 22px));
+        }
+
+        .char-3 {
+          transform: translateY(0);
+        }
+
+        .char-4 {
+          transform: translate(clamp(-50px, -7vw, -100px), clamp(8px, 1.5vh, 15px));
+        }
+
+        .char-5 {
+          transform: translate(clamp(-60px, -8vw, -120px), 0);
+        }
+
+        /* Desktop: Fixed positioning (no responsive scaling) */
+        @media (min-width: 1280px) {
+          .char-1 {
+            transform: translate(150px, 0);
+          }
+
+          .char-2 {
+            transform: translate(0, 22px);
+          }
+
+          .char-3 {
+            transform: translateY(0);
+          }
+
+          .char-4 {
+            transform: translate(-100px, 15px);
+          }
+
+          .char-5 {
+            transform: translate(-120px, 0);
+          }
+        }
+
         /* Mobile glass button with realistic distortion */
         .mobile-glass-button {
           background: linear-gradient(
@@ -984,6 +1083,14 @@ function Home() {
 
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
+        }
+
+        /* Force hero images to 50% height on very small screens */
+        @media (max-width: 420px) {
+          .mobile-char-img {
+            height: 50% !important;
+            max-height: none !important;
+          }
         }
       `}</style>
     </div>
