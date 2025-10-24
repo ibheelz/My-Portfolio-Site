@@ -299,8 +299,12 @@ function Home() {
             </div>
 
             <button
-              className="mobile-glass-button px-4 py-2 rounded-full text-white font-['Jost',sans-serif] font-medium text-[10px] cursor-default"
-              style={{ letterSpacing: '0.2em' }}
+              onClick={() => {
+                const routes = ['/creative-designer', '/branding', '/ai-creator', '/3d-design', '/game-design']
+                navigate(routes[activeSlide - 1])
+              }}
+              className="mobile-glass-button px-4 py-2 rounded-full text-white font-['Jost',sans-serif] font-medium text-[10px] cursor-pointer"
+              style={{ letterSpacing: '0.2em', pointerEvents: 'auto' }}
             >
               PICK CHARACTER
             </button>

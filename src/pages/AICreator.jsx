@@ -7,6 +7,20 @@ function AICreator() {
     <div className="min-h-screen bg-[#15222c] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative">
       {/* Header with logo and buttons */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
+        {/* Left SVG */}
+        <img
+          src="/left.svg"
+          alt=""
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold"
+        />
+
+        {/* Right SVG */}
+        <img
+          src="/right.svg"
+          alt=""
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold"
+        />
+
         {/* Back button on the left */}
         <div className="absolute left-[clamp(16px,3vw,40px)] w-auto">
           <button
@@ -48,14 +62,14 @@ function AICreator() {
       </div>
 
       {/* Container with hero image */}
-      <div className="mt-[clamp(0px,1vh,12px)] w-full rounded-[clamp(16px,4vw,30px)] overflow-hidden relative aspect-square sm:aspect-auto" style={{ backgroundColor: '#222d37', height: 'auto' }}>
-        <div className="sm:hidden w-full" style={{ paddingBottom: '100%', position: 'relative' }}>
+      <div className="mt-[clamp(0px,1vh,12px)] w-full rounded-[clamp(16px,4vw,30px)] overflow-hidden relative" style={{ backgroundColor: '#222d37', height: '35vh' }}>
+        <div className="sm:hidden w-full relative" style={{ height: '35vh' }}>
           {/* Background text for mobile square */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 px-[clamp(12px,4vw,20px)]">
-            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(2.5rem, 12vw, 5rem)', color: '#2c3c4b', marginBottom: 'clamp(-0.5rem, -1vw, -1rem)' }}>
+            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(8rem, 28vh, 17rem)', color: '#2c3c4b', marginBottom: 'clamp(-2rem, -4vh, -3rem)' }}>
               AI
             </h1>
-            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(2.5rem, 12vw, 5rem)', color: '#2c3c4b' }}>
+            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(8rem, 28vh, 17rem)', color: '#2c3c4b' }}>
               CREATOR
             </h1>
           </div>
@@ -63,19 +77,19 @@ function AICreator() {
           <img
             src="/ai-creator-hero.webp"
             alt="AI Creator Hero"
-            className="absolute bottom-0 left-1/2 w-auto object-contain animate-slideUpHero z-10"
-            style={{ height: 'clamp(60%, 20vw, 85%)' }}
+            className="absolute left-1/2 w-auto object-contain animate-slideUpHero z-10"
+            style={{ top: 'clamp(10px, 2vh, 20px)', bottom: 0, height: 'calc(100% - clamp(10px, 2vh, 20px))', transform: 'translateX(-50%)' }}
           />
         </div>
 
         {/* Tablet and Desktop */}
-        <div className="hidden sm:block relative" style={{ height: 'clamp(300px, 40vh, 550px)', minHeight: '280px' }}>
+        <div className="hidden sm:block relative" style={{ height: '35vh' }}>
           {/* Background text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 px-[clamp(12px,4vw,20px)]">
-            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(4rem, 28vh, 17rem)', color: '#2c3c4b', marginBottom: 'clamp(-2rem, -4vh, -3rem)' }}>
+            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(8rem, 28vh, 17rem)', color: '#2c3c4b', marginBottom: 'clamp(-2rem, -4vh, -3rem)' }}>
               AI
             </h1>
-            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(4rem, 28vh, 17rem)', color: '#2c3c4b' }}>
+            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(8rem, 28vh, 17rem)', color: '#2c3c4b' }}>
               CREATOR
             </h1>
           </div>
@@ -84,13 +98,65 @@ function AICreator() {
           <img
             src="/ai-creator-hero.webp"
             alt="AI Creator Hero"
-            className="absolute bottom-0 left-1/2 w-auto object-contain animate-slideUpHero z-10"
-            style={{ height: 'clamp(85%, 38vh, 92%)' }}
+            className="absolute left-1/2 w-auto object-contain animate-slideUpHero z-10"
+            style={{ top: 'clamp(10px, 2vh, 20px)', bottom: 0, height: 'calc(100% - clamp(10px, 2vh, 20px))', transform: 'translateX(-50%)' }}
           />
         </div>
       </div>
 
       <style jsx>{`
+        .svg-gold {
+          filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
+        }
+
+        .svg-left {
+          top: calc(clamp(10px,2.5vh,16px) + clamp(3rem,6vw,4.25rem) / 2);
+          left: calc(50% - 70px);
+          transform: translateY(-50%);
+        }
+
+        .svg-right {
+          top: calc(clamp(10px,2.5vh,16px) + clamp(3rem,6vw,4.25rem) / 2);
+          right: calc(50% - 70px);
+          transform: translateY(-50%);
+        }
+
+        @media (min-width: 768px) {
+          .svg-left {
+            left: calc(50% - 120px);
+          }
+          .svg-right {
+            right: calc(50% - 120px);
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .svg-left {
+            left: calc(50% - 160px);
+          }
+          .svg-right {
+            right: calc(50% - 160px);
+          }
+        }
+
+        @media (min-width: 1280px) {
+          .svg-left {
+            left: calc(50% - 200px);
+          }
+          .svg-right {
+            right: calc(50% - 200px);
+          }
+        }
+
+        @media (min-width: 640px) {
+          .svg-left {
+            left: calc(50% - 90px);
+          }
+          .svg-right {
+            right: calc(50% - 90px);
+          }
+        }
+
         .liquid-glass-header {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(20px);
