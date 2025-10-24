@@ -635,27 +635,33 @@ function Home() {
 
           /* Reduce character widths and constrain height on ultra-wide screens */
           .char-1 {
-            width: 11%;
+            width: 11% !important;
             max-height: 50%;
+            margin-right: 0.7% !important;
           }
 
           .char-2 {
-            width: 14%;
+            width: 14% !important;
             max-height: 50%;
+            margin-left: 7% !important;
+            margin-right: 8.5% !important;
           }
 
           .char-3 {
-            width: 11%;
+            width: 11% !important;
             max-height: 50%;
+            margin-left: -5.5% !important;
           }
 
           .char-4 {
-            width: 13%;
+            width: 13% !important;
             max-height: 50%;
+            margin-left: 8.5% !important;
+            margin-right: 0.7% !important;
           }
 
           .char-5 {
-            width: 14%;
+            width: 14% !important;
             max-height: 50%;
           }
         }
