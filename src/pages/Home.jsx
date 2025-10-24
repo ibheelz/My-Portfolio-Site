@@ -121,21 +121,21 @@ function Home() {
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #346e4a 0%, #4dae72 40%, #78d8a3 100%)',
+            background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #d8a378 100%)',
             opacity: (window.innerWidth < 1024 ? activeSlide === 3 : activeChar === 3) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #d8a378 100%)',
+            background: 'linear-gradient(to bottom, #346e4a 0%, #4dae72 40%, #78d8a3 100%)',
             opacity: (window.innerWidth < 1024 ? activeSlide === 4 : activeChar === 4) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #344a6e 0%, #4d8eae 40%, #78bcd8 100%)',
+            background: 'linear-gradient(to bottom, #6e1e34 0%, #ae3d5d 40%, #d86b8a 100%)',
             opacity: (window.innerWidth < 1024 ? activeSlide === 5 : activeChar === 5) ? 1 : 0
           }}
         />
@@ -340,7 +340,7 @@ function Home() {
               where art, code, and intelligence converge.
             </div>
             <button
-              className="mt-6 px-4 py-2 rounded-full border-2 border-white/30 text-white font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
+              className="mt-6 px-4 py-2 rounded-full border-2 border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
               style={{ opacity: activeChar ? 0 : 1, letterSpacing: '0.2em' }}
             >
               CLICK ANY CHARACTER
@@ -349,7 +349,7 @@ function Home() {
         </div>
 
         {/* Character-specific text - hidden on mobile */}
-        <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl">
+        <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl z-20">
           {/* Character 1: Creative Designer */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 1 ? 1 : 0, pointerEvents: activeChar === 1 ? 'auto' : 'none' }}>
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
@@ -482,7 +482,7 @@ function Home() {
           <img
             src="/characters/1.webp"
             alt="Character 1"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 char-1"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-1"
             onMouseEnter={() => handleMouseEnter(1)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(1)}
@@ -494,7 +494,7 @@ function Home() {
           <img
             src="/characters/2.webp"
             alt="Character 2"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105 char-2"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-2"
             onMouseEnter={() => handleMouseEnter(2)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(2)}
@@ -507,7 +507,7 @@ function Home() {
           <img
             src="/characters/3.webp"
             alt="Character 3"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 absolute char-3"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] absolute char-3"
             onMouseEnter={() => handleMouseEnter(3)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(3)}
@@ -515,7 +515,7 @@ function Home() {
               transform: activeChar && activeChar !== 3
                 ? 'translateY(100%)'
                 : (hoveredChar === 3 || activeChar === 3)
-                  ? 'translateY(0) scale(0.99)'
+                  ? 'translateY(32px) scale(0.99)'
                   : undefined,
               left: '50%',
               marginLeft: '-8%',
@@ -525,7 +525,7 @@ function Home() {
           <img
             src="/characters/4.webp"
             alt="Character 4"
-            className="h-auto w-[19%] cursor-pointer transition-transform duration-700 hover:scale-105 char-4"
+            className="h-auto w-[19%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-4"
             onMouseEnter={() => handleMouseEnter(4)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(4)}
@@ -538,7 +538,7 @@ function Home() {
           <img
             src="/characters/5.webp"
             alt="Character 5"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105 char-5"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-5"
             onMouseEnter={() => handleMouseEnter(5)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(5)}
