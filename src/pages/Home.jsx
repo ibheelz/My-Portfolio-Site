@@ -414,7 +414,7 @@ function Home() {
                 alt={`Character ${charNum}`}
                 className="h-auto w-auto object-contain object-bottom"
                 style={{
-                  width: charNum === 2 ? '40%' : '55%',
+                  width: charNum === 1 ? '49%' : charNum === 2 ? '53%' : charNum === 3 ? '51%' : charNum === 4 ? '54%' : '55%',
                   maxHeight: '70%'
                 }}
               />
@@ -427,38 +427,54 @@ function Home() {
           <img
             src="/characters/1.png"
             alt="Character 1"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(1)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(1)}
-            style={{ transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : 'translateY(0)' }}
+            style={{
+              transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : 'translate(150px, 0)',
+              marginRight: '1%'
+            }}
           />
           <img
             src="/characters/2.png"
             alt="Character 2"
-            className="h-auto w-[14%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(2)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(2)}
-            style={{ transform: activeChar && activeChar !== 2 ? 'translateY(100%)' : 'translateY(0)' }}
+            style={{
+              transform: activeChar && activeChar !== 2 ? 'translateY(100%)' : 'translate(0, 22px)',
+              marginLeft: '10%',
+              marginRight: '12%'
+            }}
           />
           <img
             src="/characters/3.png"
             alt="Character 3"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-700 hover:scale-105 absolute"
             onMouseEnter={() => handleMouseEnter(3)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(3)}
-            style={{ transform: activeChar && activeChar !== 3 ? 'translateY(100%)' : 'translateY(0)' }}
+            style={{
+              transform: activeChar && activeChar !== 3 ? 'translateY(100%)' : 'translateY(0)',
+              left: '50%',
+              marginLeft: '-8%',
+              bottom: 0
+            }}
           />
           <img
             src="/characters/4.png"
             alt="Character 4"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-700 hover:scale-105"
+            className="h-auto w-[19%] cursor-pointer transition-transform duration-700 hover:scale-105"
             onMouseEnter={() => handleMouseEnter(4)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(4)}
-            style={{ transform: activeChar && activeChar !== 4 ? 'translateY(100%)' : 'translateY(0)' }}
+            style={{
+              transform: activeChar && activeChar !== 4 ? 'translateY(100%)' : 'translate(-100px, 15px)',
+              marginLeft: '12%',
+              marginRight: '1%'
+            }}
           />
           <img
             src="/characters/5.png"
@@ -467,7 +483,7 @@ function Home() {
             onMouseEnter={() => handleMouseEnter(5)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(5)}
-            style={{ transform: activeChar && activeChar !== 5 ? 'translateY(100%)' : 'translateY(0)' }}
+            style={{ transform: activeChar && activeChar !== 5 ? 'translateY(100%)' : 'translate(-120px, 0)' }}
           />
         </div>
       </div>
