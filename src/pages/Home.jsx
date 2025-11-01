@@ -8,6 +8,8 @@ function Home() {
   const [activeSlide, setActiveSlide] = useState(1)
   const [hasSwipedFromFirst, setHasSwipedFromFirst] = useState(false)
   const [expandedDesc, setExpandedDesc] = useState(null)
+  const [sliderReady, setSliderReady] = useState(false)
+  const [middleAnim, setMiddleAnim] = useState(false)
   const isCharacterClickRef = useRef(false)
   const justUnfocusedRef = useRef(false)
   const sliderRef = useRef(null)
@@ -101,6 +103,10 @@ function Home() {
       slider.scrollLeft = slideWidth
       setActiveSlide(2)
       setHasSwipedFromFirst(true)
+      setSliderReady(true)
+      setMiddleAnim(true)
+      // stop the rise animation after it finishes (match 4.5s + buffer)
+      setTimeout(() => setMiddleAnim(false), 5000)
     }
 
     // Defer to ensure layout is ready
@@ -165,7 +171,7 @@ function Home() {
 
         {/* Logo */}
         <div
-          className="absolute animate-slideDown"
+          className="absolute anim-logo-slow"
           style={{
             top: 'clamp(1rem, 2vh, 2rem)',
             left: '50%',
@@ -179,19 +185,19 @@ function Home() {
         <img
           src="/left.svg"
           alt=""
-          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold transition-opacity duration-700 svg-desktop-left svg-logo-left"
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold transition-opacity duration-700 svg-desktop-left svg-logo-left anim-svg-left"
         />
 
         {/* Right SVG - now visible on mobile too */}
         <img
           src="/right.svg"
           alt=""
-          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold transition-opacity duration-700 svg-desktop-right svg-logo-right"
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold transition-opacity duration-700 svg-desktop-right svg-logo-right anim-svg-right"
         />
 
         {/* Mobile Hero text */}
         <div className="lg:hidden absolute left-1/2 transform -translate-x-1/2 text-center px-6 w-full z-10 pointer-events-none" style={{ top: 'calc(clamp(3.5rem, 7vw, 4.25rem) + clamp(1rem, 2vh, 2rem) + 50px)' }}>
-          <div className="text-white relative">
+          <div className="text-white relative mobile-very-slow-fade">
             {/* Left SVG for mobile - aligned with role title - HIDDEN, using logo arrows instead */}
             <img
               src="/left.svg"
@@ -344,20 +350,20 @@ function Home() {
         <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl">
           <div className="text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed lg:mt-0">
             <div
-              className="text-[clamp(1.5rem,4.5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700"
+              className="text-[clamp(1.5rem,4.5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700 anim-hero-heading"
               style={{ opacity: activeChar ? 0 : 1 }}
             >
               I craft digital<br className="lg:hidden" /> experiences
             </div>
             <div
-              className="text-[clamp(0.875rem,2.5vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700"
+              className="text-[clamp(0.875rem,2.5vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700 anim-hero-sub"
               style={{ opacity: activeChar ? 0 : 1, color: '#d0dadf' }}
             >
               where art, code, and intelligence converge.
             </div>
             {/* Default prompt on homepage (no hover/click) */}
             <button
-              className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
+              className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default anim-hero-cta"
               style={{ opacity: !activeChar && !clickedChar ? 1 : 0, letterSpacing: '0.2em' }}
             >
               CLICK ANY CHARACTER
@@ -545,12 +551,20 @@ function Home() {
         <div
           ref={sliderRef}
           className="lg:hidden absolute inset-0 flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
-          style={{ scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' }}
+          style={{
+            scrollSnapType: 'x mandatory',
+            scrollBehavior: sliderReady ? 'smooth' : 'auto',
+            opacity: sliderReady ? 1 : 0,
+            transition: 'opacity 600ms ease'
+          }}
         >
-          {[1, 3, 2].map((charNum) => (
+          {[1, 3, 2].map((charNum, idx) => (
             <div
               key={charNum}
-              className="flex-shrink-0 w-full h-full flex items-end justify-center snap-center pb-0"
+              className={
+                "flex-shrink-0 w-full h-full flex items-end justify-center snap-center pb-0" +
+                (idx === 1 && middleAnim ? " middle-char-rise" : "")
+              }
               style={{ scrollSnapAlign: 'center' }}
             >
               <img
@@ -652,7 +666,7 @@ function Home() {
         {/* Brand Logos - scrolling on mobile, static on larger screens */}
         <div className="mt-[30px] animate-logoSlideUp">
         {/* Mobile: Infinite scroll - below 870px */}
-        <div className="max-[870px]:block hidden overflow-hidden">
+        <div className="max-[870px]:block hidden overflow-hidden mobile-very-slow-fade">
           <div className="flex animate-scroll-mobile">
             <div className="flex gap-8 shrink-0">
               <img src="/logos/1xbet.webp" alt="1xBet" className="h-5 w-auto logo-color" />
@@ -1052,7 +1066,7 @@ function Home() {
         }
 
         .animate-slideUp {
-          animation: slideUp 1s ease-out forwards;
+          animation: slideUp 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         @keyframes slideDown {
@@ -1069,20 +1083,18 @@ function Home() {
         .animate-slideDown {
           animation: slideDown 1s ease-out forwards;
         }
+        .anim-logo-slow {
+          animation: slideDown 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
 
+        /* Client logos: fade in only (no vertical slide) */
         @keyframes logoSlideUp {
-          from {
-            transform: translateY(870px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         .animate-logoSlideUp {
-          animation: logoSlideUp 1s ease-out forwards;
+          animation: logoSlideUp 1.2s ease-out forwards;
         }
 
         @keyframes scrollMobile {
@@ -1250,6 +1262,58 @@ function Home() {
 
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
+        }
+
+        /* Middle character rises from beneath the container on first load */
+        @keyframes middleRise {
+          0% { transform: translateY(120%); }
+          100% { transform: translateY(0); }
+        }
+        .middle-char-rise {
+          animation: middleRise 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; /* match logo timing */
+        }
+
+        /* Subtle, varied hero animations */
+        @keyframes svgInLeft {
+          from { transform: translateX(-14px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes svgInRight {
+          from { transform: translateX(14px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        .anim-svg-left { animation: svgInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
+        .anim-svg-right { animation: svgInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
+
+        @keyframes heroSubtleUp {
+          from { transform: translateY(10px); }
+          to { transform: translateY(0); }
+        }
+        .anim-hero-sub { animation: heroSubtleUp 800ms ease-out 120ms both; }
+
+        @keyframes heroCtaPop {
+          0% { transform: scale(0.96); }
+          60% { transform: scale(1.02); }
+          100% { transform: scale(1); }
+        }
+        .anim-hero-cta { animation: heroCtaPop 700ms ease-out 280ms both; }
+
+        @keyframes heroHeadingUp {
+          from { transform: translateY(8px); }
+          to { transform: translateY(0); }
+        }
+        .anim-hero-heading { animation: heroHeadingUp 900ms ease-out 60ms both; }
+
+        /* Mobile: very slow fade-in for hero text and logo list */
+        @keyframes verySlowFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @media (max-width: 1023.98px) {
+          .mobile-very-slow-fade {
+            opacity: 0;
+            animation: verySlowFade 4s ease-out 150ms forwards;
+          }
         }
 
         /* Force hero images to 50% height on very small screens */

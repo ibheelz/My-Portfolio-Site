@@ -11,14 +11,14 @@ function AICreator() {
         <img
           src="/left.svg"
           alt=""
-          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold"
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold sub-anim-svg-left"
         />
 
         {/* Right SVG */}
         <img
           src="/right.svg"
           alt=""
-          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold"
+          className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold sub-anim-svg-right"
         />
 
         {/* Back button on the left */}
@@ -38,7 +38,7 @@ function AICreator() {
         <img
           src="/ibheelz-logo.webp"
           alt="ibheelz"
-          className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer"
+          className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer sub-anim-logo-slow"
           style={{ maxHeight: '68px' }}
           onClick={() => navigate('/')}
         />
@@ -185,6 +185,25 @@ function AICreator() {
         .animate-slideUpHero {
           animation: slideUpHero 1s ease-out forwards;
         }
+
+        /* Very slow logo slide-in */
+        @keyframes subLogoSlowIn {
+          from { transform: translateY(-40px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .sub-anim-logo-slow { animation: subLogoSlowIn 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        /* Very slow SVGs slide/fade from sides */
+        @keyframes subSvgInLeft {
+          from { transform: translateX(-14px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes subSvgInRight {
+          from { transform: translateX(14px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        .sub-anim-svg-left { animation: subSvgInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
+        .sub-anim-svg-right { animation: subSvgInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
       `}</style>
     </div>
   )
