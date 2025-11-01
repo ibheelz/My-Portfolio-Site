@@ -90,7 +90,7 @@ function Home() {
   }, [hasSwipedFromFirst])
 
   return (
-    <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
+    <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col">
       {/* White container with responsive margins */}
       <div
         className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
@@ -141,7 +141,7 @@ function Home() {
 
         {/* Logo */}
         <div
-          className="absolute animate-slideDown"
+          className="absolute"
           style={{
             top: 'clamp(1rem, 2vh, 2rem)',
             left: '50%',
@@ -486,7 +486,7 @@ function Home() {
         </div>
 
         {/* Desktop: All characters at bottom */}
-        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5 animate-slideUp" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
+        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
           <img
             src="/characters/1.webp"
             alt="Character 1"
@@ -542,7 +542,7 @@ function Home() {
         </p>
 
         {/* Brand Logos - scrolling on mobile, static on larger screens */}
-        <div className="mt-[30px] animate-logoSlideUp">
+        <div className="mt-[30px]">
         {/* Mobile: Infinite scroll - below 870px */}
         <div className="max-[870px]:block hidden overflow-hidden">
           <div className="flex animate-scroll-mobile">
