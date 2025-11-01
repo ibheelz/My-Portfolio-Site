@@ -4,9 +4,9 @@ function GameDesign() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-[#10171d] p-[clamp(6px,1.5vw,12px)] relative">
+    <div className="min-h-screen bg-[#10171d] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative">
       {/* Header with logo and buttons */}
-      <div className="liquid-glass-header flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
+      <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
         <img
           src="/left.svg"
@@ -77,7 +77,7 @@ function GameDesign() {
           <img
             src="/game-design-hero.webp"
             alt="Game Design Hero"
-            className="absolute left-1/2 w-auto object-contain z-10"
+            className="absolute left-1/2 w-auto object-contain animate-slideUpHero z-10"
             style={{ top: 'clamp(10px, 2vh, 20px)', bottom: 0, height: 'calc(100% - clamp(10px, 2vh, 20px))', transform: 'translateX(-50%)' }}
           />
         </div>
@@ -98,7 +98,7 @@ function GameDesign() {
           <img
             src="/game-design-hero.webp"
             alt="Game Design Hero"
-            className="absolute left-1/2 w-auto object-contain z-10"
+            className="absolute left-1/2 w-auto object-contain animate-slideUpHero z-10"
             style={{ top: 'clamp(10px, 2vh, 20px)', bottom: 0, height: 'calc(100% - clamp(10px, 2vh, 20px))', transform: 'translateX(-50%)' }}
           />
         </div>

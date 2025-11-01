@@ -90,7 +90,7 @@ function Home() {
   }, [hasSwipedFromFirst])
 
   return (
-    <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col">
+    <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
       {/* White container with responsive margins */}
       <div
         className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
@@ -114,14 +114,16 @@ function Home() {
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #4a346e 0%, #6e4dae 40%, #a378d8 100%)',
-            opacity: (window.innerWidth < 1024 ? activeSlide === 2 : activeChar === 2) ? 1 : 0
+            // Mobile: char 2 now lives on slide 3
+            opacity: (window.innerWidth < 1024 ? activeSlide === 3 : activeChar === 2) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
             background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #d8a378 100%)',
-            opacity: (window.innerWidth < 1024 ? activeSlide === 3 : activeChar === 3) ? 1 : 0
+            // Mobile: char 3 now lives on slide 2
+            opacity: (window.innerWidth < 1024 ? activeSlide === 2 : activeChar === 3) ? 1 : 0
           }}
         />
         <div
@@ -141,7 +143,7 @@ function Home() {
 
         {/* Logo */}
         <div
-          className="absolute"
+          className="absolute animate-slideDown"
           style={{
             top: 'clamp(1rem, 2vh, 2rem)',
             left: '50%',
@@ -213,8 +215,8 @@ function Home() {
               </div>
             </div>
 
-            {/* Character 2: Branding */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 2 ? 1 : 0, position: activeSlide === 2 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 2 ? 10 : 1 }}>
+            {/* Character 2: Branding (now on slide 3) */}
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 3 ? 10 : 1 }}>
               <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Branding
               </div>
@@ -234,8 +236,8 @@ function Home() {
               </div>
             </div>
 
-            {/* Character 3: AI Creator */}
-            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 3 ? 10 : 1 }}>
+            {/* Character 3: AI Creator (now on slide 2) */}
+            <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 2 ? 1 : 0, position: activeSlide === 2 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 2 ? 10 : 1 }}>
               <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 AI Creator
               </div>
@@ -299,8 +301,12 @@ function Home() {
 
             <button
               onClick={() => {
-                const routes = ['/creative-designer', '/branding', '/ai-creator']
-                navigate(routes[activeSlide - 1])
+                const route = activeSlide === 1
+                  ? '/creative-designer'
+                  : activeSlide === 2
+                    ? '/ai-creator'
+                    : '/branding'
+                navigate(route)
               }}
               className="mobile-glass-button px-4 py-2 rounded-full text-white font-['Jost',sans-serif] font-medium text-[10px] cursor-pointer"
               style={{ letterSpacing: '0.2em', pointerEvents: 'auto' }}
@@ -465,7 +471,7 @@ function Home() {
           className="lg:hidden absolute inset-0 flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
           style={{ scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' }}
         >
-          {[1, 2, 3].map((charNum) => (
+          {[1, 3, 2].map((charNum) => (
             <div
               key={charNum}
               className="flex-shrink-0 w-full h-full flex items-end justify-center snap-center pb-0"
@@ -486,7 +492,7 @@ function Home() {
         </div>
 
         {/* Desktop: All characters at bottom */}
-        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
+        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5 animate-slideUp" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
           <img
             src="/characters/1.webp"
             alt="Character 1"
@@ -542,7 +548,7 @@ function Home() {
         </p>
 
         {/* Brand Logos - scrolling on mobile, static on larger screens */}
-        <div className="mt-[30px]">
+        <div className="mt-[30px] animate-logoSlideUp">
         {/* Mobile: Infinite scroll - below 870px */}
         <div className="max-[870px]:block hidden overflow-hidden">
           <div className="flex animate-scroll-mobile">
