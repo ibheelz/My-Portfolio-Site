@@ -1080,11 +1080,23 @@ function Home() {
           }
         }
 
+        /* Ensure logo drops straight down at exact horizontal center */
+        @keyframes logoDownCenter {
+          from {
+            transform: translateX(-50%) translateY(-100vh);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+          }
+        }
+
         .animate-slideDown {
           animation: slideDown 1s ease-out forwards;
         }
         .anim-logo-slow {
-          animation: slideDown 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation: logoDownCenter 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         /* Client logos: fade in only (no vertical slide) */
