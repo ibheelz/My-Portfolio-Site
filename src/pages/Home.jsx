@@ -703,7 +703,7 @@ function Home() {
 
         {/* Buttons section with liquid glass effect */}
         <div className="flex justify-center items-center gap-3 sm:gap-4 px-4 mt-[40px] mb-5">
-        <button className="apple-glass-button px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-1.5 sm:gap-2">
+        <button className="apple-glass-button px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-1.5 sm:gap-2 anim-btn-left">
           <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <polyline points="14,2 14,8 20,8"></polyline>
@@ -713,7 +713,7 @@ function Home() {
           </svg>
           View Resume
         </button>
-        <button className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-1.5 sm:gap-2">
+        <button className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-1.5 sm:gap-2 anim-btn-right">
           <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
@@ -1303,6 +1303,18 @@ function Home() {
           to { transform: translateY(0); }
         }
         .anim-hero-heading { animation: heroHeadingUp 900ms ease-out 60ms both; }
+
+        /* Buttons: very slow slide/fade from sides to match logo timing */
+        @keyframes btnInLeft {
+          from { transform: translateX(-120vw); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes btnInRight {
+          from { transform: translateX(120vw); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        .anim-btn-left { animation: btnInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .anim-btn-right { animation: btnInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
         /* Mobile: very slow fade-in for hero text and logo list */
         @keyframes verySlowFade {
