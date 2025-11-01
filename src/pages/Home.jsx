@@ -1328,6 +1328,18 @@ function Home() {
         .anim-btn-left { animation: btnInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .anim-btn-right { animation: btnInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
+        /* Large screens: buttons rise from bottom instead of sides */
+        @keyframes btnInUp {
+          from { transform: translateY(120vh); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        @media (min-width: 1024px) {
+          .anim-btn-left,
+          .anim-btn-right {
+            animation: btnInUp 4.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+          }
+        }
+
         /* Mobile: very slow fade-in for hero text and logo list */
         @keyframes verySlowFade {
           from { opacity: 0; }
