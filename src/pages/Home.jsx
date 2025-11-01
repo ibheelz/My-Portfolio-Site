@@ -5,7 +5,7 @@ function Home() {
   const [hoveredChar, setHoveredChar] = useState(null)
   const [clickedChar, setClickedChar] = useState(null)
   const [bigCharAnimation, setBigCharAnimation] = useState(null)
-  const [activeSlide, setActiveSlide] = useState(1)
+  const [activeSlide, setActiveSlide] = useState(2)
   const [hasSwipedFromFirst, setHasSwipedFromFirst] = useState(false)
   const [expandedDesc, setExpandedDesc] = useState(null)
   const [sliderReady, setSliderReady] = useState(false)
