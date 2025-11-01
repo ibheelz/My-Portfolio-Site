@@ -61,42 +61,7 @@ function Branding() {
         </div>
       </div>
 
-      {/* Container with hero image */}
-      <div className="mt-[clamp(0px,1vh,12px)] w-full rounded-[clamp(16px,4vw,30px)] overflow-hidden relative" style={{ backgroundColor: '#222d37', height: '35vh' }}>
-        <div className="sm:hidden w-full relative" style={{ height: '35vh' }}>
-          {/* Background text for mobile square */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-0 px-[clamp(12px,4vw,20px)]">
-            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(8rem, 28vh, 17rem)', color: '#2c3c4b' }}>
-              BRANDING
-            </h1>
-          </div>
-          {/* Hero image for mobile */}
-          <img
-            src="/branding-hero.webp"
-            alt="Branding Hero"
-            className="absolute left-1/2 w-auto object-contain animate-slideUpHero z-10"
-            style={{ top: 'clamp(10px, 2vh, 20px)', bottom: 0, height: 'calc(100% - clamp(10px, 2vh, 20px))', transform: 'translateX(-50%)' }}
-          />
-        </div>
-
-        {/* Tablet and Desktop */}
-        <div className="hidden sm:block relative" style={{ height: '35vh' }}>
-          {/* Background text */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-0 px-[clamp(12px,4vw,20px)]">
-            <h1 className="font-['Libre_Baskerville',serif] font-bold leading-none" style={{ fontSize: 'clamp(8rem, 28vh, 17rem)', color: '#2c3c4b' }}>
-              BRANDING
-            </h1>
-          </div>
-
-          {/* Hero image on top */}
-          <img
-            src="/branding-hero.webp"
-            alt="Branding Hero"
-            className="absolute left-1/2 w-auto object-contain animate-slideUpHero z-10"
-            style={{ top: 'clamp(10px, 2vh, 20px)', bottom: 0, height: 'calc(100% - clamp(10px, 2vh, 20px))', transform: 'translateX(-50%)' }}
-          />
-        </div>
-      </div>
+      {/* Hero removed */}
 
       <style jsx>{`
         .svg-gold {
