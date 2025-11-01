@@ -112,7 +112,7 @@ function Home() {
   }, [])
 
   return (
-    <div className="h-screen overflow-auto lg:overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
+    <div className="h-screen overflow-auto lg:overflow-hidden bg-[#06080a] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
       {/* White container with responsive margins */}
       <div
         className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
