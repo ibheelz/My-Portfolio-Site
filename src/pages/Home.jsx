@@ -299,7 +299,7 @@ function Home() {
 
             <button
               onClick={() => {
-                const routes = ['/creative-designer', '/branding', '/ai-creator', '/3d-design', '/game-design']
+                const routes = ['/creative-designer', '/branding', '/ai-creator']
                 navigate(routes[activeSlide - 1])
               }}
               className="mobile-glass-button px-4 py-2 rounded-full text-white font-['Jost',sans-serif] font-medium text-[10px] cursor-pointer"
@@ -312,7 +312,7 @@ function Home() {
 
         {/* Mobile: Slider indicator dots */}
         <div className="lg:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-          {[1, 2, 3, 4, 5].map((dotNum) => (
+          {[1, 2, 3].map((dotNum) => (
             <div
               key={dotNum}
               className="transition-all duration-300"
@@ -465,7 +465,7 @@ function Home() {
           className="lg:hidden absolute inset-0 flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
           style={{ scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' }}
         >
-          {[1, 2, 3, 4, 5].map((charNum) => (
+          {[1, 2, 3].map((charNum) => (
             <div
               key={charNum}
               className="flex-shrink-0 w-full h-full flex items-end justify-center snap-center pb-0"
@@ -490,24 +490,12 @@ function Home() {
           <img
             src="/characters/1.webp"
             alt="Character 1"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] char-1"
+            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] char-2"
             onMouseEnter={() => handleMouseEnter(1)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(1)}
             style={{
               transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : undefined,
-              marginRight: '1%'
-            }}
-          />
-          <img
-            src="/characters/2.webp"
-            alt="Character 2"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-2"
-            onMouseEnter={() => handleMouseEnter(2)}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleCharClick(2)}
-            style={{
-              transform: activeChar && activeChar !== 2 ? 'translateY(100%)' : undefined,
               marginLeft: '10%',
               marginRight: '12%'
             }}
@@ -531,26 +519,18 @@ function Home() {
             }}
           />
           <img
-            src="/characters/4.webp"
-            alt="Character 4"
-            className="h-auto w-[19%] cursor-pointer transition-transform duration-[1500ms] hover:scale-105 char-4"
-            onMouseEnter={() => handleMouseEnter(4)}
+            src="/characters/2.webp"
+            alt="Character 2"
+            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] char-4"
+            onMouseEnter={() => handleMouseEnter(2)}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleCharClick(4)}
+            onClick={() => handleCharClick(2)}
             style={{
-              transform: activeChar && activeChar !== 4 ? 'translateY(100%)' : undefined,
+              // Keep the same X offset while moving down, so it doesn't slide right
+              transform: activeChar && activeChar !== 2 ? 'translate(clamp(-50px, -7vw, -100px), 100%)' : undefined,
               marginLeft: '12%',
               marginRight: '1%'
             }}
-          />
-          <img
-            src="/characters/5.webp"
-            alt="Character 5"
-            className="h-auto w-[20%] cursor-pointer transition-transform duration-[1500ms] char-5"
-            onMouseEnter={() => handleMouseEnter(5)}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleCharClick(5)}
-            style={{ transform: activeChar && activeChar !== 5 ? 'translateY(100%)' : undefined }}
           />
         </div>
       </div>
