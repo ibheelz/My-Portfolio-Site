@@ -350,7 +350,7 @@ function Home() {
             </div>
             <button
               className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
-              style={{ opacity: clickedChar ? 0 : 1, letterSpacing: '0.2em' }}
+              style={{ opacity: !activeChar && !clickedChar ? 1 : 0, letterSpacing: '0.2em' }}
             >
               CLICK ANY CHARACTER
             </button>
@@ -378,6 +378,14 @@ function Home() {
               </svg>
               Enter Character
             </button>
+            {(!clickedChar && activeChar === 1) && (
+              <button
+                className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+                style={{ letterSpacing: '0.2em' }}
+              >
+                CLICK ANY CHARACTER
+              </button>
+            )}
           </div>
 
           {/* Character 2: Branding */}
@@ -399,6 +407,14 @@ function Home() {
               </svg>
               Enter Character
             </button>
+            {(!clickedChar && activeChar === 2) && (
+              <button
+                className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+                style={{ letterSpacing: '0.2em' }}
+              >
+                CLICK ANY CHARACTER
+              </button>
+            )}
           </div>
 
           {/* Character 3: AI Creator */}
@@ -420,6 +436,14 @@ function Home() {
               </svg>
               Enter Character
             </button>
+            {(!clickedChar && activeChar === 3) && (
+              <button
+                className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+                style={{ letterSpacing: '0.2em' }}
+              >
+                CLICK ANY CHARACTER
+              </button>
+            )}
           </div>
 
           {/* Character 4: 3D Design */}
@@ -464,6 +488,8 @@ function Home() {
             </button>
           </div>
         </div>
+
+        
 
         {/* Mobile: Horizontal slider with one character per slide */}
         <div
