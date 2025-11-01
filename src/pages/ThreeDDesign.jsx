@@ -1,10 +1,24 @@
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 function ThreeDDesign() {
   const navigate = useNavigate()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalCard, setModalCard] = useState(null)
+
+  // Lock background scroll when modal open
+  useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    const prevHtmlOverflow = html.style.overflow
+    const prevBodyOverflow = body.style.overflow
+    if (modalOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
+    else { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
+    return () => { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
+  }, [modalOpen])
 
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative">
+    <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
       {/* Header with logo and buttons */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
@@ -61,7 +75,43 @@ function ThreeDDesign() {
         </div>
       </div>
 
-      {/* Hero removed */}
+      {/* 3 x 2 Glass grid beneath navbar */}
+      <div
+        className="flex-1 mt-[clamp(8px,2vh,16px)] grid grid-rows-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[clamp(8px,2vw,16px)] min-h-0"
+      >
+        {[...Array(6)].map((_, idx) => {
+          const base = idx === 4 ? 'theme-card' : 'glass-card cursor-pointer'
+          const anim = idx === 1 ? ' anim-card-fade' : (idx === 0 || idx === 3) ? ' anim-card-in-left' : (idx === 2 || idx === 5) ? ' anim-card-in-right' : ''
+          const clickProps = idx === 4 ? {} : { onClick: () => { setModalOpen(true); setModalCard(idx) } }
+          return (
+            <div
+              key={idx}
+              className={`${base} rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)]${anim} ${idx === 4 ? 'order-first sm:order-none' : ''}`}
+              {...clickProps}
+            />
+          )
+        })}
+      </div>
+
+      {/* Modal overlay */}
+      {modalOpen && (
+        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
+          <div className="modal-glass" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="modal-close glass-button rounded-full"
+              onClick={() => setModalOpen(false)}
+              aria-label="Close"
+              title="Close"
+            >
+              ×
+            </button>
+            <div className="modal-split">
+              <div className="modal-pane-left"></div>
+              <div className="modal-pane-right"></div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .svg-gold {
@@ -142,6 +192,97 @@ function ThreeDDesign() {
           box-shadow: none;
           color: #10171d;
         }
+
+        /* Cards match navbar fill */
+        .glass-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+        }
+        .theme-card {
+          background: #06080a;
+          border: none;
+        }
+
+        /* Small screens: increase card height */
+        @media (max-width: 639.98px) {
+          .glass-card,
+          .theme-card {
+            min-height: clamp(180px, 35vh, 360px) !important;
+          }
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(6, 8, 10, 0.45);
+          backdrop-filter: blur(12px) saturate(140%);
+          -webkit-backdrop-filter: blur(12px) saturate(140%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          padding: 16px;
+          overscroll-behavior: contain;
+        }
+        .modal-glass {
+          position: relative;
+          width: 88vw;
+          aspect-ratio: 16 / 9;
+          max-height: 88vh;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-radius: clamp(16px, 3vw, 28px);
+          box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+          color: #e7f2f8;
+          overflow: hidden;
+          display: flex;
+          align-items: stretch;
+          justify-content: stretch;
+        }
+        .modal-close {
+          position: absolute;
+          top: clamp(12px, 2vw, 20px);
+          right: clamp(12px, 2vw, 20px);
+          line-height: 1;
+          font-size: clamp(12px, 1.6vw, 16px);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background 200ms ease;
+          width: clamp(26px, 3.85vw, 32px);
+          height: clamp(26px, 3.85vw, 32px);
+          border-radius: 9999px;
+          box-sizing: border-box;
+        }
+
+        .modal-split { display: flex; width: 100%; height: 100%; }
+        .modal-pane-left, .modal-pane-right { flex: 1 1 50%; height: 100%; }
+        .modal-pane-left { background: transparent; }
+        .modal-pane-right { background: #06080a; color: #e7f2f8; }
+
+        /* Card entrance animations */
+        @keyframes cardInLeft {
+          from { transform: translateX(-120vw); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes cardInRight {
+          from { transform: translateX(120vw); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes cardSoftFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .anim-card-in-left { animation: cardInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .anim-card-in-right { animation: cardInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .anim-card-fade { animation: cardSoftFade 2.4s ease-out 200ms both; }
 
         @keyframes fadeIn {
           from {
