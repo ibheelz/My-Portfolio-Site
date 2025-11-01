@@ -89,8 +89,30 @@ function Home() {
     return () => slider.removeEventListener('scroll', handleScroll)
   }, [hasSwipedFromFirst])
 
+  // Mobile: start carousel at the middle slide by default
+  useEffect(() => {
+    const slider = sliderRef.current
+    if (!slider) return
+    if (window.innerWidth >= 1024) return
+
+    const toMiddle = () => {
+      const slideWidth = slider.offsetWidth
+      // Jump to slide 2 (index 1)
+      slider.scrollLeft = slideWidth
+      setActiveSlide(2)
+      setHasSwipedFromFirst(true)
+    }
+
+    // Defer to ensure layout is ready
+    if ('requestAnimationFrame' in window) {
+      requestAnimationFrame(toMiddle)
+    } else {
+      setTimeout(toMiddle, 0)
+    }
+  }, [])
+
   return (
-    <div className="h-screen overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
+    <div className="h-screen overflow-auto lg:overflow-hidden bg-[#10171d] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
       {/* White container with responsive margins */}
       <div
         className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
@@ -316,22 +338,7 @@ function Home() {
           </div>
         </div>
 
-        {/* Mobile: Slider indicator dots */}
-        <div className="lg:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-          {[1, 2, 3].map((dotNum) => (
-            <div
-              key={dotNum}
-              className="transition-all duration-300"
-              style={{
-                width: activeSlide === dotNum ? '8px' : '6px',
-                height: activeSlide === dotNum ? '8px' : '6px',
-                borderRadius: '50%',
-                backgroundColor: activeSlide === dotNum ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                boxShadow: activeSlide === dotNum ? '0 0 8px rgba(255, 255, 255, 0.5)' : 'none'
-              }}
-            />
-          ))}
-        </div>
+        {/* (moved) Mobile: Slider indicator dots are now rendered below the hero container */}
 
         {/* Hero text - desktop/tablet */}
         <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl">
@@ -348,6 +355,7 @@ function Home() {
             >
               where art, code, and intelligence converge.
             </div>
+            {/* Default prompt on homepage (no hover/click) */}
             <button
               className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] transition-opacity duration-700 cursor-default"
               style={{ opacity: !activeChar && !clickedChar ? 1 : 0, letterSpacing: '0.2em' }}
@@ -356,9 +364,10 @@ function Home() {
             </button>
           </div>
         </div>
+        
 
         {/* Character-specific text - hidden on mobile */}
-        <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl z-20">
+        <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl z-20">
           {/* Character 1: Creative Designer */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 1 ? 1 : 0, pointerEvents: activeChar === 1 ? 'auto' : 'none' }}>
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
@@ -368,24 +377,29 @@ function Home() {
               I hunt the perfect balance between aesthetics and functionality, leading every project with purpose.
             </div>
             <button
-              onClick={() => navigate('/creative-designer')}
-              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
-              style={{ opacity: clickedChar === 1 ? 1 : 0, pointerEvents: clickedChar === 1 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
+              onClick={clickedChar === 1 ? () => navigate('/creative-designer') : undefined}
+              className={(
+                clickedChar === 1
+                  ? "mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+                  : "mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+              )}
+              style={{
+                pointerEvents: clickedChar === 1 ? 'auto' : 'none',
+                ...(clickedChar === 1 ? { transition: 'opacity 0.5s ease-in-out' } : { letterSpacing: '0.2em' })
+              }}
             >
-              <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              Enter Character
+              {clickedChar === 1 ? (
+                <>
+                  <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Enter Character
+                </>
+              ) : (
+                'CLICK CHARACTER'
+              )}
             </button>
-            {(!clickedChar && activeChar === 1) && (
-              <button
-                className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
-                style={{ letterSpacing: '0.2em' }}
-              >
-                CLICK ANY CHARACTER
-              </button>
-            )}
           </div>
 
           {/* Character 2: Branding */}
@@ -397,24 +411,29 @@ function Home() {
               I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
             </div>
             <button
-              onClick={() => navigate('/branding')}
-              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
-              style={{ opacity: clickedChar === 2 ? 1 : 0, pointerEvents: clickedChar === 2 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
+              onClick={clickedChar === 2 ? () => navigate('/branding') : undefined}
+              className={(
+                clickedChar === 2
+                  ? "mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+                  : "mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+              )}
+              style={{
+                pointerEvents: clickedChar === 2 ? 'auto' : 'none',
+                ...(clickedChar === 2 ? { transition: 'opacity 0.5s ease-in-out' } : { letterSpacing: '0.2em' })
+              }}
             >
-              <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              Enter Character
+              {clickedChar === 2 ? (
+                <>
+                  <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Enter Character
+                </>
+              ) : (
+                'CLICK CHARACTER'
+              )}
             </button>
-            {(!clickedChar && activeChar === 2) && (
-              <button
-                className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
-                style={{ letterSpacing: '0.2em' }}
-              >
-                CLICK ANY CHARACTER
-              </button>
-            )}
           </div>
 
           {/* Character 3: AI Creator */}
@@ -426,24 +445,29 @@ function Home() {
               In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
             </div>
             <button
-              onClick={() => navigate('/ai-creator')}
-              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
-              style={{ opacity: clickedChar === 3 ? 1 : 0, pointerEvents: clickedChar === 3 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
+              onClick={clickedChar === 3 ? () => navigate('/ai-creator') : undefined}
+              className={(
+                clickedChar === 3
+                  ? "mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+                  : "mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+              )}
+              style={{
+                pointerEvents: clickedChar === 3 ? 'auto' : 'none',
+                ...(clickedChar === 3 ? { transition: 'opacity 0.5s ease-in-out' } : { letterSpacing: '0.2em' })
+              }}
             >
-              <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              Enter Character
+              {clickedChar === 3 ? (
+                <>
+                  <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Enter Character
+                </>
+              ) : (
+                'CLICK CHARACTER'
+              )}
             </button>
-            {(!clickedChar && activeChar === 3) && (
-              <button
-                className="mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
-                style={{ letterSpacing: '0.2em' }}
-              >
-                CLICK ANY CHARACTER
-              </button>
-            )}
           </div>
 
           {/* Character 4: 3D Design */}
@@ -455,15 +479,28 @@ function Home() {
               What I build doesn't just look good, it's engineered for perfection.
             </div>
             <button
-              onClick={() => navigate('/3d-design')}
-              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
-              style={{ opacity: clickedChar === 4 ? 1 : 0, pointerEvents: clickedChar === 4 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
+              onClick={clickedChar === 4 ? () => navigate('/3d-design') : undefined}
+              className={(
+                clickedChar === 4
+                  ? "mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+                  : "mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+              )}
+              style={{
+                pointerEvents: clickedChar === 4 ? 'auto' : 'none',
+                ...(clickedChar === 4 ? { transition: 'opacity 0.5s ease-in-out' } : { letterSpacing: '0.2em' })
+              }}
             >
-              <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              Enter Character
+              {clickedChar === 4 ? (
+                <>
+                  <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Enter Character
+                </>
+              ) : (
+                'CLICK CHARACTER'
+              )}
             </button>
           </div>
 
@@ -476,15 +513,28 @@ function Home() {
               I design games that roar to life and leave lasting impressions.
             </div>
             <button
-              onClick={() => navigate('/game-design')}
-              className="mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
-              style={{ opacity: clickedChar === 5 ? 1 : 0, pointerEvents: clickedChar === 5 ? 'auto' : 'none', transition: 'opacity 0.5s ease-in-out' }}
+              onClick={clickedChar === 5 ? () => navigate('/game-design') : undefined}
+              className={(
+                clickedChar === 5
+                  ? "mobile-glass-button mt-6 px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 mx-auto"
+                  : "mt-6 px-4 py-2 rounded-full border border-white/30 text-white/30 font-['Jost',sans-serif] font-medium text-[clamp(9px,1.8vw,12px)] cursor-default mx-auto"
+              )}
+              style={{
+                pointerEvents: clickedChar === 5 ? 'auto' : 'none',
+                ...(clickedChar === 5 ? { transition: 'opacity 0.5s ease-in-out' } : { letterSpacing: '0.2em' })
+              }}
             >
-              <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              Enter Character
+              {clickedChar === 5 ? (
+                <>
+                  <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Enter Character
+                </>
+              ) : (
+                'CLICK CHARACTER'
+              )}
             </button>
           </div>
         </div>
@@ -567,10 +617,36 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center overflow-auto">
+      {/* Mobile: Slider indicator dots below the hero container */}
+      <div className="lg:hidden flex justify-center gap-2 mt-2 mb-0 z-0">
+        {[1, 2, 3].map((dotNum) => (
+          <div
+            key={dotNum}
+            className="transition-all duration-300"
+            style={{
+              width: activeSlide === dotNum ? '8px' : '6px',
+              height: activeSlide === dotNum ? '8px' : '6px',
+              borderRadius: '50%',
+              backgroundColor: activeSlide === dotNum ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+              boxShadow: activeSlide === dotNum ? '0 0 8px rgba(255, 255, 255, 0.5)' : 'none'
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Mobile-only separator centered between indicators and Selected Brands */}
+      <div className="lg:hidden flex justify-center my-6 z-0 pointer-events-none">
+        <img
+          src="https://cdn.prod.website-files.com/65058b9f245f78f8abf8d2d7/68f277b989c0d7b4309cd19c_Separator.svg"
+          alt=""
+          className="h-auto mobile-separator"
+        />
+      </div>
+
+      <div className="flex-1 flex flex-col justify-center overflow-auto relative z-10">
         {/* Selected Brands text - responsive */}
-        <p className="text-[#d4e2f3] text-center text-xs sm:text-sm tracking-wider font-['Jost',sans-serif] font-medium px-4 mt-5">
-         Selected Brands I've Worked On
+        <p className="relative z-[999] selected-brands-title text-[#d4e2f3] text-center text-xs sm:text-sm tracking-wider font-['Jost',sans-serif] font-medium px-4 mt-0 lg:mt-5">
+          Selected Brands I've Worked On
         </p>
 
         {/* Brand Logos - scrolling on mobile, static on larger screens */}
@@ -854,6 +930,29 @@ function Home() {
           );
           animation: glossyShine 3s ease-in-out infinite;
           animation-delay: 0.5s;
+        }
+
+        /* Separator default width on mobile */
+        .mobile-separator {
+          width: 80vw;
+        }
+
+        /* Mobile separator responsive sizing */
+        @media (min-width: 720px) and (max-width: 1023.98px) {
+          .mobile-separator {
+            width: 68vw !important; /* 15% smaller than 80vw */
+          }
+        }
+
+        /* Tablet: 850px–1024px => 20% smaller (overrides above) */
+        @media (min-width: 850px) and (max-width: 1023.98px) {
+          .mobile-separator {
+            width: 64vw !important; /* 20% smaller than 80vw */
+          }
+          .selected-brands-title {
+            z-index: 9999 !important;
+            margin-top: 0.5rem !important; /* ensure it clears the separator */
+          }
         }
 
         .apple-glass-button-accent:hover {
