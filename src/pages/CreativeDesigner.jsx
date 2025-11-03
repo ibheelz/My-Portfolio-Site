@@ -86,36 +86,13 @@ function CreativeDesigner() {
       </div>
 
       {/* 3 x 2 Glass grid beneath navbar */}
-      <div
-        className="flex-1 mt-[clamp(8px,2vh,16px)] grid grid-rows-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[clamp(8px,2vw,16px)] min-h-0"
-      >
-        {/* Top left */}
-        <div
-          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-left"
-          onClick={() => { setModalOpen(true); setModalCard(0) }}
-        />
-
-        {/* Center merged (spans two rows) */}
-        <div
-          className="grey-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] anim-card-fade lg:row-span-2 lg:col-start-2"
-        />
-
-        {/* Top right */}
-        <div
-          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-right"
-          onClick={() => { setModalOpen(true); setModalCard(2) }}
-        />
-
-        {/* Bottom left */}
-        <div
-          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-left"
-          onClick={() => { setModalOpen(true); setModalCard(3) }}
-        />
-
-        {/* Bottom right */}
-        <div
-          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-right"
-          onClick={() => { setModalOpen(true); setModalCard(5) }}
+      {/* Centered hero image */}
+      <div className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0">
+        <img
+          src="/images/characters/creative-designer-hero.webp"
+          alt="Creative Designer"
+          className="w-full h-auto object-contain"
+          style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
         />
       </div>
 

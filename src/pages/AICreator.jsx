@@ -75,27 +75,14 @@ function AICreator() {
         </div>
       </div>
 
-      {/* AI Creator: Three horizontal rectangles, tall (2x vertical height) */}
-      <div
-        className="flex-1 mt-[clamp(8px,2vh,16px)] grid grid-rows-1 grid-cols-1 md:grid-cols-3 gap-[clamp(8px,2vw,16px)] min-h-0"
-      >
-        {[...Array(3)].map((_, idx) => (
-          idx === 1
-            ? (
-              // Middle rectangle: solid theme background (not animated, not clickable)
-              <div
-                key={idx}
-                className="theme-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(240px,40vh,520px)]"
-              />
-            ) : (
-              // Side rectangles: glass, clickable, animate from sides
-              <div
-                key={idx}
-                className={`glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(240px,40vh,520px)] cursor-pointer ${idx === 0 ? 'anim-card-in-left' : 'anim-card-in-right'}`}
-                onClick={() => { setModalOpen(true); setModalCard(idx) }}
-              />
-            )
-        ))}
+      {/* Centered hero image */}
+      <div className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0">
+        <img
+          src="/images/characters/ai-creator-hero.webp"
+          alt="AI Creator"
+          className="w-full h-auto object-contain"
+          style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+        />
       </div>
 
       {/* Modal overlay */}
