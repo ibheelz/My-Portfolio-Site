@@ -239,7 +239,7 @@ function Home() {
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 1 ? null : 1)}
               >
-                I hunt the perfect balance between aesthetics and functionality, leading every project with purpose.
+                I lock horns with complex challenges, wrestling with problems until they transform into elegant, powerful solutions.
               </div>
             </div>
 
@@ -380,7 +380,7 @@ function Home() {
               Creative Designer
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
-              I hunt the perfect balance between aesthetics and functionality, leading every project with purpose.
+              I lock horns with complex challenges, wrestling with problems until they transform into elegant, powerful solutions.
             </div>
             <button
               onClick={clickedChar === 1 ? () => navigate('/creative-designer') : undefined}
@@ -572,9 +572,10 @@ function Home() {
                 alt={`Character ${charNum}`}
                 className="h-auto w-auto object-contain object-bottom mobile-char-img"
                 style={{
-                  width: charNum === 1 ? '49%' : charNum === 2 ? '53%' : charNum === 3 ? '51%' : charNum === 4 ? '54%' : '60%',
+                  // Mobile: keep char 1 centered and same size as char 2
+                  width: charNum === 1 ? '53%' : charNum === 2 ? '53%' : charNum === 3 ? '51%' : charNum === 4 ? '54%' : '60%',
                   maxHeight: '50%',
-                  transform: (charNum === 1 || charNum === 3) ? 'translateY(13px)' : 'none'
+                  transform: charNum === 1 ? 'none' : (charNum === 3 ? 'translateY(13px)' : 'none')
                 }}
               />
             </div>
@@ -586,12 +587,12 @@ function Home() {
           <img
             src="/characters/1.webp"
             alt="Character 1"
-            className="h-auto w-[16%] cursor-pointer transition-transform duration-[1500ms] char-2"
+            className="h-auto w-[23%] cursor-pointer transition-transform duration-[1500ms] char-2"
             onMouseEnter={() => handleMouseEnter(1)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleCharClick(1)}
             style={{
-              transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : undefined,
+              transform: activeChar && activeChar !== 1 ? 'translateY(100%)' : 'translate(-20px, calc(clamp(0px, 30%, 50vh) + 20px))',
               marginLeft: '10%',
               marginRight: '12%'
             }}
