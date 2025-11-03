@@ -78,7 +78,7 @@ function AICreator() {
       {/* Centered hero image */}
       <div className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0">
         <img
-          src="/images/characters/ai-creator-hero.webp"
+          src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
           alt="AI Creator"
           className="w-full h-auto object-contain"
           style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}

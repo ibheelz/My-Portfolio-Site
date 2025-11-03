@@ -79,7 +79,7 @@ function Branding() {
       {/* Centered hero image */}
       <div className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0">
         <img
-          src="/images/characters/branding-hero.webp"
+          src={import.meta.env.BASE_URL + 'branding-hero.webp'}
           alt="Branding"
           className="w-full h-auto object-contain"
           style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
