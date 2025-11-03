@@ -79,18 +79,34 @@ function Branding() {
       <div
         className="flex-1 mt-[clamp(8px,2vh,16px)] grid grid-rows-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[clamp(8px,2vw,16px)] min-h-0"
       >
-        {[...Array(6)].map((_, idx) => {
-          const base = idx === 4 ? 'theme-card' : 'glass-card cursor-pointer'
-          const anim = idx === 1 ? ' anim-card-fade' : (idx === 0 || idx === 3) ? ' anim-card-in-left' : (idx === 2 || idx === 5) ? ' anim-card-in-right' : ''
-          const clickProps = idx === 4 ? {} : { onClick: () => { setModalOpen(true); setModalCard(idx) } }
-          return (
-            <div
-              key={idx}
-              className={`${base} rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)]${anim} ${idx === 4 ? 'order-first sm:order-none' : ''}`}
-              {...clickProps}
-            />
-          )
-        })}
+        {/* Top left */}
+        <div
+          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-left"
+          onClick={() => { setModalOpen(true); setModalCard(0) }}
+        />
+
+        {/* Center merged (spans two rows) */}
+        <div
+          className="grey-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] anim-card-fade lg:row-span-2 lg:col-start-2"
+        />
+
+        {/* Top right */}
+        <div
+          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-right"
+          onClick={() => { setModalOpen(true); setModalCard(2) }}
+        />
+
+        {/* Bottom left */}
+        <div
+          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-left"
+          onClick={() => { setModalOpen(true); setModalCard(3) }}
+        />
+
+        {/* Bottom right */}
+        <div
+          className="glass-card rounded-[clamp(14px,2vw,22px)] w-full h-full min-h-[clamp(120px,20vh,260px)] cursor-pointer anim-card-in-right"
+          onClick={() => { setModalOpen(true); setModalCard(5) }}
+        />
       </div>
 
       {/* Modal overlay */}
@@ -203,6 +219,12 @@ function Branding() {
         }
         .theme-card {
           background: #06080a;
+          border: none;
+        }
+
+        /* Grey merged center card */
+        .grey-card {
+          background: #06080a; /* page theme color */
           border: none;
         }
 
