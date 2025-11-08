@@ -530,7 +530,7 @@ function CreativeDesigner() {
           border-radius: 9999px;
           color: #f9e4ae;
           background: transparent;
-          border: 2px solid rgba(249, 228, 174, 0.9);
+          border: 1px solid rgba(249, 228, 174, 0.54);
           box-shadow: none;
           transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms ease;
           will-change: transform, background, color, border-color;
