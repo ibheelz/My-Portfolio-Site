@@ -374,9 +374,9 @@ function CreativeDesigner() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
         }
 
-        /* Plain pink buttons */
+        /* Solid pink buttons */
         .apple-glass-button-accent {
-          background: #ec6d6c; /* solid pink */
+          background: #ec6d6c;
           backdrop-filter: none;
           -webkit-backdrop-filter: none;
           border: 1.5px solid #ec6d6c;
