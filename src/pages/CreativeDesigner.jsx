@@ -16,10 +16,10 @@ function CreativeDesigner() {
   const touchStartXRef = useRef(null)
   const touchStartYRef = useRef(null)
 
-  // Posters & Flyers gallery (served via public/creative-designs symlink)
+  // Posters & Flyers gallery (served via public/posters-and-flyers symlink)
   // Updated to use .webp assets 1.webp ... 16.webp
   const gallery = Array.from({ length: 16 }, (_, i) => (
-    `${import.meta.env.BASE_URL}creative-designs/${i + 1}.webp`
+    `${import.meta.env.BASE_URL}posters-and-flyers/${i + 1}.webp`
   ))
 
   // Lock background scroll and interactions while modal is open
@@ -51,9 +51,9 @@ function CreativeDesigner() {
         e.preventDefault()
         handleCloseLightbox()
       } else if (e.key === 'ArrowRight') {
-        e.preventDefault(); setCurrentIndex((i) => (i + 1) % gallery.length)
+        e.preventDefault(); nextImage()
       } else if (e.key === 'ArrowLeft') {
-        e.preventDefault(); setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length)
+        e.preventDefault(); prevImage()
       } else if (e.key === 'Tab') {
         // simple focus trap: keep focus within lightbox
         const focusables = lightboxRef.current?.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])') || []
