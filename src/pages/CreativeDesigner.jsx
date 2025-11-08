@@ -9,6 +9,7 @@ function CreativeDesigner() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxClosing, setLightboxClosing] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [enterDir, setEnterDir] = useState(null) // 'left' for next, 'right' for prev
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const touchStartXRef = useRef(null)
@@ -75,8 +76,14 @@ function CreativeDesigner() {
     setLightboxClosing(true)
     setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
   }
-  const prevImage = () => setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length)
-  const nextImage = () => setCurrentIndex((i) => (i + 1) % gallery.length)
+  const prevImage = () => {
+    setEnterDir('right')
+    setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length)
+  }
+  const nextImage = () => {
+    setEnterDir('left')
+    setCurrentIndex((i) => (i + 1) % gallery.length)
+  }
 
   // Touch swipe (mobile): navigate images
   const handleTouchStart = (e) => {
@@ -272,7 +279,13 @@ function CreativeDesigner() {
           {/* Modal content */}
           <div ref={lightboxRef} className={`lightbox-modal ${lightboxClosing ? 'scale-out' : 'scale-in'}`} onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-              <img src={gallery[currentIndex]} alt={`Creative design ${currentIndex + 1}`} className="lightbox-image" />
+              <img
+                key={currentIndex}
+                src={gallery[currentIndex]}
+                alt={`Creative design ${currentIndex + 1}`}
+                className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                onAnimationEnd={() => setEnterDir(null)}
+              />
             </div>
           </div>
           {/* Thumbnails pinned to screen bottom */}
@@ -495,68 +508,39 @@ function CreativeDesigner() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
         }
 
-        /* Apple liquid glass (pill), extra transparent, no border */
+        /* Clean outline buttons (distinct from prior glass) */
         .apple-glass-button-accent {
           position: relative;
           border-radius: 9999px;
-          color: #f9e4ae; /* default text color on glass */
-          background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 100%);
-          border: none;
-          backdrop-filter: saturate(160%) blur(18px);
-          -webkit-backdrop-filter: saturate(160%) blur(18px);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.28),       /* top inner highlight */
-            inset 0 -1px 0 rgba(255,255,255,0.08);      /* bottom inner edge */
-          transition: background 180ms ease, box-shadow 180ms ease, transform 120ms ease, color 120ms ease;
-          will-change: transform, box-shadow, background;
+          color: #f9e4ae;
+          background: transparent;
+          border: 2px solid rgba(249, 228, 174, 0.9);
+          box-shadow: none;
+          transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms ease;
+          will-change: transform, background, color, border-color;
         }
-
-        /* Glossy top cap */
-        .apple-glass-button-accent::before {
-          content: "";
-          position: absolute;
-          inset: 0 0 54% 0;
-          border-radius: inherit;
-          background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 52%, rgba(255,255,255,0.02) 100%);
-          pointer-events: none;
-        }
-        /* Subtle traveling specular highlight */
-        .apple-glass-button-accent::after {
-          content: "";
-          position: absolute;
-          top: -25%; left: -140%; width: 60%; height: 150%;
-          transform: rotate(18deg);
-          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 48%, rgba(255,255,255,0) 100%);
-          border-radius: inherit;
-          pointer-events: none;
-          transition: left 650ms ease;
-        }
+        .apple-glass-button-accent::before,
+        .apple-glass-button-accent::after { display: none; }
 
         .apple-glass-button-accent:hover {
-          /* Solid pink on hover, no outer glow */
           background: #ed6d6d;
           color: #ffffff;
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.35);
+          border-color: #ed6d6d;
           transform: translateY(-1px);
         }
-        .apple-glass-button-accent:hover::after { left: 140%; }
 
         .apple-glass-button-accent:active {
-          /* Solid pink on click, no glow */
-          background: #ed6d6d;
+          background: #d95857;
           color: #ffffff;
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+          border-color: #d95857;
           transform: translateY(0);
         }
         .apple-glass-button-accent svg { stroke: currentColor; fill: none; }
-        .apple-glass-button-accent:hover svg,
-        .apple-glass-button-accent:active svg { stroke: currentColor; }
 
         /* Focus ring for accessibility */
         .apple-glass-button-accent:focus-visible {
           outline: none;
-          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.28), 0 10px 24px rgba(0,0,0,0.18);
+          box-shadow: 0 0 0 3px rgba(237, 109, 109, 0.25);
         }
 
         @keyframes liquidMove {
@@ -709,26 +693,33 @@ function CreativeDesigner() {
         .scale-out { transform: scale(0.98); }
 
         .lightbox-close {
-          position: fixed; top: 20px; right: 20px; z-index: 9999;
-          width: 40px; height: 40px;
+          position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001;
+          width: 32px; height: 32px;
           display: inline-flex; align-items: center; justify-content: center;
-          background: transparent; color: #ed6d6d; border: none;
-          font-size: 28px; line-height: 1;
+          background: transparent; color: #ffffff; border: none;
+          font-size: 24px; line-height: 1; font-weight: 600;
         }
-        .lightbox-close:hover { color: #d95857; background: transparent; }
+        .lightbox-close:hover { color: #ffffff; background: transparent; }
 
         .lightbox-chevron {
-          position: fixed; top: 50%; transform: translateY(-50%); z-index: 9999;
+          position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
           width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
           background: rgba(0,0,0,0.45); color: #fff;
           display: inline-flex; align-items: center; justify-content: center;
         }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
+        .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
+        .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
         .lightbox-chevron:hover { background: rgba(0,0,0,0.65); }
 
-        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; }
-        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: contain; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: pan-y; }
+        .lightbox-image {
+          max-width: 100%;
+          max-height: calc(80vh - 110px);
+          object-fit: contain;
+          border-radius: 12px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+          will-change: transform, opacity, filter;
+        }
 
         .lightbox-thumbs {
           position: fixed;
@@ -748,6 +739,21 @@ function CreativeDesigner() {
           .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; }
           .lightbox-image-wrap { padding: 12px 12px 90px; }
           .lightbox-chevron { display: none; }
+          /* Soft enter animation on mobile swipe */
+          /* Slower, smoother swipe: fade + soft slide + deblur + gentle zoom */
+          @keyframes imgEnterL {
+            0%   { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); }
+            100% { opacity: 1; transform: translateX(0)     scale(1);     filter: blur(0); }
+          }
+          @keyframes imgEnterR {
+            0%   { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); }
+            100% { opacity: 1; transform: translateX(0)      scale(1);     filter: blur(0); }
+          }
+          .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+          .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+          @media (prefers-reduced-motion: reduce) {
+            .img-enter-left, .img-enter-right { animation-duration: 0ms; }
+          }
         }
       `}</style>
     </div>
