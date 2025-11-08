@@ -254,6 +254,11 @@ function CreativeDesigner() {
           aria-modal="true"
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+          style={{
+            background: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
