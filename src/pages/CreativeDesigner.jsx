@@ -1,10 +1,23 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 function CreativeDesigner() {
   const navigate = useNavigate()
   const [modalOpen, setModalOpen] = useState(false)
   const [modalCard, setModalCard] = useState(null)
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxClosing, setLightboxClosing] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const lightboxRef = useRef(null)
+  const closeBtnRef = useRef(null)
+  const touchStartXRef = useRef(null)
+  const touchStartYRef = useRef(null)
+
+  // Posters & Flyers gallery (served via public/creative-designs symlink)
+  const gallery = [
+    '1.jpg','2.png','3.jpg','4.png','5.png','6.png','7.png','8.png','9.png','10.png','11.jpg','12.png','13.png','14.png','15.jpg','16.jpeg'
+  ].map(f => `${import.meta.env.BASE_URL}creative-designs/${f}`)
 
   // Lock background scroll and interactions while modal is open
   useEffect(() => {
@@ -13,7 +26,7 @@ function CreativeDesigner() {
     const prevHtmlOverflow = html.style.overflow
     const prevBodyOverflow = body.style.overflow
 
-    if (modalOpen) {
+    if (modalOpen || lightboxOpen) {
       html.style.overflow = 'hidden'
       body.style.overflow = 'hidden'
     } else {
@@ -25,7 +38,65 @@ function CreativeDesigner() {
       html.style.overflow = prevHtmlOverflow || ''
       body.style.overflow = prevBodyOverflow || ''
     }
-  }, [modalOpen])
+  }, [modalOpen, lightboxOpen])
+
+  // Lightbox keyboard controls and focus trap
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const handleKey = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        handleCloseLightbox()
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault(); setCurrentIndex((i) => (i + 1) % gallery.length)
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault(); setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length)
+      } else if (e.key === 'Tab') {
+        // simple focus trap: keep focus within lightbox
+        const focusables = lightboxRef.current?.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])') || []
+        if (focusables.length) {
+          const first = focusables[0]
+          const last = focusables[focusables.length - 1]
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    setTimeout(() => closeBtnRef.current?.focus(), 0)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [lightboxOpen, gallery.length])
+
+  const handleOpenLightbox = (startIndex = 0) => {
+    setCurrentIndex(startIndex)
+    setLightboxOpen(true)
+  }
+  const handleCloseLightbox = () => {
+    setLightboxClosing(true)
+    setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
+  }
+  const prevImage = () => setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length)
+  const nextImage = () => setCurrentIndex((i) => (i + 1) % gallery.length)
+
+  // Touch swipe (mobile): navigate images
+  const handleTouchStart = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    touchStartXRef.current = t.clientX
+    touchStartYRef.current = t.clientY
+  }
+  const handleTouchEnd = (e) => {
+    const t = e.changedTouches && e.changedTouches[0]
+    if (!t) return
+    const dx = t.clientX - (touchStartXRef.current ?? t.clientX)
+    const dy = t.clientY - (touchStartYRef.current ?? t.clientY)
+    const absDx = Math.abs(dx)
+    const absDy = Math.abs(dy)
+    // Only on small screens and when horizontal swipe dominates
+    if (window.innerWidth <= 768 && absDx > 40 && absDx > absDy * 1.2) {
+      if (dx < 0) nextImage(); else prevImage()
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
@@ -101,11 +172,12 @@ function CreativeDesigner() {
         <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-12 xl:gap-20">
           {/* Left side buttons (lg+) */}
           <div className="hidden lg:flex flex-col gap-28 items-center justify-center lg:my-24">
-            {['web design','posters & flyers'].map((label, i) => (
+            {['posters & flyers','web design'].map((label, i) => (
               <button
                 key={`left-${i}`}
-                className="apple-glass-button-accent rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
-                style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
+                className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
+                style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80}ms` }}
+                onClick={label.includes('posters') ? () => handleOpenLightbox(0) : undefined}
               >
                 {label}
               </button>
@@ -124,8 +196,8 @@ function CreativeDesigner() {
             {['print design','brochures'].map((label, i) => (
               <button
                 key={`right-${i}`}
-                className="apple-glass-button-accent rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
-                style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
+                className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
+                style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80 + 120}ms` }}
               >
                 {label}
               </button>
@@ -137,10 +209,12 @@ function CreativeDesigner() {
         <div className="lg:hidden w-full px-0 mt-[clamp(48px,8vw,96px)] mb-[clamp(80px,12vh,140px)] text-center" style={{ WebkitOverflowScrolling: 'touch' }}>
           {/* Strictly one column on all <=1023px widths (mobile/tablet) */}
           <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)] gap-y-[clamp(40px,10vw,72px)]" style={{ gridTemplateColumns: '1fr' }}>
-            {['web design','posters & flyers','print design','brochures'].map((label, i) => (
+            {['posters & flyers','web design','print design','brochures'].map((label, i) => (
               <button
                 key={i}
-                className="apple-glass-button-accent w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
+                className="apple-glass-button-accent anim-btn-soft w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
+                style={{ animationDelay: `${i * 80}ms` }}
+                onClick={label.includes('posters') ? () => handleOpenLightbox(0) : undefined}
               >
                 {label}
               </button>
@@ -168,6 +242,49 @@ function CreativeDesigner() {
             <div className="modal-split">
               <div className="modal-pane-left"></div>
               <div className="modal-pane-right"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Lightbox */}
+      {(lightboxOpen || lightboxClosing) && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image gallery"
+          className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+          onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
+        >
+          {/* Controls positioned at page sides (overlay-level) */}
+          <button ref={closeBtnRef} className="lightbox-close" aria-label="Close" onClick={handleCloseLightbox}>×</button>
+          <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevImage}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextImage}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          {/* Modal content */}
+          <div ref={lightboxRef} className={`lightbox-modal ${lightboxClosing ? 'scale-out' : 'scale-in'}`} onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+              <img src={gallery[currentIndex]} alt={`Creative design ${currentIndex + 1}`} className="lightbox-image" />
+            </div>
+          </div>
+          {/* Thumbnails pinned to screen bottom */}
+          <div className="lightbox-thumbs" role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-thumbs-scroll">
+              {gallery.map((src, i) => (
+                <button
+                  key={i}
+                  role="option"
+                  aria-selected={i === currentIndex}
+                  className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`}
+                  onClick={() => setCurrentIndex(i)}
+                  title={`View image ${i + 1}`}
+                >
+                  <img src={src} alt={`Thumbnail ${i + 1}`} />
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -421,10 +538,10 @@ function CreativeDesigner() {
         .apple-glass-button-accent:hover::after { left: 140%; }
 
         .apple-glass-button-accent:active {
-          background: linear-gradient(180deg, rgba(237,109,109,0.14) 0%, rgba(237,109,109,0.08) 100%);
+          /* Solid pink on click, no glow */
+          background: #ed6d6d;
           color: #ffffff;
-          box-shadow:
-            inset 0 2px 6px rgba(255,255,255,0.24);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
           transform: translateY(0);
         }
         .apple-glass-button-accent svg { stroke: currentColor; fill: none; }
@@ -459,6 +576,16 @@ function CreativeDesigner() {
         }
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
+
+        /* Soft button entrance */
+        @keyframes btnSoftIn {
+          0% { opacity: 0; transform: translateY(10px) scale(0.985); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .anim-btn-soft { opacity: 0; animation: btnSoftIn 600ms ease-out both; }
+        @media (prefers-reduced-motion: reduce) {
+          .anim-btn-soft { animation: none; opacity: 1; }
+        }
 
         /* Small screens: increase card height */
         @media (max-width: 639.98px) {
@@ -549,6 +676,74 @@ function CreativeDesigner() {
         .anim-card-in-left { animation: cardInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .anim-card-in-right { animation: cardInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .anim-card-fade { animation: cardSoftFade 2.4s ease-out 200ms both; }
+
+        /* Lightbox */
+        .lightbox-overlay {
+          background: rgba(0,0,0,0.8);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          display: flex; align-items: center; justify-content: center;
+          opacity: 0; transition: opacity 120ms ease;
+        }
+        .lightbox-fade-in { opacity: 1; }
+        .lightbox-fade-out { opacity: 0; }
+
+        .lightbox-modal {
+          position: relative;
+          width: min(70vw, 1200px);
+          max-height: 80vh;
+          background: rgba(20,20,22,0.2);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+          color: #e7f2f8;
+          transform: scale(0.98);
+          transition: transform 120ms ease;
+        }
+        .scale-in { transform: scale(1); }
+        .scale-out { transform: scale(0.98); }
+
+        .lightbox-close {
+          position: fixed; top: 20px; right: 20px; z-index: 9999;
+          width: 40px; height: 40px;
+          display: inline-flex; align-items: center; justify-content: center;
+          background: transparent; color: #ed6d6d; border: none;
+          font-size: 28px; line-height: 1;
+        }
+        .lightbox-close:hover { color: #d95857; background: transparent; }
+
+        .lightbox-chevron {
+          position: fixed; top: 50%; transform: translateY(-50%); z-index: 9999;
+          width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
+          background: rgba(0,0,0,0.45); color: #fff;
+          display: inline-flex; align-items: center; justify-content: center;
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-chevron:hover { background: rgba(0,0,0,0.65); }
+
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; }
+        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: contain; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+
+        .lightbox-thumbs {
+          position: fixed;
+          left: 0; right: 0; bottom: 0;
+          height: 80px;
+          background: rgba(10,10,12,0.35);
+          border-top: 1px solid rgba(255,255,255,0.12);
+          z-index: 9999;
+          padding-bottom: env(safe-area-inset-bottom);
+        }
+        .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; white-space: nowrap; padding: 8px 10px; display: flex; gap: 10px; }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); flex: 0 0 auto; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb-active { border-color: #ed6d6d; }
+
+        @media (max-width: 768px) {
+          .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; }
+          .lightbox-image-wrap { padding: 12px 12px 90px; }
+          .lightbox-chevron { display: none; }
+        }
       `}</style>
     </div>
   )
