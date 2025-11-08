@@ -374,14 +374,14 @@ function CreativeDesigner() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
         }
 
-        /* Subtle pink glass style */
+        /* Plain pink buttons */
         .apple-glass-button-accent {
-          background: linear-gradient(180deg, rgba(236, 109, 108, 0.06), rgba(236, 109, 108, 0.04));
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1.5px solid rgba(236, 109, 108, 0.18);
-          box-shadow: 0 6px 18px rgba(236, 109, 108, 0.10), 0 2px 6px rgba(0, 0, 0, 0.10);
-          color: #e7f2f8;
+          background: #ec6d6c; /* solid pink */
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          border: 1.5px solid #ec6d6c;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+          color: #ffffff;
         }
 
         .apple-glass-button-accent::before { display: none; }
@@ -390,10 +390,10 @@ function CreativeDesigner() {
 
         .apple-glass-button-accent:hover,
         .apple-glass-button-accent:active {
-          background: #ec6d6c;
-          border-color: #ec6d6c;
-          box-shadow: none;
-          color: #ffffff; /* white text on pinkish bg */
+          background: #e55b5a; /* slightly darker on hover */
+          border-color: #e55b5a;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+          color: #ffffff;
         }
         .apple-glass-button-accent:hover svg,
         .apple-glass-button-accent:active svg {
