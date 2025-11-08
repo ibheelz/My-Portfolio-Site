@@ -87,7 +87,15 @@ function CreativeDesigner() {
 
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
-      <div className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0">
+      <div
+        className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0"
+        style={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 20px'
+        }}
+      >
         <img
           src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
           alt="Creative Designer"
