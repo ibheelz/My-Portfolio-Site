@@ -49,7 +49,7 @@ function CreativeDesigner() {
         <div className="absolute left-[clamp(16px,3vw,40px)] w-auto">
           <button
             onClick={() => navigate('/')}
-            className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full sm:rounded-[clamp(8px,2vw,12px)] text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] whitespace-nowrap"
+            className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full sm:rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] whitespace-nowrap"
           >
             <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -71,7 +71,7 @@ function CreativeDesigner() {
         <div className="absolute right-[clamp(16px,3vw,40px)]">
           <button
             onClick={() => window.open('/Resume.pdf', '_blank')}
-            className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full sm:rounded-[clamp(8px,2vw,12px)] text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] cursor-pointer"
+            className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full sm:rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] cursor-pointer"
           >
             <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -88,9 +88,9 @@ function CreativeDesigner() {
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
       <div
-        className="flex-1 flex justify-center items-start md:items-center p-0 mt-0 -mx-[clamp(6px,1.5vw,12px)] -mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0"
+        className="flex-1 flex justify-center items-start md:items-center p-0 mt-0 -mx-[clamp(6px,1.5vw,12px)] -mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
-          backgroundImage: `url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center 0px'
@@ -99,7 +99,7 @@ function CreativeDesigner() {
         <img
           src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
           alt="Creative Designer"
-          className="w-full h-auto object-contain mt-[20px] md:mt-0"
+          className="w-full h-auto object-contain mt-[20px] md:mt-0 anim-content-soft"
           style={{ maxHeight: '75vh' }}
         />
       </div>
@@ -198,9 +198,10 @@ function CreativeDesigner() {
           overflow: hidden;
         }
 
-        .glass-button:hover {
-          background: #ffffff;
-          border-color: #ffffff;
+        .glass-button:hover,
+        .glass-button:active {
+          background: #ec6d6c;
+          border-color: #ec6d6c;
           box-shadow: none;
           color: #10171d;
         }
@@ -291,6 +292,18 @@ function CreativeDesigner() {
           background: #06080a; /* page theme color */
           border: none;
         }
+
+        /* Page-level soft intro animations (exclude navbar) */
+        @keyframes bgSoftIn {
+          0% { opacity: 0; transform: scale(1.015); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes contentSoftIn {
+          0% { opacity: 0; transform: translateY(12px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
+        .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
 
         /* Small screens: increase card height */
         @media (max-width: 639.98px) {
