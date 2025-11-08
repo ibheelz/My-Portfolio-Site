@@ -17,9 +17,10 @@ function CreativeDesigner() {
   const touchStartYRef = useRef(null)
 
   // Posters & Flyers gallery (served via public/creative-designs symlink)
-  const gallery = [
-    '1.jpg','2.png','3.jpg','4.png','5.png','6.png','7.png','8.png','9.png','10.png','11.jpg','12.png','13.png','14.png','15.jpg','16.jpeg'
-  ].map(f => `${import.meta.env.BASE_URL}creative-designs/${f}`)
+  // Updated to use .webp assets 1.webp ... 16.webp
+  const gallery = Array.from({ length: 16 }, (_, i) => (
+    `${import.meta.env.BASE_URL}creative-designs/${i + 1}.webp`
+  ))
 
   // Lock background scroll and interactions while modal is open
   useEffect(() => {
@@ -737,6 +738,18 @@ function CreativeDesigner() {
           will-change: transform, opacity, filter;
         }
 
+        /* Soft swipe/arrow transition (all screen sizes) */
+        @keyframes imgEnterL {
+          0%   { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); }
+          100% { opacity: 1; transform: translateX(0)     scale(1);     filter: blur(0); }
+        }
+        @keyframes imgEnterR {
+          0%   { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); }
+          100% { opacity: 1; transform: translateX(0)      scale(1);     filter: blur(0); }
+        }
+        .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+
         .lightbox-thumbs {
           position: fixed;
           left: 0; right: 0; bottom: 0;
@@ -756,17 +769,7 @@ function CreativeDesigner() {
           .lightbox-image-wrap { padding: 12px 12px 90px; }
           .lightbox-chevron { display: none; }
           /* Soft enter animation on mobile swipe */
-          /* Slower, smoother swipe: fade + soft slide + deblur + gentle zoom */
-          @keyframes imgEnterL {
-            0%   { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); }
-            100% { opacity: 1; transform: translateX(0)     scale(1);     filter: blur(0); }
-          }
-          @keyframes imgEnterR {
-            0%   { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); }
-            100% { opacity: 1; transform: translateX(0)      scale(1);     filter: blur(0); }
-          }
-          .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
-          .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+          /* Keep only chevron visibility changes on mobile */
           @media (prefers-reduced-motion: reduce) {
             .img-enter-left, .img-enter-right { animation-duration: 0ms; }
           }

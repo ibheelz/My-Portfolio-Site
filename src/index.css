@@ -12,6 +12,14 @@
   }
 }
 
+/* Make images harder to download (best-effort UX only) */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+img::selection { background: transparent; }
+
 /* Global animation hold to synchronize page animations after refresh */
 /* Pauses all CSS keyframe animations until the document is marked ready. */
 /* We toggle this class off shortly after window 'load' in main.jsx. */
