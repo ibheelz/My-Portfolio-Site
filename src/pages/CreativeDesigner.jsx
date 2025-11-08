@@ -388,11 +388,17 @@ function CreativeDesigner() {
 
         .apple-glass-button-accent::after { display: none; }
 
-        .apple-glass-button-accent:hover,
+        /* Darker pink on hover and click */
+        .apple-glass-button-accent:hover {
+          background: #d95857; /* darker hover */
+          border-color: #d95857;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+          color: #ffffff;
+        }
         .apple-glass-button-accent:active {
-          background: #e55b5a; /* slightly darker on hover */
-          border-color: #e55b5a;
-          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+          background: #c94a49; /* darkest on click */
+          border-color: #c94a49;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) inset;
           color: #ffffff;
         }
         .apple-glass-button-accent:hover svg,
