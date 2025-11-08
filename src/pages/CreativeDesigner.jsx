@@ -12,6 +12,7 @@ function CreativeDesigner() {
   const [enterDir, setEnterDir] = useState(null) // 'left' for next, 'right' for prev
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
+  const thumbsScrollRef = useRef(null)
   const touchStartXRef = useRef(null)
   const touchStartYRef = useRef(null)
 
@@ -67,6 +68,21 @@ function CreativeDesigner() {
     setTimeout(() => closeBtnRef.current?.focus(), 0)
     return () => window.removeEventListener('keydown', handleKey)
   }, [lightboxOpen, gallery.length])
+
+  // Ensure active thumbnail is always visible in the bottom strip
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const scroller = thumbsScrollRef.current
+    if (!scroller) return
+    const items = scroller.querySelectorAll('.thumb')
+    const target = items && items[currentIndex]
+    if (target && typeof target.scrollIntoView === 'function') {
+      // slight defer to ensure DOM/layout ready
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+      })
+    }
+  }, [currentIndex, lightboxOpen])
 
   const handleOpenLightbox = (startIndex = 0) => {
     setCurrentIndex(startIndex)
@@ -290,7 +306,7 @@ function CreativeDesigner() {
           </div>
           {/* Thumbnails pinned to screen bottom */}
           <div className="lightbox-thumbs" role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
-            <div className="lightbox-thumbs-scroll">
+            <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
               {gallery.map((src, i) => (
                 <button
                   key={i}
