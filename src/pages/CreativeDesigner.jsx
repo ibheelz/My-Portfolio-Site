@@ -374,13 +374,13 @@ function CreativeDesigner() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
         }
 
-        /* Match navbar glass style */
+        /* Subtle pink glass style */
         .apple-glass-button-accent {
-          background: rgba(255, 255, 255, 0.03);
+          background: linear-gradient(180deg, rgba(236, 109, 108, 0.06), rgba(236, 109, 108, 0.04));
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
-          border: 1.5px solid rgba(255, 255, 255, 0.1);
-          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+          border: 1.5px solid rgba(236, 109, 108, 0.18);
+          box-shadow: 0 6px 18px rgba(236, 109, 108, 0.10), 0 2px 6px rgba(0, 0, 0, 0.10);
           color: #e7f2f8;
         }
 
