@@ -28,7 +28,7 @@ function CreativeDesigner() {
   }, [modalOpen])
 
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
+    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
       {/* Header with logo and buttons */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
@@ -88,7 +88,7 @@ function CreativeDesigner() {
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
       <div
-        className="flex-1 flex justify-center items-start md:items-center p-0 mt-0 -mx-[clamp(6px,1.5vw,12px)] -mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
+        className="flex-1 flex flex-col items-center md:items-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
           backgroundRepeat: 'no-repeat',
@@ -97,7 +97,8 @@ function CreativeDesigner() {
           backgroundAttachment: 'fixed'
         }}
       >
-        <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16">
+        {/* Ensure single column on mobile; side columns only at lg+ */}
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-12 xl:gap-20">
           {/* Left side buttons (lg+) */}
           <div className="hidden lg:flex flex-col gap-28 items-center justify-center lg:my-24">
             {['web design','posters & flyers'].map((label, i) => (
@@ -115,7 +116,7 @@ function CreativeDesigner() {
           <img
             src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
             alt="Creative Designer"
-            className="w-full lg:w-auto h-auto object-contain mt-[20px] md:mt-0 anim-content-soft"
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] anim-content-soft mx-auto lg:mx-0"
             style={{ maxHeight: '78vh' }}
           />
 
@@ -132,21 +133,25 @@ function CreativeDesigner() {
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Big CTA buttons (2 x 2) on small screens only */}
-      <div className="lg:hidden px-[clamp(6px,1.5vw,12px)] md:px-[clamp(10px,2vw,16px)] mt-[105px] mb-[clamp(63px,10.5vh,98px)]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[clamp(10px,2vw,18px)] gap-y-[clamp(56px,14vw,98px)]">
-          {['web design','posters & flyers','print design','brochures'].map((label, i) => (
-            <button
-              key={i}
-              className="apple-glass-button-accent w-full rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-2 py-[clamp(16px,3.5vw,26px)] text-[clamp(11px,1.5vw,14px)]"
-            >
-              {label}
-            </button>
-          ))}
+        {/* Mobile buttons under hero image, overlaid on BG */}
+        <div className="lg:hidden w-full px-0 mt-[clamp(48px,8vw,96px)] mb-[clamp(80px,12vh,140px)] text-center" style={{ WebkitOverflowScrolling: 'touch' }}>
+          {/* Strictly one column on all <=1023px widths (mobile/tablet) */}
+          <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)] gap-y-[clamp(40px,10vw,72px)]" style={{ gridTemplateColumns: '1fr' }}>
+            {['web design','posters & flyers','print design','brochures'].map((label, i) => (
+              <button
+                key={i}
+                className="apple-glass-button-accent w-full rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(14px,4vw,18px)]"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Big CTA buttons (2 x 2) on small screens only; now inside BG container above */}
+      <div className="hidden" />
 
       {/* Modal overlay */}
       {modalOpen && (
