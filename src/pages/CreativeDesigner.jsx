@@ -88,7 +88,7 @@ function CreativeDesigner() {
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
       <div
-        className="flex-1 flex flex-col items-center md:items-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
+        className="flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
           backgroundRepeat: 'no-repeat',
@@ -104,7 +104,7 @@ function CreativeDesigner() {
             {['web design','posters & flyers'].map((label, i) => (
               <button
                 key={`left-${i}`}
-                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(12px,1.2vw,18px)]"
+                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
               >
                 {label}
@@ -116,8 +116,7 @@ function CreativeDesigner() {
           <img
             src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
             alt="Creative Designer"
-            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] anim-content-soft mx-auto lg:mx-0"
-            style={{ maxHeight: '78vh' }}
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
           />
 
           {/* Right side buttons (lg+) */}
@@ -125,7 +124,7 @@ function CreativeDesigner() {
             {['print design','brochures'].map((label, i) => (
               <button
                 key={`right-${i}`}
-                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(12px,1.2vw,18px)]"
+                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
               >
                 {label}
@@ -141,7 +140,7 @@ function CreativeDesigner() {
             {['web design','posters & flyers','print design','brochures'].map((label, i) => (
               <button
                 key={i}
-                className="apple-glass-button-accent w-full rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(14px,4vw,18px)]"
+                className="apple-glass-button-accent w-full rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
               >
                 {label}
               </button>
@@ -374,37 +373,72 @@ function CreativeDesigner() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
         }
 
-        /* Solid pink buttons */
+        /* Apple liquid glass (pill), extra transparent, no border */
         .apple-glass-button-accent {
-          background: #ec6d6c;
-          backdrop-filter: none;
-          -webkit-backdrop-filter: none;
-          border: 1.5px solid #ec6d6c;
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+          position: relative;
+          border-radius: 9999px;
           color: #ffffff;
+          background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 100%);
+          border: none;
+          backdrop-filter: saturate(160%) blur(18px);
+          -webkit-backdrop-filter: saturate(160%) blur(18px);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.28),       /* top inner highlight */
+            inset 0 -1px 0 rgba(255,255,255,0.08),      /* bottom inner edge */
+            0 10px 28px rgba(0,0,0,0.28);               /* ambient drop */
+          transition: background 180ms ease, box-shadow 180ms ease, transform 120ms ease, color 120ms ease;
+          will-change: transform, box-shadow, background;
         }
 
-        .apple-glass-button-accent::before { display: none; }
+        /* Glossy top cap */
+        .apple-glass-button-accent::before {
+          content: "";
+          position: absolute;
+          inset: 0 0 54% 0;
+          border-radius: inherit;
+          background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 52%, rgba(255,255,255,0.02) 100%);
+          pointer-events: none;
+        }
+        /* Subtle traveling specular highlight */
+        .apple-glass-button-accent::after {
+          content: "";
+          position: absolute;
+          top: -25%; left: -140%; width: 60%; height: 150%;
+          transform: rotate(18deg);
+          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 48%, rgba(255,255,255,0) 100%);
+          border-radius: inherit;
+          pointer-events: none;
+          transition: left 650ms ease;
+        }
 
-        .apple-glass-button-accent::after { display: none; }
-
-        /* Darker pink on hover and click */
         .apple-glass-button-accent:hover {
-          background: #d95857; /* darker hover */
-          border-color: #d95857;
-          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+          /* Solid pink on hover */
+          background: #ed6d6d;
           color: #ffffff;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.35),
+            0 10px 28px rgba(237,109,109,0.35),
+            0 8px 20px rgba(0,0,0,0.28);
+          transform: translateY(-1px);
         }
+        .apple-glass-button-accent:hover::after { left: 140%; }
+
         .apple-glass-button-accent:active {
-          background: #c94a49; /* darkest on click */
-          border-color: #c94a49;
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) inset;
-          color: #ffffff;
+          background: linear-gradient(180deg, rgba(237,109,109,0.14) 0%, rgba(237,109,109,0.08) 100%);
+          box-shadow:
+            inset 0 2px 6px rgba(255,255,255,0.24),
+            0 8px 18px rgba(237,109,109,0.16),
+            0 6px 16px rgba(0,0,0,0.26);
+          transform: translateY(0);
         }
+        .apple-glass-button-accent svg { stroke: #ffffff; fill: none; }
         .apple-glass-button-accent:hover svg,
-        .apple-glass-button-accent:active svg {
-          stroke: #ffffff;
-          fill: none;
+        .apple-glass-button-accent:active svg { stroke: #ffffff; }
+
+        /* Focus ring for accessibility */
+        .apple-glass-button-accent:focus-visible {
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.28), 0 10px 24px rgba(0,0,0,0.18);
         }
 
         @keyframes liquidMove {
