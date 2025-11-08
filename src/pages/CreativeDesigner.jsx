@@ -104,7 +104,7 @@ function CreativeDesigner() {
             {['web design','posters & flyers'].map((label, i) => (
               <button
                 key={`left-${i}`}
-                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
+                className="apple-glass-button-accent rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
               >
                 {label}
@@ -124,7 +124,7 @@ function CreativeDesigner() {
             {['print design','brochures'].map((label, i) => (
               <button
                 key={`right-${i}`}
-                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
+                className="apple-glass-button-accent rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
               >
                 {label}
@@ -140,7 +140,7 @@ function CreativeDesigner() {
             {['web design','posters & flyers','print design','brochures'].map((label, i) => (
               <button
                 key={i}
-                className="apple-glass-button-accent w-full rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
+                className="apple-glass-button-accent w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
               >
                 {label}
               </button>
@@ -377,15 +377,14 @@ function CreativeDesigner() {
         .apple-glass-button-accent {
           position: relative;
           border-radius: 9999px;
-          color: #ffffff;
+          color: #f9e4ae; /* default text color on glass */
           background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 100%);
           border: none;
           backdrop-filter: saturate(160%) blur(18px);
           -webkit-backdrop-filter: saturate(160%) blur(18px);
           box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.28),       /* top inner highlight */
-            inset 0 -1px 0 rgba(255,255,255,0.08),      /* bottom inner edge */
-            0 10px 28px rgba(0,0,0,0.28);               /* ambient drop */
+            inset 0 -1px 0 rgba(255,255,255,0.08);      /* bottom inner edge */
           transition: background 180ms ease, box-shadow 180ms ease, transform 120ms ease, color 120ms ease;
           will-change: transform, box-shadow, background;
         }
@@ -412,28 +411,25 @@ function CreativeDesigner() {
         }
 
         .apple-glass-button-accent:hover {
-          /* Solid pink on hover */
+          /* Solid pink on hover, no outer glow */
           background: #ed6d6d;
           color: #ffffff;
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.35),
-            0 10px 28px rgba(237,109,109,0.35),
-            0 8px 20px rgba(0,0,0,0.28);
+            inset 0 1px 0 rgba(255,255,255,0.35);
           transform: translateY(-1px);
         }
         .apple-glass-button-accent:hover::after { left: 140%; }
 
         .apple-glass-button-accent:active {
           background: linear-gradient(180deg, rgba(237,109,109,0.14) 0%, rgba(237,109,109,0.08) 100%);
+          color: #ffffff;
           box-shadow:
-            inset 0 2px 6px rgba(255,255,255,0.24),
-            0 8px 18px rgba(237,109,109,0.16),
-            0 6px 16px rgba(0,0,0,0.26);
+            inset 0 2px 6px rgba(255,255,255,0.24);
           transform: translateY(0);
         }
-        .apple-glass-button-accent svg { stroke: #ffffff; fill: none; }
+        .apple-glass-button-accent svg { stroke: currentColor; fill: none; }
         .apple-glass-button-accent:hover svg,
-        .apple-glass-button-accent:active svg { stroke: #ffffff; }
+        .apple-glass-button-accent:active svg { stroke: currentColor; }
 
         /* Focus ring for accessibility */
         .apple-glass-button-accent:focus-visible {
