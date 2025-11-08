@@ -93,15 +93,59 @@ function CreativeDesigner() {
           backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
-          backgroundPosition: 'center 0px'
+          backgroundPosition: 'center 0px',
+          backgroundAttachment: 'fixed'
         }}
       >
-        <img
-          src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
-          alt="Creative Designer"
-          className="w-full h-auto object-contain mt-[20px] md:mt-0 anim-content-soft"
-          style={{ maxHeight: '75vh' }}
-        />
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-16">
+          {/* Left side buttons (lg+) */}
+          <div className="hidden lg:flex flex-col gap-28 items-center justify-center lg:my-24">
+            {['web design','posters & flyers'].map((label, i) => (
+              <button
+                key={`left-${i}`}
+                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(12px,1.2vw,18px)]"
+                style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* Center hero image */}
+          <img
+            src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
+            alt="Creative Designer"
+            className="w-full lg:w-auto h-auto object-contain mt-[20px] md:mt-0 anim-content-soft"
+            style={{ maxHeight: '78vh' }}
+          />
+
+          {/* Right side buttons (lg+) */}
+          <div className="hidden lg:flex flex-col gap-28 items-center justify-center lg:my-24">
+            {['print design','brochures'].map((label, i) => (
+              <button
+                key={`right-${i}`}
+                className="apple-glass-button-accent rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(12px,1.2vw,18px)]"
+                style={{ minWidth: 'clamp(280px, 24vw, 480px)' }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Big CTA buttons (2 x 2) on small screens only */}
+      <div className="lg:hidden px-[clamp(6px,1.5vw,12px)] md:px-[clamp(10px,2vw,16px)] mt-[105px] mb-[clamp(63px,10.5vh,98px)]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[clamp(10px,2vw,18px)] gap-y-[clamp(56px,14vw,98px)]">
+          {['web design','posters & flyers','print design','brochures'].map((label, i) => (
+            <button
+              key={i}
+              className="apple-glass-button-accent w-full rounded-full text-white font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-2 py-[clamp(16px,3.5vw,26px)] text-[clamp(11px,1.5vw,14px)]"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Modal overlay */}
@@ -185,6 +229,9 @@ function CreativeDesigner() {
           border: 1.5px solid rgba(255, 255, 255, 0.1);
           border-radius: clamp(20px, 4vw, 30px);
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+          position: sticky;
+          top: 0;
+          z-index: 50;
         }
 
         .glass-button {
@@ -203,7 +250,13 @@ function CreativeDesigner() {
           background: #ec6d6c;
           border-color: #ec6d6c;
           box-shadow: none;
-          color: #10171d;
+          color: #ffffff; /* white text on pinkish bg */
+        }
+        /* Ensure icons turn white on pinkish bg */
+        .glass-button:hover svg,
+        .glass-button:active svg {
+          stroke: #ffffff;
+          fill: none;
         }
 
         @keyframes fadeIn {
@@ -291,6 +344,67 @@ function CreativeDesigner() {
         .grey-card {
           background: #06080a; /* page theme color */
           border: none;
+        }
+
+        /* Apple-style liquid glass buttons (from homepage) */
+        .apple-glass-button,
+        .apple-glass-button-accent {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .apple-glass-button {
+          background: #d8ac65;
+          border: none;
+          box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+          color: #10171d;
+        }
+
+        .apple-glass-button::before {
+          display: none;
+        }
+
+        .apple-glass-button:hover {
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        /* Match navbar glass style */
+        .apple-glass-button-accent {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+          color: #e7f2f8;
+        }
+
+        .apple-glass-button-accent::before { display: none; }
+
+        .apple-glass-button-accent::after { display: none; }
+
+        .apple-glass-button-accent:hover,
+        .apple-glass-button-accent:active {
+          background: #ec6d6c;
+          border-color: #ec6d6c;
+          box-shadow: none;
+          color: #ffffff; /* white text on pinkish bg */
+        }
+        .apple-glass-button-accent:hover svg,
+        .apple-glass-button-accent:active svg {
+          stroke: #ffffff;
+          fill: none;
+        }
+
+        @keyframes liquidMove {
+          0% { transform: translate(0, 0); }
+          50% { transform: translate(10%, 5%); }
+          100% { transform: translate(0, 0); }
+        }
+
+        @keyframes glossyShine {
+          0% { left: -100%; }
+          50%, 100% { left: 200%; }
         }
 
         /* Page-level soft intro animations (exclude navbar) */
