@@ -31,6 +31,7 @@ function CreativeDesigner() {
   const galleries = {
     posters: { base: 'posters-and-flyers', length: 16 },
     web: { base: 'web-designs', length: 12 },
+    editorial: { base: 'editorial-designs', length: 5 },
   }
 
   const active = galleries[galleryType]
@@ -316,6 +317,9 @@ function CreativeDesigner() {
                 key={`right-${i}`}
                 className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80 + 120}ms` }}
+                onClick={() => {
+                  if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
+                }}
               >
                 {label}
               </button>
@@ -335,6 +339,7 @@ function CreativeDesigner() {
                 onClick={() => {
                   if (label.includes('posters')) openLightboxFor('posters', 0)
                   else if (label.includes('web')) openLightboxFor('web', 0)
+                  else if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
                 }}
               >
                 {label}
