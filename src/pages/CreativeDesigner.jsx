@@ -183,7 +183,7 @@ function CreativeDesigner() {
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
       <div
-        className="flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
+        className="relative cd-bg flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
           backgroundRepeat: 'no-repeat',
@@ -582,6 +582,29 @@ function CreativeDesigner() {
         }
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
+
+        /* Desktop-only extra darkening overlay for Creative Designer background */
+        .cd-bg::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: rgba(0,0,0,0); /* no extra darkening by default */
+        }
+        /* Mobile/tablet: lift total darkening to ~30% over base 20% */
+        @media (max-width: 1023.98px) {
+          .cd-bg::before {
+            /* Increase small-screen total darkening to ~60%: 0.2 base + 0.5 overlay combined */
+            /* Math: 1 - (1-0.2)*(1-0.5) = 0.6 */
+            background: rgba(0,0,0,0.5);
+          }
+        }
+        @media (min-width: 1024px) {
+          .cd-bg::before {
+            /* Effective ~70% darkening with base 0.2 overlay: 1 - (1-0.2)*(1-0.625) ≈ 0.7 */
+            background: rgba(0,0,0,0.625);
+          }
+        }
 
         /* Soft button entrance */
         @keyframes btnSoftIn {
