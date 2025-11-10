@@ -21,6 +21,10 @@ function CreativeDesigner() {
   const preloadedRef = useRef(new Set())
   const [lightboxEntering, setLightboxEntering] = useState(false)
   const enterTimerRef = useRef(null)
+  // Scroll lock bookkeeping
+  const scrollPosRef = useRef(0)
+  const prevBodyStyleRef = useRef({ position: '', top: '', width: '', overflow: '' })
+  const prevHtmlOverflowRef = useRef('')
 
   // Galleries config: served via public/ symlinks to images/
   const galleries = {
@@ -47,24 +51,45 @@ function CreativeDesigner() {
     }
   })
 
-  // Lock background scroll and interactions while modal is open
+  // Robust background scroll lock while modal/lightbox is open (mobile-safe)
   useEffect(() => {
     const html = document.documentElement
     const body = document.body
-    const prevHtmlOverflow = html.style.overflow
-    const prevBodyOverflow = body.style.overflow
 
     if (modalOpen || lightboxOpen) {
+      // Save previous inline styles
+      prevHtmlOverflowRef.current = html.style.overflow
+      prevBodyStyleRef.current = {
+        position: body.style.position,
+        top: body.style.top,
+        width: body.style.width,
+        overflow: body.style.overflow,
+      }
+      // Lock scroll position
+      scrollPosRef.current = window.scrollY || window.pageYOffset || 0
       html.style.overflow = 'hidden'
       body.style.overflow = 'hidden'
+      body.style.position = 'fixed'
+      body.style.top = `-${scrollPosRef.current}px`
+      body.style.width = '100%'
     } else {
-      html.style.overflow = prevHtmlOverflow || ''
-      body.style.overflow = prevBodyOverflow || ''
+      // Restore
+      html.style.overflow = prevHtmlOverflowRef.current || ''
+      body.style.position = prevBodyStyleRef.current.position || ''
+      body.style.top = prevBodyStyleRef.current.top || ''
+      body.style.width = prevBodyStyleRef.current.width || ''
+      body.style.overflow = prevBodyStyleRef.current.overflow || ''
+      const y = scrollPosRef.current || 0
+      if (typeof window !== 'undefined') window.scrollTo(0, y)
     }
 
     return () => {
-      html.style.overflow = prevHtmlOverflow || ''
-      body.style.overflow = prevBodyOverflow || ''
+      // Ensure restore on unmount
+      html.style.overflow = prevHtmlOverflowRef.current || ''
+      body.style.position = prevBodyStyleRef.current.position || ''
+      body.style.top = prevBodyStyleRef.current.top || ''
+      body.style.width = prevBodyStyleRef.current.width || ''
+      body.style.overflow = prevBodyStyleRef.current.overflow || ''
     }
   }, [modalOpen, lightboxOpen])
 
@@ -342,6 +367,11 @@ function CreativeDesigner() {
           aria-modal="true"
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+          style={{
+            background: `linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
@@ -783,6 +813,8 @@ function CreativeDesigner() {
           -webkit-backdrop-filter: blur(6px);
           display: flex; align-items: center; justify-content: center;
           opacity: 0; transition: opacity 120ms ease;
+          overflow: hidden;
+          overscroll-behavior: contain;
         }
         .lightbox-fade-in { opacity: 1; }
         .lightbox-fade-out { opacity: 0; }
