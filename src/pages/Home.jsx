@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
@@ -91,8 +91,8 @@ function Home() {
     return () => slider.removeEventListener('scroll', handleScroll)
   }, [hasSwipedFromFirst])
 
-  // Mobile: start carousel at the middle slide by default
-  useEffect(() => {
+  // Mobile: start carousel at the middle slide by default (robust)
+  useLayoutEffect(() => {
     const slider = sliderRef.current
     if (!slider) return
     if (window.innerWidth >= 1024) return
@@ -109,12 +109,30 @@ function Home() {
       setTimeout(() => setMiddleAnim(false), 5000)
     }
 
-    // Defer to ensure layout is ready
-    if ('requestAnimationFrame' in window) {
-      requestAnimationFrame(toMiddle)
-    } else {
-      setTimeout(toMiddle, 0)
+    // Run early before paint and also shortly after to avoid flicker
+    if ('requestAnimationFrame' in window) requestAnimationFrame(toMiddle)
+    setTimeout(toMiddle, 50)
+    setTimeout(toMiddle, 200)
+  }, [])
+
+  // Keep forcing middle when entering mobile layout (e.g., on resize or slow assets)
+  useEffect(() => {
+    const slider = sliderRef.current
+    if (!slider) return
+    const onResize = () => {
+      if (window.innerWidth < 1024) {
+        const slideWidth = slider.offsetWidth
+        if (Math.abs(slider.scrollLeft - slideWidth) > 2) {
+          slider.scrollLeft = slideWidth
+          setActiveSlide(2)
+          setHasSwipedFromFirst(true)
+        }
+      }
     }
+    window.addEventListener('resize', onResize)
+    // one more late tick to catch late layout
+    const t = setTimeout(onResize, 600)
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(t) }
   }, [])
 
   return (
