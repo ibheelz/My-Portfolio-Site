@@ -217,7 +217,7 @@ function CreativeDesigner() {
 
           {/* Right side buttons (lg+) */}
           <div className="hidden lg:flex flex-col gap-28 items-center justify-center lg:my-24">
-            {['print design','brochures'].map((label, i) => (
+            {['packaging design','Editorial design'].map((label, i) => (
               <button
                 key={`right-${i}`}
                 className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
@@ -233,7 +233,7 @@ function CreativeDesigner() {
         <div className="lg:hidden w-full px-0 mt-[clamp(48px,8vw,96px)] mb-[clamp(80px,12vh,140px)] text-center" style={{ WebkitOverflowScrolling: 'touch' }}>
           {/* Strictly one column on all <=1023px widths (mobile/tablet) */}
           <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)] gap-y-[clamp(40px,10vw,72px)]" style={{ gridTemplateColumns: '1fr' }}>
-            {['posters & flyers','web design','print design','brochures'].map((label, i) => (
+            {['posters & flyers','web design','packaging design','Editorial design'].map((label, i) => (
               <button
                 key={i}
                 className="apple-glass-button-accent anim-btn-soft w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
