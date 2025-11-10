@@ -17,6 +17,8 @@ function CreativeDesigner() {
   const touchStartYRef = useRef(null)
   // Which gallery to show in lightbox: 'posters' | 'web'
   const [galleryType, setGalleryType] = useState('posters')
+  // Lightweight in-memory cache of decoded images
+  const preloadedRef = useRef(new Set())
 
   // Galleries config: served via public/ symlinks to images/
   const galleries = {
@@ -28,6 +30,20 @@ function CreativeDesigner() {
   const gallery = Array.from({ length: active.length }, (_, i) => (
     `${import.meta.env.BASE_URL}${active.base}/${i + 1}.webp`
   ))
+
+  // Decode helper: resolves once the image is decoded or loaded
+  const ensureDecoded = (src) => new Promise((resolve) => {
+    if (!src || preloadedRef.current.has(src)) return resolve()
+    const img = new Image()
+    img.src = src
+    if (img.decode) {
+      img.decode().catch(() => {}).then(() => { preloadedRef.current.add(src); resolve() })
+    } else {
+      if (img.complete) { preloadedRef.current.add(src); return resolve() }
+      img.onload = () => { preloadedRef.current.add(src); resolve() }
+      img.onerror = () => resolve()
+    }
+  })
 
   // Lock background scroll and interactions while modal is open
   useEffect(() => {
@@ -77,6 +93,14 @@ function CreativeDesigner() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [lightboxOpen, gallery.length])
 
+  // Preload adjacent images after open to avoid perceived lag on first next/prev
+  useEffect(() => {
+    if (!lightboxOpen || !gallery.length) return
+    const next = gallery[(currentIndex + 1) % gallery.length]
+    const prev = gallery[(currentIndex - 1 + gallery.length) % gallery.length]
+    ;[next, prev].forEach((src) => { if (src) ensureDecoded(src) })
+  }, [lightboxOpen, currentIndex, gallery.length])
+
   // Ensure active thumbnail is always visible in the bottom strip
   useEffect(() => {
     if (!lightboxOpen) return
@@ -93,6 +117,15 @@ function CreativeDesigner() {
   }, [currentIndex, lightboxOpen])
 
   const handleOpenLightbox = (startIndex = 0) => {
+    setCurrentIndex(startIndex)
+    setLightboxOpen(true)
+  }
+  // Open selected gallery after first image is decoded, then animate in
+  const openLightboxFor = async (type, startIndex = 0) => {
+    const cfg = galleries[type]
+    const src = `${import.meta.env.BASE_URL}${cfg.base}/${startIndex + 1}.webp`
+    await ensureDecoded(src)
+    setGalleryType(type)
     setCurrentIndex(startIndex)
     setLightboxOpen(true)
   }
@@ -209,8 +242,8 @@ function CreativeDesigner() {
                 className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80}ms` }}
                 onClick={() => {
-                  if (label.includes('posters')) { setGalleryType('posters'); handleOpenLightbox(0) }
-                  else if (label.includes('web')) { setGalleryType('web'); handleOpenLightbox(0) }
+                  if (label.includes('posters')) openLightboxFor('posters', 0)
+                  else if (label.includes('web')) openLightboxFor('web', 0)
                 }}
               >
                 {label}
@@ -249,8 +282,8 @@ function CreativeDesigner() {
                 className="apple-glass-button-accent anim-btn-soft w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
                 style={{ animationDelay: `${i * 80}ms` }}
                 onClick={() => {
-                  if (label.includes('posters')) { setGalleryType('posters'); handleOpenLightbox(0) }
-                  else if (label.includes('web')) { setGalleryType('web'); handleOpenLightbox(0) }
+                  if (label.includes('posters')) openLightboxFor('posters', 0)
+                  else if (label.includes('web')) openLightboxFor('web', 0)
                 }}
               >
                 {label}
