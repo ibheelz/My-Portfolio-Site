@@ -309,7 +309,7 @@ function CreativeDesigner() {
                 src={gallery[currentIndex]}
                 alt={`Creative design ${currentIndex + 1}`}
                 decoding="async"
-                fetchPriority="high"
+                fetchpriority="high"
                 loading="eager"
                 className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
                 onAnimationEnd={() => setEnterDir(null)}
@@ -328,7 +328,7 @@ function CreativeDesigner() {
                   onClick={() => setCurrentIndex(i)}
                   title={`View image ${i + 1}`}
                 >
-                  <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" fetchPriority="low" />
+                  <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" fetchpriority="low" />
                 </button>
               ))}
             </div>
@@ -336,7 +336,7 @@ function CreativeDesigner() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .svg-gold {
           filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
         }
