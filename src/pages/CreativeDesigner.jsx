@@ -19,6 +19,8 @@ function CreativeDesigner() {
   const [galleryType, setGalleryType] = useState('posters')
   // Lightweight in-memory cache of decoded images
   const preloadedRef = useRef(new Set())
+  const [lightboxEntering, setLightboxEntering] = useState(false)
+  const enterTimerRef = useRef(null)
 
   // Galleries config: served via public/ symlinks to images/
   const galleries = {
@@ -100,6 +102,22 @@ function CreativeDesigner() {
     const prev = gallery[(currentIndex - 1 + gallery.length) % gallery.length]
     ;[next, prev].forEach((src) => { if (src) ensureDecoded(src) })
   }, [lightboxOpen, currentIndex, gallery.length])
+
+  // Animate the modal into view on every open
+  useEffect(() => {
+    if (lightboxOpen) {
+      setLightboxEntering(true)
+      if (enterTimerRef.current) clearTimeout(enterTimerRef.current)
+      // Keep the entrance state long enough for a very slow animation
+      enterTimerRef.current = setTimeout(() => setLightboxEntering(false), 1600)
+    } else {
+      setLightboxEntering(false)
+      if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null }
+    }
+    return () => {
+      if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null }
+    }
+  }, [lightboxOpen])
 
   // Ensure active thumbnail is always visible in the bottom strip
   useEffect(() => {
@@ -327,15 +345,23 @@ function CreativeDesigner() {
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
-          <button ref={closeBtnRef} className="lightbox-close" aria-label="Close" onClick={handleCloseLightbox}>×</button>
+          <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
           <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevImage}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
           </button>
           <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextImage}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
           </button>
           {/* Modal content */}
-          <div ref={lightboxRef} className={`lightbox-modal ${lightboxClosing ? 'scale-out' : 'scale-in'}`} onClick={(e) => e.stopPropagation()}>
+          <div
+            ref={lightboxRef}
+            className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
               <img
                 key={currentIndex}
@@ -350,7 +376,7 @@ function CreativeDesigner() {
             </div>
           </div>
           {/* Thumbnails pinned to screen bottom */}
-          <div className="lightbox-thumbs" role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+          <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
               {gallery.map((src, i) => (
                 <button
@@ -775,6 +801,24 @@ function CreativeDesigner() {
         }
         .scale-in { transform: scale(1); }
         .scale-out { transform: scale(0.98); }
+
+        /* Very slow pop-in on open (animate up) */
+        @keyframes modalPopIn {
+          0% { opacity: 0; transform: translateY(24px) scale(0.99); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-pop-in { animation: modalPopIn 1200ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+
+        /* Controls + bottom grid entrance (slower too) */
+        @keyframes controlsPopIn {
+          0% { opacity: 0; transform: translateY(12px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
+        .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
+
+        /* Chevron content wrapper for safe transform animation */
+        .chevron-content { display: inline-flex; align-items: center; justify-content: center; }
 
         .lightbox-close {
           position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001;
