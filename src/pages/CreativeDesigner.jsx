@@ -13,6 +13,7 @@ function CreativeDesigner() {
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const thumbsScrollRef = useRef(null)
+  const thumbsInnerRef = useRef(null)
   const touchStartXRef = useRef(null)
   const touchStartYRef = useRef(null)
   // Which gallery to show in lightbox: 'posters' | 'web'
@@ -144,7 +145,7 @@ function CreativeDesigner() {
     }
   }, [lightboxOpen])
 
-  // Ensure active thumbnail is always visible in the bottom strip
+  // Keep active thumbnail in view using scrollIntoView (simple and reliable)
   useEffect(() => {
     if (!lightboxOpen) return
     const scroller = thumbsScrollRef.current
@@ -152,12 +153,15 @@ function CreativeDesigner() {
     const items = scroller.querySelectorAll('.thumb')
     const target = items && items[currentIndex]
     if (target && typeof target.scrollIntoView === 'function') {
-      // slight defer to ensure DOM/layout ready
       requestAnimationFrame(() => {
-        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+        try {
+          target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+        } catch {}
       })
     }
   }, [currentIndex, lightboxOpen])
+
+  // No JS centering needed — CSS centers when it fits using text-align:center
 
   const handleOpenLightbox = (startIndex = 0) => {
     setCurrentIndex(startIndex)
@@ -191,6 +195,10 @@ function CreativeDesigner() {
     if (!t) return
     touchStartXRef.current = t.clientX
     touchStartYRef.current = t.clientY
+  }
+  const handleTouchMove = () => {
+    // We use CSS `touch-action: none` on the image area to disable
+    // browser scrolling. No need to call preventDefault here.
   }
   const handleTouchEnd = (e) => {
     const t = e.changedTouches && e.changedTouches[0]
@@ -392,7 +400,7 @@ function CreativeDesigner() {
             className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+            <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <img
                 key={currentIndex}
                 src={gallery[currentIndex]}
@@ -408,18 +416,20 @@ function CreativeDesigner() {
           {/* Thumbnails pinned to screen bottom */}
           <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
-              {gallery.map((src, i) => (
-                <button
-                  key={i}
-                  role="option"
-                  aria-selected={i === currentIndex}
-                  className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`}
-                  onClick={() => setCurrentIndex(i)}
-                  title={`View image ${i + 1}`}
-                >
-                  <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" fetchpriority="low" />
-                </button>
-              ))}
+              <div className="thumbs-inner" ref={thumbsInnerRef}>
+                {gallery.map((src, i) => (
+                  <button
+                    key={i}
+                    role="option"
+                    aria-selected={i === currentIndex}
+                    className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`}
+                    onClick={() => setCurrentIndex(i)}
+                    title={`View image ${i + 1}`}
+                  >
+                    <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" fetchpriority="low" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -815,6 +825,7 @@ function CreativeDesigner() {
           opacity: 0; transition: opacity 120ms ease;
           overflow: hidden;
           overscroll-behavior: contain;
+          /* Do not set touch-action here; child regions control it */
         }
         .lightbox-fade-in { opacity: 1; }
         .lightbox-fade-out { opacity: 0; }
@@ -874,7 +885,7 @@ function CreativeDesigner() {
         .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
         .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
 
-        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: pan-y; }
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
         .lightbox-image {
           max-width: 100%;
           max-height: calc(80vh - 110px);
@@ -904,22 +915,23 @@ function CreativeDesigner() {
           border-top: 1px solid rgba(255,255,255,0.12);
           z-index: 9999;
           padding-bottom: env(safe-area-inset-bottom);
-          /* Center the inner strip when it doesn't overflow */
-          text-align: center;
+          /* Container remains full width */
         }
         .lightbox-thumbs-scroll {
           height: 100%;
-          overflow-x: auto; overflow-y: hidden;
+          overflow-x: auto;
+          overflow-y: hidden;
           padding: 8px 10px;
-          display: inline-flex; /* allows centering via parent text-align */
-          gap: 10px;
-          width: max-content; /* shrink to content width */
-          margin: 0 auto;      /* center when not overflowing */
-          scroll-snap-type: x mandatory;
-          overscroll-behavior-x: contain;
           -webkit-overflow-scrolling: touch;
+          touch-action: pan-x;
+          text-align: center;         /* center inner when it fits */
+          white-space: nowrap;        /* keep in one line */
         }
-        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); flex: 0 0 auto; scroll-snap-align: center; transition: transform 150ms ease, border-color 150ms ease; }
+        .thumbs-inner {
+          display: inline-block;      /* allow centering via text-align */
+          white-space: nowrap;        /* prevent wrapping */
+        }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
         .thumb:hover { transform: translateY(-1px); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .thumb-active { border-color: #ed6d6d; }
