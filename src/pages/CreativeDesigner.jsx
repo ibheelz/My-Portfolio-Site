@@ -15,11 +15,18 @@ function CreativeDesigner() {
   const thumbsScrollRef = useRef(null)
   const touchStartXRef = useRef(null)
   const touchStartYRef = useRef(null)
+  // Which gallery to show in lightbox: 'posters' | 'web'
+  const [galleryType, setGalleryType] = useState('posters')
 
-  // Posters & Flyers gallery (served via public/posters-and-flyers symlink)
-  // Updated to use .webp assets 1.webp ... 16.webp
-  const gallery = Array.from({ length: 16 }, (_, i) => (
-    `${import.meta.env.BASE_URL}posters-and-flyers/${i + 1}.webp`
+  // Galleries config: served via public/ symlinks to images/
+  const galleries = {
+    posters: { base: 'posters-and-flyers', length: 16 },
+    web: { base: 'web-designs', length: 12 },
+  }
+
+  const active = galleries[galleryType]
+  const gallery = Array.from({ length: active.length }, (_, i) => (
+    `${import.meta.env.BASE_URL}${active.base}/${i + 1}.webp`
   ))
 
   // Lock background scroll and interactions while modal is open
@@ -201,7 +208,10 @@ function CreativeDesigner() {
                 key={`left-${i}`}
                 className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80}ms` }}
-                onClick={label.includes('posters') ? () => handleOpenLightbox(0) : undefined}
+                onClick={() => {
+                  if (label.includes('posters')) { setGalleryType('posters'); handleOpenLightbox(0) }
+                  else if (label.includes('web')) { setGalleryType('web'); handleOpenLightbox(0) }
+                }}
               >
                 {label}
               </button>
@@ -238,7 +248,10 @@ function CreativeDesigner() {
                 key={i}
                 className="apple-glass-button-accent anim-btn-soft w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
                 style={{ animationDelay: `${i * 80}ms` }}
-                onClick={label.includes('posters') ? () => handleOpenLightbox(0) : undefined}
+                onClick={() => {
+                  if (label.includes('posters')) { setGalleryType('posters'); handleOpenLightbox(0) }
+                  else if (label.includes('web')) { setGalleryType('web'); handleOpenLightbox(0) }
+                }}
               >
                 {label}
               </button>
@@ -278,11 +291,6 @@ function CreativeDesigner() {
           aria-modal="true"
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
-          style={{
-            background: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
@@ -300,6 +308,9 @@ function CreativeDesigner() {
                 key={currentIndex}
                 src={gallery[currentIndex]}
                 alt={`Creative design ${currentIndex + 1}`}
+                decoding="async"
+                fetchPriority="high"
+                loading="eager"
                 className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
                 onAnimationEnd={() => setEnterDir(null)}
               />
@@ -317,7 +328,7 @@ function CreativeDesigner() {
                   onClick={() => setCurrentIndex(i)}
                   title={`View image ${i + 1}`}
                 >
-                  <img src={src} alt={`Thumbnail ${i + 1}`} />
+                  <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" fetchPriority="low" />
                 </button>
               ))}
             </div>
@@ -779,14 +790,28 @@ function CreativeDesigner() {
         .lightbox-thumbs {
           position: fixed;
           left: 0; right: 0; bottom: 0;
-          height: 80px;
+          height: 86px;
           background: rgba(10,10,12,0.35);
           border-top: 1px solid rgba(255,255,255,0.12);
           z-index: 9999;
           padding-bottom: env(safe-area-inset-bottom);
+          /* Center the inner strip when it doesn't overflow */
+          text-align: center;
         }
-        .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; white-space: nowrap; padding: 8px 10px; display: flex; gap: 10px; }
-        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); flex: 0 0 auto; }
+        .lightbox-thumbs-scroll {
+          height: 100%;
+          overflow-x: auto; overflow-y: hidden;
+          padding: 8px 10px;
+          display: inline-flex; /* allows centering via parent text-align */
+          gap: 10px;
+          width: max-content; /* shrink to content width */
+          margin: 0 auto;      /* center when not overflowing */
+          scroll-snap-type: x mandatory;
+          overscroll-behavior-x: contain;
+          -webkit-overflow-scrolling: touch;
+        }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); flex: 0 0 auto; scroll-snap-align: center; transition: transform 150ms ease, border-color 150ms ease; }
+        .thumb:hover { transform: translateY(-1px); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .thumb-active { border-color: #ed6d6d; }
 

@@ -9,7 +9,8 @@ import socketserver
 import os
 from pathlib import Path
 
-PORT = 8000
+# Allow overriding port via env var (default 8000)
+PORT = int(os.getenv('PORT', '8000'))
 
 class SPAHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     """HTTP request handler that serves index.html for all routes except files"""
