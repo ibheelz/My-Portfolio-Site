@@ -739,17 +739,20 @@ function CreativeDesigner() {
           background: transparent; color: #ffffff; border: none;
           font-size: 24px; line-height: 1; font-weight: 600;
         }
-        .lightbox-close:hover { color: #ffffff; background: transparent; }
+        .lightbox-close:hover { color: #ed6d6d; background: transparent; }
+        .lightbox-close:active { color: #d95857; }
 
         .lightbox-chevron {
           position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
           width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
           background: rgba(0,0,0,0.45); color: #fff;
           display: inline-flex; align-items: center; justify-content: center;
+          transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
         }
         .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
         .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
-        .lightbox-chevron:hover { background: rgba(0,0,0,0.65); }
+        .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
+        .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
 
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: pan-y; }
         .lightbox-image {
