@@ -275,7 +275,7 @@ function CreativeDesigner() {
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
       <div
-        className="relative cd-bg flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
+        className="relative cd-bg subpad flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`,
           backgroundRepeat: 'no-repeat',
@@ -739,6 +739,8 @@ function CreativeDesigner() {
           .theme-card {
             min-height: clamp(180px, 35vh, 360px) !important;
           }
+          /* Add 2x horizontal padding on smaller screens */
+          .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }
         }
 
         /* Modal styles */

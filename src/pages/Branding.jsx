@@ -77,7 +77,7 @@ function Branding() {
 
       {/* Background section under navbar (match Creative opacity/darkness/position) */}
       <div
-        className="relative brand-bg flex-1 flex flex-col items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
+        className="relative brand-bg subpad flex-1 flex flex-col items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}branding-BG.webp)`,
           backgroundRepeat: 'no-repeat',
@@ -405,6 +405,10 @@ function Branding() {
         }
         @media (min-width: 1024px) {
           .brand-bg::before { background: rgba(0,0,0,0.625); }
+        }
+        @media (max-width: 639.98px) {
+          /* Add 2x horizontal padding on smaller screens */
+          .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }
         }
       `}</style>
     </div>
