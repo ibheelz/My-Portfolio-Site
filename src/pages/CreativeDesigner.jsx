@@ -337,9 +337,9 @@ function CreativeDesigner() {
         </div>
 
         {/* Mobile buttons under hero image, overlaid on BG */}
-        <div className="lg:hidden w-full px-0 mt-[clamp(48px,8vw,96px)] mb-[clamp(80px,12vh,140px)] text-center" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="lg:hidden w-full px-0 mt-[clamp(36px,7vw,64px)] mb-[clamp(80px,12vh,140px)] text-center" style={{ WebkitOverflowScrolling: 'touch' }}>
           {/* Strictly one column on all <=1023px widths (mobile/tablet) */}
-          <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)] gap-y-[clamp(40px,10vw,72px)]" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)]" style={{ gridTemplateColumns: '1fr' }}>
             {['posters & flyers','web design','packaging design','Editorial design'].map((label, i) => (
               <button
                 key={i}
