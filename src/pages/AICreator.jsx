@@ -201,8 +201,8 @@ function AICreator() {
 
         .glass-button:hover,
         .glass-button:active {
-          background: #ec6d6c;
-          border-color: #ec6d6c;
+          background: #eac28a; /* AI Creator hover/click */
+          border-color: #eac28a;
           box-shadow: none;
           color: #10171d;
         }

@@ -201,10 +201,10 @@ function Branding() {
 
         .glass-button:hover,
         .glass-button:active {
-          background: #ec6d6c;
-          border-color: #ec6d6c;
+          background: #aa90db; /* Branding hover/click */
+          border-color: #aa90db;
           box-shadow: none;
-          color: #10171d;
+          color: #ffffff; /* white text */
         }
 
         /* Cards match navbar fill */
