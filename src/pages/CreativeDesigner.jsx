@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+import { attachHireMe } from '../utils/attachHireMe'
 import cdBG from '../assets/creative-designer-BG.webp'
 import cdHero from '../assets/creative-designer-hero.webp'
 
@@ -35,6 +36,12 @@ function CreativeDesigner() {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
     }
+  }, [])
+
+  // Ensure subpage "Hire Me" buttons trigger mailto (works on client-side navigation)
+  useEffect(() => {
+    const cleanup = attachHireMe(document)
+    return cleanup
   }, [])
 
   // Preload page background image to speed up LCP on this subpage

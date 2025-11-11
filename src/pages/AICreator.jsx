@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { attachHireMe } from '../utils/attachHireMe'
 import aiBG from '../assets/ai-creator-BG.webp'
 import aiHero from '../assets/ai-creator-hero.webp'
 import annieHero from '../assets/annie-hero.webp'
@@ -15,6 +16,12 @@ function AICreator() {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
     }
+  }, [])
+
+  // Ensure subpage "Hire Me" buttons trigger mailto (works on client-side navigation)
+  useEffect(() => {
+    const cleanup = attachHireMe(document)
+    return cleanup
   }, [])
 
   // Lock background scroll when modal open

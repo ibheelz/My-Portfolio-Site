@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { attachHireMe } from '../utils/attachHireMe'
 import brandingBG from '../assets/branding-BG.webp'
 import brandingHero from '../assets/branding-hero.webp'
 
@@ -13,6 +14,12 @@ function Branding() {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
     }
+  }, [])
+
+  // Ensure subpage "Hire Me" buttons trigger mailto (works on client-side navigation)
+  useEffect(() => {
+    const cleanup = attachHireMe(document)
+    return cleanup
   }, [])
 
   // Preload page background image to speed up LCP on this subpage
