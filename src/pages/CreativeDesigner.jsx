@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 
 function CreativeDesigner() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [modalOpen, setModalOpen] = useState(false)
   const [modalCard, setModalCard] = useState(null)
   // Lightbox state
@@ -26,6 +27,13 @@ function CreativeDesigner() {
   const scrollPosRef = useRef(0)
   const prevBodyStyleRef = useRef({ position: '', top: '', width: '', overflow: '' })
   const prevHtmlOverflowRef = useRef('')
+  // Replay hero animation when navigated with state
+  const [heroKey, setHeroKey] = useState(0)
+  useEffect(() => {
+    if (location.state && location.state.animateHero) {
+      setHeroKey((k) => k + 1)
+    }
+  }, [])
 
   // Galleries config: served via public/ symlinks to images/
   const galleries = {
@@ -305,6 +313,7 @@ function CreativeDesigner() {
 
           {/* Center hero image */}
           <img
+            key={heroKey}
             src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
             alt="Creative Designer"
             className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
@@ -992,5 +1001,4 @@ function CreativeDesigner() {
     </div>
   )
 }
-
 export default CreativeDesigner

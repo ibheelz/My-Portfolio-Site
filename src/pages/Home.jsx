@@ -352,7 +352,7 @@ function Home() {
                   : activeSlide === 2
                     ? '/ai-creator'
                     : '/branding'
-                navigate(route)
+                navigate(route, { state: { animateHero: true } })
               }}
               className="mobile-glass-button px-4 py-2 rounded-full text-white font-['Jost',sans-serif] font-medium text-[10px] cursor-pointer"
               style={{ letterSpacing: '0.2em', pointerEvents: 'auto' }}

@@ -1,10 +1,17 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 function AICreator() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [modalOpen, setModalOpen] = useState(false)
   const [modalCard, setModalCard] = useState(null)
+  const [heroKey, setHeroKey] = useState(0)
+  useEffect(() => {
+    if (location.state && location.state.animateHero) {
+      setHeroKey((k) => k + 1)
+    }
+  }, [])
 
   // Lock background scroll when modal open
   useEffect(() => {
@@ -88,6 +95,7 @@ function AICreator() {
       >
         {/* Centered hero image */}
         <img
+          key={heroKey}
           src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
           alt="AI Creator"
           className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
