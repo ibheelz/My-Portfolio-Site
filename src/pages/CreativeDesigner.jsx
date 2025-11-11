@@ -29,7 +29,7 @@ function CreativeDesigner() {
 
   // Galleries config: served via public/ symlinks to images/
   const galleries = {
-    posters: { base: 'posters-and-flyers', length: 16 },
+    posters: { base: 'posters-and-flyers', length: 27 },
     web: { base: 'web-designs', length: 12 },
     editorial: { base: 'editorial-designs', length: 5 },
   }
