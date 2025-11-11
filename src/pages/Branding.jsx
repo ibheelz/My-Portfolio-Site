@@ -93,14 +93,51 @@ function Branding() {
           backgroundAttachment: 'fixed'
         }}
       >
-        {/* Centered hero image */}
-        <img
-          key={heroKey}
-          src={import.meta.env.BASE_URL + 'branding-hero.webp'}
-          alt="Branding"
-          className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
-          style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
-        />
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-20">
+          {/* Left side button (lg+) */}
+          <div className="hidden lg:flex flex-col items-center justify-center lg:my-24">
+            <button
+              className="branding-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)' }}
+            >
+              <span className="branding-image-button__label">Brand Identity</span>
+            </button>
+          </div>
+
+          {/* Centered hero image */}
+          <img
+            key={heroKey}
+            src={import.meta.env.BASE_URL + 'branding-hero.webp'}
+            alt="Branding"
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
+            style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+          />
+
+          {/* Right side button (lg+) */}
+          <div className="hidden lg:flex flex-col items-center justify-center lg:my-24">
+            <button
+              className="branding-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)' }}
+            >
+              <span className="branding-image-button__label">Merchandise</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile buttons under hero image */}
+        <div className="lg:hidden w-full px-0 mt-[clamp(36px,7vw,64px)] mb-[clamp(80px,12vh,140px)] text-center">
+          <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)]">
+            {['Brand Identity','Merchandise'].map((label, i) => (
+              <button
+                key={i}
+                className="branding-image-button anim-btn-soft w-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(13px,3.5vw,16px)]"
+                style={{ height: 'clamp(64px,10vw,86px)' }}
+              >
+                <span className="branding-image-button__label">{label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Modal overlay */}
@@ -417,6 +454,33 @@ function Branding() {
         @media (max-width: 639.98px) {
           /* Add 2x horizontal padding on smaller screens */
           .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }
+        }
+
+        /* Branding image-based buttons */
+        .branding-image-button {
+          position: relative;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          cursor: pointer;
+        }
+        .branding-image-button::before {
+          content: "";
+          position: absolute; inset: 0;
+          background-image: url('/branding-button.webp');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+        .branding-image-button__label {
+          position: relative;
+          color: #ffffff;
+          text-align: center;
+          width: 100%; height: 100%;
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 0 12px;
+          pointer-events: none;
         }
       `}</style>
     </div>
