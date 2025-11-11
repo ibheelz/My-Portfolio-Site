@@ -291,14 +291,14 @@ function CreativeDesigner() {
             {['posters & flyers','web design'].map((label, i) => (
               <button
                 key={`left-${i}`}
-                className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
-                style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80}ms` }}
+                className="creative-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
+                style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)', animationDelay: `${i * 80}ms` }}
                 onClick={() => {
                   if (label.includes('posters')) openLightboxFor('posters', 0)
                   else if (label.includes('web')) openLightboxFor('web', 0)
                 }}
               >
-                {label}
+                <span className="creative-image-button__label">{label}</span>
               </button>
             ))}
           </div>
@@ -315,13 +315,13 @@ function CreativeDesigner() {
             {['packaging design','Editorial design'].map((label, i) => (
               <button
                 key={`right-${i}`}
-                className="apple-glass-button-accent anim-btn-soft rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(24px,5vw,48px)] text-[clamp(11px,1vw,16px)]"
-                style={{ minWidth: 'clamp(280px, 24vw, 480px)', animationDelay: `${i * 80 + 120}ms` }}
+                className="creative-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
+                style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)', animationDelay: `${i * 80 + 120}ms` }}
                 onClick={() => {
                   if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
                 }}
               >
-                {label}
+                <span className="creative-image-button__label">{label}</span>
               </button>
             ))}
           </div>
@@ -334,15 +334,15 @@ function CreativeDesigner() {
             {['posters & flyers','web design','packaging design','Editorial design'].map((label, i) => (
               <button
                 key={i}
-                className="apple-glass-button-accent anim-btn-soft w-full rounded-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center gap-3 px-[clamp(26px,3vw,48px)] py-[clamp(37px,6.5vw,67px)] text-[clamp(13px,3.5vw,16px)]"
-                style={{ animationDelay: `${i * 80}ms` }}
+                className="creative-image-button anim-btn-soft w-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(13px,3.5vw,16px)]"
+                style={{ height: 'clamp(64px,10vw,86px)', animationDelay: `${i * 80}ms` }}
                 onClick={() => {
                   if (label.includes('posters')) openLightboxFor('posters', 0)
                   else if (label.includes('web')) openLightboxFor('web', 0)
                   else if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
                 }}
               >
-                {label}
+                <span className="creative-image-button__label">{label}</span>
               </button>
             ))}
           </div>
@@ -729,6 +729,36 @@ function CreativeDesigner() {
         .anim-btn-soft { opacity: 0; animation: btnSoftIn 600ms ease-out both; }
         @media (prefers-reduced-motion: reduce) {
           .anim-btn-soft { animation: none; opacity: 1; }
+        }
+
+        /* Creative button image style */
+        .creative-image-button {
+          position: relative;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          cursor: pointer;
+        }
+        .creative-image-button::before {
+          content: "";
+          position: absolute; inset: 0;
+          background-image: url('/creative-button.webp');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          transition: transform 160ms ease;
+        }
+        .creative-image-button:hover::before { transform: translateY(-1px) scale(1.01); }
+        .creative-image-button:active::before { transform: translateY(0) scale(0.995); }
+        .creative-image-button__label {
+          position: relative;
+          color: #ffffff;
+          text-align: center;
+          width: 100%; height: 100%;
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 0 12px;
+          pointer-events: none;
         }
 
         /* Creative hero uses the soft content animation only (match Branding) */
