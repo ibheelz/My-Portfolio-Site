@@ -576,7 +576,7 @@ function Home() {
             transition: 'opacity 600ms ease'
           }}
         >
-          {[1, 3, 2].map((charNum, idx) => (
+          {(window.innerWidth < 1024 && !sliderReady ? [3] : [1, 3, 2]).map((charNum, idx) => (
             <div
               key={charNum}
               className={
