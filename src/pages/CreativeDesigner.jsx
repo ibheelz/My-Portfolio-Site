@@ -224,7 +224,17 @@ function CreativeDesigner() {
 
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
-      {/* Header with logo and buttons */}
+      {/* Fixed, non-scrolling background layer */}
+      <div
+        className="page-fixed-bg"
+        aria-hidden
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`
+        }}
+      />
+      {/* Fixed darkening overlay (does not scroll) */}
+      <div className="page-fixed-overlay" aria-hidden />
+      {/* Header with logo and buttons (fixed) */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
         <img
@@ -280,17 +290,13 @@ function CreativeDesigner() {
         </div>
       </div>
 
+      {/* Spacer to offset fixed navbar height */}
+      <div className="header-spacer" />
+
       {/* 3 x 2 Glass grid beneath navbar */}
       {/* Centered hero image */}
       <div
-        className="relative cd-bg subpad flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 0px',
-          backgroundAttachment: 'fixed'
-        }}
+        className="page-content relative cd-bg subpad flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
       >
         {/* Ensure single column on mobile; side columns only at lg+ */}
         <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-12 xl:gap-20">
@@ -362,7 +368,7 @@ function CreativeDesigner() {
       <div className="hidden" />
 
       {/* Bottom Hire Me button (mobile only, exact as homepage) */}
-      <div className="lg:hidden flex justify-center items-center px-4 mt-[40px] mb-5">
+      <div className="lg:hidden page-content flex justify-center items-center px-4 mt-[40px] mb-5">
         <button className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2" style={{ minWidth: 'min(65vw, 520px)' }}>
           <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -400,11 +406,7 @@ function CreativeDesigner() {
           aria-modal="true"
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
-          style={{
-            background: `linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
+          style={{ background: 'rgba(0,0,0,0.82)' }}
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
@@ -461,6 +463,30 @@ function CreativeDesigner() {
       )}
 
       <style>{`
+        /* Fixed background shared style */
+        .page-fixed-bg {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          pointer-events: none;
+        }
+        .page-fixed-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          background: rgba(0,0,0,0);
+        }
+        .page-content { position: relative; z-index: 2; }
+        @media (max-width: 1023.98px) {
+          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
+        }
+        @media (min-width: 1024px) {
+          .page-fixed-overlay { background: rgba(0,0,0,0.625); }
+        }
         .svg-gold {
           filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
         }
@@ -520,10 +546,13 @@ function CreativeDesigner() {
           border: 1.5px solid rgba(255, 255, 255, 0.1);
           border-radius: clamp(20px, 4vw, 30px);
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
-          position: sticky;
+          position: fixed;
           top: 0;
-          z-index: 50;
+          left: clamp(12px, 3vw, 24px);
+          right: clamp(12px, 3vw, 24px);
+          z-index: 10;
         }
+        .header-spacer { height: clamp(72px, 12vh, 120px); }
 
         .glass-button {
           background: transparent;
@@ -736,28 +765,8 @@ function CreativeDesigner() {
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
 
-        /* Desktop-only extra darkening overlay for Creative Designer background */
-        .cd-bg::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background: rgba(0,0,0,0); /* no extra darkening by default */
-        }
-        /* Mobile/tablet: lift total darkening to ~30% over base 20% */
-        @media (max-width: 1023.98px) {
-          .cd-bg::before {
-            /* Increase small-screen total darkening to ~60%: 0.2 base + 0.5 overlay combined */
-            /* Math: 1 - (1-0.2)*(1-0.5) = 0.6 */
-            background: rgba(0,0,0,0.5);
-          }
-        }
-        @media (min-width: 1024px) {
-          .cd-bg::before {
-            /* Effective ~70% darkening with base 0.2 overlay: 1 - (1-0.2)*(1-0.625) ≈ 0.7 */
-            background: rgba(0,0,0,0.625);
-          }
-        }
+        /* Remove moving overlay on scroll for content container */
+        .cd-bg::before { display: none; }
 
         /* Soft button entrance */
         @keyframes btnSoftIn {
