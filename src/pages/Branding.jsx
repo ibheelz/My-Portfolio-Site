@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import brandingBG from '../assets/branding-BG.webp'
+import brandingHero from '../assets/branding-hero.webp'
 
 function Branding() {
   const navigate = useNavigate()
@@ -11,6 +13,28 @@ function Branding() {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
     }
+  }, [])
+
+  // Preload page background image to speed up LCP on this subpage
+  useEffect(() => {
+    const href = brandingBG
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = href
+    document.head.appendChild(link)
+    return () => { try { document.head.removeChild(link) } catch (_) {} }
+  }, [])
+
+  // Preload hero image to reduce LCP
+  useEffect(() => {
+    const href = brandingHero
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = href
+    document.head.appendChild(link)
+    return () => { try { document.head.removeChild(link) } catch (_) {} }
   }, [])
 
   // Lock background scroll when modal open
@@ -31,7 +55,7 @@ function Branding() {
         className="page-fixed-bg"
         aria-hidden
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}branding-BG.webp)`
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${brandingBG})`
         }}
       />
       {/* Fixed darkening overlay (does not scroll) */}
@@ -39,14 +63,14 @@ function Branding() {
       {/* Header with logo and buttons (fixed) */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
-        <img
+        <img decoding="async"
           src="/left.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold sub-anim-svg-left"
         />
 
         {/* Right SVG */}
-        <img
+        <img decoding="async"
           src="/right.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold sub-anim-svg-right"
@@ -66,7 +90,7 @@ function Branding() {
         </div>
 
         {/* Logo centered - clickable */}
-        <img
+        <img decoding="async"
           src="/ibheelz-logo.webp"
           alt="ibheelz"
           className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer sub-anim-logo-slow"
@@ -113,10 +137,12 @@ function Branding() {
           {/* Centered hero image */}
           <img
             key={heroKey}
-            src={import.meta.env.BASE_URL + 'branding-hero.webp'}
+            src={brandingHero}
             alt="Branding"
             className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
             style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+            decoding="async"
+            fetchpriority="high"
           />
 
           {/* Right side button (lg+) */}

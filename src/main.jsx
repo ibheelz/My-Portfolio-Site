@@ -2,6 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+// URLs to hashed assets (resolved at build)
+import cdBG from './assets/creative-designer-BG.webp'
+import cdHero from './assets/creative-designer-hero.webp'
+import brBG from './assets/branding-BG.webp'
+import brHero from './assets/branding-hero.webp'
+import aiBG from './assets/ai-creator-BG.webp'
+import aiHero from './assets/ai-creator-hero.webp'
+import annieHero from './assets/annie-hero.webp'
+import luciaHero from './assets/lucia-hero.webp'
 import './index.css'
 
 // Ensure all CSS animations start together after a tiny delay on full refresh
@@ -24,3 +33,30 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
+
+// Idle-time warmup: prefetch route bundles and common hero assets
+;(function prefetchOnIdle(){
+  const idle = (cb) => (window.requestIdleCallback ? window.requestIdleCallback(cb, { timeout: 2000 }) : setTimeout(cb, 1200))
+  idle(() => {
+    // Warm route chunks
+    Promise.allSettled([
+      import('./pages/CreativeDesigner'),
+      import('./pages/Branding'),
+      import('./pages/AICreator'),
+      import('./pages/ThreeDDesign'),
+      import('./pages/GameDesign'),
+    ])
+    // Prefetch hero/background images (low priority hint)
+    ;[
+      cdBG, cdHero, brBG, brHero, aiBG, aiHero, annieHero, luciaHero,
+    ].forEach((url) => {
+      try {
+        const link = document.createElement('link')
+        link.rel = 'prefetch'
+        link.as = 'image'
+        link.href = url
+        document.head.appendChild(link)
+      } catch (_) {}
+    })
+  })
+})()

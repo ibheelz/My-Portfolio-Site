@@ -22,14 +22,14 @@ function ThreeDDesign() {
       {/* Header with logo and buttons */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
-        <img
+        <img decoding="async"
           src="/left.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold sub-anim-svg-left"
         />
 
         {/* Right SVG */}
-        <img
+        <img decoding="async"
           src="/right.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold sub-anim-svg-right"
@@ -49,7 +49,7 @@ function ThreeDDesign() {
         </div>
 
         {/* Logo centered - clickable */}
-        <img
+        <img decoding="async"
           src="/ibheelz-logo.webp"
           alt="ibheelz"
           className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer sub-anim-logo-slow"

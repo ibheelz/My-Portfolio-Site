@@ -1,5 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import aiBG from '../assets/ai-creator-BG.webp'
+import aiHero from '../assets/ai-creator-hero.webp'
+import annieHero from '../assets/annie-hero.webp'
+import luciaHero from '../assets/lucia-hero.webp'
 
 function AICreator() {
   const navigate = useNavigate()
@@ -31,7 +35,7 @@ function AICreator() {
         className="page-fixed-bg"
         aria-hidden
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}ai-creator-BG.webp)`
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${aiBG})`
         }}
       />
       {/* Fixed darkening overlay (does not scroll) */}
@@ -39,14 +43,14 @@ function AICreator() {
       {/* Header with logo and buttons (fixed) */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
-        <img
+        <img decoding="async"
           src="/left.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold sub-anim-svg-left"
         />
 
         {/* Right SVG */}
-        <img
+        <img decoding="async"
           src="/right.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold sub-anim-svg-right"
@@ -66,7 +70,7 @@ function AICreator() {
         </div>
 
         {/* Logo centered - clickable */}
-        <img
+        <img decoding="async"
           src="/ibheelz-logo.webp"
           alt="ibheelz"
           className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer sub-anim-logo-slow"
@@ -102,8 +106,8 @@ function AICreator() {
         <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-20">
           {/* Left side image (Annie) */}
           <div className="hidden lg:flex flex-col items-center justify-center lg:my-24">
-            <img
-              src={import.meta.env.BASE_URL + 'annie-hero.webp'}
+            <img decoding="async" fetchpriority="high"
+              src={annieHero}
               alt="Annie"
               className="block"
               style={{
@@ -127,16 +131,18 @@ function AICreator() {
           {/* Centered hero image */}
           <img
             key={heroKey}
-            src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
+            src={aiHero}
             alt="AI Creator"
             className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
             style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+            decoding="async"
+            fetchpriority="high"
           />
 
           {/* Right side image (Lucia) */}
           <div className="hidden lg:flex flex-col items-center justify-center lg:my-24">
-            <img
-              src={import.meta.env.BASE_URL + 'lucia-hero.webp'}
+            <img decoding="async"
+              src={luciaHero}
               alt="Lucia"
               className="block"
               style={{
@@ -162,8 +168,8 @@ function AICreator() {
           <div className="lg:hidden w-full px-0 mt-[clamp(36px,7vw,64px)] mb-[clamp(80px,12vh,140px)] text-center">
           <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)]">
             <div className="ai-mobile-pair">
-              <img
-                src={import.meta.env.BASE_URL + 'annie-hero.webp'}
+              <img loading="lazy" decoding="async"
+                src={annieHero}
                 alt="Annie"
                 className="w-full object-contain mx-auto"
                 style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
@@ -173,8 +179,8 @@ function AICreator() {
               </div>
             </div>
             <div className="ai-mobile-pair">
-              <img
-                src={import.meta.env.BASE_URL + 'lucia-hero.webp'}
+              <img loading="lazy" decoding="async"
+                src={luciaHero}
                 alt="Lucia"
                 className="w-full object-contain mx-auto"
                 style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}

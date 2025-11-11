@@ -51,3 +51,14 @@ Options -Indexes
   # PDFs
   ExpiresByType application/pdf "access plus 1 month"
 </IfModule>
+
+# Strong caching headers for static assets
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:css|js|webp|png|jpe?g|gif|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(?:html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  Header append Vary Accept-Encoding
+</IfModule>

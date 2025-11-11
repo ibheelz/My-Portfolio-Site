@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+import cdBG from '../assets/creative-designer-BG.webp'
+import cdHero from '../assets/creative-designer-hero.webp'
 
 function CreativeDesigner() {
   const navigate = useNavigate()
@@ -33,6 +35,28 @@ function CreativeDesigner() {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
     }
+  }, [])
+
+  // Preload page background image to speed up LCP on this subpage
+  useEffect(() => {
+    const href = cdBG
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = href
+    document.head.appendChild(link)
+    return () => { try { document.head.removeChild(link) } catch (_) {} }
+  }, [])
+
+  // Preload hero image to reduce LCP
+  useEffect(() => {
+    const href = cdHero
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = href
+    document.head.appendChild(link)
+    return () => { try { document.head.removeChild(link) } catch (_) {} }
   }, [])
 
   // Galleries config: served via public/ symlinks to images/
@@ -229,7 +253,7 @@ function CreativeDesigner() {
         className="page-fixed-bg"
         aria-hidden
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${cdBG})`
         }}
       />
       {/* Fixed darkening overlay (does not scroll) */}
@@ -237,14 +261,14 @@ function CreativeDesigner() {
       {/* Header with logo and buttons (fixed) */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
-        <img
+        <img decoding="async"
           src="/left.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold sub-anim-svg-left"
         />
 
         {/* Right SVG */}
-        <img
+        <img decoding="async"
           src="/right.svg"
           alt=""
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold sub-anim-svg-right"
@@ -264,7 +288,7 @@ function CreativeDesigner() {
         </div>
 
         {/* Logo centered - clickable */}
-        <img
+        <img decoding="async"
           src="/ibheelz-logo.webp"
           alt="ibheelz"
           className="h-[clamp(3rem,6vw,4.25rem)] w-auto cursor-pointer sub-anim-logo-slow"
@@ -320,9 +344,11 @@ function CreativeDesigner() {
           {/* Center hero image */}
           <img
             key={heroKey}
-            src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
+            src={cdHero}
             alt="Creative Designer"
             className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
+            decoding="async"
+            fetchpriority="high"
           />
 
           {/* Right side buttons (lg+) */}
