@@ -366,6 +366,25 @@ function Branding() {
         }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
 
+        /* Enhanced hero image animation (enter + subtle float) */
+        @keyframes heroEnter {
+          0% { opacity: 0; transform: translateY(16px) scale(0.985); }
+          60% { opacity: 1; transform: translateY(0) scale(1.012); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes heroFloat {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+          100% { transform: translateY(0); }
+        }
+        .anim-hero-image {
+          will-change: transform, opacity;
+          animation: heroEnter 720ms cubic-bezier(0.2, 0.85, 0.2, 1) both, heroFloat 7000ms ease-in-out 900ms infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .anim-hero-image { animation: heroEnter 400ms ease-out both; }
+        }
+
         /* Page-level soft intro animations (exclude navbar) */
         @keyframes bgSoftIn {
           0% { opacity: 0; transform: scale(1.015); }
