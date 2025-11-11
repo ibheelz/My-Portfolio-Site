@@ -277,7 +277,7 @@ function CreativeDesigner() {
       <div
         className="relative cd-bg flex-1 flex flex-col items-center md:items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] lg:-mx-[clamp(6px,1.5vw,12px)] lg:-mb-[clamp(6px,1.5vw,12px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center 0px',
@@ -381,7 +381,7 @@ function CreativeDesigner() {
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
           style={{
-            background: `linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)), url(${import.meta.env.BASE_URL}creative-designer-BG.png)`,
+            background: `linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)), url(${import.meta.env.BASE_URL}creative-designer-BG.webp)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}

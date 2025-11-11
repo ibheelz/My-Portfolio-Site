@@ -18,7 +18,16 @@ function Branding() {
   }, [modalOpen])
 
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
+    <div
+      className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}branding-BG.webp)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 0px',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       {/* Header with logo and buttons */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
         {/* Left SVG */}
@@ -81,7 +90,7 @@ function Branding() {
         <img
           src={import.meta.env.BASE_URL + 'branding-hero.webp'}
           alt="Branding"
-          className="w-full h-auto object-contain"
+          className="w-full h-auto object-contain anim-content-soft"
           style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
         />
       </div>
@@ -355,3 +364,9 @@ function Branding() {
 }
 
 export default Branding
+        /* Soft content fade/slide-in for hero image (all screen sizes) */
+        @keyframes contentSoftIn {
+          0% { opacity: 0; transform: translateY(10px) scale(0.992); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
