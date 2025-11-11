@@ -307,7 +307,7 @@ function CreativeDesigner() {
           <img
             src={import.meta.env.BASE_URL + 'creative-designer-hero.webp'}
             alt="Creative Designer"
-            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft anim-hero-image mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
           />
 
           {/* Right side buttons (lg+) */}
@@ -731,24 +731,7 @@ function CreativeDesigner() {
           .anim-btn-soft { animation: none; opacity: 1; }
         }
 
-        /* Enhanced hero image animation (enter + subtle float) */
-        @keyframes heroEnter {
-          0% { opacity: 0; transform: translateY(16px) scale(0.985); }
-          60% { opacity: 1; transform: translateY(0) scale(1.012); }
-          100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes heroFloat {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-          100% { transform: translateY(0); }
-        }
-        .anim-hero-image {
-          will-change: transform, opacity;
-          animation: heroEnter 720ms cubic-bezier(0.2, 0.85, 0.2, 1) both, heroFloat 7000ms ease-in-out 900ms infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .anim-hero-image { animation: heroEnter 400ms ease-out both; }
-        }
+        /* Creative hero uses the soft content animation only (match Branding) */
 
         /* Small screens: increase card height */
         @media (max-width: 639.98px) {

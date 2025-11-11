@@ -90,7 +90,7 @@ function AICreator() {
         <img
           src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
           alt="AI Creator"
-          className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft anim-hero-image mx-auto lg:mx-0"
+          className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
           style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
         />
       </div>
@@ -358,25 +358,6 @@ function AICreator() {
         }
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
-
-        /* Enhanced hero image animation (enter + subtle float) */
-        @keyframes heroEnter {
-          0% { opacity: 0; transform: translateY(16px) scale(0.985); }
-          60% { opacity: 1; transform: translateY(0) scale(1.012); }
-          100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes heroFloat {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-          100% { transform: translateY(0); }
-        }
-        .anim-hero-image {
-          will-change: transform, opacity;
-          animation: heroEnter 720ms cubic-bezier(0.2, 0.85, 0.2, 1) both, heroFloat 7000ms ease-in-out 900ms infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .anim-hero-image { animation: heroEnter 400ms ease-out both; }
-        }
 
         /* Match Creative: extra darkening overlay via pseudo */
         .ai-bg::before {
