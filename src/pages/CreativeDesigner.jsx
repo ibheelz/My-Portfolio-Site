@@ -749,8 +749,9 @@ function CreativeDesigner() {
           background-size: contain;
           transition: transform 160ms ease;
         }
-        .creative-image-button:hover::before { transform: translateY(-1px) scale(1.01); }
-        .creative-image-button:active::before { transform: translateY(0) scale(0.995); }
+        /* No zoom on hover */
+        .creative-image-button:hover::before { transform: none; }
+        .creative-image-button:active::before { transform: none; }
         .creative-image-button__label {
           position: relative;
           color: #ffffff;
@@ -760,6 +761,8 @@ function CreativeDesigner() {
           padding: 0 12px;
           pointer-events: none;
         }
+        /* Hover text color */
+        .creative-image-button:hover .creative-image-button__label { color: #eabe76; }
 
         /* Creative hero uses the soft content animation only (match Branding) */
 
