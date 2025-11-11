@@ -11,6 +11,8 @@ import aiBG from './assets/ai-creator-BG.webp'
 import aiHero from './assets/ai-creator-hero.webp'
 import annieHero from './assets/annie-hero.webp'
 import luciaHero from './assets/lucia-hero.webp'
+import threeDHero from './assets/3d-design-hero.webp'
+import gameHero from './assets/game-design-hero.webp'
 import './index.css'
 
 // Ensure all CSS animations start together after a tiny delay on full refresh
@@ -48,7 +50,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     ])
     // Prefetch hero/background images (low priority hint)
     ;[
-      cdBG, cdHero, brBG, brHero, aiBG, aiHero, annieHero, luciaHero,
+      cdBG, cdHero, brBG, brHero, aiBG, aiHero, annieHero, luciaHero, threeDHero, gameHero,
     ].forEach((url) => {
       try {
         const link = document.createElement('link')
