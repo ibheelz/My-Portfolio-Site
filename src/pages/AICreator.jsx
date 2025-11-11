@@ -93,14 +93,92 @@ function AICreator() {
           backgroundAttachment: 'fixed'
         }}
       >
-        {/* Centered hero image */}
-        <img
-          key={heroKey}
-          src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
-          alt="AI Creator"
-          className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
-          style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
-        />
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-20">
+          {/* Left side image (Annie) */}
+          <div className="hidden lg:flex flex-col items-center justify-center lg:my-24">
+            <img
+              src={import.meta.env.BASE_URL + 'annie-hero.webp'}
+              alt="Annie"
+              className="block"
+              style={{
+                minWidth: 'clamp(320px, 26vw, 640px)',
+                height: 'clamp(220px, 32vh, 520px)',
+                objectFit: 'contain',
+                opacity: 1,
+                filter: 'none',
+                position: 'relative',
+                zIndex: 1
+              }}
+            />
+            <div
+              className="ai-badge font-['Jost',sans-serif] font-medium capitalize text-[clamp(11px,1vw,16px)]"
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(80px,8vw,120px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
+            >
+              <span className="ai-badge__label">Annie Radley</span>
+            </div>
+          </div>
+
+          {/* Centered hero image */}
+          <img
+            key={heroKey}
+            src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
+            alt="AI Creator"
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
+            style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+          />
+
+          {/* Right side image (Lucia) */}
+          <div className="hidden lg:flex flex-col items-center justify-center lg:my-24">
+            <img
+              src={import.meta.env.BASE_URL + 'lucia-hero.webp'}
+              alt="Lucia"
+              className="block"
+              style={{
+                minWidth: 'clamp(320px, 26vw, 640px)',
+                height: 'clamp(220px, 32vh, 520px)',
+                objectFit: 'contain',
+                opacity: 1,
+                filter: 'none',
+                position: 'relative',
+                zIndex: 1
+              }}
+            />
+            <div
+              className="ai-badge font-['Jost',sans-serif] font-medium capitalize text-[clamp(11px,1vw,16px)]"
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(80px,8vw,120px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
+            >
+              <span className="ai-badge__label">Lucia Pazmiño</span>
+            </div>
+          </div>
+        </div>
+
+          {/* Mobile stacked images under hero */}
+          <div className="lg:hidden w-full px-0 mt-[clamp(36px,7vw,64px)] mb-[clamp(80px,12vh,140px)] text-center">
+          <div className="max-w-[900px] mx-auto grid grid-cols-1 gap-[clamp(14px,3vw,24px)]">
+            <div className="ai-mobile-pair">
+              <img
+                src={import.meta.env.BASE_URL + 'annie-hero.webp'}
+                alt="Annie"
+                className="w-full object-contain mx-auto"
+                style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
+              />
+              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(14px,4vw,18px)]" style={{ height: 'clamp(96px,14vw,140px)', marginTop: 'clamp(16px,4vw,24px)' }}>
+                <span className="ai-badge__label">Annie Radley</span>
+              </div>
+            </div>
+            <div className="ai-mobile-pair">
+              <img
+                src={import.meta.env.BASE_URL + 'lucia-hero.webp'}
+                alt="Lucia"
+                className="w-full object-contain mx-auto"
+                style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
+              />
+              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(14px,4vw,18px)]" style={{ height: 'clamp(96px,14vw,140px)', marginTop: 'clamp(16px,4vw,24px)' }}>
+                <span className="ai-badge__label">Lucia Pazmiño</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Modal overlay */}
@@ -379,8 +457,41 @@ function AICreator() {
           .ai-bg::before { background: rgba(0,0,0,0.5); }
         }
         @media (min-width: 1024px) {
-          .ai-bg::before { background: rgba(0,0,0,0.625); }
-        }
+        .ai-bg::before { background: rgba(0,0,0,0.625); }
+      }
+      
+      /* AI Creator element badge under hero images */
+      .ai-badge {
+        position: relative;
+      }
+      .ai-badge::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url('/ai-element.webp');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      .ai-badge__label {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #ffffff;
+        text-align: center;
+        pointer-events: none;
+        padding: 0 12px;
+      }
+      /* Extra spacing between the two mobile pairs */
+      @media (max-width: 1023.98px) {
+        .ai-mobile-pair { margin-bottom: clamp(36px, 12vw, 72px); }
+      }
+      /* Hover/click label color (match Creative/Branding) */
+      .ai-badge:hover .ai-badge__label { color: #eabe76; }
+      .ai-badge:active .ai-badge__label { color: #eabe76; }
         @media (max-width: 639.98px) {
           /* Add 2x horizontal padding on smaller screens */
           .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }
