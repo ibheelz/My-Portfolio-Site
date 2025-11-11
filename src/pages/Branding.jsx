@@ -147,7 +147,7 @@ function Branding() {
       </div>
 
       {/* Bottom Hire Me button (mobile only, exact as homepage) */}
-      <div className="lg:hidden page-content flex justify-center items-center px-4 mt-[40px] mb-5">
+      <div className="lg:hidden page-content mobile-sticky-cta flex justify-center items-center px-4 mt-[40px] mb-5">
         <button className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2" style={{ minWidth: 'min(65vw, 520px)' }}>
           <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -196,6 +196,15 @@ function Branding() {
           background: rgba(0,0,0,0);
         }
         .page-content { position: relative; z-index: 2; }
+        /* Mobile sticky CTA fixed to bottom, above overlays */
+        .mobile-sticky-cta {
+          position: fixed;
+          left: clamp(6px, 1.5vw, 12px);
+          right: clamp(6px, 1.5vw, 12px);
+          bottom: max(12px, env(safe-area-inset-bottom));
+          z-index: 20;
+          margin: 0;
+        }
         @media (max-width: 1023.98px) {
           .page-fixed-overlay { background: rgba(0,0,0,0.5); }
         }
@@ -549,6 +558,17 @@ function Branding() {
             inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
             inset 0 -1px 0 0 rgba(165, 200, 228, 0.4),
             0 8px 32px 0 rgba(165, 200, 228, 0.25);
+        }
+
+        /* Glowing movement (match Home) */
+        @keyframes liquidMove {
+          0% { transform: translate(0, 0); }
+          50% { transform: translate(10%, 5%); }
+          100% { transform: translate(0, 0); }
+        }
+        @keyframes glossyShine {
+          0% { left: -100%; }
+          50%, 100% { left: 200%; }
         }
 
         /* Branding image-based buttons */
