@@ -75,12 +75,22 @@ function AICreator() {
         </div>
       </div>
 
-      {/* Centered hero image */}
-      <div className="flex-1 flex justify-center items-start md:items-center p-3 sm:p-4 mt-[20px] md:mt-0">
+      {/* Background section under navbar (match Creative opacity/darkness/position) */}
+      <div
+        className="relative ai-bg flex-1 flex flex-col items-center justify-center p-0 mt-0 -mx-[clamp(12px,3vw,24px)] -mb-[clamp(12px,3vw,24px)] px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${import.meta.env.BASE_URL}ai-creator-BG.webp)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 0px',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {/* Centered hero image */}
         <img
           src={import.meta.env.BASE_URL + 'ai-creator-hero.webp'}
           alt="AI Creator"
-          className="w-full h-auto object-contain"
+          className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
           style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
         />
       </div>
@@ -336,6 +346,33 @@ function AICreator() {
         }
         .sub-anim-svg-left { animation: subSvgInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
         .sub-anim-svg-right { animation: subSvgInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
+
+        /* Page-level soft intro animations (exclude navbar) */
+        @keyframes bgSoftIn {
+          0% { opacity: 0; transform: scale(1.015); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes contentSoftIn {
+          0% { opacity: 0; transform: translateY(10px) scale(0.992); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
+        .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
+
+        /* Match Creative: extra darkening overlay via pseudo */
+        .ai-bg::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: rgba(0,0,0,0);
+        }
+        @media (max-width: 1023.98px) {
+          .ai-bg::before { background: rgba(0,0,0,0.5); }
+        }
+        @media (min-width: 1024px) {
+          .ai-bg::before { background: rgba(0,0,0,0.625); }
+        }
       `}</style>
     </div>
   )
