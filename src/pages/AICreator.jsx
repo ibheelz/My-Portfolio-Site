@@ -112,7 +112,7 @@ function AICreator() {
             />
             <div
               className="ai-badge font-['Jost',sans-serif] font-medium capitalize text-[clamp(11px,1vw,16px)]"
-              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(80px,8vw,120px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6.4vw,96px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
             >
               <span className="ai-badge__label">Annie Radley</span>
             </div>
@@ -145,7 +145,7 @@ function AICreator() {
             />
             <div
               className="ai-badge font-['Jost',sans-serif] font-medium capitalize text-[clamp(11px,1vw,16px)]"
-              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(80px,8vw,120px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6.4vw,96px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
             >
               <span className="ai-badge__label">Lucia Pazmiño</span>
             </div>
@@ -162,7 +162,7 @@ function AICreator() {
                 className="w-full object-contain mx-auto"
                 style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
               />
-              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" style={{ height: 'clamp(96px,14vw,140px)', marginTop: 'clamp(16px,4vw,24px)' }}>
+              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" style={{ height: 'clamp(77px,11.2vw,112px)', marginTop: 'clamp(16px,4vw,24px)' }}>
                 <span className="ai-badge__label">Annie Radley</span>
               </div>
             </div>
@@ -173,7 +173,7 @@ function AICreator() {
                 className="w-full object-contain mx-auto"
                 style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
               />
-              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" style={{ height: 'clamp(96px,14vw,140px)', marginTop: 'clamp(16px,4vw,24px)' }}>
+              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" style={{ height: 'clamp(77px,11.2vw,112px)', marginTop: 'clamp(16px,4vw,24px)' }}>
                 <span className="ai-badge__label">Lucia Pazmiño</span>
               </div>
             </div>
