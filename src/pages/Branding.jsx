@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
 import brandingBG from '../assets/branding-BG.webp'
 import brandingHero from '../assets/branding-hero.webp'
+// Load all merchandise images at build time (drop new files into src/assets/merchandise)
+const merchImports = import.meta.glob('../assets/merchandise/*.{webp,png,jpg,jpeg}', { eager: true, as: 'url' })
+const merchImages = Object.values(merchImports).sort()
 
 function Branding() {
   const navigate = useNavigate()
@@ -103,7 +106,8 @@ function Branding() {
   }, [lightboxOpen])
 
   const openMerch = async (startIndex = 0) => {
-    const src = `${import.meta.env.BASE_URL}merchandise/${startIndex + 1}.webp`
+    const list = merchImages.length ? merchImages : []
+    const src = list[startIndex] || `${import.meta.env.BASE_URL}merchandise/${startIndex + 1}.webp`
     await ensureDecoded(src)
     setCurrentIndex(startIndex)
     setLightboxOpen(true)
@@ -112,8 +116,11 @@ function Branding() {
     setLightboxClosing(true)
     setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
   }
-  const prevImage = () => { setEnterDir('right'); setCurrentIndex((i) => (i - 1 + 6) % 6) }
-  const nextImage = () => { setEnterDir('left'); setCurrentIndex((i) => (i + 1) % 6) }
+  const imgCount = merchImages.length || 0
+  const fallbackCount = 24 // allow up to 24 numbered images if using public/merchandise
+  const total = imgCount || fallbackCount
+  const prevImage = () => { setEnterDir('right'); setCurrentIndex((i) => (i - 1 + total) % total) }
+  const nextImage = () => { setEnterDir('left'); setCurrentIndex((i) => (i + 1) % total) }
 
   // Mobile swipe (match Creative)
   const handleTouchStart = (e) => {
@@ -321,7 +328,7 @@ function Branding() {
           <div className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`} ref={lightboxRef} onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <img
-                src={`${import.meta.env.BASE_URL}merchandise/${currentIndex + 1}.webp`}
+                src={(merchImages.length ? merchImages[currentIndex % merchImages.length] : `${import.meta.env.BASE_URL}merchandise/${currentIndex + 1}.webp`)}
                 alt={`Merchandise ${currentIndex + 1}`}
                 className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
                 decoding="async"
@@ -331,9 +338,9 @@ function Branding() {
           <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
               <div className="thumbs-inner">
-                {Array.from({ length: 6 }, (_, i) => (
-                  <button key={i} className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`} aria-label={`Go to image ${i + 1}`} onClick={() => setCurrentIndex(i)}>
-                    <img src={`${import.meta.env.BASE_URL}merchandise/${i + 1}.webp`} alt={``} decoding="async" />
+                {(merchImages.length ? merchImages : Array.from({ length: fallbackCount }, (_, i) => `${import.meta.env.BASE_URL}merchandise/${i + 1}.webp`)).map((src, i) => (
+                  <button key={i} className={`thumb ${i === (currentIndex % total) ? 'thumb-active' : ''}`} aria-label={`Go to image ${i + 1}`} onClick={() => setCurrentIndex(i)}>
+                    <img src={src} alt={``} decoding="async" />
                   </button>
                 ))}
               </div>
