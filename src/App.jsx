@@ -30,7 +30,7 @@ function RouteGate() {
     } else if (location.pathname.includes('game-design')) {
       assets = [ `${base}game-design-hero.webp` ]
     }
-    if (window.preloadGate) window.preloadGate(assets, { minMs: 800, maxMs: 5000 })
+    if (window.preloadGate) window.preloadGate(assets, { minMs: 0, maxMs: 0, silent: true })
   }, [location.pathname])
   return null
 }

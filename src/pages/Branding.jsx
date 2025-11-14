@@ -111,10 +111,10 @@ function Branding() {
       : Array.from({ length: 24 }, (_, i) => `${import.meta.env.BASE_URL}merchandise/${i + 1}.webp`)
     try {
       if (window.preloadGate) {
-        await window.preloadGate(list, { minMs: 800, maxMs: 5000 })
+        window.preloadGate(list, { minMs: 0, maxMs: 0, silent: true })
       } else {
         const first = list[startIndex] || list[0]
-        if (first) await ensureDecoded(first)
+        if (first) ensureDecoded(first)
       }
     } catch (_) {}
     setCurrentIndex(startIndex)

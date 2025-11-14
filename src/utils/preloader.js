@@ -20,10 +20,11 @@ export function setupPreloaderGlobal() {
   window.preloadGate = function(urls = [], opts = {}) {
     const minMs = typeof opts.minMs === 'number' ? opts.minMs : 800
     const maxMs = typeof opts.maxMs === 'number' ? opts.maxMs : 5000
+    const silent = !!opts.silent
     const started = Date.now()
-    const showEvt = new CustomEvent('preloader:show')
-    const hideEvt = new CustomEvent('preloader:hide')
-    window.dispatchEvent(showEvt)
+    if (!silent) {
+      try { window.dispatchEvent(new CustomEvent('preloader:show')) } catch (_) {}
+    }
     const timerMin = new Promise((r) => setTimeout(r, minMs))
     const timerMax = new Promise((r) => setTimeout(r, maxMs))
     const work = preloadImages(urls)
@@ -32,8 +33,9 @@ export function setupPreloaderGlobal() {
       Promise.all([work, timerMin]).then(() => true),
       timerMax.then(() => false)
     ]).finally(() => {
-      window.dispatchEvent(hideEvt)
+      if (!silent) {
+        try { window.dispatchEvent(new CustomEvent('preloader:hide')) } catch (_) {}
+      }
     })
   }
 }
-

@@ -226,11 +226,11 @@ function CreativeDesigner() {
     }
     try {
       if (window.preloadGate) {
-        await window.preloadGate(urls, { minMs: 800, maxMs: 5000 })
+        // Fire-and-forget preload without blocking UI or showing overlay
+        window.preloadGate(urls, { minMs: 0, maxMs: 0, silent: true })
       } else {
-        // Fallback to decoding just the first image
         const firstSrc = urls[startIndex] || urls[0]
-        if (firstSrc) await ensureDecoded(firstSrc)
+        if (firstSrc) ensureDecoded(firstSrc)
       }
     } catch (_) {}
     setGalleryType(type)
