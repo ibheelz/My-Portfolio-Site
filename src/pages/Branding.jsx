@@ -18,6 +18,8 @@ function Branding() {
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const thumbsScrollRef = useRef(null)
+  const touchStartXRef = useRef(null)
+  const touchStartYRef = useRef(null)
   const preloadedRef = useRef(new Set())
   const [lightboxEntering, setLightboxEntering] = useState(false)
   const enterTimerRef = useRef(null)
@@ -112,6 +114,32 @@ function Branding() {
   }
   const prevImage = () => { setEnterDir('right'); setCurrentIndex((i) => (i - 1 + 6) % 6) }
   const nextImage = () => { setEnterDir('left'); setCurrentIndex((i) => (i + 1) % 6) }
+
+  // Mobile swipe (match Creative)
+  const handleTouchStart = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    touchStartXRef.current = t.clientX
+    touchStartYRef.current = t.clientY
+  }
+  const handleTouchMove = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    const dx = t.clientX - (touchStartXRef.current ?? t.clientX)
+    const dy = t.clientY - (touchStartYRef.current ?? t.clientY)
+    const absDx = Math.abs(dx)
+    const absDy = Math.abs(dy)
+    if (window.innerWidth <= 768 && absDx > 40 && absDx > absDy * 1.2) {
+      if (dx < 0) nextImage(); else prevImage()
+      // Reset so it doesn't fire repeatedly during the same gesture
+      touchStartXRef.current = t.clientX
+      touchStartYRef.current = t.clientY
+    }
+  }
+  const handleTouchEnd = () => {
+    touchStartXRef.current = null
+    touchStartYRef.current = null
+  }
 
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
@@ -291,7 +319,7 @@ function Branding() {
             </span>
           </button>
           <div className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`} ref={lightboxRef} onClick={(e) => e.stopPropagation()}>
-            <div className="lightbox-image-wrap">
+            <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <img
                 src={`${import.meta.env.BASE_URL}merchandise/${currentIndex + 1}.webp`}
                 alt={`Merchandise ${currentIndex + 1}`}
