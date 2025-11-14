@@ -15,7 +15,10 @@ function RouteGate() {
     const base = import.meta.env.BASE_URL || '/'
     let assets = []
     if (location.pathname === '/' || location.pathname === base) {
-      assets = [ `${base}hero-bg.webp`, `${base}ibheelz-logo.webp`, `${base}left.svg`, `${base}right.svg` ]
+      assets = [
+        `${base}hero-bg.webp`, `${base}ibheelz-logo.webp`, `${base}left.svg`, `${base}right.svg`,
+        `${base}characters/1.webp`, `${base}characters/2.webp`, `${base}characters/3.webp`
+      ]
     } else if (location.pathname.includes('creative-designer')) {
       assets = [ `${base}creative-designer-BG.webp`, `${base}creative-designer-hero.webp` ]
     } else if (location.pathname.includes('branding')) {
