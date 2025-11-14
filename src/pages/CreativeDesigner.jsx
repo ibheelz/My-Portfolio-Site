@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
 import cdBG from '../assets/creative-designer-BG.webp'
 import cdHero from '../assets/creative-designer-hero.webp'
+// Optional OOH assets (drop images into src/assets/ooh)
+const oohImports = import.meta.glob('../assets/ooh/*.{webp,png,jpg,jpeg}', { eager: true, as: 'url' })
+const oohImages = Object.values(oohImports).sort()
 
 function CreativeDesigner() {
   const navigate = useNavigate()
@@ -71,12 +74,15 @@ function CreativeDesigner() {
     posters: { base: 'posters-and-flyers', length: 27 },
     web: { base: 'web-designs', length: 12 },
     editorial: { base: 'editorial-designs', length: 5 },
+    ooh: { base: 'ooh', length: oohImages.length || 24 },
   }
 
   const active = galleries[galleryType]
-  const gallery = Array.from({ length: active.length }, (_, i) => (
-    `${import.meta.env.BASE_URL}${active.base}/${i + 1}.webp`
-  ))
+  const gallery = (galleryType === 'ooh' && oohImages.length)
+    ? oohImages
+    : Array.from({ length: active.length }, (_, i) => (
+        `${import.meta.env.BASE_URL}${active.base}/${i + 1}.webp`
+      ))
 
   // Decode helper: resolves once the image is decoded or loaded
   const ensureDecoded = (src) => new Promise((resolve) => {
@@ -210,6 +216,14 @@ function CreativeDesigner() {
   // Open selected gallery after first image is decoded, then animate in
   const openLightboxFor = async (type, startIndex = 0) => {
     const cfg = galleries[type]
+    if (type === 'ooh' && oohImages.length) {
+      const src = oohImages[startIndex] || oohImages[0]
+      await ensureDecoded(src)
+      setGalleryType(type)
+      setCurrentIndex(startIndex)
+      setLightboxOpen(true)
+      return
+    }
     const src = `${import.meta.env.BASE_URL}${cfg.base}/${startIndex + 1}.webp`
     await ensureDecoded(src)
     setGalleryType(type)
@@ -341,6 +355,7 @@ function CreativeDesigner() {
                 onClick={() => {
                   if (label.includes('posters')) openLightboxFor('posters', 0)
                   else if (label.includes('web')) openLightboxFor('web', 0)
+                  else if (label.toLowerCase().includes('ooh')) openLightboxFor('ooh', 0)
                 }}
               >
                 <span className="creative-image-button__label">{label}</span>
@@ -366,7 +381,8 @@ function CreativeDesigner() {
                 className="creative-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
                 style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)', animationDelay: `${i * 80 + 120}ms` }}
                 onClick={() => {
-                  if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
+                  if (label.toLowerCase().includes('ooh')) openLightboxFor('ooh', 0)
+                  else if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
                 }}
               >
                 <span className="creative-image-button__label">{label}</span>
@@ -387,6 +403,7 @@ function CreativeDesigner() {
                 onClick={() => {
                   if (label.includes('posters')) openLightboxFor('posters', 0)
                   else if (label.includes('web')) openLightboxFor('web', 0)
+                  else if (label.toLowerCase().includes('ooh')) openLightboxFor('ooh', 0)
                   else if (label.toLowerCase().includes('editorial')) openLightboxFor('editorial', 0)
                 }}
               >
