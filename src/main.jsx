@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+import PreloaderOverlay from './components/PreloaderOverlay'
+import { setupPreloaderGlobal } from './utils/preloader'
 // URLs to hashed assets (resolved at build)
 import cdBG from './assets/creative-designer-BG.webp'
 import cdHero from './assets/creative-designer-hero.webp'
@@ -31,6 +33,7 @@ import './index.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
+      <PreloaderOverlay />
       <App />
     </BrowserRouter>
   </React.StrictMode>,
@@ -72,3 +75,6 @@ if ('serviceWorker' in navigator) {
     } catch (e) { /* no-op */ }
   })
 }
+
+// Setup global preloader gate
+setupPreloaderGlobal()
