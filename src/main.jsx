@@ -62,3 +62,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     })
   })
 })()
+
+// Register Service Worker in production for faster repeat loads
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    try {
+      const swUrl = import.meta.env.BASE_URL + 'sw.js'
+      navigator.serviceWorker.register(swUrl)
+    } catch (e) { /* no-op */ }
+  })
+}
