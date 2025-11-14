@@ -328,6 +328,7 @@ function Branding() {
           <div className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`} ref={lightboxRef} onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <img
+                key={currentIndex}
                 src={(merchImages.length ? merchImages[currentIndex % merchImages.length] : `${import.meta.env.BASE_URL}merchandise/${currentIndex + 1}.webp`)}
                 alt={`Merchandise ${currentIndex + 1}`}
                 className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
