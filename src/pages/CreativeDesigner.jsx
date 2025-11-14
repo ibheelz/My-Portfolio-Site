@@ -216,16 +216,23 @@ function CreativeDesigner() {
   // Open selected gallery after first image is decoded, then animate in
   const openLightboxFor = async (type, startIndex = 0) => {
     const cfg = galleries[type]
+    let urls = []
     if (type === 'ooh' && oohImages.length) {
-      const src = oohImages[startIndex] || oohImages[0]
-      await ensureDecoded(src)
-      setGalleryType(type)
-      setCurrentIndex(startIndex)
-      setLightboxOpen(true)
-      return
+      urls = oohImages
+    } else {
+      urls = Array.from({ length: cfg.length }, (_, i) => (
+        `${import.meta.env.BASE_URL}${cfg.base}/${i + 1}.webp`
+      ))
     }
-    const src = `${import.meta.env.BASE_URL}${cfg.base}/${startIndex + 1}.webp`
-    await ensureDecoded(src)
+    try {
+      if (window.preloadGate) {
+        await window.preloadGate(urls, { minMs: 800, maxMs: 5000 })
+      } else {
+        // Fallback to decoding just the first image
+        const firstSrc = urls[startIndex] || urls[0]
+        if (firstSrc) await ensureDecoded(firstSrc)
+      }
+    } catch (_) {}
     setGalleryType(type)
     setCurrentIndex(startIndex)
     setLightboxOpen(true)

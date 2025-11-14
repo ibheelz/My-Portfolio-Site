@@ -106,9 +106,17 @@ function Branding() {
   }, [lightboxOpen])
 
   const openMerch = async (startIndex = 0) => {
-    const list = merchImages.length ? merchImages : []
-    const src = list[startIndex] || `${import.meta.env.BASE_URL}merchandise/${startIndex + 1}.webp`
-    await ensureDecoded(src)
+    const list = merchImages.length
+      ? merchImages
+      : Array.from({ length: 24 }, (_, i) => `${import.meta.env.BASE_URL}merchandise/${i + 1}.webp`)
+    try {
+      if (window.preloadGate) {
+        await window.preloadGate(list, { minMs: 800, maxMs: 5000 })
+      } else {
+        const first = list[startIndex] || list[0]
+        if (first) await ensureDecoded(first)
+      }
+    } catch (_) {}
     setCurrentIndex(startIndex)
     setLightboxOpen(true)
   }
