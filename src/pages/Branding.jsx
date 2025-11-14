@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
 import brandingBG from '../assets/branding-BG.webp'
 import brandingHero from '../assets/branding-hero.webp'
@@ -10,6 +10,17 @@ function Branding() {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalCard, setModalCard] = useState(null)
   const [heroKey, setHeroKey] = useState(0)
+  // Lightbox state (match CreativeDesigner style)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxClosing, setLightboxClosing] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [enterDir, setEnterDir] = useState(null)
+  const lightboxRef = useRef(null)
+  const closeBtnRef = useRef(null)
+  const thumbsScrollRef = useRef(null)
+  const preloadedRef = useRef(new Set())
+  const [lightboxEntering, setLightboxEntering] = useState(false)
+  const enterTimerRef = useRef(null)
   useEffect(() => {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
@@ -50,10 +61,57 @@ function Branding() {
     const body = document.body
     const prevHtmlOverflow = html.style.overflow
     const prevBodyOverflow = body.style.overflow
-    if (modalOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
+    if (modalOpen || lightboxOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
     else { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
     return () => { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
-  }, [modalOpen])
+  }, [modalOpen, lightboxOpen])
+
+  // Decode helper
+  const ensureDecoded = (src) => new Promise((resolve) => {
+    if (!src || preloadedRef.current.has(src)) return resolve()
+    const img = new Image(); img.src = src
+    if (img.decode) { img.decode().catch(() => {}).then(() => { preloadedRef.current.add(src); resolve() }) }
+    else { if (img.complete) { preloadedRef.current.add(src); return resolve() }; img.onload = () => { preloadedRef.current.add(src); resolve() }; img.onerror = () => resolve() }
+  })
+
+  // Lightbox keyboard controls
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); handleCloseLightbox() }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); nextImage() }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage() }
+    }
+    window.addEventListener('keydown', onKey)
+    setTimeout(() => closeBtnRef.current?.focus(), 0)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightboxOpen])
+
+  // Entrance animation flag
+  useEffect(() => {
+    if (lightboxOpen) {
+      setLightboxEntering(true)
+      if (enterTimerRef.current) clearTimeout(enterTimerRef.current)
+      enterTimerRef.current = setTimeout(() => setLightboxEntering(false), 1600)
+    } else {
+      setLightboxEntering(false)
+      if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null }
+    }
+    return () => { if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null } }
+  }, [lightboxOpen])
+
+  const openMerch = async (startIndex = 0) => {
+    const src = `${import.meta.env.BASE_URL}merchandise/${startIndex + 1}.webp`
+    await ensureDecoded(src)
+    setCurrentIndex(startIndex)
+    setLightboxOpen(true)
+  }
+  const handleCloseLightbox = () => {
+    setLightboxClosing(true)
+    setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
+  }
+  const prevImage = () => { setEnterDir('right'); setCurrentIndex((i) => (i - 1 + 6) % 6) }
+  const nextImage = () => { setEnterDir('left'); setCurrentIndex((i) => (i + 1) % 6) }
 
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
@@ -157,6 +215,7 @@ function Branding() {
             <button
               className="branding-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
               style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)' }}
+              onClick={() => openMerch(0)}
             >
               <span className="branding-image-button__label">Merchandise</span>
             </button>
@@ -171,6 +230,7 @@ function Branding() {
                 key={i}
                 className="branding-image-button anim-btn-soft w-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(13px,3.5vw,16px)]"
                 style={{ height: 'clamp(64px,10vw,86px)' }}
+                onClick={() => { if (label === 'Merchandise') openMerch(0) }}
               >
                 <span className="branding-image-button__label">{label}</span>
               </button>
@@ -205,6 +265,50 @@ function Branding() {
             <div className="modal-split">
               <div className="modal-pane-left"></div>
               <div className="modal-pane-right"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Lightbox for Merchandise */}
+      {(lightboxOpen || lightboxClosing) && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Merchandise gallery"
+          className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+          onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
+        >
+          <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
+          <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevImage}>
+            <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+          </button>
+          <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextImage}>
+            <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </button>
+          <div className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`} ref={lightboxRef} onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-image-wrap">
+              <img
+                src={`${import.meta.env.BASE_URL}merchandise/${currentIndex + 1}.webp`}
+                alt={`Merchandise ${currentIndex + 1}`}
+                className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                decoding="async"
+              />
+            </div>
+          </div>
+          <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
+              <div className="thumbs-inner">
+                {Array.from({ length: 6 }, (_, i) => (
+                  <button key={i} className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`} aria-label={`Go to image ${i + 1}`} onClick={() => setCurrentIndex(i)}>
+                    <img src={`${import.meta.env.BASE_URL}merchandise/${i + 1}.webp`} alt={``} decoding="async" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -634,6 +738,43 @@ function Branding() {
         /* Hover/click label color (match Creative) */
         .branding-image-button:hover .branding-image-button__label { color: #eabe76; }
         .branding-image-button:active .branding-image-button__label { color: #eabe76; }
+
+        /* Lightbox (reuse Creative styles) */
+        /* Lightbox (exact same as Creative) */
+        .lightbox-overlay { background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 120ms ease; overflow: hidden; overscroll-behavior: contain; }
+        .lightbox-fade-in { opacity: 1; }
+        .lightbox-fade-out { opacity: 0; }
+        .lightbox-modal { position: relative; width: min(70vw, 1200px); max-height: 80vh; background: rgba(20,20,22,0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #e7f2f8; transform: scale(0.98); transition: transform 120ms ease; }
+        .scale-in { transform: scale(1); }
+        .scale-out { transform: scale(0.98); }
+        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(24px) scale(0.99);} 100% { opacity: 1; transform: translateY(0) scale(1);} }
+        .modal-pop-in { animation: modalPopIn 1200ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+        @keyframes controlsPopIn { 0% { opacity: 0; transform: translateY(12px);} 100% { opacity: 1; transform: translateY(0);} }
+        .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
+        .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
+        .chevron-content { display: inline-flex; align-items: center; justify-content: center; }
+        .lightbox-close { position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; color: #ffffff; border: none; font-size: 24px; line-height: 1; font-weight: 600; }
+        .lightbox-close:hover { color: #ed6d6d; background: transparent; }
+        .lightbox-close:active { color: #d95857; }
+        .lightbox-chevron { position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001; width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff; background: rgba(0,0,0,0.45); color: #fff; display: inline-flex; align-items: center; justify-content: center; transition: background 160ms ease, border-color 160ms ease, color 160ms ease; }
+        .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
+        .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
+        .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
+        .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
+        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: contain; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
+        @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
+        @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
+        .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: 1px solid rgba(255,255,255,0.12); z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
+        .thumbs-inner { display: inline-block; white-space: nowrap; }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
+        .thumb:hover { transform: translateY(-1px); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb-active { border-color: #ed6d6d; }
+        @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
       `}</style>
     </div>
   )
