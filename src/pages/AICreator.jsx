@@ -379,7 +379,7 @@ function AICreator() {
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <div
                 key={`row-${currentIndex}`}
-                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''}`}
+                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''} ${typeof window !== 'undefined' && window.innerWidth >= 769 && subject === 'annie' && currentIndex === 4 ? 'row-free' : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && subject === 'annie' && currentIndex === 4 ? 'row-annie-last' : ''}`}
                 onAnimationEnd={() => { try { if (typeof window !== 'undefined' && window.innerWidth > 768) setEnterDir(null) } catch {} }}
               >
                 <img
@@ -418,38 +418,59 @@ function AICreator() {
                         </>
                       )}
 
-                      {/* Descriptions for Annie & Lucia (use Annie copy as placeholder), styled like the first image */}
+                      {/* Descriptions for Annie & Lucia (each sentence as its own paragraph), styled like the first image */}
                       {(subject === 'annie' || subject === 'lucia') && (() => {
-                        const textMap = {
-                          0: [
-                            "Meet Annie Radley, a 25-year-old British AI influencer created to embody modern elegance and grounded authenticity.",
-                            "In this shot, she's captured against a sleek cityscape, showcasing the kind of polished yet effortless aesthetic that defines her brand.",
-                            "This render demonstrates precise control over lighting, fabric detail, and environmental integration that creates a character feeling both aspirational and real.",
-                            "The neutral palette and confident composition reflect Annie's core identity of style with substance.",
-                          ],
-                          1: [
-                            "What makes Annie special isn't just her polish but her relatability.",
-                            "This car mirror selfie captures her playful and unguarded side as the girl who's got it together but still laughs at herself.",
-                            "The technical challenge here lies in rendering natural skin texture, authentic reflections, and casual pose dynamics that feel genuinely unstaged.",
-                            "It's the kind of content that performs well on social platforms because it balances aspiration with approachability.",
-                          ],
-                          2: [
-                            "Annie's a Chelsea supporter through and through, and this shot shows her repping her team with pride.",
-                            "Wearing vintage inspired football merch, she embodies the lifestyle pillar that makes her character multidimensional with fashion, fitness, and passion.",
-                            "This image demonstrates how to blend brand identity with cultural authenticity, showing that AI characters can be given real interests and community ties that resonate with audiences.",
-                          ],
-                          3: [
-                            "The gym aesthetic is central to Annie's world.",
-                            "This render showcases athletic wear modeling with careful attention to fabric geometry, skin tone consistency, and that post workout glow she's known for.",
-                            "The brick wall backdrop keeps the focus on natural lighting and body confidence as key themes in her fitness focused content.",
-                            "It's a great example of how character consistency translates across different content pillars.",
-                          ],
-                          4: [
-                            "Sometimes Annie's best moments are the quiet ones.",
-                            "This introspective shot styled in cosy knitwear with soft natural light pouring through modern architecture captures her more thoughtful side.",
-                            "It demonstrates the range of a well developed character showing she's not just motivational quotes and gym selfies but someone with depth and texture.",
-                          ],
-                        }
+                        const textMap = subject === 'lucia'
+                          ? {
+                              0: [
+                                "Lucia Pazmiño blends warm Latina confidence with a natural elegance that makes her stand out instantly.",
+                                "She’s expressive, magnetic, and carries herself with that effortless mix of attitude and softness that defines her personality.",
+                              ],
+                              1: [
+                                "Lucia’s everyday charm comes from how real she is.",
+                                "She switches between Spanish and English without thinking, laughs at her own messiness, and brings a playful, spontaneous energy that feels genuinely relatable and human.",
+                              ],
+                              2: [
+                                "Passion drives everything about Lucia.",
+                                "She feels intensely, expresses herself openly, and has that confident, emotional spark that makes her a modern muse.",
+                                "Her personality is bold, warm, and unmistakably alive.",
+                              ],
+                              3: [
+                                "Lucia balances sweetness with a fiery edge.",
+                                "She’s flirty, fun, and full of personality, always carrying that blend of charm and boldness that gives her a vibrant, unforgettable presence.",
+                              ],
+                              4: [
+                                "Beneath her confidence, Lucia has a reflective, emotional depth.",
+                                "She values connection, late-night thoughts, and honest moments, giving her a grounded softness that adds real dimension to who she is.",
+                              ],
+                            }
+                          : {
+                              0: [
+                                "Annie Radley is built around a mix of calm confidence and modern British elegance.",
+                                "She carries herself with the energy of someone who knows her direction in life, blending discipline with a soft, relatable warmth.",
+                                "At 25, she embodies that balance between ambition and ease that defines her London lifestyle.",
+                              ],
+                              1: [
+                                "Annie’s personality leans into a friendly, best-friend charm — expressive, playful, and grounded.",
+                                "She loves everyday moments, has a subtle sense of humour, and speaks with that warm British tone that feels instantly familiar.",
+                                "She’s stylish, but never tries too hard, which is a big part of her appeal.",
+                              ],
+                              2: [
+                                "Fashion and self-expression are central to who Annie is.",
+                                "She gravitates toward minimal, clean aesthetics and lets her personality shine through simple choices.",
+                                "There’s an authenticity in her style that mirrors her character: effortless, composed, and quietly confident.",
+                              ],
+                              3: [
+                                "Fitness and wellness are a core part of Annie’s identity.",
+                                "She’s the disciplined, early-morning type — focused, driven, and committed to personal growth.",
+                                "Her energy reflects someone who pushes herself but stays balanced, always pairing strength with softness.",
+                              ],
+                              4: [
+                                "Annie also has a reflective side that defines her emotional depth.",
+                                "She values calm spaces, warm conversations, and moments of quiet clarity.",
+                                "Her personality blends ambition with introspection, giving her that rare mix of strength, sensitivity, and elegance.",
+                              ],
+                            }
                         const arr = textMap[currentIndex]
                         if (!arr || !arr.length) return null
                         return (
@@ -1080,6 +1101,17 @@ function AICreator() {
           .lightbox-image-row { border-radius: 12px; overflow: hidden; }
           .lightbox-image.has-side { border-radius: 0 !important; }
           .lightbox-rect.right { border-radius: 0 !important; }
+
+          /* Annie last image: make image and rectangle same width and stretch to same height */
+          @media (min-width: 1024px) {
+            .row-annie-last { align-items: stretch !important; }
+            .row-annie-last .lightbox-image { flex: 0 0 50% !important; width: 50% !important; height: auto !important; max-height: none !important; }
+            .row-annie-last .lightbox-rect { flex: 0 0 50% !important; height: auto !important; }
+          }
+
+          /* Allow last image (index 4) to have its own natural height */
+          .row-free { max-height: none !important; }
+          .row-free .lightbox-image { height: auto !important; max-height: none !important; }
 
           /* Last image wider layout */
           
