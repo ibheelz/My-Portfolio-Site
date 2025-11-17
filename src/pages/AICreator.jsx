@@ -399,17 +399,27 @@ function AICreator() {
                   <div className="lightbox-rect-content">
                     <div className="lightbox-rect-inner">
                       {/* Header (Annie only on first image; Lucia always) */}
-                      {(
-                        (subject === 'annie' && currentIndex === 0) || subject === 'lucia'
-                      ) && (
+                      {currentIndex === 0 && (
                         <>
                           <div className="lightbox-rect-title">{subject === 'annie' ? 'Annie Radley' : 'Lucia Pazmiño'}</div>
-                          <div className="lightbox-rect-sub"><img src="/flags/uk.svg" alt="UK flag" className="flag-icon" /> <span>British influencer</span></div>
+                          <div className="lightbox-rect-sub">
+                            {subject === 'lucia' ? (
+                              <>
+                                <img src="/flags/ar.svg" alt="Argentina flag" className="flag-icon" />
+                                <span>Argentinian influencer</span>
+                              </>
+                            ) : (
+                              <>
+                                <img src="/flags/uk.svg" alt="UK flag" className="flag-icon" />
+                                <span>British influencer</span>
+                              </>
+                            )}
+                          </div>
                         </>
                       )}
 
-                      {/* Descriptions for Annie (per image index), styled like the first image */}
-                      {subject === 'annie' && (() => {
+                      {/* Descriptions for Annie & Lucia (use Annie copy as placeholder), styled like the first image */}
+                      {(subject === 'annie' || subject === 'lucia') && (() => {
                         const textMap = {
                           0: [
                             "Meet Annie Radley, a 25-year-old British AI influencer created to embody modern elegance and grounded authenticity.",
@@ -952,8 +962,8 @@ function AICreator() {
         .lightbox-rect {
           flex: 0 0 35vw; /* keep panel width consistent while allowing centering */
           align-self: stretch; /* match image height exactly */
-          background: rgba(248, 244, 236, 0.92); /* off-white */
-          color: #1b1f23;
+          background: linear-gradient(180deg, #0c0f14 0%, #2b2f35 100%);
+          color: #ffffff;
           display: flex; flex-direction: column; align-items: flex-start; justify-content: center; /* vertical center, left aligned */
           box-sizing: border-box;
           /* Use first-image horizontal padding for all images */
@@ -974,20 +984,21 @@ function AICreator() {
         }
         .lightbox-rect-inner { width: 100%; max-width: 52ch; margin: 0 auto; }
         .lightbox-rect-title, .lightbox-rect-sub, .lightbox-rect-desc { text-align: left; margin-left: 0; margin-right: 0; }
-        .lightbox-rect-title { font-weight: 600; font-size: clamp(16px, 2.2vw, 24px); line-height: 1.2; }
+        .lightbox-rect-title { font-weight: 600; font-size: clamp(16px, 2.2vw, 24px); line-height: 1.2; color: #ffffff; }
         .lightbox-rect-sub {
           margin-top: 6px;
           margin-bottom: clamp(4px, 0.8vw, 10px);
           font-size: clamp(12px, 1.6vw, 14px);
-          opacity: 0.85;
+          opacity: 0.92;
           display: inline-flex;
           align-items: center;
           gap: 8px;
           letter-spacing: 0.02em;
+          color: #ffffff;
         }
         .flag-icon { width: clamp(14px, 1.6vw, 18px); height: auto; display: inline-block; border-radius: 2px; }
         .lightbox-rect-desc-block { margin-top: clamp(4px, 0.8vw, 10px); width: 100%; }
-        .lightbox-rect-desc { font-size: clamp(12px, 1.2vw, 15px); line-height: 1.8; color: #1b1f23; margin: 0 0 24px; }
+        .lightbox-rect-desc { font-size: clamp(12px, 1.2vw, 15px); line-height: 1.8; color: #bb9b6e; margin: 0 0 24px; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
