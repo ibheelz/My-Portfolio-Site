@@ -378,7 +378,7 @@ function AICreator() {
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <div
                 key={`row-${currentIndex}`}
-                className={`lightbox-image-row ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''}`}
+                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''}`}
                 onAnimationEnd={() => { try { if (typeof window !== 'undefined' && window.innerWidth > 768) setEnterDir(null) } catch {} }}
               >
                 <img
@@ -934,8 +934,30 @@ function AICreator() {
           }
           .lightbox-image-wrap { padding: 12px; }
           /* Keep mobile heights consistent with desktop viewport-based height */
-          .lightbox-image { box-sizing: border-box; width: 100%; height: auto; max-height: calc(80vh - 110px); border-radius: 12px !important; margin-bottom: 20px; }
+          /* Make image content width match rectangle inner width (20px padding on rect) */
+          .lightbox-image {
+            box-sizing: border-box;
+            width: calc(100% - 40px);
+            margin: 0 20px 20px;
+            height: auto;
+            max-height: calc(80vh - 110px);
+            border-radius: 12px !important;
+          }
           .lightbox-rect { box-sizing: border-box; width: 100%; flex: 0 0 auto; height: calc(80vh - 110px); overflow: visible; border-radius: 12px !important; }
+          /* Lucia mobile: no overrides; matches Annie */
+          /* Mirror for Annie to keep behavior consistent if needed */
+          .subject-annie .lightbox-image {
+            border-top-left-radius: 12px !important;
+            border-top-right-radius: 12px !important;
+            border-bottom-left-radius: 12px !important;
+            border-bottom-right-radius: 12px !important;
+          }
+          .subject-annie .lightbox-rect {
+            border-top-left-radius: 12px !important;
+            border-top-right-radius: 12px !important;
+            border-bottom-left-radius: 12px !important;
+            border-bottom-right-radius: 12px !important;
+          }
           .lightbox-rect.right { border-radius: 12px !important; }
         }
         
@@ -944,6 +966,7 @@ function AICreator() {
           .lightbox-image-row { border-radius: 12px; overflow: hidden; }
           .lightbox-image.has-side { border-radius: 0 !important; }
           .lightbox-rect.right { border-radius: 0 !important; }
+          /* Lucia desktop: no overrides; matches Annie */
         }
         .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
