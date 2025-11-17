@@ -91,6 +91,7 @@ function AICreator() {
     setLightboxEntering(true)
     setLightboxOpen(true)
   }
+
   const handleCloseLightbox = () => {
     setLightboxClosing(true)
     setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
@@ -378,7 +379,7 @@ function AICreator() {
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <div
                 key={`row-${currentIndex}`}
-                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''}`}
+                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && currentIndex === 4 ? 'row-equal' : ''}`}
                 onAnimationEnd={() => { try { if (typeof window !== 'undefined' && window.innerWidth > 768) setEnterDir(null) } catch {} }}
               >
                 <img
@@ -392,12 +393,64 @@ function AICreator() {
                   onAnimationEnd={() => setEnterDir(null)}
                 />
                 <div
-                  className={`lightbox-rect right ${typeof window !== 'undefined' && window.innerWidth <= 768 ? (enterDir === 'left' ? 'img-enter-left' : (enterDir === 'right' ? 'img-enter-right' : '')) : ''}`}
+                  className={`lightbox-rect right ${typeof window !== 'undefined' && window.innerWidth <= 768 ? (enterDir === 'left' ? 'img-enter-left' : (enterDir === 'right' ? 'img-enter-right' : '')) : ''} ${subject === 'annie' && currentIndex === 0 ? 'annie-first' : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && currentIndex === 4 ? 'rect-wide' : ''}`}
                   aria-hidden="false"
                 >
                   <div className="lightbox-rect-content">
-                    <div className="lightbox-rect-title">{subject === 'annie' ? 'Annie Radley' : 'Lucia Pazmiño'}</div>
-                    <div className="lightbox-rect-sub">AI Character</div>
+                    <div className="lightbox-rect-inner">
+                      {/* Header (Annie only on first image; Lucia always) */}
+                      {(
+                        (subject === 'annie' && currentIndex === 0) || subject === 'lucia'
+                      ) && (
+                        <>
+                          <div className="lightbox-rect-title">{subject === 'annie' ? 'Annie Radley' : 'Lucia Pazmiño'}</div>
+                          <div className="lightbox-rect-sub"><img src="/flags/uk.svg" alt="UK flag" className="flag-icon" /> <span>British influencer</span></div>
+                        </>
+                      )}
+
+                      {/* Descriptions for Annie (per image index), styled like the first image */}
+                      {subject === 'annie' && (() => {
+                        const textMap = {
+                          0: [
+                            "Meet Annie Radley, a 25-year-old British AI influencer created to embody modern elegance and grounded authenticity.",
+                            "In this shot, she's captured against a sleek cityscape, showcasing the kind of polished yet effortless aesthetic that defines her brand.",
+                            "This render demonstrates precise control over lighting, fabric detail, and environmental integration that creates a character feeling both aspirational and real.",
+                            "The neutral palette and confident composition reflect Annie's core identity of style with substance.",
+                          ],
+                          1: [
+                            "What makes Annie special isn't just her polish but her relatability.",
+                            "This car mirror selfie captures her playful and unguarded side as the girl who's got it together but still laughs at herself.",
+                            "The technical challenge here lies in rendering natural skin texture, authentic reflections, and casual pose dynamics that feel genuinely unstaged.",
+                            "It's the kind of content that performs well on social platforms because it balances aspiration with approachability.",
+                          ],
+                          2: [
+                            "Annie's a Chelsea supporter through and through, and this shot shows her repping her team with pride.",
+                            "Wearing vintage inspired football merch, she embodies the lifestyle pillar that makes her character multidimensional with fashion, fitness, and passion.",
+                            "This image demonstrates how to blend brand identity with cultural authenticity, showing that AI characters can be given real interests and community ties that resonate with audiences.",
+                          ],
+                          3: [
+                            "The gym aesthetic is central to Annie's world.",
+                            "This render showcases athletic wear modeling with careful attention to fabric geometry, skin tone consistency, and that post workout glow she's known for.",
+                            "The brick wall backdrop keeps the focus on natural lighting and body confidence as key themes in her fitness focused content.",
+                            "It's a great example of how character consistency translates across different content pillars.",
+                          ],
+                          4: [
+                            "Sometimes Annie's best moments are the quiet ones.",
+                            "This introspective shot styled in cosy knitwear with soft natural light pouring through modern architecture captures her more thoughtful side.",
+                            "It demonstrates the range of a well developed character showing she's not just motivational quotes and gym selfies but someone with depth and texture.",
+                          ],
+                        }
+                        const arr = textMap[currentIndex]
+                        if (!arr || !arr.length) return null
+                        return (
+                          <div className="lightbox-rect-desc-block">
+                            {arr.map((t, i) => (
+                              <p key={i} className="lightbox-rect-desc">{t}</p>
+                            ))}
+                          </div>
+                        )
+                      })()}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -837,7 +890,7 @@ function AICreator() {
           margin: 0 auto;
           top: 10vh;
           width: auto;
-          max-width: min(90vw, 1200px);
+          max-width: min(95vw, 1200px);
           max-height: 80vh;
           background: rgba(20,20,22,0.2);
           border-radius: 12px; /* allow outer corners to show, including rect right side */
@@ -901,14 +954,40 @@ function AICreator() {
           align-self: stretch; /* match image height exactly */
           background: rgba(248, 244, 236, 0.92); /* off-white */
           color: #1b1f23;
-          display: flex; align-items: center; justify-content: center;
-          padding: 20px;
+          display: flex; flex-direction: column; align-items: flex-start; justify-content: center; /* vertical center, left aligned */
+          box-sizing: border-box;
+          /* Use first-image horizontal padding for all images */
+          padding: clamp(24px, 4.5vw, 48px) clamp(28px, 8vw, 100px);
           overflow: hidden; /* ensure rounded corners render crisply */
         }
+        /* Annie first image: responsive padding (~5x max) and doubled paragraph spacing */
+        .lightbox-rect.annie-first { padding: clamp(28px, 8vw, 100px); }
+        .lightbox-rect.annie-first .lightbox-rect-desc { margin-bottom: 24px; }
         .lightbox-rect.right { border-top-right-radius: 12px !important; border-bottom-right-radius: 12px !important; }
-        .lightbox-rect-content { text-align: left; font-family: 'Jost', sans-serif; }
+        .lightbox-rect-content {
+          position: relative;
+          text-align: left;
+          font-family: 'Jost', sans-serif;
+          width: 100%;
+          display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start;
+          word-break: break-word; overflow-wrap: break-word; hyphens: auto;
+        }
+        .lightbox-rect-inner { width: 100%; max-width: 52ch; margin: 0 auto; }
+        .lightbox-rect-title, .lightbox-rect-sub, .lightbox-rect-desc { text-align: left; margin-left: 0; margin-right: 0; }
         .lightbox-rect-title { font-weight: 600; font-size: clamp(16px, 2.2vw, 24px); line-height: 1.2; }
-        .lightbox-rect-sub { margin-top: 6px; font-size: clamp(12px, 1.6vw, 14px); opacity: 0.8; }
+        .lightbox-rect-sub {
+          margin-top: 6px;
+          margin-bottom: clamp(4px, 0.8vw, 10px);
+          font-size: clamp(12px, 1.6vw, 14px);
+          opacity: 0.85;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          letter-spacing: 0.02em;
+        }
+        .flag-icon { width: clamp(14px, 1.6vw, 18px); height: auto; display: inline-block; border-radius: 2px; }
+        .lightbox-rect-desc-block { margin-top: clamp(4px, 0.8vw, 10px); width: 100%; }
+        .lightbox-rect-desc { font-size: clamp(12px, 1.2vw, 15px); line-height: 1.8; color: #1b1f23; margin: 0 0 24px; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
@@ -937,13 +1016,27 @@ function AICreator() {
           /* Make image content width match rectangle inner width (20px padding on rect) */
           .lightbox-image {
             box-sizing: border-box;
-            width: calc(100% - 40px);
-            margin: 0 20px 20px;
+            width: calc(100% - (2 * clamp(28px, 8vw, 100px)));
+            margin: 0 clamp(28px, 8vw, 100px) 20px;
             height: auto;
             max-height: calc(80vh - 110px);
             border-radius: 12px !important;
           }
-          .lightbox-rect { box-sizing: border-box; width: 100%; flex: 0 0 auto; height: calc(80vh - 110px); overflow: visible; border-radius: 12px !important; }
+          /* Let rectangle height grow with its text on small screens */
+          .lightbox-rect { box-sizing: border-box; width: 100%; flex: 0 0 auto; height: auto; overflow: visible; border-radius: 12px !important; }
+          /* Add scroll only on small screens for long text; show a visible thin scrollbar */
+          .lightbox-rect-content {
+            max-height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 16px;           /* space between text and scrollbar */
+            scrollbar-gutter: stable;      /* where supported, reserve gutter */
+            scrollbar-width: thin;         /* Firefox */
+            scrollbar-color: rgba(0,0,0,0.2) transparent; /* 20% opacity */
+          }
+          .lightbox-rect-content::-webkit-scrollbar { width: 2px; }
+          .lightbox-rect-content::-webkit-scrollbar-track { background: transparent; }
+          .lightbox-rect-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 8px; }
           /* Lucia mobile: no overrides; matches Annie */
           /* Mirror for Annie to keep behavior consistent if needed */
           .subject-annie .lightbox-image {
@@ -966,7 +1059,28 @@ function AICreator() {
           .lightbox-image-row { border-radius: 12px; overflow: hidden; }
           .lightbox-image.has-side { border-radius: 0 !important; }
           .lightbox-rect.right { border-radius: 0 !important; }
-          /* Lucia desktop: no overrides; matches Annie */
+          /* For image 5 (index 4), make image width equal to rectangle width */
+          @media (min-width: 1024px) {
+            .row-equal .lightbox-image { flex: 0 0 50% !important; width: 50% !important; height: auto !important; max-height: none !important; }
+            .row-equal .lightbox-rect { flex: 0 0 50% !important; }
+          }
+          /* Last image wider layout */
+          
+          
+          /* Rectangle text: visible thin scrollbar on desktop when overflow */
+          .lightbox-rect-content {
+            max-height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 16px;           /* match mobile spacing */
+            scrollbar-gutter: stable;      /* where supported */
+            scrollbar-width: thin;         /* Firefox */
+            scrollbar-color: rgba(0,0,0,0.2) transparent;
+          }
+          .lightbox-rect-content::-webkit-scrollbar { width: 2px; }
+          .lightbox-rect-content::-webkit-scrollbar-track { background: transparent; }
+          .lightbox-rect-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 8px; }
+          /* No custom indicator on desktop to avoid double bars */
         }
         .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }

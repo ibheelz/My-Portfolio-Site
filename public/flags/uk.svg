@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="60" viewBox="0 0 120 60" role="img" aria-label="UK flag">
+  <!-- Background -->
+  <rect width="120" height="60" fill="#012169"/>
+  <!-- White diagonals -->
+  <g stroke="#FFFFFF" stroke-width="12">
+    <line x1="0" y1="0" x2="120" y2="60"/>
+    <line x1="120" y1="0" x2="0" y2="60"/>
+  </g>
+  <!-- Red diagonals -->
+  <g stroke="#C8102E" stroke-width="6">
+    <line x1="0" y1="0" x2="120" y2="60"/>
+    <line x1="120" y1="0" x2="0" y2="60"/>
+  </g>
+  <!-- White cross -->
+  <rect x="0" y="24" width="120" height="12" fill="#FFFFFF"/>
+  <rect x="54" y="0" width="12" height="60" fill="#FFFFFF"/>
+  <!-- Red cross -->
+  <rect x="0" y="27" width="120" height="6" fill="#C8102E"/>
+  <rect x="57" y="0" width="6" height="60" fill="#C8102E"/>
+</svg>
