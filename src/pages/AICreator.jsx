@@ -65,6 +65,19 @@ function AICreator() {
     }
   }, [lightboxOpen])
 
+  // Keyboard navigation (match Creative/Branding)
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); nextImage() }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage() }
+    }
+    window.addEventListener('keydown', onKey)
+    // move focus to close button for accessibility and key events
+    setTimeout(() => closeBtnRef.current?.focus(), 0)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightboxOpen])
+
   // Lightbox helpers (same UX as CreativeDesigner)
   // Show all 5 subject images, excluding the hero files
   const gallery = subject === 'annie'
@@ -343,7 +356,6 @@ function AICreator() {
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
-          onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
           <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
@@ -364,7 +376,11 @@ function AICreator() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
-              <div className="lightbox-image-row">
+              <div
+                key={`row-${currentIndex}`}
+                className={`lightbox-image-row ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''}`}
+                onAnimationEnd={() => { try { if (typeof window !== 'undefined' && window.innerWidth > 768) setEnterDir(null) } catch {} }}
+              >
                 <img
                   key={currentIndex}
                   src={gallery[currentIndex]}
@@ -372,10 +388,13 @@ function AICreator() {
                   decoding="async"
                   fetchpriority="high"
                   loading="eager"
-                  className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''} has-side`}
+                  className={`lightbox-image ${typeof window !== 'undefined' && window.innerWidth <= 768 && enterDir ? (enterDir === 'left' ? 'img-enter-left' : 'img-enter-right') : ''} has-side`}
                   onAnimationEnd={() => setEnterDir(null)}
                 />
-                <div className="lightbox-rect right" aria-hidden="false">
+                <div
+                  className={`lightbox-rect right ${typeof window !== 'undefined' && window.innerWidth <= 768 ? (enterDir === 'left' ? 'img-enter-left' : (enterDir === 'right' ? 'img-enter-right' : '')) : ''}`}
+                  aria-hidden="false"
+                >
                   <div className="lightbox-rect-content">
                     <div className="lightbox-rect-title">{subject === 'annie' ? 'Annie Radley' : 'Lucia Pazmiño'}</div>
                     <div className="lightbox-rect-sub">AI Character</div>
@@ -821,7 +840,7 @@ function AICreator() {
           max-width: min(90vw, 1200px);
           max-height: 80vh;
           background: rgba(20,20,22,0.2);
-          border-radius: 0;
+          border-radius: 12px; /* allow outer corners to show, including rect right side */
           overflow: hidden;
           box-shadow: 0 10px 30px rgba(0,0,0,0.35);
           color: #e7f2f8;
@@ -876,7 +895,6 @@ function AICreator() {
         }
         /* Round only outer corners when side panel is present */
         .lightbox-image.has-side { border-top-left-radius: 12px !important; border-bottom-left-radius: 12px !important; }
-        .lightbox-image.has-side { border-radius: 0; }
         /* Off-white side panel for Annie first image (not overlay) */
         .lightbox-rect {
           flex: 0 0 35vw; /* keep panel width consistent while allowing centering */
@@ -885,6 +903,7 @@ function AICreator() {
           color: #1b1f23;
           display: flex; align-items: center; justify-content: center;
           padding: 20px;
+          overflow: hidden; /* ensure rounded corners render crisply */
         }
         .lightbox-rect.right { border-top-right-radius: 12px !important; border-bottom-right-radius: 12px !important; }
         .lightbox-rect-content { text-align: left; font-family: 'Jost', sans-serif; }
@@ -894,6 +913,12 @@ function AICreator() {
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
         .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* Desktop seamless pair animation */
+        @keyframes blockEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
+        @keyframes blockEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
+        .block-enter-left  { animation: blockEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .block-enter-right { animation: blockEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
 
         /* Mobile: stack image + panel in one scrollable container */
         @media (max-width: 768px) {
@@ -909,9 +934,16 @@ function AICreator() {
           }
           .lightbox-image-wrap { padding: 12px; }
           /* Keep mobile heights consistent with desktop viewport-based height */
-          .lightbox-image { box-sizing: border-box; width: 100%; height: auto; max-height: calc(80vh - 110px); border-radius: 12px !important; }
+          .lightbox-image { box-sizing: border-box; width: 100%; height: auto; max-height: calc(80vh - 110px); border-radius: 12px !important; margin-bottom: 20px; }
           .lightbox-rect { box-sizing: border-box; width: 100%; flex: 0 0 auto; height: calc(80vh - 110px); overflow: visible; border-radius: 12px !important; }
           .lightbox-rect.right { border-radius: 12px !important; }
+        }
+        
+        /* Desktop: enforce seamless outer rounding on the pair (container handles corners) */
+        @media (min-width: 769px) {
+          .lightbox-image-row { border-radius: 12px; overflow: hidden; }
+          .lightbox-image.has-side { border-radius: 0 !important; }
+          .lightbox-rect.right { border-radius: 0 !important; }
         }
         .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }

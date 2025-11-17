@@ -83,8 +83,7 @@ function Branding() {
   useEffect(() => {
     if (!lightboxOpen) return
     const onKey = (e) => {
-      if (e.key === 'Escape') { e.preventDefault(); handleCloseLightbox() }
-      else if (e.key === 'ArrowRight') { e.preventDefault(); nextImage() }
+      if (e.key === 'ArrowRight') { e.preventDefault(); nextImage() }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage() }
     }
     window.addEventListener('keydown', onKey)
@@ -322,7 +321,6 @@ function Branding() {
           aria-modal="true"
           aria-label="Merchandise gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
-          onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
           <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevImage}>
@@ -819,6 +817,8 @@ function Branding() {
         .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
         .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
+        .lightbox-thumbs-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+        .lightbox-thumbs-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
         .thumbs-inner { display: inline-block; white-space: nowrap; }
         .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
         .thumb:hover { transform: translateY(-1px); }

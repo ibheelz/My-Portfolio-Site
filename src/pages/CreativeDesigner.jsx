@@ -144,10 +144,7 @@ function CreativeDesigner() {
   useEffect(() => {
     if (!lightboxOpen) return
     const handleKey = (e) => {
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        handleCloseLightbox()
-      } else if (e.key === 'ArrowRight') {
+      if (e.key === 'ArrowRight') {
         e.preventDefault(); nextImage()
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault(); prevImage()
@@ -468,7 +465,6 @@ function CreativeDesigner() {
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
-          onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
           <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
@@ -1091,6 +1087,8 @@ function CreativeDesigner() {
           text-align: center;         /* center inner when it fits */
           white-space: nowrap;        /* keep in one line */
         }
+        .lightbox-thumbs-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+        .lightbox-thumbs-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
         .thumbs-inner {
           display: inline-block;      /* allow centering via text-align */
           white-space: nowrap;        /* prevent wrapping */
