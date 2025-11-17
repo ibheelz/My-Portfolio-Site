@@ -351,17 +351,15 @@ function AICreator() {
                   decoding="async"
                   fetchpriority="high"
                   loading="eager"
-                  className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''} ${subject === 'annie' && currentIndex === 0 ? 'has-side' : ''}`}
+                  className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''} has-side`}
                   onAnimationEnd={() => setEnterDir(null)}
                 />
-                {subject === 'annie' && currentIndex === 0 && (
-                  <div className="lightbox-rect right" aria-hidden="false">
-                    <div className="lightbox-rect-content">
-                      <div className="lightbox-rect-title">Annie Radley</div>
-                      <div className="lightbox-rect-sub">AI Character</div>
-                    </div>
+                <div className="lightbox-rect right" aria-hidden="false">
+                  <div className="lightbox-rect-content">
+                    <div className="lightbox-rect-title">{subject === 'annie' ? 'Annie Radley' : 'Lucia Pazmiño'}</div>
+                    <div className="lightbox-rect-sub">AI Character</div>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
