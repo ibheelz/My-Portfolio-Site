@@ -50,6 +50,21 @@ function AICreator() {
     return () => { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
   }, [modalOpen, lightboxOpen])
 
+  // Entrance animation flag (match Creative/Branding)
+  useEffect(() => {
+    if (lightboxOpen) {
+      setLightboxEntering(true)
+      if (enterTimerRef.current) clearTimeout(enterTimerRef.current)
+      enterTimerRef.current = setTimeout(() => setLightboxEntering(false), 1600)
+    } else {
+      setLightboxEntering(false)
+      if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null }
+    }
+    return () => {
+      if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null }
+    }
+  }, [lightboxOpen])
+
   // Lightbox helpers (same UX as CreativeDesigner)
   // Show all 5 subject images, excluding the hero files
   const gallery = subject === 'annie'
@@ -59,6 +74,8 @@ function AICreator() {
   const openLightboxFor = (who, startIndex = 0) => {
     setSubject(who)
     setCurrentIndex(startIndex)
+    // Ensure animation class is present on first paint
+    setLightboxEntering(true)
     setLightboxOpen(true)
   }
   const handleCloseLightbox = () => {
@@ -321,7 +338,11 @@ function AICreator() {
           aria-modal="true"
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
-          style={{ background: 'rgba(0,0,0,0.82)' }}
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${aiBG})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
@@ -805,12 +826,14 @@ function AICreator() {
           box-shadow: 0 10px 30px rgba(0,0,0,0.35);
           color: #e7f2f8;
           transform: scale(0.98);
+          transform-origin: center center;
           transition: transform 120ms ease;
+          opacity: 0; /* prevent flash before animation class applies */
         }
-        .scale-in { transform: scale(1); }
+        .scale-in { transform: scale(1); opacity: 1; }
         .scale-out { transform: scale(0.98); }
-        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(24px) scale(0.99); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        .modal-pop-in { animation: modalPopIn 1200ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(12px) scale(0.94); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-pop-in { animation: modalPopIn 900ms cubic-bezier(0.2, 0.85, 0.2, 1) both; opacity: 1; }
         @keyframes controlsPopIn { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
         .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
         .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
@@ -818,10 +841,11 @@ function AICreator() {
         .lightbox-close {
           position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001;
           width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
-          background: transparent; color: #ffffff; border: none; font-size: 24px; line-height: 1; font-weight: 600;
+          background: transparent; color: #ffffff; border: none; font-size: 24px; line-height: 1; font-weight: 600; border-radius: 8px;
         }
-        .lightbox-close:hover { color: #ed6d6d; }
-        .lightbox-close:active { color: #d95857; }
+        /* Match AI Creator navbar button color */
+        .lightbox-close:hover { background: #eac28a; color: #10171d; }
+        .lightbox-close:active { background: #eac28a; color: #10171d; }
         .lightbox-chevron {
           position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
           width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
@@ -889,7 +913,7 @@ function AICreator() {
           .lightbox-rect { box-sizing: border-box; width: 100%; flex: 0 0 auto; height: calc(80vh - 110px); overflow: visible; border-radius: 12px !important; }
           .lightbox-rect.right { border-radius: 12px !important; }
         }
-        .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: 1px solid rgba(255,255,255,0.12); z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
         .thumbs-inner { display: inline-block; white-space: nowrap; }
         .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }

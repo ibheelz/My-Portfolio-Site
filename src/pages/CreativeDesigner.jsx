@@ -463,7 +463,11 @@ function CreativeDesigner() {
           aria-modal="true"
           aria-label="Image gallery"
           className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
-          style={{ background: 'rgba(0,0,0,0.82)' }}
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${cdBG})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
           onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
         >
           {/* Controls positioned at page sides (overlay-level) */}
@@ -973,7 +977,9 @@ function CreativeDesigner() {
 
         /* Lightbox */
         .lightbox-overlay {
-          background: rgba(0,0,0,0.8);
+          background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${cdBG});
+          background-size: cover;
+          background-position: center;
           backdrop-filter: blur(6px);
           -webkit-backdrop-filter: blur(6px);
           display: flex; align-items: center; justify-content: center;
@@ -995,9 +1001,11 @@ function CreativeDesigner() {
           box-shadow: 0 10px 30px rgba(0,0,0,0.35);
           color: #e7f2f8;
           transform: scale(0.98);
+          transform-origin: center center;
           transition: transform 120ms ease;
+          opacity: 0;
         }
-        .scale-in { transform: scale(1); }
+        .scale-in { transform: scale(1); opacity: 1; }
         .scale-out { transform: scale(0.98); }
 
         /* Very slow pop-in on open (animate up) */
@@ -1023,10 +1031,11 @@ function CreativeDesigner() {
           width: 32px; height: 32px;
           display: inline-flex; align-items: center; justify-content: center;
           background: transparent; color: #ffffff; border: none;
-          font-size: 24px; line-height: 1; font-weight: 600;
+          font-size: 24px; line-height: 1; font-weight: 600; border-radius: 8px;
         }
-        .lightbox-close:hover { color: #ed6d6d; background: transparent; }
-        .lightbox-close:active { color: #d95857; }
+        /* Match Creative navbar button color */
+        .lightbox-close:hover { background: #ec6d6c; color: #ffffff; }
+        .lightbox-close:active { background: #ec6d6c; color: #ffffff; }
 
         .lightbox-chevron {
           position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
@@ -1067,7 +1076,7 @@ function CreativeDesigner() {
           left: 0; right: 0; bottom: 0;
           height: 86px;
           background: rgba(10,10,12,0.35);
-          border-top: 1px solid rgba(255,255,255,0.12);
+          border-top: none;
           z-index: 9999;
           padding-bottom: env(safe-area-inset-bottom);
           /* Container remains full width */
