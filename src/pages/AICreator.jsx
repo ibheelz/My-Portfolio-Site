@@ -343,16 +343,26 @@ function AICreator() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
-              <img
-                key={currentIndex}
-                src={gallery[currentIndex]}
-                alt={`${subject} ${currentIndex + 1}`}
-                decoding="async"
-                fetchpriority="high"
-                loading="eager"
-                className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
-                onAnimationEnd={() => setEnterDir(null)}
-              />
+              <div className="lightbox-image-row">
+                <img
+                  key={currentIndex}
+                  src={gallery[currentIndex]}
+                  alt={`${subject} ${currentIndex + 1}`}
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
+                  className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''} ${subject === 'annie' && currentIndex === 0 ? 'has-side' : ''}`}
+                  onAnimationEnd={() => setEnterDir(null)}
+                />
+                {subject === 'annie' && currentIndex === 0 && (
+                  <div className="lightbox-rect right" aria-hidden="false">
+                    <div className="lightbox-rect-content">
+                      <div className="lightbox-rect-title">Annie Radley</div>
+                      <div className="lightbox-rect-sub">AI Character</div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           {/* Thumbnails pinned to screen bottom */}
@@ -788,10 +798,11 @@ function AICreator() {
           position: relative;
           margin: 0 auto;
           top: 10vh;
-          width: min(70vw, 1200px);
+          width: auto;
+          max-width: min(90vw, 1200px);
           max-height: 80vh;
           background: rgba(20,20,22,0.2);
-          border-radius: 16px;
+          border-radius: 0;
           overflow: hidden;
           box-shadow: 0 10px 30px rgba(0,0,0,0.35);
           color: #e7f2f8;
@@ -824,7 +835,38 @@ function AICreator() {
         .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
         .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
-        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: contain; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+        .lightbox-image-row {
+          display: inline-flex; align-items: stretch; gap: 0;
+          max-height: calc(80vh - 110px);
+          border-radius: 0; overflow: visible;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+        /* Make the image size to full available height and keep aspect, width auto.
+           Its box matches the bitmap edge so it touches the side panel with no gap. */
+        .lightbox-image { 
+          flex: 0 0 auto;
+          height: calc(80vh - 110px);
+          width: auto;
+          max-height: calc(80vh - 110px);
+          object-fit: contain;
+          border-radius: 0; box-shadow: none; display: block;
+        }
+        /* Round only outer corners when side panel is present */
+        .lightbox-image.has-side { border-top-left-radius: 12px !important; border-bottom-left-radius: 12px !important; }
+        .lightbox-image.has-side { border-radius: 0; }
+        /* Off-white side panel for Annie first image (not overlay) */
+        .lightbox-rect {
+          flex: 0 0 35vw; /* keep panel width consistent while allowing centering */
+          align-self: stretch; /* match image height exactly */
+          background: rgba(248, 244, 236, 0.92); /* off-white */
+          color: #1b1f23;
+          display: flex; align-items: center; justify-content: center;
+          padding: 20px;
+        }
+        .lightbox-rect.right { border-top-right-radius: 12px !important; border-bottom-right-radius: 12px !important; }
+        .lightbox-rect-content { text-align: left; font-family: 'Jost', sans-serif; }
+        .lightbox-rect-title { font-weight: 600; font-size: clamp(16px, 2.2vw, 24px); line-height: 1.2; }
+        .lightbox-rect-sub { margin-top: 6px; font-size: clamp(12px, 1.6vw, 14px); opacity: 0.8; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
