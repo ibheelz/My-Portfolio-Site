@@ -1049,7 +1049,8 @@ function CreativeDesigner() {
         .lightbox-image {
           max-width: 100%;
           max-height: calc(80vh - 110px);
-          object-fit: contain;
+          object-fit: cover;
+          object-position: top center;
           border-radius: 12px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.35);
           will-change: transform, opacity, filter;
@@ -1095,7 +1096,7 @@ function CreativeDesigner() {
         }
         .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
         .thumb:hover { transform: translateY(-1px); }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
         .thumb-active { border-color: #ed6d6d; }
 
         @media (max-width: 768px) {

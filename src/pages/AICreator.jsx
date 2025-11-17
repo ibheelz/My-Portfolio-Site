@@ -1036,8 +1036,11 @@ function AICreator() {
             box-sizing: border-box;
             width: calc(100% - (2 * clamp(28px, 8vw, 100px)));
             margin: 0 clamp(28px, 8vw, 100px) 20px;
-            height: auto;
-            max-height: calc(80vh - 110px);
+            aspect-ratio: 1 / 1;            /* make image square */
+            height: auto;                    /* let aspect-ratio compute height */
+            max-height: none;                /* avoid shrinking square */
+            object-fit: cover;               /* fill square nicely */
+            object-position: top center;     /* crop from the top, not center */
             border-radius: 12px !important;
           }
           /* Let rectangle height grow with its text on small screens */
@@ -1101,7 +1104,7 @@ function AICreator() {
         .thumbs-inner { display: inline-block; white-space: nowrap; }
         .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
         .thumb:hover { transform: translateY(-1px); }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
         .thumb-active { border-color: #ed6d6d; }
         @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
       `}</style>
