@@ -379,7 +379,7 @@ function AICreator() {
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <div
                 key={`row-${currentIndex}`}
-                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && currentIndex === 4 ? 'row-equal' : ''}`}
+                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''}`}
                 onAnimationEnd={() => { try { if (typeof window !== 'undefined' && window.innerWidth > 768) setEnterDir(null) } catch {} }}
               >
                 <img
@@ -393,7 +393,7 @@ function AICreator() {
                   onAnimationEnd={() => setEnterDir(null)}
                 />
                 <div
-                  className={`lightbox-rect right ${typeof window !== 'undefined' && window.innerWidth <= 768 ? (enterDir === 'left' ? 'img-enter-left' : (enterDir === 'right' ? 'img-enter-right' : '')) : ''} ${subject === 'annie' && currentIndex === 0 ? 'annie-first' : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && currentIndex === 4 ? 'rect-wide' : ''}`}
+                  className={`lightbox-rect right ${typeof window !== 'undefined' && window.innerWidth <= 768 ? (enterDir === 'left' ? 'img-enter-left' : (enterDir === 'right' ? 'img-enter-right' : '')) : ''} ${subject === 'annie' && currentIndex === 0 ? 'annie-first' : ''}`}
                   aria-hidden="false"
                 >
                   <div className="lightbox-rect-content">
@@ -910,12 +910,12 @@ function AICreator() {
           transform: scale(0.98);
           transform-origin: center center;
           transition: transform 120ms ease;
-          opacity: 0; /* prevent flash before animation class applies */
+          opacity: 1; /* show immediately so glass blur is visible without delay */
         }
         .scale-in { transform: scale(1); opacity: 1; }
         .scale-out { transform: scale(0.98); }
-        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(12px) scale(0.94); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        .modal-pop-in { animation: modalPopIn 900ms cubic-bezier(0.2, 0.85, 0.2, 1) both; opacity: 1; }
+        @keyframes modalPopIn { 0% { transform: translateY(12px) scale(0.94); } 100% { transform: translateY(0) scale(1); } }
+        .modal-pop-in { animation: modalPopIn 600ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
         @keyframes controlsPopIn { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
         .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
         .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
@@ -962,13 +962,20 @@ function AICreator() {
         .lightbox-rect {
           flex: 0 0 35vw; /* keep panel width consistent while allowing centering */
           align-self: stretch; /* match image height exactly */
-          background: linear-gradient(180deg, #0c0f14 0%, #2b2f35 100%);
+          /* Glass style to match navbar */
+          background: rgba(255, 255, 255, 0.03);
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
           color: #ffffff;
           display: flex; flex-direction: column; align-items: flex-start; justify-content: center; /* vertical center, left aligned */
           box-sizing: border-box;
           /* Use first-image horizontal padding for all images */
           padding: clamp(24px, 4.5vw, 48px) clamp(28px, 8vw, 100px);
           overflow: hidden; /* ensure rounded corners render crisply */
+          will-change: transform, backdrop-filter; /* prevent initial flicker */
+          backface-visibility: hidden;
         }
         /* Annie first image: responsive padding (~5x max) and doubled paragraph spacing */
         .lightbox-rect.annie-first { padding: clamp(28px, 8vw, 100px); }
@@ -1004,9 +1011,9 @@ function AICreator() {
         .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
         .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* Desktop seamless pair animation */
-        @keyframes blockEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
-        @keyframes blockEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
+        /* Desktop seamless pair animation (no opacity to avoid glass flicker) */
+        @keyframes blockEnterL { 0% { transform: translateX(36px) scale(0.985); } 100% { transform: translateX(0) scale(1); } }
+        @keyframes blockEnterR { 0% { transform: translateX(-36px) scale(0.985); } 100% { transform: translateX(0) scale(1); } }
         .block-enter-left  { animation: blockEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
         .block-enter-right { animation: blockEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
 
@@ -1070,11 +1077,7 @@ function AICreator() {
           .lightbox-image-row { border-radius: 12px; overflow: hidden; }
           .lightbox-image.has-side { border-radius: 0 !important; }
           .lightbox-rect.right { border-radius: 0 !important; }
-          /* For image 5 (index 4), make image width equal to rectangle width */
-          @media (min-width: 1024px) {
-            .row-equal .lightbox-image { flex: 0 0 50% !important; width: 50% !important; height: auto !important; max-height: none !important; }
-            .row-equal .lightbox-rect { flex: 0 0 50% !important; }
-          }
+
           /* Last image wider layout */
           
           
