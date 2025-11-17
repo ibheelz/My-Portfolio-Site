@@ -4,7 +4,7 @@ import { attachHireMe } from '../utils/attachHireMe'
 import brandingBG from '../assets/branding-BG.webp'
 import brandingHero from '../assets/branding-hero.webp'
 // Load all merchandise images at build time (drop new files into src/assets/merchandise)
-const merchImports = import.meta.glob('../assets/merchandise/*.{webp,png,jpg,jpeg}', { eager: true, as: 'url' })
+const merchImports = import.meta.glob('../assets/merchandise/*.{webp,png,jpg,jpeg}', { eager: true, query: '?url', import: 'default' })
 const merchImages = Object.values(merchImports).sort()
 
 function Branding() {

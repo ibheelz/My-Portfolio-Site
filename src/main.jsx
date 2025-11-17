@@ -65,7 +65,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 })()
 
 // Register Service Worker in production for faster repeat loads
-if ('serviceWorker' in navigator) {
+// Only register a Service Worker in production builds
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     try {
       const swUrl = import.meta.env.BASE_URL + 'sw.js'

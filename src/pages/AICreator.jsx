@@ -1,10 +1,11 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
 import aiBG from '../assets/ai-creator-BG.webp'
 import aiHero from '../assets/ai-creator-hero.webp'
-import annieHero from '../assets/annie-hero.webp'
-import luciaHero from '../assets/lucia-hero.webp'
+// Use the hero images inside images/annie and images/lucia folders
+const annieHero = `${import.meta.env.BASE_URL}images/annie/annie-hero.webp`
+const luciaHero = `${import.meta.env.BASE_URL}images/lucia/lucia-hero.webp`
 
 function AICreator() {
   const navigate = useNavigate()
@@ -12,6 +13,20 @@ function AICreator() {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalCard, setModalCard] = useState(null)
   const [heroKey, setHeroKey] = useState(0)
+  // Lightbox state and controls (match CreativeDesigner)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxClosing, setLightboxClosing] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [enterDir, setEnterDir] = useState(null)
+  const lightboxRef = useRef(null)
+  const closeBtnRef = useRef(null)
+  const thumbsScrollRef = useRef(null)
+  const thumbsInnerRef = useRef(null)
+  const touchStartXRef = useRef(null)
+  const touchStartYRef = useRef(null)
+  const [lightboxEntering, setLightboxEntering] = useState(false)
+  const enterTimerRef = useRef(null)
+  const [subject, setSubject] = useState('annie') // 'annie' | 'lucia'
   useEffect(() => {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
@@ -24,16 +39,72 @@ function AICreator() {
     return cleanup
   }, [])
 
-  // Lock background scroll when modal open
+  // Lock background scroll when modal or lightbox open
   useEffect(() => {
     const html = document.documentElement
     const body = document.body
     const prevHtmlOverflow = html.style.overflow
     const prevBodyOverflow = body.style.overflow
-    if (modalOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
+    if (modalOpen || lightboxOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
     else { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
     return () => { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
-  }, [modalOpen])
+  }, [modalOpen, lightboxOpen])
+
+  // Lightbox helpers (same UX as CreativeDesigner)
+  // Show all 5 subject images, excluding the hero files
+  const gallery = subject === 'annie'
+    ? Array.from({ length: 5 }, (_, i) => `${import.meta.env.BASE_URL}images/annie/a${i + 1}.webp`)
+    : Array.from({ length: 5 }, (_, i) => `${import.meta.env.BASE_URL}images/lucia/l${i + 1}.webp`)
+
+  const openLightboxFor = (who, startIndex = 0) => {
+    setSubject(who)
+    setCurrentIndex(startIndex)
+    setLightboxOpen(true)
+  }
+  const handleCloseLightbox = () => {
+    setLightboxClosing(true)
+    setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
+  }
+  const prevImage = () => {
+    setEnterDir('right')
+    setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length)
+  }
+  const nextImage = () => {
+    setEnterDir('left')
+    setCurrentIndex((i) => (i + 1) % gallery.length)
+  }
+  const handleTouchStart = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    touchStartXRef.current = t.clientX
+    touchStartYRef.current = t.clientY
+  }
+  const handleTouchMove = () => {}
+  const handleTouchEnd = (e) => {
+    const t = e.changedTouches && e.changedTouches[0]
+    if (!t) return
+    const dx = t.clientX - (touchStartXRef.current ?? t.clientX)
+    const dy = t.clientY - (touchStartYRef.current ?? t.clientY)
+    const absDx = Math.abs(dx)
+    const absDy = Math.abs(dy)
+    if (window.innerWidth <= 768 && absDx > 40 && absDx > absDy * 1.2) {
+      if (dx < 0) nextImage(); else prevImage()
+    }
+  }
+
+  // Keep active thumbnail centered when navigating
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const scroller = thumbsScrollRef.current
+    if (!scroller) return
+    const items = scroller.querySelectorAll('.thumb')
+    const target = items && items[currentIndex]
+    if (target && typeof target.scrollIntoView === 'function') {
+      requestAnimationFrame(() => {
+        try { target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }) } catch {}
+      })
+    }
+  }, [currentIndex, lightboxOpen])
 
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
@@ -116,7 +187,8 @@ function AICreator() {
             <img decoding="async" fetchpriority="high"
               src={annieHero}
               alt="Annie"
-              className="block"
+              className="block cursor-pointer"
+              onClick={() => openLightboxFor('annie', 0)}
               style={{
                 minWidth: 'clamp(320px, 26vw, 640px)',
                 height: 'clamp(220px, 32vh, 520px)',
@@ -129,7 +201,11 @@ function AICreator() {
             />
             <div
               className="ai-badge font-['Jost',sans-serif] font-medium capitalize text-[clamp(11px,1vw,16px)]"
-              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6.4vw,96px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
+              role="button"
+              tabIndex={0}
+              onClick={() => openLightboxFor('annie', 0)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxFor('annie', 0) } }}
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6.4vw,96px)', marginTop: 'clamp(12px,1.5vw,16px)', cursor: 'pointer' }}
             >
               <span className="ai-badge__label">Annie Radley</span>
             </div>
@@ -151,7 +227,8 @@ function AICreator() {
             <img decoding="async"
               src={luciaHero}
               alt="Lucia"
-              className="block"
+              className="block cursor-pointer"
+              onClick={() => openLightboxFor('lucia', 0)}
               style={{
                 minWidth: 'clamp(320px, 26vw, 640px)',
                 height: 'clamp(220px, 32vh, 520px)',
@@ -164,7 +241,11 @@ function AICreator() {
             />
             <div
               className="ai-badge font-['Jost',sans-serif] font-medium capitalize text-[clamp(11px,1vw,16px)]"
-              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6.4vw,96px)', marginTop: 'clamp(12px,1.5vw,16px)' }}
+              role="button"
+              tabIndex={0}
+              onClick={() => openLightboxFor('lucia', 0)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxFor('lucia', 0) } }}
+              style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6.4vw,96px)', marginTop: 'clamp(12px,1.5vw,16px)', cursor: 'pointer' }}
             >
               <span className="ai-badge__label">Lucia Pazmiño</span>
             </div>
@@ -178,10 +259,11 @@ function AICreator() {
               <img loading="lazy" decoding="async"
                 src={annieHero}
                 alt="Annie"
-                className="w-full object-contain mx-auto"
+                className="w-full object-contain mx-auto cursor-pointer"
+                onClick={() => openLightboxFor('annie', 0)}
                 style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
               />
-              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" style={{ height: 'clamp(77px,11.2vw,112px)', marginTop: 'clamp(16px,4vw,24px)' }}>
+              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" role="button" tabIndex={0} onClick={() => openLightboxFor('annie', 0)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxFor('annie', 0) } }} style={{ height: 'clamp(77px,11.2vw,112px)', marginTop: 'clamp(16px,4vw,24px)', cursor: 'pointer' }}>
                 <span className="ai-badge__label">Annie Radley</span>
               </div>
             </div>
@@ -189,10 +271,11 @@ function AICreator() {
               <img loading="lazy" decoding="async"
                 src={luciaHero}
                 alt="Lucia"
-                className="w-full object-contain mx-auto"
+                className="w-full object-contain mx-auto cursor-pointer"
+                onClick={() => openLightboxFor('lucia', 0)}
                 style={{ height: 'clamp(216px, 48vw, 432px)', opacity: 1, filter: 'none', position: 'relative', zIndex: 1 }}
               />
-              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" style={{ height: 'clamp(77px,11.2vw,112px)', marginTop: 'clamp(16px,4vw,24px)' }}>
+              <div className="ai-badge w-full font-['Jost',sans-serif] font-medium capitalize text-[clamp(13px,3.5vw,16px)]" role="button" tabIndex={0} onClick={() => openLightboxFor('lucia', 0)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxFor('lucia', 0) } }} style={{ height: 'clamp(77px,11.2vw,112px)', marginTop: 'clamp(16px,4vw,24px)', cursor: 'pointer' }}>
                 <span className="ai-badge__label">Lucia Pazmiño</span>
               </div>
             </div>
@@ -226,6 +309,69 @@ function AICreator() {
             <div className="modal-split">
               <div className="modal-pane-left"></div>
               <div className="modal-pane-right"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Lightbox (same style as CreativeDesigner) */}
+      {(lightboxOpen || lightboxClosing) && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image gallery"
+          className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+          style={{ background: 'rgba(0,0,0,0.82)' }}
+          onClick={(e) => { if (e.target === e.currentTarget) handleCloseLightbox() }}
+        >
+          {/* Controls positioned at page sides (overlay-level) */}
+          <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
+          <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevImage}>
+            <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+          </button>
+          <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextImage}>
+            <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </button>
+          {/* Modal content */}
+          <div
+            ref={lightboxRef}
+            className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+              <img
+                key={currentIndex}
+                src={gallery[currentIndex]}
+                alt={`${subject} ${currentIndex + 1}`}
+                decoding="async"
+                fetchpriority="high"
+                loading="eager"
+                className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                onAnimationEnd={() => setEnterDir(null)}
+              />
+            </div>
+          </div>
+          {/* Thumbnails pinned to screen bottom */}
+          <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
+              <div className="thumbs-inner" ref={thumbsInnerRef}>
+                {gallery.map((src, i) => (
+                  <button
+                    key={i}
+                    role="option"
+                    aria-selected={i === currentIndex}
+                    className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`}
+                    onClick={() => setCurrentIndex(i)}
+                    title={`View image ${i + 1}`}
+                  >
+                    <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" fetchpriority="low" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -632,6 +778,65 @@ function AICreator() {
           /* Add 2x horizontal padding on smaller screens */
           .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }
         }
+      `}</style>
+      {/* Lightbox styles copied to match CreativeDesigner */}
+      <style>{`
+        .lightbox-overlay { opacity: 1; transition: opacity 140ms ease; }
+        .lightbox-fade-in { opacity: 1; }
+        .lightbox-fade-out { opacity: 0; }
+        .lightbox-modal {
+          position: relative;
+          margin: 0 auto;
+          top: 10vh;
+          width: min(70vw, 1200px);
+          max-height: 80vh;
+          background: rgba(20,20,22,0.2);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+          color: #e7f2f8;
+          transform: scale(0.98);
+          transition: transform 120ms ease;
+        }
+        .scale-in { transform: scale(1); }
+        .scale-out { transform: scale(0.98); }
+        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(24px) scale(0.99); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-pop-in { animation: modalPopIn 1200ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+        @keyframes controlsPopIn { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
+        .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
+        .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
+        .chevron-content { display: inline-flex; align-items: center; justify-content: center; }
+        .lightbox-close {
+          position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001;
+          width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+          background: transparent; color: #ffffff; border: none; font-size: 24px; line-height: 1; font-weight: 600;
+        }
+        .lightbox-close:hover { color: #ed6d6d; }
+        .lightbox-close:active { color: #d95857; }
+        .lightbox-chevron {
+          position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
+          width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
+          background: rgba(0,0,0,0.45); color: #fff; display: inline-flex; align-items: center; justify-content: center;
+          transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+        }
+        .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
+        .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
+        .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
+        .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
+        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: contain; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+        @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
+        @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
+        .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: 1px solid rgba(255,255,255,0.12); z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
+        .thumbs-inner { display: inline-block; white-space: nowrap; }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
+        .thumb:hover { transform: translateY(-1px); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb-active { border-color: #ed6d6d; }
+        @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
       `}</style>
     </div>
   )

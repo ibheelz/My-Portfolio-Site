@@ -4,7 +4,7 @@ import { attachHireMe } from '../utils/attachHireMe'
 import cdBG from '../assets/creative-designer-BG.webp'
 import cdHero from '../assets/creative-designer-hero.webp'
 // Optional OOH assets (drop images into src/assets/ooh)
-const oohImports = import.meta.glob('../assets/ooh/*.{webp,png,jpg,jpeg}', { eager: true, as: 'url' })
+const oohImports = import.meta.glob('../assets/ooh/*.{webp,png,jpg,jpeg}', { eager: true, query: '?url', import: 'default' })
 const oohImages = Object.values(oohImports).sort()
 
 function CreativeDesigner() {
