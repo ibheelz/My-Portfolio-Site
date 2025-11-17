@@ -830,8 +830,9 @@ function AICreator() {
         }
         .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
         .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
-        .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
-        .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
+        /* Match AI Creator navbar button color */
+        .lightbox-chevron:hover { background: #eac28a; border-color: #eac28a; color: #10171d; }
+        .lightbox-chevron:active { background: #eac28a; border-color: #eac28a; color: #10171d; }
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
         .lightbox-image-row {
           display: inline-flex; align-items: stretch; gap: 0;

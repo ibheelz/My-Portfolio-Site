@@ -803,8 +803,9 @@ function Branding() {
         .lightbox-chevron { position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001; width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff; background: rgba(0,0,0,0.45); color: #fff; display: inline-flex; align-items: center; justify-content: center; transition: background 160ms ease, border-color 160ms ease, color 160ms ease; }
         .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
         .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
-        .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
-        .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
+        /* Match Branding navbar button color */
+        .lightbox-chevron:hover { background: #aa90db; border-color: #aa90db; color: #ffffff; }
+        .lightbox-chevron:active { background: #aa90db; border-color: #aa90db; color: #ffffff; }
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
         .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: contain; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
