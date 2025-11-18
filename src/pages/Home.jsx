@@ -147,42 +147,87 @@ function Home() {
           backgroundRepeat: 'no-repeat'
         }}
       >
+        {/* Default light bottom gradient over hero BG when no character is active */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out"
+          style={{
+            background: 'linear-gradient(to top, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 45%)',
+            opacity: (!activeChar && !clickedChar) ? 1 : 0
+          }}
+        />
         {/* Gradient overlays */}
         {/* Red gradient for character 1: desktop OR mobile after swipe */}
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #6e3534 0%, #ae504d 40%, #d88078 100%)',
+            background: 'linear-gradient(to bottom, #6e3534 0%, #ae504d 40%, #f6d0cb 100%)',
             opacity: (window.innerWidth >= 1024 ? activeChar === 1 : (activeSlide === 1 && hasSwipedFromFirst)) ? 1 : 0
+          }}
+        />
+        {/* Creative Designer text image overlay on top of gradient (20% opacity, full height) */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none transition-opacity duration-[800ms] ease-out"
+          style={{
+            backgroundImage: "url('/test.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'auto 100%',
+            opacity: (window.innerWidth >= 1024 ? activeChar === 1 : (activeSlide === 1 && hasSwipedFromFirst)) ? 0.05 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #4a346e 0%, #6e4dae 40%, #a378d8 100%)',
+            background: 'linear-gradient(to bottom, #4a346e 0%, #6e4dae 40%, #faf3ff 100%)',
             // Mobile: char 2 now lives on slide 3
             opacity: (window.innerWidth < 1024 ? activeSlide === 3 : activeChar === 2) ? 1 : 0
           }}
         />
+        {/* Brand Designer text image overlay (80% opacity, full height) */}
         <div
-          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          aria-hidden
+          className="absolute inset-0 pointer-events-none transition-opacity duration-[800ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #d8a378 100%)',
-            // Mobile: char 3 now lives on slide 2
-            opacity: (window.innerWidth < 1024 ? activeSlide === 2 : activeChar === 3) ? 1 : 0
+            backgroundImage: "url('/testtt.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'auto 100%',
+            opacity: (window.innerWidth < 1024 ? activeSlide === 3 : activeChar === 2) ? 0.3 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #346e4a 0%, #4dae72 40%, #78d8a3 100%)',
+            background: 'linear-gradient(to bottom, #6e4a34 0%, #ae764d 40%, #f3dcc4 100%)',
+            // Mobile: char 3 now lives on slide 2
+            opacity: (window.innerWidth < 1024 ? activeSlide === 2 : activeChar === 3) ? 1 : 0
+          }}
+        />
+        {/* AI Creator text image overlay (5% opacity, full height) */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none transition-opacity duration-[800ms] ease-out"
+          style={{
+            backgroundImage: "url('/testt.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'auto 100%',
+            opacity: (window.innerWidth < 1024 ? activeSlide === 2 : activeChar === 3) ? 0.3 : 0
+          }}
+        />
+        <div
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
+          style={{
+            background: 'linear-gradient(to bottom, #346e4a 0%, #4dae72 40%, #c8f3de 100%)',
             opacity: (window.innerWidth < 1024 ? activeSlide === 4 : activeChar === 4) ? 1 : 0
           }}
         />
         <div
           className="absolute inset-0 transition-opacity duration-[1500ms] ease-out"
           style={{
-            background: 'linear-gradient(to bottom, #6e1e34 0%, #ae3d5d 40%, #d86b8a 100%)',
+            background: 'linear-gradient(to bottom, #6e1e34 0%, #ae3d5d 40%, #f3c0cf 100%)',
             opacity: (window.innerWidth < 1024 ? activeSlide === 5 : activeChar === 5) ? 1 : 0
           }}
         />
@@ -242,13 +287,13 @@ function Home() {
 
             {/* Character 1: Creative Designer */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 1 ? 1 : 0, position: activeSlide === 1 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 1 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Creative Designer
               </div>
               <div
                 className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
                 style={{
-                  color: '#d0dadf',
+                  color: '#ffffff',
                   overflow: expandedDesc === 1 ? 'visible' : 'hidden',
                   textOverflow: expandedDesc === 1 ? 'clip' : 'ellipsis',
                   whiteSpace: expandedDesc === 1 ? 'normal' : 'nowrap',
@@ -263,13 +308,13 @@ function Home() {
 
             {/* Character 2: Brand Designer (now on slide 3) */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 3 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Brand Designer
               </div>
               <div
                 className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
                 style={{
-                  color: '#d0dadf',
+                  color: '#ffffff',
                   overflow: expandedDesc === 2 ? 'visible' : 'hidden',
                   textOverflow: expandedDesc === 2 ? 'clip' : 'ellipsis',
                   whiteSpace: expandedDesc === 2 ? 'normal' : 'nowrap',
@@ -284,13 +329,13 @@ function Home() {
 
             {/* Character 3: AI Creator (now on slide 2) */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 2 ? 1 : 0, position: activeSlide === 2 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 2 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 AI Creator
               </div>
               <div
                 className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
                 style={{
-                  color: '#d0dadf',
+                  color: '#ffffff',
                   overflow: expandedDesc === 3 ? 'visible' : 'hidden',
                   textOverflow: expandedDesc === 3 ? 'clip' : 'ellipsis',
                   whiteSpace: expandedDesc === 3 ? 'normal' : 'nowrap',
@@ -305,13 +350,13 @@ function Home() {
 
             {/* Character 4: 3D Design */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 4 ? 1 : 0, position: activeSlide === 4 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 4 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 3D Design
               </div>
               <div
                 className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
                 style={{
-                  color: '#d0dadf',
+                  color: '#ffffff',
                   overflow: expandedDesc === 4 ? 'visible' : 'hidden',
                   textOverflow: expandedDesc === 4 ? 'clip' : 'ellipsis',
                   whiteSpace: expandedDesc === 4 ? 'normal' : 'nowrap',
@@ -326,13 +371,13 @@ function Home() {
 
             {/* Character 5: Game Design */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 5 ? 1 : 0, position: activeSlide === 5 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 5 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Game Design
               </div>
               <div
                 className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
                 style={{
-                  color: '#d0dadf',
+                  color: '#ffffff',
                   overflow: expandedDesc === 5 ? 'visible' : 'hidden',
                   textOverflow: expandedDesc === 5 ? 'clip' : 'ellipsis',
                   whiteSpace: expandedDesc === 5 ? 'normal' : 'nowrap',
@@ -397,7 +442,7 @@ function Home() {
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Creative Designer
             </div>
-            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
+            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
               I lock horns with complex challenges, wrestling with problems until they transform into elegant, powerful solutions.
             </div>
             <button
@@ -431,7 +476,7 @@ function Home() {
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Brand Designer
             </div>
-            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
+            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
               I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
             </div>
             <button
@@ -465,7 +510,7 @@ function Home() {
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               AI Creator
             </div>
-            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
+            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
               In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
             </div>
             <button
@@ -499,7 +544,7 @@ function Home() {
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               3D Design
             </div>
-            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
+            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
               What I build doesn't just look good, it's engineered for perfection.
             </div>
             <button
@@ -533,7 +578,7 @@ function Home() {
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Game Design
             </div>
-            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
+            <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
               I design games that roar to life and leave lasting impressions.
             </div>
             <button

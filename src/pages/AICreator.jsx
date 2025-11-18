@@ -247,8 +247,7 @@ function AICreator() {
             key={heroKey}
             src={aiHero}
             alt="AI Creator"
-            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
-            style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
             decoding="async"
             fetchpriority="high"
           />

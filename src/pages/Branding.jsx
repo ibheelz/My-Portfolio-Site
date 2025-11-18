@@ -248,8 +248,7 @@ function Branding() {
             key={heroKey}
             src={brandingHero}
             alt="Brand Designer"
-            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
-            style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
+            className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0 max-h-[78vh] lg:max-h-[68vh]"
             decoding="async"
             fetchpriority="high"
           />
@@ -270,7 +269,7 @@ function Branding() {
         <div className="hidden lg:flex w-full justify-center mt-10 mb-6">
           <button
             onClick={() => navigate('/branding/case-study')}
-            className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2"
+            className="branding-case-btn px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2"
           >
             <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -293,11 +292,11 @@ function Branding() {
               </button>
             ))}
           </div>
-          {/* Mobile-only Case Study button (gold, match homepage), placed beneath lightbox buttons */}
+          {/* Mobile-only Case Study button (branding theme), placed beneath lightbox buttons */}
           <div className="mt-5">
             <button
               onClick={() => navigate('/branding/case-study')}
-              className="apple-glass-button px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium transition-all duration-300 inline-flex items-center gap-1.5 sm:gap-2"
+              className="branding-case-btn px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium transition-all duration-300 inline-flex items-center gap-1.5 sm:gap-2"
             >
               <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -782,6 +781,50 @@ function Branding() {
             inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
             inset 0 -1px 0 0 rgba(165, 200, 228, 0.4),
             0 8px 32px 0 rgba(165, 200, 228, 0.25);
+        }
+
+        /* Branding theme Case Study button (purple glass) */
+        .branding-case-btn {
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(
+            135deg,
+            rgba(170, 144, 219, 0.32) 0%,
+            rgba(170, 144, 219, 0.22) 50%,
+            rgba(170, 144, 219, 0.32) 100%
+          );
+          backdrop-filter: blur(30px) saturate(200%);
+          -webkit-backdrop-filter: blur(30px) saturate(200%);
+          border: 1px solid rgba(170, 144, 219, 0.5);
+          box-shadow:
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 0 rgba(170, 144, 219, 0.35),
+            0 8px 32px 0 rgba(170, 144, 219, 0.25);
+          color: #ffffff;
+        }
+        .branding-case-btn::before {
+          content: '';
+          position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+          animation: liquidMove 4s ease-in-out infinite;
+        }
+        .branding-case-btn::after {
+          content: '';
+          position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+          animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s;
+        }
+        .branding-case-btn:hover {
+          background: linear-gradient(
+            135deg,
+            rgba(170, 144, 219, 0.45) 0%,
+            rgba(170, 144, 219, 0.32) 50%,
+            rgba(170, 144, 219, 0.45) 100%
+          );
+          box-shadow:
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+            inset 0 -1px 0 0 rgba(170, 144, 219, 0.5),
+            0 8px 32px 0 rgba(170, 144, 219, 0.35);
         }
 
         /* Glowing movement (match Home) */
