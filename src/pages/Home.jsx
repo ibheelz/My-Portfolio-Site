@@ -287,106 +287,101 @@ function Home() {
 
             {/* Character 1: Creative Designer */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 1 ? 1 : 0, position: activeSlide === 1 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 1 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.235rem,4.275vw,2.185rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Creative Designer
               </div>
               <div
-                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5"
                 style={{
                   color: '#ffffff',
-                  overflow: expandedDesc === 1 ? 'visible' : 'hidden',
-                  textOverflow: expandedDesc === 1 ? 'clip' : 'ellipsis',
-                  whiteSpace: expandedDesc === 1 ? 'normal' : 'nowrap',
-                  lineHeight: '1.5',
-                  pointerEvents: 'auto'
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  whiteSpace: 'normal',
+                  lineHeight: '1.5'
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 1 ? null : 1)}
               >
-                I lock horns with complex challenges, wrestling with problems until they transform into elegant, powerful solutions.
+                “I lock horns with challenges, wrestling with problems until they transform into solutions.”
               </div>
             </div>
 
             {/* Character 2: Brand Designer (now on slide 3) */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 3 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.235rem,4.275vw,2.185rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Brand Designer
               </div>
               <div
-                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5"
                 style={{
                   color: '#ffffff',
-                  overflow: expandedDesc === 2 ? 'visible' : 'hidden',
-                  textOverflow: expandedDesc === 2 ? 'clip' : 'ellipsis',
-                  whiteSpace: expandedDesc === 2 ? 'normal' : 'nowrap',
-                  lineHeight: '1.5',
-                  pointerEvents: 'auto'
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  whiteSpace: 'normal',
+                  lineHeight: '1.5'
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 2 ? null : 2)}
               >
-                I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
+                “I deliver brand strategies that hit the mark every time, turning insights into identities.”
               </div>
             </div>
 
             {/* Character 3: AI Creator (now on slide 2) */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 2 ? 1 : 0, position: activeSlide === 2 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 2 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.235rem,4.275vw,2.185rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 AI Creator
               </div>
               <div
-                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5"
                 style={{
                   color: '#ffffff',
-                  overflow: expandedDesc === 3 ? 'visible' : 'hidden',
-                  textOverflow: expandedDesc === 3 ? 'clip' : 'ellipsis',
-                  whiteSpace: expandedDesc === 3 ? 'normal' : 'nowrap',
-                  lineHeight: '1.5',
-                  pointerEvents: 'auto'
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  whiteSpace: 'normal',
+                  lineHeight: '1.5'
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 3 ? null : 3)}
               >
-                In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
+                “In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.”
               </div>
             </div>
 
             {/* Character 4: 3D Design */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 4 ? 1 : 0, position: activeSlide === 4 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 4 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.235rem,4.275vw,2.185rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 3D Design
               </div>
               <div
-                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5"
                 style={{
                   color: '#ffffff',
-                  overflow: expandedDesc === 4 ? 'visible' : 'hidden',
-                  textOverflow: expandedDesc === 4 ? 'clip' : 'ellipsis',
-                  whiteSpace: expandedDesc === 4 ? 'normal' : 'nowrap',
-                  lineHeight: '1.5',
-                  pointerEvents: 'auto'
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  whiteSpace: 'normal',
+                  lineHeight: '1.5'
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 4 ? null : 4)}
               >
-                What I build doesn't just look good, it's engineered for perfection.
+                “What I build doesn't just look good, it's engineered for perfection.”
               </div>
             </div>
 
             {/* Character 5: Game Design */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 5 ? 1 : 0, position: activeSlide === 5 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 5 ? 10 : 1 }}>
-              <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
+              <div className="text-[clamp(1.235rem,4.275vw,2.185rem)] font-bold text-white font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
                 Game Design
               </div>
               <div
-                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
+                className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5"
                 style={{
                   color: '#ffffff',
-                  overflow: expandedDesc === 5 ? 'visible' : 'hidden',
-                  textOverflow: expandedDesc === 5 ? 'clip' : 'ellipsis',
-                  whiteSpace: expandedDesc === 5 ? 'normal' : 'nowrap',
-                  lineHeight: '1.5',
-                  pointerEvents: 'auto'
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  whiteSpace: 'normal',
+                  lineHeight: '1.5'
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 5 ? null : 5)}
               >
-                I design games that roar to life and leave lasting impressions.
+                “I design games that roar to life and leave lasting impressions.”
               </div>
             </div>
 
@@ -413,13 +408,13 @@ function Home() {
         <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-4xl">
           <div className="text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed lg:mt-0">
             <div
-              className="text-[clamp(1.5rem,4.5vw,3rem)] lg:text-5xl font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700 anim-hero-heading"
+              className="text-[clamp(1.425rem,4.275vw,2.85rem)] lg:text-[2.565rem] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700 anim-hero-heading"
               style={{ opacity: activeChar ? 0 : 1 }}
             >
               I craft digital<br className="lg:hidden" /> experiences
             </div>
             <div
-              className="text-[clamp(0.875rem,2.5vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700 anim-hero-sub"
+              className="text-[clamp(0.831rem,2.375vw,1.425rem)] lg:text-[1.2825rem] font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700 anim-hero-sub"
               style={{ opacity: activeChar ? 0 : 1, color: '#d0dadf' }}
             >
               where art, code, and intelligence converge.
@@ -439,11 +434,11 @@ function Home() {
         <div className="hidden lg:block absolute top-[20%] lg:top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-0 text-center px-4 sm:px-6 md:px-8 w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl z-20">
           {/* Character 1: Creative Designer */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 1 ? 1 : 0, pointerEvents: activeChar === 1 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
+            <div className="text-[clamp(2.375rem,5.7vw,3.8rem)] lg:text-[3.20625rem] font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Creative Designer
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
-              I lock horns with complex challenges, wrestling with problems until they transform into elegant, powerful solutions.
+              “I lock horns with challenges, wrestling with problems until they transform into elegant solutions.”
             </div>
             <button
               onClick={clickedChar === 1 ? () => navigate('/creative-designer') : undefined}
@@ -473,11 +468,11 @@ function Home() {
 
           {/* Character 2: Brand Designer */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 2 ? 1 : 0, pointerEvents: activeChar === 2 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
+            <div className="text-[clamp(2.375rem,5.7vw,3.8rem)] lg:text-[3.20625rem] font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Brand Designer
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
-              I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
+              “I deliver brand strategies that hit the mark every time, turning insights into identities.”
             </div>
             <button
               onClick={clickedChar === 2 ? () => navigate('/branding') : undefined}
@@ -507,11 +502,11 @@ function Home() {
 
           {/* Character 3: AI Creator */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 3 ? 1 : 0, pointerEvents: activeChar === 3 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
+            <div className="text-[clamp(2.375rem,5.7vw,3.8rem)] lg:text-[3.20625rem] font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               AI Creator
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
-              In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.
+              “In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.”
             </div>
             <button
               onClick={clickedChar === 3 ? () => navigate('/ai-creator') : undefined}
@@ -541,11 +536,11 @@ function Home() {
 
           {/* Character 4: 3D Design */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 4 ? 1 : 0, pointerEvents: activeChar === 4 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
+            <div className="text-[clamp(2.375rem,5.7vw,3.8rem)] lg:text-[3.20625rem] font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               3D Design
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
-              What I build doesn't just look good, it's engineered for perfection.
+              “What I build doesn't just look good, it's engineered for perfection.”
             </div>
             <button
               onClick={clickedChar === 4 ? () => navigate('/3d-design') : undefined}
@@ -575,11 +570,11 @@ function Home() {
 
           {/* Character 5: Game Design */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 5 ? 1 : 0, pointerEvents: activeChar === 5 ? 'auto' : 'none' }}>
-            <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
+            <div className="text-[clamp(2.375rem,5.7vw,3.8rem)] lg:text-[3.20625rem] font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
               Game Design
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
-              I design games that roar to life and leave lasting impressions.
+              “I design games that roar to life and leave lasting impressions.”
             </div>
             <button
               onClick={clickedChar === 5 ? () => navigate('/game-design') : undefined}
@@ -723,7 +718,7 @@ function Home() {
 
       <div className="flex-1 flex flex-col justify-center overflow-auto relative z-10">
         {/* Selected Brands text - responsive */}
-        <p className="relative z-[999] selected-brands-title text-[#d4e2f3] text-center text-xs sm:text-sm tracking-wider font-['Jost',sans-serif] font-medium px-4 mt-0 lg:mt-5">
+        <p className="relative z-[999] selected-brands-title text-[#9ca3af] text-center text-xs sm:text-sm tracking-wider font-['Jost',sans-serif] font-medium px-4 mt-0 lg:mt-5">
           Selected Brands I've Worked On
         </p>
 
@@ -777,7 +772,7 @@ function Home() {
           </svg>
           View Resume
         </button>
-        <button className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-1.5 sm:gap-2 anim-btn-right">
+        <button className="apple-glass-button-neutral px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-1.5 sm:gap-2 anim-btn-right">
           <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
@@ -976,6 +971,38 @@ function Home() {
             inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
             inset 0 -1px 0 0 rgba(165, 200, 228, 0.3),
             0 8px 32px 0 rgba(165, 200, 228, 0.15);
+        }
+
+        /* Neutral gray glass button */
+        .apple-glass-button-neutral {
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(
+            135deg,
+            rgba(180, 190, 200, 0.28) 0%,
+            rgba(180, 190, 200, 0.18) 50%,
+            rgba(180, 190, 200, 0.28) 100%
+          );
+          backdrop-filter: blur(30px) saturate(200%);
+          -webkit-backdrop-filter: blur(30px) saturate(200%);
+          border: 1px solid rgba(180, 190, 200, 0.45);
+          box-shadow:
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 0 rgba(180, 190, 200, 0.35),
+            0 8px 32px 0 rgba(180, 190, 200, 0.2);
+          color: #ffffff;
+        }
+        .apple-glass-button-neutral::before {
+          content: '';
+          position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+          animation: liquidMove 4s ease-in-out infinite;
+        }
+        .apple-glass-button-neutral::after {
+          content: '';
+          position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+          animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s;
         }
 
         .apple-glass-button-accent::before {
