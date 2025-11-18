@@ -795,23 +795,13 @@ function Branding() {
             0 8px 32px 0 rgba(165, 200, 228, 0.25);
         }
 
-        /* Branding theme Case Study button (purple glass) */
+        /* Branding theme Case Study button - glow-only (moving shine), no solid fill */
         .branding-case-btn {
           position: relative;
           overflow: hidden;
-          background: linear-gradient(
-            135deg,
-            rgba(170, 144, 219, 0.32) 0%,
-            rgba(170, 144, 219, 0.22) 50%,
-            rgba(170, 144, 219, 0.32) 100%
-          );
-          backdrop-filter: blur(30px) saturate(200%);
-          -webkit-backdrop-filter: blur(30px) saturate(200%);
-          border: 1px solid rgba(170, 144, 219, 0.5);
-          box-shadow:
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-            inset 0 -1px 0 0 rgba(170, 144, 219, 0.35),
-            0 8px 32px 0 rgba(170, 144, 219, 0.25);
+          background: transparent; /* no solid fill */
+          border: 1.5px solid rgba(170, 144, 219, 0.85); /* theme-colored edge */
+          box-shadow: none; /* glow comes from moving overlays */
           color: #ffffff;
         }
         .branding-case-btn::before {
@@ -826,18 +816,7 @@ function Branding() {
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
           animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s;
         }
-        .branding-case-btn:hover {
-          background: linear-gradient(
-            135deg,
-            rgba(170, 144, 219, 0.45) 0%,
-            rgba(170, 144, 219, 0.32) 50%,
-            rgba(170, 144, 219, 0.45) 100%
-          );
-          box-shadow:
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-            inset 0 -1px 0 0 rgba(170, 144, 219, 0.5),
-            0 8px 32px 0 rgba(170, 144, 219, 0.35);
-        }
+        .branding-case-btn:hover { background: transparent; }
 
         /* Glowing movement (match Home) */
         @keyframes liquidMove {
