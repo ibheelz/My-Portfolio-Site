@@ -854,12 +854,8 @@ function CreativeDesigner() {
           box-shadow: none; /* glow comes from moving overlays */
           color: #ffffff;
         }
-        .case-study-btn::before {
-          content: '';
-          position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
-          animation: liquidMove 4s ease-in-out infinite;
-        }
+        /* Remove inner glow: keep only moving shine (::after) */
+        .case-study-btn::before { content: none; }
         .case-study-btn::after {
           content: '';
           position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
