@@ -812,7 +812,12 @@ function Branding() {
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
           animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s;
         }
-        .branding-case-btn:hover { background: transparent; }
+        .branding-case-btn:hover,
+        .branding-case-btn:active {
+          /* Fill with branding theme color on hover/click */
+          background: linear-gradient(135deg, #aa90db 0%, #9f84d3 50%, #aa90db 100%);
+          border-color: #aa90db;
+        }
 
         /* Glowing movement (match Home) */
         @keyframes liquidMove {

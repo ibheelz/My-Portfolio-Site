@@ -862,7 +862,12 @@ function CreativeDesigner() {
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
           animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s;
         }
-        .case-study-btn:hover { background: transparent; }
+        .case-study-btn:hover,
+        .case-study-btn:active {
+          /* Fill with creative theme color on hover/click */
+          background: linear-gradient(135deg, #ec6d6c 0%, #e45d5c 50%, #ec6d6c 100%);
+          border-color: #ec6d6c;
+        }
 
         @keyframes liquidMove {
           0% { transform: translate(0, 0); }
