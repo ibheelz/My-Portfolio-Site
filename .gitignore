@@ -8,6 +8,10 @@ build/
 # Misc
 .DS_Store
 *.log
+.vite.run.log
+.dev.log
+.vite.pid
+.dev.pid
 
 # Environment
 .env
