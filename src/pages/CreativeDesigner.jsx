@@ -573,10 +573,10 @@ function CreativeDesigner() {
           margin: 0;
         }
         @media (max-width: 1023.98px) {
-          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
+          .page-fixed-overlay { background: rgba(0,0,0,0.35); }
         }
         @media (min-width: 1024px) {
-          .page-fixed-overlay { background: rgba(0,0,0,0.625); }
+          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
         }
         .svg-gold {
           filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);

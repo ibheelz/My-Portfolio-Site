@@ -91,10 +91,6 @@ function CreativeDesignerCaseStudy() {
           right: calc(50% - 70px);
           transform: translateY(-50%);
         }
-        @media (min-width: 640px) {
-          .svg-left { left: calc(50% - 90px); }
-          .svg-right { right: calc(50% - 90px); }
-        }
         @media (min-width: 768px) {
           .svg-left { left: calc(50% - 120px); }
           .svg-right { right: calc(50% - 120px); }
@@ -106,6 +102,11 @@ function CreativeDesignerCaseStudy() {
         @media (min-width: 1280px) {
           .svg-left { left: calc(50% - 200px); }
           .svg-right { right: calc(50% - 200px); }
+        }
+        /* Place after others to pull arrows closer on all >=640px (match Creative subpage) */
+        @media (min-width: 640px) {
+          .svg-left { left: calc(50% - 90px); }
+          .svg-right { right: calc(50% - 90px); }
         }
         .glass-button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: #e7f2f8; }
         /* Creative theme hover */

@@ -538,12 +538,12 @@ function AICreator() {
           margin: 0;
         }
         @media (max-width: 1023.98px) {
-          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
+          .page-fixed-overlay { background: rgba(0,0,0,0.35); }
           /* Shift background slightly left on smaller screens */
           .page-fixed-bg { background-position: calc(50% - 50px) center; }
         }
         @media (min-width: 1024px) {
-          .page-fixed-overlay { background: rgba(0,0,0,0.625); }
+          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
         }
         /* Fixed background shared style */
         .page-fixed-bg {

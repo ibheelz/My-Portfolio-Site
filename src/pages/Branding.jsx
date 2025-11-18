@@ -412,10 +412,10 @@ function Branding() {
           margin: 0;
         }
         @media (max-width: 1023.98px) {
-          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
+          .page-fixed-overlay { background: rgba(0,0,0,0.35); }
         }
         @media (min-width: 1024px) {
-          .page-fixed-overlay { background: rgba(0,0,0,0.625); }
+          .page-fixed-overlay { background: rgba(0,0,0,0.5); }
         }
         /* Fixed background shared style */
         .page-fixed-bg {
