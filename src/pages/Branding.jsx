@@ -247,7 +247,7 @@ function Branding() {
           <img
             key={heroKey}
             src={brandingHero}
-            alt="Branding"
+            alt="Brand Designer"
             className="w-full lg:w-auto h-auto object-contain mt-[clamp(48px,8vw,96px)] lg:mt-0 anim-content-soft mx-auto lg:mx-0"
             style={{ maxWidth: 'min(92vw, 1100px)', maxHeight: '75vh' }}
             decoding="async"

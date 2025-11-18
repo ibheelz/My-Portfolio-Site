@@ -261,10 +261,10 @@ function Home() {
               </div>
             </div>
 
-            {/* Character 2: Branding (now on slide 3) */}
+            {/* Character 2: Brand Designer (now on slide 3) */}
             <div className="transition-opacity duration-700" style={{ opacity: activeSlide === 3 ? 1 : 0, position: activeSlide === 3 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, zIndex: activeSlide === 3 ? 10 : 1 }}>
               <div className="text-[clamp(1.3rem,4.5vw,2.3rem)] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-tight mb-3 whitespace-nowrap">
-                Branding
+                Brand Designer
               </div>
               <div
                 className="text-[clamp(0.875rem,2.8vw,1.1rem)] font-light font-['Jost',sans-serif] mb-5 cursor-pointer"
@@ -426,10 +426,10 @@ function Home() {
             </button>
           </div>
 
-          {/* Character 2: Branding */}
+          {/* Character 2: Brand Designer */}
           <div className="absolute inset-0 text-white leading-tight sm:leading-snug md:leading-normal lg:leading-relaxed transition-opacity duration-700" style={{ opacity: activeChar === 2 ? 1 : 0, pointerEvents: activeChar === 2 ? 'auto' : 'none' }}>
             <div className="text-[clamp(2.5rem,6vw,4rem)] lg:text-6xl font-bold text-white font-['Libre_Baskerville',serif] leading-none lg:leading-tight whitespace-nowrap">
-              Branding
+              Brand Designer
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#d0dadf' }}>
               I deliver brand strategies that hit the mark every time, turning insights into iconic identities.
