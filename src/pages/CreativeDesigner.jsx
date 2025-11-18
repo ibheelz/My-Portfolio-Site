@@ -845,23 +845,20 @@ function CreativeDesigner() {
             0 8px 32px 0 rgba(165, 200, 228, 0.25);
         }
 
-        /* Creative theme Case Study button (red glass) */
+        /* Creative theme Case Study button - solid themed fill with glass edges */
         .case-study-btn {
           position: relative;
           overflow: hidden;
-          background: linear-gradient(
-            135deg,
-            rgba(236, 109, 108, 0.32) 0%,
-            rgba(236, 109, 108, 0.22) 50%,
-            rgba(236, 109, 108, 0.32) 100%
-          );
+          /* Solid theme color (not transparent) */
+          background: linear-gradient(135deg, #ec6d6c 0%, #e45d5c 50%, #ec6d6c 100%);
           backdrop-filter: blur(30px) saturate(200%);
           -webkit-backdrop-filter: blur(30px) saturate(200%);
-          border: 1px solid rgba(236, 109, 108, 0.5);
+          /* Glassy edge using a solid theme border */
+          border: 1px solid #ec6d6c;
           box-shadow:
             inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-            inset 0 -1px 0 0 rgba(236, 109, 108, 0.35),
-            0 8px 32px 0 rgba(236, 109, 108, 0.25);
+            inset 0 -1px 0 0 rgba(228, 93, 92, 0.55),
+            0 8px 32px 0 rgba(236, 109, 108, 0.35);
           color: #ffffff;
         }
         .case-study-btn::before {
@@ -877,16 +874,11 @@ function CreativeDesigner() {
           animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s;
         }
         .case-study-btn:hover {
-          background: linear-gradient(
-            135deg,
-            rgba(236, 109, 108, 0.45) 0%,
-            rgba(236, 109, 108, 0.32) 50%,
-            rgba(236, 109, 108, 0.45) 100%
-          );
+          background: linear-gradient(135deg, #f08180 0%, #ec6d6c 50%, #f08180 100%);
           box-shadow:
             inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-            inset 0 -1px 0 0 rgba(236, 109, 108, 0.5),
-            0 8px 32px 0 rgba(236, 109, 108, 0.35);
+            inset 0 -1px 0 0 rgba(228, 93, 92, 0.7),
+            0 8px 32px 0 rgba(236, 109, 108, 0.45);
         }
 
         @keyframes liquidMove {
