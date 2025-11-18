@@ -91,28 +91,20 @@ function Home() {
     return () => slider.removeEventListener('scroll', handleScroll)
   }, [hasSwipedFromFirst])
 
-  // Mobile: start carousel at the middle slide by default (robust)
+  // Mobile: render AI Creator (middle slide) first, with no jump/swipe on load
   useLayoutEffect(() => {
     const slider = sliderRef.current
     if (!slider) return
     if (window.innerWidth >= 1024) return
 
-    const toMiddle = () => {
-      const slideWidth = slider.offsetWidth
-      // Jump to slide 2 (index 1)
-      slider.scrollLeft = slideWidth
-      setActiveSlide(2)
-      setHasSwipedFromFirst(true)
-      setSliderReady(true)
-      setMiddleAnim(true)
-      // stop the rise animation after it finishes (match 4.5s + buffer)
-      setTimeout(() => setMiddleAnim(false), 5000)
-    }
-
-    // Run early before paint and also shortly after to avoid flicker
-    if ('requestAnimationFrame' in window) requestAnimationFrame(toMiddle)
-    setTimeout(toMiddle, 50)
-    setTimeout(toMiddle, 200)
+    // Synchronously position the slider to the middle slide before first paint
+    const slideWidth = slider.offsetWidth
+    slider.scrollLeft = slideWidth
+    setActiveSlide(2)
+    // Do not mark as swiped or trigger rise animation on initial load
+    setHasSwipedFromFirst(false)
+    setMiddleAnim(false)
+    setSliderReady(true)
   }, [])
 
   // Keep forcing middle when entering mobile layout (e.g., on resize or slow assets)
