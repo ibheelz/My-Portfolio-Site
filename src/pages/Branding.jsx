@@ -269,7 +269,7 @@ function Branding() {
         {/* Desktop-only Case Study button under hero */}
         <div className="hidden lg:flex w-full justify-center mt-10 mb-6">
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => navigate('/branding/case-study')}
             className="apple-glass-button-accent px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2"
           >
             <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -292,6 +292,18 @@ function Branding() {
                 <span className="branding-image-button__label">{label}</span>
               </button>
             ))}
+          </div>
+          {/* Mobile-only Case Study button (gold, match homepage), placed beneath lightbox buttons */}
+          <div className="mt-5">
+            <button
+              onClick={() => navigate('/branding/case-study')}
+              className="apple-glass-button px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base font-['Jost',sans-serif] font-medium transition-all duration-300 inline-flex items-center gap-1.5 sm:gap-2"
+            >
+              <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Case Study
+            </button>
           </div>
         </div>
       </div>
@@ -699,6 +711,24 @@ function Branding() {
         @media (max-width: 639.98px) {
           /* Add 2x horizontal padding on smaller screens */
           .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }
+        }
+
+        /* Apple-style gold button (match homepage) */
+        .apple-glass-button,
+        .apple-glass-button-accent {
+          position: relative;
+          overflow: hidden;
+        }
+        .apple-glass-button {
+          background: #d8ac65;
+          border: none;
+          box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+          color: #10171d;
+        }
+        .apple-glass-button::before { display: none; }
+        .apple-glass-button:hover {
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
         }
 
         /* Apple-style glowing blue accent button (exact as homepage) */
