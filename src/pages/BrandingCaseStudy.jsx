@@ -26,12 +26,13 @@ function BrandingCaseStudy() {
         <div className="absolute left-[clamp(16px,3vw,40px)] w-auto">
           <button
             onClick={() => navigate('/branding', { replace: false, state: { animateHero: true } })}
+            aria-label="Back to Branding"
             className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] whitespace-nowrap"
           >
             <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
-            Back
+            <span className="hidden sm:inline">Back to Branding</span>
           </button>
         </div>
 
@@ -55,24 +56,60 @@ function BrandingCaseStudy() {
 
       <div className="header-spacer" />
 
-      {/* Content */}
-      <div className="page-content relative subpad flex-1 flex items-center justify-center px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft">
-        <div className="glass-card p-6 md:p-10 rounded-2xl text-center max-w-3xl mx-auto anim-content-soft">
-          <h1 className="text-2xl md:text-3xl font-['Libre_Baskerville',serif] text-white mb-3">Branding Case Study</h1>
-          <p className="text-[#d0dadf] font-['Jost',sans-serif] leading-relaxed">
-            Case study content goes here. Provide project context, challenges, process, and outcomes with images or videos.
-          </p>
-        </div>
-      </div>
+      {/* Content intentionally empty */}
+      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft" />
 
       <style jsx>{`
         .page-fixed-bg { position: fixed; inset: 0; background-size: cover; background-position: center; z-index: 0; }
         .page-fixed-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1; }
-        .liquid-glass-header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 16px; margin-bottom: 8px; }
-        .header-spacer { height: clamp(56px, 10vh, 80px); }
+        .liquid-glass-header {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          border-radius: clamp(20px, 4vw, 30px);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+          position: fixed;
+          top: 0;
+          left: clamp(12px, 3vw, 24px);
+          right: clamp(12px, 3vw, 24px);
+          z-index: 10;
+        }
+        .header-spacer { height: clamp(72px, 12vh, 120px); }
         .page-content { position: relative; z-index: 2; }
+        /* Navbar decorative SVGs (match subpage behavior) */
+        .svg-gold {
+          filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
+        }
+        .svg-left {
+          top: calc(clamp(10px,2.5vh,16px) + clamp(3rem,6vw,4.25rem) / 2);
+          left: calc(50% - 70px);
+          transform: translateY(-50%);
+        }
+        .svg-right {
+          top: calc(clamp(10px,2.5vh,16px) + clamp(3rem,6vw,4.25rem) / 2);
+          right: calc(50% - 70px);
+          transform: translateY(-50%);
+        }
+        @media (min-width: 640px) {
+          .svg-left { left: calc(50% - 90px); }
+          .svg-right { right: calc(50% - 90px); }
+        }
+        @media (min-width: 768px) {
+          .svg-left { left: calc(50% - 120px); }
+          .svg-right { right: calc(50% - 120px); }
+        }
+        @media (min-width: 1024px) {
+          .svg-left { left: calc(50% - 160px); }
+          .svg-right { right: calc(50% - 160px); }
+        }
+        @media (min-width: 1280px) {
+          .svg-left { left: calc(50% - 200px); }
+          .svg-right { right: calc(50% - 200px); }
+        }
         .glass-button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: #e7f2f8; }
-        .glass-button:hover { background: rgba(255,255,255,0.12); }
+        /* Branding theme hover */
+        .glass-button:hover { background: #aa90db; color: #ffffff; border-color: transparent; }
         .glass-card { background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         @keyframes contentSoftIn { 0% { opacity: 0; transform: translateY(12px) } 100% { opacity: 1; transform: translateY(0) } }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out both; }
@@ -94,4 +131,3 @@ function BrandingCaseStudy() {
 }
 
 export default BrandingCaseStudy
-
