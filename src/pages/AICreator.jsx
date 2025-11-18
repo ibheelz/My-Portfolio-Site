@@ -379,7 +379,7 @@ function AICreator() {
             <div className="lightbox-image-wrap" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <div
                 key={`row-${currentIndex}`}
-                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''} ${typeof window !== 'undefined' && window.innerWidth >= 769 && subject === 'annie' && currentIndex === 4 ? 'row-free' : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && subject === 'annie' && currentIndex === 4 ? 'row-annie-last' : ''}`}
+                className={`lightbox-image-row subject-${subject} ${typeof window !== 'undefined' && window.innerWidth > 768 && enterDir ? (enterDir === 'left' ? 'block-enter-left' : 'block-enter-right') : ''} ${typeof window !== 'undefined' && window.innerWidth >= 769 && subject === 'annie' && currentIndex === 4 ? 'row-free' : ''} ${typeof window !== 'undefined' && window.innerWidth >= 1024 && subject === 'annie' && currentIndex === 4 ? 'row-annie-last' : ''} ${typeof window !== 'undefined' && window.innerWidth <= 768 && subject === 'lucia' && (currentIndex === 0 || currentIndex === 1) ? 'lucia-center' : ''}`}
                 onAnimationEnd={() => { try { if (typeof window !== 'undefined' && window.innerWidth > 768) setEnterDir(null) } catch {} }}
               >
                 <img
@@ -1064,6 +1064,8 @@ function AICreator() {
             object-position: top center;     /* crop from the top, not center */
             border-radius: 12px !important;
           }
+          /* Center Lucia image 1 and 2 horizontally on mobile */
+          .lucia-center .lightbox-image { margin-left: auto !important; margin-right: auto !important; }
           /* Let rectangle height grow with its text on small screens */
           .lightbox-rect { box-sizing: border-box; width: 100%; flex: 0 0 auto; height: auto; overflow: visible; border-radius: 12px !important; }
           /* Add scroll only on small screens for long text; show a visible thin scrollbar */
