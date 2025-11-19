@@ -674,6 +674,21 @@ function AICreator() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
         }
 
+        /* Mobile gold button style (match other pages) */
+        .apple-glass-button,
+        .apple-glass-button-accent { position: relative; overflow: hidden; }
+        .apple-glass-button {
+          background: #d8ac65;
+          border: none;
+          box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+          color: #10171d; /* black text on gold */
+        }
+        .apple-glass-button::before { display: none; }
+        .apple-glass-button:hover {
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+        }
+
         /* AI theme Case Studu button - glow-only (moving shine), no solid fill by default */
         .ai-case-btn {
           position: relative;
