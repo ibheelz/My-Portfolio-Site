@@ -205,19 +205,6 @@ function AICreator() {
         </div>
         </div>
 
-        {/* Desktop-only Case Study button under hero */}
-        <div className="hidden lg:flex w-full justify-center mt-10 mb-6">
-          <button
-            onClick={() => navigate('/ai-creator/case-study')}
-            className="ai-case-btn px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-full text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2"
-          >
-            <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-            </svg>
-            Case Study
-          </button>
-        </div>
-
       {/* Spacer to offset fixed navbar height */}
       <div className="header-spacer" />
 
@@ -293,6 +280,19 @@ function AICreator() {
               <span className="ai-badge__label">Lucia Pazmiño</span>
             </div>
           </div>
+        </div>
+
+        {/* Desktop-only Case Study button under hero */}
+        <div className="hidden lg:flex w-full justify-center mt-10 mb-6">
+          <button
+            onClick={() => navigate('/ai-creator/case-study')}
+            className="ai-case-btn px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-full text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2"
+          >
+            <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Case Study
+          </button>
         </div>
 
           {/* Mobile stacked images under hero */}
