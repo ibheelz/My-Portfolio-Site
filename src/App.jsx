@@ -9,6 +9,7 @@ const ThreeDDesign = lazy(() => import('./pages/ThreeDDesign'))
 const GameDesign = lazy(() => import('./pages/GameDesign'))
 const CreativeDesignerCaseStudy = lazy(() => import('./pages/CreativeDesignerCaseStudy'))
 const BrandingCaseStudy = lazy(() => import('./pages/BrandingCaseStudy'))
+const AICreatorCaseStudy = lazy(() => import('./pages/AICreatorCaseStudy'))
 
 function RouteGate() {
   const location = useLocation()
@@ -48,6 +49,7 @@ function App() {
         <Route path="/branding" element={<Branding />} />
         <Route path="/branding/case-study" element={<BrandingCaseStudy />} />
         <Route path="/ai-creator" element={<AICreator />} />
+        <Route path="/ai-creator/case-study" element={<AICreatorCaseStudy />} />
         <Route path="/3d-design" element={<ThreeDDesign />} />
         <Route path="/game-design" element={<GameDesign />} />
       </Routes>
