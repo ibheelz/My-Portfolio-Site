@@ -398,8 +398,30 @@ gsap.set('.effect', { top: top > window.innerHeight ? window.innerHeight * 0.5 :
 
       <div className="header-spacer" />
 
-      {/* Page content intentionally empty */}
-      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft" />
+      {/* Page content with decorative glass rectangles */}
+      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft">
+        {/* 8 glass rectangles: 4 on each side (desktop), responsive grid on mobile */}
+        <div className="glass-rects">
+          {/* Left stack */}
+          <div className="glass-rects__col glass-rects__col--left">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={`L${i}`} className="glass-rect" />
+            ))}
+          </div>
+          {/* Right stack */}
+          <div className="glass-rects__col glass-rects__col--right">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={`R${i}`} className="glass-rect" />
+            ))}
+          </div>
+          {/* Mobile grid (hidden on lg) */}
+          <div className="glass-rects__grid">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={`M${i}`} className="glass-rect" />
+            ))}
+          </div>
+        </div>
+      </div>
 
       <style jsx>{`
         .page-fixed-bg { position: fixed; inset: 0; background-size: cover; background-position: center; z-index: 0; }
@@ -468,6 +490,30 @@ gsap.set('.effect', { top: top > window.innerHeight ? window.innerHeight * 0.5 :
         .animate-slideDownNav { animation: slideDownNav 1.5s ease-out forwards; }
         .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+        /* Decorative glass rectangles */
+        .glass-rects { position: relative; width: 100%; height: 100%; }
+        /* Desktop layout: two vertical stacks pinned to left/right, hide mobile grid */
+        @media (min-width: 1024px) {
+          .glass-rects__grid { display: none; }
+          .glass-rects__col { position: absolute; top: 0; bottom: 0; display: grid; grid-auto-rows: minmax(clamp(120px, 14vw, 220px), 1fr); gap: clamp(16px, 2vw, 24px); align-content: center; }
+          .glass-rects__col--left { left: 0; width: clamp(140px, 18vw, 260px); }
+          .glass-rects__col--right { right: 0; width: clamp(140px, 18vw, 260px); }
+        }
+        /* Mobile/tablet: 2-column responsive grid centered; hide desktop stacks */
+        @media (max-width: 1023.98px) {
+          .glass-rects__col { display: none; }
+          .glass-rects__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(12px, 3.5vw, 18px); padding: clamp(12px, 4vw, 24px) 0; }
+        }
+        .glass-rect {
+          background: rgba(255, 255, 255, 0.04);
+          border: 1.5px solid rgba(255, 255, 255, 0.10);
+          border-radius: clamp(14px, 2vw, 20px);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          min-height: clamp(110px, 14vw, 220px);
+        }
       `}</style>
     </div>
   )
