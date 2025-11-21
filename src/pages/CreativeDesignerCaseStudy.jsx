@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
-import cdBG from '../assets/creative-designer-BG.webp'
+// Use custom case study background from public/
+const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 
 function CreativeDesignerCaseStudy() {
   const navigate = useNavigate()
@@ -354,9 +355,9 @@ gsap.set('.effect', { top: top > window.innerHeight ? window.innerHeight * 0.5 :
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
+    <div className="min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] animate-fadeIn relative flex flex-col overflow-hidden">
       {/* Fixed background */}
-      <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${cdBG})` }} />
+      <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
 
       {/* Navbar (matches subpage) */}
@@ -398,34 +399,16 @@ gsap.set('.effect', { top: top > window.innerHeight ? window.innerHeight * 0.5 :
 
       <div className="header-spacer" />
 
-      {/* Page content with decorative glass rectangles */}
-      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft">
-        {/* 8 glass rectangles: 4 on each side (desktop), responsive grid on mobile */}
-        <div className="glass-rects">
-          {/* Left stack */}
-          <div className="glass-rects__col glass-rects__col--left">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={`L${i}`} className="glass-rect" />
-            ))}
-          </div>
-          {/* Right stack */}
-          <div className="glass-rects__col glass-rects__col--right">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={`R${i}`} className="glass-rect" />
-            ))}
-          </div>
-          {/* Mobile grid (hidden on lg) */}
-          <div className="glass-rects__grid">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={`M${i}`} className="glass-rect" />
-            ))}
-          </div>
-        </div>
+      {/* Page content: exactly 8 rectangles (4 left, 4 right), filling the page area */}
+      <div className="page-content relative flex-1 px-0 anim-bg-soft">
+        {/* Rectangles removed as requested */}
+        <div className="glass-8grid" aria-hidden />
       </div>
 
       <style jsx>{`
-        .page-fixed-bg { position: fixed; inset: 0; background-size: cover; background-position: center; z-index: 0; }
-        .page-fixed-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1; }
+        /* Start background just below the fixed navbar (match other pages' visual start) */
+        .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background-size: cover; background-position: center; z-index: 0; }
+        .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background: rgba(0,0,0,0.35); z-index: 1; }
         .liquid-glass-header {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(20px);
@@ -440,7 +423,15 @@ gsap.set('.effect', { top: top > window.innerHeight ? window.innerHeight * 0.5 :
           z-index: 10;
         }
         .header-spacer { height: clamp(72px, 12vh, 120px); }
-        .page-content { position: relative; z-index: 2; }
+        .page-content {
+          position: relative;
+          z-index: 2;
+          /* Exactly one screen tall below the header */
+          height: calc(100dvh - clamp(72px, 12vh, 120px));
+          min-height: calc(100dvh - clamp(72px, 12vh, 120px));
+          display: flex;
+          overflow: hidden;
+        }
         /* Navbar decorative SVGs (match subpage behavior) */
         .svg-gold {
           filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
@@ -491,28 +482,74 @@ gsap.set('.effect', { top: top > window.innerHeight ? window.innerHeight * 0.5 :
         .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
 
-        /* Decorative glass rectangles */
-        .glass-rects { position: relative; width: 100%; height: 100%; }
-        /* Desktop layout: two vertical stacks pinned to left/right, hide mobile grid */
+        /* Decorative glass rectangles layout: 2 columns x 4 rows, fill available height and width */
+        .glass-8grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(4, 1fr);
+          gap: clamp(12px, 2.5vw, 24px);
+          width: 100%;
+          /* Top/bottom Y spacing equals navbar X margin */
+          padding: clamp(12px, 3vw, 24px) 0 clamp(12px, 3vw, 24px) 0;
+          box-sizing: border-box;
+          flex: 1 1 auto;
+        }
+        /* Desktop columns: left/right hold 4 rows; middle is transparent full-height */
         @media (min-width: 1024px) {
-          .glass-rects__grid { display: none; }
-          .glass-rects__col { position: absolute; top: 0; bottom: 0; display: grid; grid-auto-rows: minmax(clamp(120px, 14vw, 220px), 1fr); gap: clamp(16px, 2vw, 24px); align-content: center; }
-          .glass-rects__col--left { left: 0; width: clamp(140px, 18vw, 260px); }
-          .glass-rects__col--right { right: 0; width: clamp(140px, 18vw, 260px); }
+          .grid-col { display: grid; grid-template-rows: repeat(4, 1fr); gap: clamp(12px, 2.5vw, 24px); }
+          .grid-col--left { grid-column: 1; grid-row: 1 / -1; }
+          .grid-col--middle { grid-column: 2; grid-row: 1 / -1; background: transparent; }
+          .grid-col--right { grid-column: 3; grid-row: 1 / -1; }
+          .glass-rect { width: 100%; height: 100%; }
         }
-        /* Mobile/tablet: 2-column responsive grid centered; hide desktop stacks */
-        @media (max-width: 1023.98px) {
-          .glass-rects__col { display: none; }
-          .glass-rects__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(12px, 3.5vw, 18px); padding: clamp(12px, 4vw, 24px) 0; }
+        /* Mobile: stacked vertical squares with empty interior */
+        @media (max-width: 639.98px) {
+          /* Allow scroll to view all 8 squares */
+          .page-content { height: auto; min-height: 100dvh; overflow-y: auto; }
+          .glass-8grid {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; /* use wrapper's navbar-matched x padding */
+            gap: clamp(12px, 4vw, 20px);
+            padding: clamp(12px, 3vw, 24px) 0; /* Y margin equals navbar X margin */
+          }
+          /* Flatten columns to direct items for mobile */
+          .grid-col { display: contents; }
+          .grid-col--middle { display: none; }
+          .glass-8grid .glass-rect {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* perfect square */
+            background: transparent; /* empty interior so square is clear */
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+          }
         }
+
         .glass-rect {
           background: rgba(255, 255, 255, 0.04);
           border: 1.5px solid rgba(255, 255, 255, 0.10);
-          border-radius: clamp(14px, 2vw, 20px);
+          border-radius: 9999px; /* fully rounded (capsule on rectangles, circle on squares) */
           backdrop-filter: blur(18px);
           -webkit-backdrop-filter: blur(18px);
           box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-          min-height: clamp(110px, 14vw, 220px);
+          width: 100%;
+          height: 100%;
+          position: relative;
+        }
+        /* Corner vectors for each rectangle (desktop/tablet) */
+        .corner { position: absolute; width: clamp(10px, 1.2vw, 18px); height: auto; pointer-events: none; opacity: 0.9; }
+        .corner-tl { top: calc(-1 * clamp(4px, 0.6vw, 10px)); left: calc(-1 * clamp(4px, 0.6vw, 10px)); }
+        .corner-tr { top: calc(-1 * clamp(4px, 0.6vw, 10px)); right: calc(-1 * clamp(4px, 0.6vw, 10px)); }
+        .corner-bl { bottom: calc(-1 * clamp(4px, 0.6vw, 10px)); left: calc(-1 * clamp(4px, 0.6vw, 10px)); }
+        .corner-br { bottom: calc(-1 * clamp(4px, 0.6vw, 10px)); right: calc(-1 * clamp(4px, 0.6vw, 10px)); }
+
+        /* Mobile corner sizing */
+        @media (max-width: 639.98px) {
+          .corner { width: clamp(8px, 3.2vw, 14px); opacity: 0.85; }
+          .corner-tl { top: -6px; left: -6px; }
+          .corner-tr { top: -6px; right: -6px; }
+          .corner-bl { bottom: -6px; left: -6px; }
+          .corner-br { bottom: -6px; right: -6px; }
         }
       `}</style>
     </div>

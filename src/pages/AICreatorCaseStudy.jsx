@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
-import aiBG from '../assets/ai-creator-BG.webp'
+const csBG = `${import.meta.env.BASE_URL}ai-creator-cs-BG.png`
 
 function AICreatorCaseStudy() {
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ function AICreatorCaseStudy() {
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
       {/* Fixed background */}
-      <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${aiBG})` }} />
+      <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
 
       {/* Navbar */}
@@ -60,8 +60,8 @@ function AICreatorCaseStudy() {
       <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft" />
 
       <style jsx>{`
-        .page-fixed-bg { position: fixed; inset: 0; background-size: cover; background-position: center; z-index: 0; }
-        .page-fixed-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1; }
+        .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background-size: cover; background-position: center; z-index: 0; }
+        .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background: rgba(0,0,0,0.35); z-index: 1; }
         .liquid-glass-header {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(20px);
@@ -100,4 +100,3 @@ function AICreatorCaseStudy() {
 }
 
 export default AICreatorCaseStudy
-

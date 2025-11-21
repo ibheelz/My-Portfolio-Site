@@ -708,10 +708,13 @@ function AICreator() {
         }
         .ai-case-btn:hover,
         .ai-case-btn:active {
-          /* Fill with AI theme on interaction */
-          background: linear-gradient(135deg, #eac28a 0%, #e2b77a 50%, #eac28a 100%);
-          border-color: #eac28a;
+          /* Gold fill with black text on interaction (match mobile gold) */
+          background: #d8ac65;
+          border-color: #d8ac65;
+          color: #10171d;
         }
+        .ai-case-btn:hover svg,
+        .ai-case-btn:active svg { stroke: #10171d; fill: none; }
         .theme-card {
           background: #06080a;
           border: none;
