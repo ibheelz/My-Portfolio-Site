@@ -24,6 +24,9 @@ function RouteGate() {
       ]
     } else if (location.pathname.includes('creative-designer')) {
       assets = [ `${base}creative-designer-BG.webp`, `${base}creative-designer-hero.webp` ]
+      if (location.pathname.includes('case-study')) {
+        assets.push(`${base}creative-designer-cs-BG.png`)
+      }
     } else if (location.pathname.includes('branding')) {
       assets = [ `${base}branding-BG.webp`, `${base}branding-hero.webp` ]
     } else if (location.pathname.includes('ai-creator')) {
