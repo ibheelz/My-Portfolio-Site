@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { attachHireMe } from '../utils/attachHireMe'
 // No foreground case image on this page; keep only navbar and background
 
 // Use custom case study background from public/
@@ -17,6 +19,10 @@ const logo4W = `${import.meta.env.BASE_URL}images/logos/mielo-white.png`
 
 function CreativeDesignerCaseStudy() {
   const navigate = useNavigate()
+  useEffect(() => {
+    const cleanup = attachHireMe(document)
+    return cleanup
+  }, [])
 
   return (
     <div
@@ -181,6 +187,17 @@ function CreativeDesignerCaseStudy() {
         </div>
       </main>
 
+      {/* Bottom Hire Me button (mobile only, exact as Creative Designer) */}
+      <div className="lg:hidden page-content mobile-sticky-cta flex justify-center items-center px-4 mt-[40px] mb-5">
+        <button className="apple-glass-button-neutral px-4 py-2 sm:px-5 sm:py-[8.6px] md:px-6 md:py-[9.6px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] text-sm sm:text-base text-white font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2" style={{ minWidth: 'min(65vw, 520px)' }}>
+          <svg width="16" height="16" className="sm:w-[17px] sm:h-[17px] md:w-[18px] md:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Hire Me
+        </button>
+      </div>
+
       <style>{`
         /* Background spans the entire viewport (match Creative Designer page) */
         .page-fixed-bg { position: fixed; inset: 0; z-index: 0; background-size: cover; background-position: center; pointer-events: none; }
@@ -216,6 +233,16 @@ function CreativeDesignerCaseStudy() {
 
         .header-spacer { height: var(--nav-h); }
         .content-layer { position: relative; z-index: 2; }
+
+        /* Mobile sticky CTA fixed to bottom, above overlays */
+        .mobile-sticky-cta {
+          position: fixed;
+          left: clamp(12px, 3vw, 24px);
+          right: clamp(12px, 3vw, 24px);
+          bottom: max(12px, env(safe-area-inset-bottom));
+          z-index: 20;
+          margin: 0;
+        }
 
         /* Three rounded columns (desktop only) */
         .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: 0 clamp(8px, 1.5vh, 16px) clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
@@ -306,10 +333,11 @@ function CreativeDesignerCaseStudy() {
           .mobile-stack { padding-top: 0; padding-left: clamp(12px, 3vw, 24px); padding-right: clamp(12px, 3vw, 24px); }
           /* Double page margin (x2) for the middle image horizontally */
           .mid-fit-mobile { padding-left: clamp(24px, 6vw, 48px); padding-right: clamp(24px, 6vw, 48px); }
-          /* Pull other frames closer to the middle image (tight, but no overlap under navbar) */
-          .mobile-stack { row-gap: clamp(4px, 0.8vh, 10px); }
-          .mid-fit-mobile { margin-bottom: clamp(6px, 1vh, 12px); }
-          .mobile-stack .mobile-cell { padding: clamp(8px, 3vw, 14px); }
+          /* Pull other frames closer to the middle image (tighter) */
+          .mobile-stack { row-gap: 0; }
+          .mid-fit-mobile { margin-bottom: -32px; }
+          .mobile-stack .mobile-cell { padding: clamp(4px, 2vw, 10px); }
+          .mobile-stack .mobile-cell:first-of-type { padding-top: 0; }
           /* Use global spacer to offset content exactly by navbar height */
           .header-spacer { height: var(--nav-h) !important; }
         }
@@ -345,6 +373,21 @@ function CreativeDesignerCaseStudy() {
         /* Buttons */
         .glass-button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: #e7f2f8; }
         .glass-button:hover { background: #ec6d6c; color: #ffffff; border-color: transparent; }
+
+        /* Apple-style neutral glass button for Hire Me (exact as Creative Designer/Home) */
+        .apple-glass-button-neutral {
+          position: relative; overflow: hidden;
+          background: linear-gradient(135deg, rgba(180,190,200,0.28) 0%, rgba(180,190,200,0.18) 50%, rgba(180,190,200,0.28) 100%);
+          backdrop-filter: blur(30px) saturate(200%);
+          -webkit-backdrop-filter: blur(30px) saturate(200%);
+          border: 1px solid rgba(180,190,200,0.45);
+          box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.4), inset 0 -1px 0 0 rgba(180,190,200,0.35), 0 8px 32px 0 rgba(180,190,200,0.2);
+          color: #ffffff;
+        }
+        @keyframes liquidMove { 0% { transform: translate(0, 0); } 50% { transform: translate(10%, 5%); } 100% { transform: translate(0, 0); } }
+        @keyframes glossyShine { 0% { left: -100%; } 50%, 100% { left: 200%; } }
+        .apple-glass-button-neutral::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%); animation: liquidMove 4s ease-in-out infinite; }
+        .apple-glass-button-neutral::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); animation: glossyShine 3s ease-in-out infinite; animation-delay: 0.5s; }
 
         /* Simple nav entrance animation */
         @keyframes slideDownNav { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
