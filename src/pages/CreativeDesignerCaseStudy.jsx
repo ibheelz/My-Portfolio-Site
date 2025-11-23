@@ -24,16 +24,14 @@ function CreativeDesignerCaseStudy() {
     return cleanup
   }, [])
 
-  // On mobile, ensure the top image is shown first on open
+  // Ensure page starts at the very top on open (so top image animates in view)
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      const el = document.getElementById('cs-top-image')
-      if (el && typeof el.scrollIntoView === 'function') {
-        // Scroll the top image into view immediately
-        el.scrollIntoView({ block: 'start', inline: 'nearest' })
-      }
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0)
     }
   }, [])
+
+  // Remove auto-scroll on mount; let content appear naturally
 
   return (
     <div
@@ -339,8 +337,11 @@ function CreativeDesignerCaseStudy() {
         .mid-fit-mobile { display: flex; align-items: center; justify-content: center; padding: clamp(8px, 4vw, 16px); }
         .mid-fit-mobile-img { height: calc(100vh - var(--nav-h)); width: auto; max-width: 100%; object-fit: contain; border: 0; display: block; }
         @media (max-width: 1023.98px) {
-          /* Keep the middle image directly under the navbar: cancel spacer via negative margin */
-          .mid-fit-mobile { transform: none; padding: 0; margin-top: calc(-1 * var(--nav-h) - 25px); }
+          /* On mobile, remove fixed viewport height from the top image */
+          .mid-fit-mobile-img { height: auto !important; }
+          /* Keep the middle image fully below the navbar (no overlap) and shift up by 25px */
+          .mid-fit-mobile { transform: none; padding: 0; margin-top: -25px; }
+          /* Do not add extra top padding on the stack */
           .mobile-stack { padding-top: 0; padding-left: clamp(12px, 3vw, 24px); padding-right: clamp(12px, 3vw, 24px); }
           /* Double page margin (x2) for the middle image horizontally */
           .mid-fit-mobile { padding-left: clamp(24px, 6vw, 48px); padding-right: clamp(24px, 6vw, 48px); }
@@ -349,7 +350,7 @@ function CreativeDesignerCaseStudy() {
           .mid-fit-mobile { margin-bottom: -32px; }
           .mobile-stack .mobile-cell { padding: clamp(4px, 2vw, 10px); }
           .mobile-stack .mobile-cell:first-of-type { padding-top: 0; }
-          /* Use global spacer to offset content exactly by navbar height */
+          /* Use the global spacer (nav height) so content starts immediately under navbar */
           .header-spacer { height: var(--nav-h) !important; }
         }
 
