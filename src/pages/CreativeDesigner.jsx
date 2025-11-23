@@ -911,9 +911,18 @@ function CreativeDesigner() {
         @media (max-width: 1023.98px) {
           #cd-hero { margin-top: calc(clamp(48px, 8vw, 96px) - 55px) !important; transform: none; }
         }
-        /* Ensure exactly 20px gap on small-height mobiles */
-        @media (max-width: 1023.98px) and (max-height: 700px) {
+        /* Maintain gap between navbar and hero as height shrinks */
+        @media (max-height: 900px) {
           #cd-hero { margin-top: 20px !important; }
+        }
+        @media (max-height: 800px) {
+          #cd-hero { margin-top: 10px !important; }
+        }
+        @media (max-height: 700px) {
+          #cd-hero { margin-top: 10px !important; }
+        }
+        @media (max-height: 600px) {
+          #cd-hero { margin-top: 10px !important; }
         }
 
         /* Creative button image style */

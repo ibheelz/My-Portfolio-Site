@@ -88,7 +88,7 @@ function CreativeDesignerCaseStudy() {
       <div className="header-spacer" />
 
       {/* Desktop: three white, fully-rounded vertical columns with margins */}
-      <main className="content-layer animate-cases">
+      <main className="content-layer animate-cases mb-[clamp(80px,12vh,140px)] lg:mb-0">
         <div className="columns-grid hidden lg:grid" aria-hidden>
           <div className="col-block split-rows">
             <div className="cell-parent tile-1">
@@ -467,6 +467,22 @@ function CreativeDesignerCaseStudy() {
           .animate-cases .cell-parent .gold-rect,
           .animate-cases .cell-parent .frame-img,
           .animate-cases .cell-parent .logo-img { animation: none !important; opacity: 1; transform: none; }
+        }
+
+        /* Case Study: tighter top spacing specifically for 900px–600px heights */
+        @media (max-height: 900px) and (min-height: 801px) {
+          #cs-top-image { margin-top: 12px; }
+        }
+        @media (max-height: 800px) and (min-height: 701px) {
+          #cs-top-image { margin-top: 10px; }
+        }
+        @media (max-height: 700px) and (min-height: 601px) {
+          #cs-top-image { margin-top: 8px; }
+        }
+
+        /* CS only: move top image up by 20px for 900px–650px heights */
+        @media (max-height: 900px) and (min-height: 650px) {
+          #cs-top-image { margin-top: -20px !important; }
         }
 
         /* Removed targeted size adjustments for the gold square */
