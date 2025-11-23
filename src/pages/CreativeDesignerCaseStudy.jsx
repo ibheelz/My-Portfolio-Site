@@ -24,6 +24,17 @@ function CreativeDesignerCaseStudy() {
     return cleanup
   }, [])
 
+  // On mobile, ensure the top image is shown first on open
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      const el = document.getElementById('cs-top-image')
+      if (el && typeof el.scrollIntoView === 'function') {
+        // Scroll the top image into view immediately
+        el.scrollIntoView({ block: 'start', inline: 'nearest' })
+      }
+    }
+  }, [])
+
   return (
     <div
       className="min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-hidden"
@@ -134,7 +145,7 @@ function CreativeDesignerCaseStudy() {
         {/* Mobile: transparent middle column comes first (hidden), then stack squares vertically */}
         <div className="mobile-stack lg:hidden">
           {/* Mobile: show the middle image first (like hero on Creative Designer) */}
-          <div className="mid-fit-mobile">
+          <div className="mid-fit-mobile" id="cs-top-image">
             <img
               decoding="async"
               src="/creative-fit.png"
