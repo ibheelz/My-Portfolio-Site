@@ -3,7 +3,17 @@ import { useNavigate } from 'react-router-dom'
 
 // Use custom case study background from public/
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
-// No foreground images; page shows only navbar + background
+// Frame image for each cell (on top of gold rectangle)
+const frameImage = `${import.meta.env.BASE_URL}frame.png`
+// Four black + white logos from public/logos
+const logo1 = `${import.meta.env.BASE_URL}logos/martell-black.png`
+const logo2 = `${import.meta.env.BASE_URL}logos/wow-black.png`
+const logo3 = `${import.meta.env.BASE_URL}logos/miela-black.png`
+const logo4 = `${import.meta.env.BASE_URL}logos/mielo-black.png`
+const logo1W = `${import.meta.env.BASE_URL}logos/martell-white.png`
+const logo2W = `${import.meta.env.BASE_URL}logos/wow-white.png`
+const logo3W = `${import.meta.env.BASE_URL}logos/miela-white.png`
+const logo4W = `${import.meta.env.BASE_URL}logos/mielo-white.png`
 
 function CreativeDesignerCaseStudy() {
   const navigate = useNavigate()
@@ -65,15 +75,45 @@ function CreativeDesignerCaseStudy() {
       <main className="content-layer" style={{ position: 'relative', zIndex: 1000 }}>
         <div className="columns-grid hidden lg:grid" aria-hidden>
           <div className="col-block split-rows">
-            <div className="cell-parent" />
-            <div className="cell-parent" />
-            <div className="cell-parent" />
+            <div className="cell-parent">
+              <div className="media">
+                <div className="gold-rect">
+                  <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
+                  <img className="logo-img logo-white" src={logo1W} alt="Logo 1 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-white.png' }} />
+                </div>
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+              </div>
+            </div>
+            <div className="cell-parent">
+              <div className="media">
+                <div className="gold-rect">
+                  <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
+                  <img className="logo-img logo-white" src={logo2W} alt="Logo 2 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-white.png' }} />
+                </div>
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+              </div>
+            </div>
           </div>
           <div className="col-block" />
           <div className="col-block split-rows">
-            <div className="cell-parent" />
-            <div className="cell-parent" />
-            <div className="cell-parent" />
+            <div className="cell-parent">
+              <div className="media">
+                <div className="gold-rect">
+                  <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
+                  <img className="logo-img logo-white" src={logo3W} alt="Logo 3 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-white.png' }} />
+                </div>
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+              </div>
+            </div>
+            <div className="cell-parent">
+              <div className="media">
+                <div className="gold-rect">
+                  <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
+                  <img className="logo-img logo-white" src={logo4W} alt="Logo 4 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
+                </div>
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -105,26 +145,44 @@ function CreativeDesignerCaseStudy() {
         .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
         .col-block {
           height: 100%; width: 100%;
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          background: transparent;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          border: 0;
           border-radius: clamp(12px, 1.2vw, 24px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          box-shadow: none;
         }
-        .split-rows { display: grid; grid-template-rows: repeat(3, 1fr); row-gap: clamp(8px, 1vh, 16px); padding: clamp(8px, 1vh, 16px); box-sizing: border-box; }
+        .split-rows { display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); row-gap: clamp(8px, 1vh, 16px); padding: clamp(8px, 1vh, 16px); box-sizing: border-box; min-height: 0; }
         /* Make the split columns act as containers only */
-        .col-block.split-rows { background: transparent; border: 0; box-shadow: none; }
-        /* Visible row cells with the same liquid glass style */
+        .col-block.split-rows { background: transparent; border: 0; box-shadow: none; min-height: 0; }
+        /* Make the small rectangle cells invisible but keep content inside */
         .cell-parent {
-          width: 100%; height: 100%;
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          width: 100%; height: 100%; min-height: 0;
+          background: transparent;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          border: 0;
           border-radius: clamp(12px, 1.2vw, 24px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          box-shadow: none;
+          overflow: hidden;
+          padding: 40px;
+          box-sizing: border-box;
         }
+        .media { position: relative; width: 100%; height: 100%; }
+        .gold-rect { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 64%; height: 72%; background: #eac28a; border-radius: clamp(10px, 1vw, 18px); z-index: 1; display: flex; align-items: center; justify-content: center; }
+        .logo-img { position: relative; z-index: 2; width: 40%; height: 40%; object-fit: contain; display: block; border: 0; }
+        .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3; width: 80%; height: 80%; object-fit: contain; display: block; border: 0; pointer-events: none; }
+
+        /* Interactions */
+        .cell-parent { cursor: pointer; }
+        .gold-rect { transition: background-color 200ms ease, transform 200ms ease; }
+        .logo-img { transition: opacity 200ms ease, transform 200ms ease; }
+        .logo-white { opacity: 0; position: absolute; inset: 0; margin: auto; width: 40%; height: 40%; object-fit: contain; }
+        .logo-black { opacity: 1; }
+        .cell-parent:hover .gold-rect, .cell-parent:active .gold-rect { background: #ec6d6c; }
+        .cell-parent:hover .logo-black, .cell-parent:active .logo-black { opacity: 0; }
+        .cell-parent:hover .logo-white, .cell-parent:active .logo-white { opacity: 1; }
+        
 
         /* Desktop 3-column viewport grid */
         .desktop-grid { grid-template-columns: minmax(0,1fr) var(--midw) minmax(0,1fr); column-gap: 0; height: calc(100dvh - var(--nav-h) - 2px); padding: 0; overflow: hidden; box-sizing: border-box; }
