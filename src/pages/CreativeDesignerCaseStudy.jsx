@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom'
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 // Frame image for each cell (on top of gold rectangle)
 const frameImage = `${import.meta.env.BASE_URL}frame.png`
-// Four black + white logos from public/logos
-const logo1 = `${import.meta.env.BASE_URL}logos/martell-black.png`
-const logo2 = `${import.meta.env.BASE_URL}logos/wow-black.png`
-const logo3 = `${import.meta.env.BASE_URL}logos/miela-black.png`
-const logo4 = `${import.meta.env.BASE_URL}logos/mielo-black.png`
-const logo1W = `${import.meta.env.BASE_URL}logos/martell-white.png`
-const logo2W = `${import.meta.env.BASE_URL}logos/wow-white.png`
-const logo3W = `${import.meta.env.BASE_URL}logos/miela-white.png`
-const logo4W = `${import.meta.env.BASE_URL}logos/mielo-white.png`
+// Four black + white logos from images/logos
+const logo1 = `${import.meta.env.BASE_URL}images/logos/martell-black.png`
+const logo2 = `${import.meta.env.BASE_URL}images/logos/wow-black.png`
+const logo3 = `${import.meta.env.BASE_URL}images/logos/miela-black.png`
+const logo4 = `${import.meta.env.BASE_URL}images/logos/mielo-black.png`
+const logo1W = `${import.meta.env.BASE_URL}images/logos/martell-white.png`
+const logo2W = `${import.meta.env.BASE_URL}images/logos/wow-white.png`
+const logo3W = `${import.meta.env.BASE_URL}images/logos/miela-white.png`
+const logo4W = `${import.meta.env.BASE_URL}images/logos/mielo-white.png`
 
 function CreativeDesignerCaseStudy() {
   const navigate = useNavigate()
