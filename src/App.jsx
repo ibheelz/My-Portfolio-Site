@@ -8,6 +8,7 @@ const AICreator = lazy(() => import('./pages/AICreator'))
 const ThreeDDesign = lazy(() => import('./pages/ThreeDDesign'))
 const GameDesign = lazy(() => import('./pages/GameDesign'))
 const CreativeDesignerCaseStudy = lazy(() => import('./pages/CreativeDesignerCaseStudy'))
+const CreativeDesignerCaseDetail = lazy(() => import('./pages/CreativeDesignerCaseDetail'))
 const BrandingCaseStudy = lazy(() => import('./pages/BrandingCaseStudy'))
 const AICreatorCaseStudy = lazy(() => import('./pages/AICreatorCaseStudy'))
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/creative-designer" element={<CreativeDesigner />} />
         <Route path="/creative-designer/case-study" element={<CreativeDesignerCaseStudy />} />
+        <Route path="/creative-designer/case/:slug" element={<CreativeDesignerCaseDetail />} />
         <Route path="/branding" element={<Branding />} />
         <Route path="/branding/case-study" element={<BrandingCaseStudy />} />
         <Route path="/ai-creator" element={<AICreator />} />

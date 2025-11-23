@@ -72,10 +72,10 @@ function CreativeDesignerCaseStudy() {
       <div className="header-spacer" />
 
       {/* Desktop: three white, fully-rounded vertical columns with margins */}
-      <main className="content-layer">
+      <main className="content-layer animate-cases">
         <div className="columns-grid hidden lg:grid" aria-hidden>
           <div className="col-block split-rows">
-            <div className="cell-parent">
+            <div className="cell-parent tile-1">
               <div className="media">
                 <div className="gold-rect" onClick={() => navigate('/creative-designer/case/martell')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/martell') }}>
                   <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
@@ -84,7 +84,7 @@ function CreativeDesignerCaseStudy() {
                 <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
             </div>
-            <div className="cell-parent">
+            <div className="cell-parent tile-2">
               <div className="media">
                 <div className="gold-rect" onClick={() => navigate('/creative-designer/case/wow')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/wow') }}>
                   <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
@@ -94,9 +94,17 @@ function CreativeDesignerCaseStudy() {
               </div>
             </div>
           </div>
-          <div className="col-block" />
+          <div className="col-block mid-fit">
+            <img
+              decoding="async"
+              src="/creative-fit.png"
+              alt="Creative fit"
+              className="mid-fit-img anim-content-soft"
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
+            />
+          </div>
           <div className="col-block split-rows">
-            <div className="cell-parent">
+            <div className="cell-parent tile-3">
               <div className="media">
                 <div className="gold-rect" onClick={() => navigate('/creative-designer/case/miela')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/miela') }}>
                   <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
@@ -105,7 +113,7 @@ function CreativeDesignerCaseStudy() {
                 <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
             </div>
-            <div className="cell-parent">
+            <div className="cell-parent tile-4">
               <div className="media">
                 <div className="gold-rect" onClick={() => navigate('/creative-designer/case/mielo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/mielo') }}>
                   <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
@@ -119,11 +127,19 @@ function CreativeDesignerCaseStudy() {
 
         {/* Mobile: transparent middle column comes first (hidden), then stack squares vertically */}
         <div className="mobile-stack lg:hidden">
-          {/* Hidden transparent middle column placeholder */}
-          <div className="mid-col-mobile hidden" aria-hidden />
+          {/* Mobile: show the middle image first (like hero on Creative Designer) */}
+          <div className="mid-fit-mobile">
+            <img
+              decoding="async"
+              src="/creative-fit.png"
+              alt="Creative fit"
+              className="mid-fit-mobile-img anim-content-soft"
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
+            />
+          </div>
 
           {/* Stack the four cases vertically */}
-          <div className="cell-parent mobile-cell">
+          <div className="cell-parent mobile-cell tile-1">
             <div className="media">
               <div className="gold-rect" onClick={() => navigate('/creative-designer/case/martell')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/martell') }}>
                 <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
@@ -133,7 +149,7 @@ function CreativeDesignerCaseStudy() {
             </div>
           </div>
 
-          <div className="cell-parent mobile-cell">
+          <div className="cell-parent mobile-cell tile-2">
             <div className="media">
               <div className="gold-rect" onClick={() => navigate('/creative-designer/case/wow')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/wow') }}>
                 <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
@@ -143,7 +159,7 @@ function CreativeDesignerCaseStudy() {
             </div>
           </div>
 
-          <div className="cell-parent mobile-cell">
+          <div className="cell-parent mobile-cell tile-3">
             <div className="media">
               <div className="gold-rect" onClick={() => navigate('/creative-designer/case/miela')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/miela') }}>
                 <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
@@ -153,7 +169,7 @@ function CreativeDesignerCaseStudy() {
             </div>
           </div>
 
-          <div className="cell-parent mobile-cell">
+          <div className="cell-parent mobile-cell tile-4">
             <div className="media">
               <div className="gold-rect" onClick={() => navigate('/creative-designer/case/mielo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/mielo') }}>
                 <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
@@ -202,7 +218,7 @@ function CreativeDesignerCaseStudy() {
         .content-layer { position: relative; z-index: 2; }
 
         /* Three rounded columns (desktop only) */
-        .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
+        .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: 0 clamp(8px, 1.5vh, 16px) clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
         /* Force only one layout to render (override utilities if needed) */
         .columns-grid { display: none !important; }
         .mobile-stack { display: none !important; }
@@ -226,6 +242,10 @@ function CreativeDesignerCaseStudy() {
         .split-rows { display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); row-gap: clamp(8px, 1vh, 16px); padding: clamp(8px, 1vh, 16px); box-sizing: border-box; min-height: 0; }
         /* Make the split columns act as containers only */
         .col-block.split-rows { background: transparent; border: 0; box-shadow: none; min-height: 0; }
+        /* Desktop middle fit image */
+        .mid-fit { display: flex; align-items: center; justify-content: center; padding: 0 clamp(8px, 1vh, 16px) clamp(8px, 1vh, 16px); }
+        /* Large image within column */
+        .mid-fit-img { width: auto; height: 85vh; max-height: calc(100% - 2 * clamp(8px, 1vh, 16px)); max-width: 100%; object-fit: contain; border: 0; display: block; }
         /* Make the small rectangle cells invisible but keep content inside */
         .cell-parent {
           width: 100%; height: 100%; min-height: 0;
@@ -255,13 +275,13 @@ function CreativeDesignerCaseStudy() {
 
         /* Interactions (only when hovering square/logo) */
         .cell-parent { cursor: default; }
-        .gold-rect { transition: background-color 200ms ease, transform 200ms ease; cursor: pointer; }
-        .logo-img { transition: opacity 200ms ease, transform 200ms ease; cursor: pointer; }
+        .gold-rect { transition: background-color 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1); cursor: pointer; }
+        .logo-img { transition: opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1), transform 1200ms cubic-bezier(0.22, 1, 0.36, 1); cursor: pointer; }
         .logo-white { opacity: 0; position: absolute; inset: 0; margin: auto; width: var(--logo-w, 40%); height: auto; object-fit: contain; }
         .logo-black { opacity: 1; }
         .gold-rect:hover, .gold-rect:active { background: #ec6d6c; }
-        .gold-rect:hover .logo-black, .gold-rect:active .logo-black { opacity: 0; }
-        .gold-rect:hover .logo-white, .gold-rect:active .logo-white { opacity: 1; }
+        .gold-rect:hover .logo-black, .gold-rect:active .logo-black { opacity: 0; transform: translateY(-2px) scale(0.995); }
+        .gold-rect:hover .logo-white, .gold-rect:active .logo-white { opacity: 1; transform: translateY(0) scale(1.01); }
 
         /* Mobile cell sizing so absolute items have room */
         .mobile-stack .mobile-cell { height: clamp(240px, 72vw, 440px); padding: clamp(16px, 4vw, 28px); }
@@ -275,7 +295,43 @@ function CreativeDesignerCaseStudy() {
         .mid-col { height: 100%; background: transparent; pointer-events: none; }
 
         /* Mobile vertical stack */
-        .mobile-stack { display: grid; grid-template-columns: 1fr; row-gap: clamp(16px, 3vh, 24px); padding: clamp(12px, 3vw, 20px); }
+        .mobile-stack { display: grid; grid-template-columns: 1fr; row-gap: clamp(16px, 3vh, 24px); padding: 0 clamp(12px, 3vw, 24px); }
+
+        /* Mobile middle image at top — fill viewport (below navbar) */
+        .mid-fit-mobile { display: flex; align-items: center; justify-content: center; padding: clamp(8px, 4vw, 16px); }
+        .mid-fit-mobile-img { height: calc(100vh - var(--nav-h)); width: auto; max-width: 100%; object-fit: contain; border: 0; display: block; }
+        @media (max-width: 1023.98px) {
+          /* Keep the middle image directly under the navbar: cancel spacer via negative margin */
+          .mid-fit-mobile { transform: none; padding: 0; margin-top: calc(-1 * var(--nav-h) - 25px); }
+          .mobile-stack { padding-top: 0; padding-left: clamp(12px, 3vw, 24px); padding-right: clamp(12px, 3vw, 24px); }
+          /* Double page margin (x2) for the middle image horizontally */
+          .mid-fit-mobile { padding-left: clamp(24px, 6vw, 48px); padding-right: clamp(24px, 6vw, 48px); }
+          /* Pull other frames closer to the middle image (tight, but no overlap under navbar) */
+          .mobile-stack { row-gap: clamp(4px, 0.8vh, 10px); }
+          .mid-fit-mobile { margin-bottom: clamp(6px, 1vh, 12px); }
+          .mobile-stack .mobile-cell { padding: clamp(8px, 3vw, 14px); }
+          /* Use global spacer to offset content exactly by navbar height */
+          .header-spacer { height: var(--nav-h) !important; }
+        }
+
+        /* Desktop: nudge left/right column content toward the middle column */
+        @media (min-width: 1024px) {
+          /* Tighter vertical spacing on desktop */
+          .columns-grid { gap: clamp(6px, 1vw, 18px); }
+          .split-rows { row-gap: clamp(4px, 0.6vh, 10px); }
+          .cell-parent { padding: 24px; }
+          /* Nudge middle image slightly closer to navbar */
+          .mid-fit { margin-top: -24px; }
+
+          /* Left column (first col-block) – add 10% more inward shift */
+          .columns-grid > .col-block.split-rows:first-child .media .gold-rect,
+          .columns-grid > .col-block.split-rows:first-child .media .frame-img { left: 70%; }
+          /* Right column (last col-block) – add 10% more inward shift */
+          .columns-grid > .col-block.split-rows:last-child .media .gold-rect,
+          .columns-grid > .col-block.split-rows:last-child .media .frame-img { left: 30%; }
+          /* No extra gap above middle image */
+          .mid-fit-img { transform: none; }
+        }
 
         /* Navbar decorative SVGs */
         .svg-gold { filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%); }
@@ -299,6 +355,52 @@ function CreativeDesignerCaseStudy() {
         @keyframes subSvgInRight { from { transform: translateX(14px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .sub-anim-svg-left { animation: subSvgInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
         .sub-anim-svg-right { animation: subSvgInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
+
+        /* Soft content animation (match Creative Designer hero) */
+        @keyframes contentSoftIn {
+          0% { opacity: 0; transform: translateY(12px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
+
+        /* Case tiles entrance animations (desktop + mobile) */
+        .animate-cases .cell-parent .gold-rect,
+        .animate-cases .cell-parent .frame-img,
+        .animate-cases .cell-parent .logo-img { will-change: transform, opacity; }
+
+        /* Match Creative Designer page style: long, gentle slide-in (4.5s) */
+        .animate-cases .cell-parent .gold-rect { animation: cdSlideInCenter 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--tile-stagger, 0ms); }
+        .animate-cases .cell-parent .frame-img  { animation: cdSlideInCenter 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--tile-stagger, 0ms); }
+        /* Animate only the default (black) logo differently from frame/square */
+        .animate-cases .cell-parent .logo-img.logo-black { animation: cdLogoArcIn 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(var(--tile-stagger, 0ms) + 200ms); }
+        .animate-cases .cell-parent .logo-img.logo-white { animation: none; }
+
+        .animate-cases .tile-1 { --tile-stagger: 120ms; }
+        .animate-cases .tile-2 { --tile-stagger: 300ms; }
+        .animate-cases .tile-3 { --tile-stagger: 480ms; }
+        .animate-cases .tile-4 { --tile-stagger: 660ms; }
+
+        /* Creative Designer-like long slide-in */
+        @keyframes cdSlideInCenter {
+          from { opacity: 0; transform: translate(-50%, calc(-50% - 40px)); }
+          to   { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        @keyframes cdSlideIn {
+          from { opacity: 0; transform: translateY(-40px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cdLogoPopIn { }
+        @keyframes cdLogoArcIn {
+          0%   { opacity: 0; transform: translateY(-32px) rotate(-2deg) scale(0.94); }
+          50%  { opacity: 1; transform: translateY(4px) rotate(1.2deg) scale(1.03); }
+          100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-cases .cell-parent .gold-rect,
+          .animate-cases .cell-parent .frame-img,
+          .animate-cases .cell-parent .logo-img { animation: none !important; opacity: 1; transform: none; }
+        }
 
         /* Removed mobile-specific targets previously */
 
