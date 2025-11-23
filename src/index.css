@@ -28,3 +28,24 @@ img::selection { background: transparent; }
 .anim-hold *::after {
   animation-play-state: paused !important;
 }
+
+/* Ensure navbar buttons are not too small on large/ultra-wide screens */
+@media (min-width: 1440px) {
+  .liquid-glass-header .glass-button {
+    font-size: 16px !important;
+    padding: 12px 16px !important;
+    border-radius: 9999px; /* keep pill shape */
+  }
+}
+@media (min-width: 1920px) {
+  .liquid-glass-header .glass-button {
+    font-size: 17px !important;
+    padding: 13px 18px !important;
+  }
+}
+@media (min-width: 2560px) {
+  .liquid-glass-header .glass-button {
+    font-size: 18px !important;
+    padding: 14px 20px !important;
+  }
+}
