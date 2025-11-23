@@ -77,7 +77,7 @@ function CreativeDesignerCaseStudy() {
           <div className="col-block split-rows">
             <div className="cell-parent">
               <div className="media">
-                <div className="gold-rect">
+                <div className="gold-rect" onClick={() => navigate('/creative-designer/case/martell')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/martell') }}>
                   <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
                   <img className="logo-img logo-white" src={logo1W} alt="Logo 1 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-white.png' }} />
                 </div>
@@ -86,7 +86,7 @@ function CreativeDesignerCaseStudy() {
             </div>
             <div className="cell-parent">
               <div className="media">
-                <div className="gold-rect">
+                <div className="gold-rect" onClick={() => navigate('/creative-designer/case/wow')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/wow') }}>
                   <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
                   <img className="logo-img logo-white" src={logo2W} alt="Logo 2 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-white.png' }} />
                 </div>
@@ -98,7 +98,7 @@ function CreativeDesignerCaseStudy() {
           <div className="col-block split-rows">
             <div className="cell-parent">
               <div className="media">
-                <div className="gold-rect">
+                <div className="gold-rect" onClick={() => navigate('/creative-designer/case/miela')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/miela') }}>
                   <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
                   <img className="logo-img logo-white" src={logo3W} alt="Logo 3 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-white.png' }} />
                 </div>
@@ -107,12 +107,59 @@ function CreativeDesignerCaseStudy() {
             </div>
             <div className="cell-parent">
               <div className="media">
-                <div className="gold-rect">
+                <div className="gold-rect" onClick={() => navigate('/creative-designer/case/mielo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/mielo') }}>
                   <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
                   <img className="logo-img logo-white" src={logo4W} alt="Logo 4 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
                 </div>
                 <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: transparent middle column comes first (hidden), then stack squares vertically */}
+        <div className="mobile-stack lg:hidden">
+          {/* Hidden transparent middle column placeholder */}
+          <div className="mid-col-mobile hidden" aria-hidden />
+
+          {/* Stack the four cases vertically */}
+          <div className="cell-parent mobile-cell">
+            <div className="media">
+              <div className="gold-rect" onClick={() => navigate('/creative-designer/case/martell')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/martell') }}>
+                <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
+                <img className="logo-img logo-white" src={logo1W} alt="Logo 1 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-white.png' }} />
+              </div>
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+            </div>
+          </div>
+
+          <div className="cell-parent mobile-cell">
+            <div className="media">
+              <div className="gold-rect" onClick={() => navigate('/creative-designer/case/wow')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/wow') }}>
+                <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
+                <img className="logo-img logo-white" src={logo2W} alt="Logo 2 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-white.png' }} />
+              </div>
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+            </div>
+          </div>
+
+          <div className="cell-parent mobile-cell">
+            <div className="media">
+              <div className="gold-rect" onClick={() => navigate('/creative-designer/case/miela')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/miela') }}>
+                <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
+                <img className="logo-img logo-white" src={logo3W} alt="Logo 3 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-white.png' }} />
+              </div>
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
+            </div>
+          </div>
+
+          <div className="cell-parent mobile-cell">
+            <div className="media">
+              <div className="gold-rect" onClick={() => navigate('/creative-designer/case/mielo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/mielo') }}>
+                <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
+                <img className="logo-img logo-white" src={logo4W} alt="Logo 4 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
+              </div>
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
             </div>
           </div>
         </div>
@@ -143,6 +190,17 @@ function CreativeDesignerCaseStudy() {
 
         /* Three rounded columns (desktop only) */
         .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
+        /* Force only one layout to render (override utilities if needed) */
+        .columns-grid { display: none !important; }
+        .mobile-stack { display: none !important; }
+        .mid-col-mobile { display: none !important; }
+        @media (max-width: 1023.98px) {
+          .mobile-stack { display: grid !important; }
+        }
+        @media (min-width: 1024px) {
+          .columns-grid { display: grid !important; }
+          .mobile-stack { display: none !important; }
+        }
         .col-block {
           height: 100%; width: 100%;
           background: transparent;
@@ -168,26 +226,43 @@ function CreativeDesignerCaseStudy() {
           padding: 40px;
           box-sizing: border-box;
         }
-        .media { position: relative; width: 100%; height: 100%; }
-        .gold-rect { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 64%; height: 72%; background: #eac28a; border-radius: clamp(10px, 1vw, 18px); z-index: 1; display: flex; align-items: center; justify-content: center; }
+        .media { position: relative; width: 100%; height: 100%; --frame-w: 80%; --frame-h: 80%; --rect-scale: 0.72; }
+        /* Keep rectangle perfectly square: use the smaller of W/H */
+        /* Square: 90% of frame, never exceeds either axis */
+        .gold-rect {
+          position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+          width: calc(min(var(--frame-w), var(--frame-h)) * var(--rect-scale));
+          aspect-ratio: 1 / 1;
+          background: #eac28a; border-radius: clamp(10px, 1vw, 18px); z-index: 1;
+          display: flex; align-items: center; justify-content: center;
+        }
+        
         .logo-img { position: relative; z-index: 2; width: 40%; height: 40%; object-fit: contain; display: block; border: 0; }
-        .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3; width: 80%; height: 80%; object-fit: contain; display: block; border: 0; pointer-events: none; }
+        .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3; width: var(--frame-w); height: var(--frame-h); object-fit: contain; display: block; border: 0; pointer-events: none; }
 
-        /* Interactions */
-        .cell-parent { cursor: pointer; }
-        .gold-rect { transition: background-color 200ms ease, transform 200ms ease; }
-        .logo-img { transition: opacity 200ms ease, transform 200ms ease; }
+        /* Interactions (only when hovering square/logo) */
+        .cell-parent { cursor: default; }
+        .gold-rect { transition: background-color 200ms ease, transform 200ms ease; cursor: pointer; }
+        .logo-img { transition: opacity 200ms ease, transform 200ms ease; cursor: pointer; }
         .logo-white { opacity: 0; position: absolute; inset: 0; margin: auto; width: 40%; height: 40%; object-fit: contain; }
         .logo-black { opacity: 1; }
-        .cell-parent:hover .gold-rect, .cell-parent:active .gold-rect { background: #ec6d6c; }
-        .cell-parent:hover .logo-black, .cell-parent:active .logo-black { opacity: 0; }
-        .cell-parent:hover .logo-white, .cell-parent:active .logo-white { opacity: 1; }
-        
+        .gold-rect:hover, .gold-rect:active { background: #ec6d6c; }
+        .gold-rect:hover .logo-black, .gold-rect:active .logo-black { opacity: 0; }
+        .gold-rect:hover .logo-white, .gold-rect:active .logo-white { opacity: 1; }
+
+        /* Mobile cell sizing so absolute items have room */
+        .mobile-stack .mobile-cell { height: clamp(240px, 72vw, 440px); padding: clamp(16px, 4vw, 28px); }
+        /* Use same square scale as desktop; keep frame roomy on mobile */
+        .mobile-stack .mobile-cell .media { --frame-w: 92%; --frame-h: 92%; }
+
 
         /* Desktop 3-column viewport grid */
         .desktop-grid { grid-template-columns: minmax(0,1fr) var(--midw) minmax(0,1fr); column-gap: 0; height: calc(100dvh - var(--nav-h) - 2px); padding: 0; overflow: hidden; box-sizing: border-box; }
         .left-col, .right-col { height: 100%; margin: 0; padding: 0; }
         .mid-col { height: 100%; background: transparent; pointer-events: none; }
+
+        /* Mobile vertical stack */
+        .mobile-stack { display: grid; grid-template-columns: 1fr; row-gap: clamp(16px, 3vh, 24px); padding: clamp(12px, 3vw, 20px); }
 
         /* Navbar decorative SVGs */
         .svg-gold { filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%); }
@@ -211,6 +286,49 @@ function CreativeDesignerCaseStudy() {
         @keyframes subSvgInRight { from { transform: translateX(14px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .sub-anim-svg-left { animation: subSvgInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
         .sub-anim-svg-right { animation: subSvgInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
+
+        /* Removed mobile-specific targets previously */
+
+        /* 640px–1024px: reduce square by 15% only */
+        @media (min-width: 640px) and (max-width: 1024px) {
+          .media { --rect-scale: 0.612; }
+        }
+
+        /* Removed duplicate overlapping 740–1024 and 780–1024 ranges */
+
+        /* Progressive scaling: 1024→800 widens from 35% to 20% reduction */
+        /* 35% at ~1024 */
+        @media (min-width: 1000px) and (max-width: 1024px) {
+          .media { --rect-scale: 0.468; }
+        }
+        /* 30% near ~960–999 */
+        @media (min-width: 960px) and (max-width: 999.98px) {
+          .media { --rect-scale: 0.504; }
+        }
+        /* 25% near ~920–959 */
+        @media (min-width: 920px) and (max-width: 959.98px) {
+          .media { --rect-scale: 0.54; }
+        }
+        /* ~22% near 880–919 */
+        @media (min-width: 880px) and (max-width: 919.98px) {
+          .media { --rect-scale: 0.562; }
+        }
+        /* ~21% near 840–879 */
+        @media (min-width: 840px) and (max-width: 879.98px) {
+          .media { --rect-scale: 0.569; }
+        }
+        /* 20% at ~800–839 */
+        @media (min-width: 800px) and (max-width: 839.98px) {
+          .media { --rect-scale: 0.576; }
+        }
+
+        /* 1024px–730px: increase square height by 60px only */
+        @media (min-width: 730px) and (max-width: 1024px) {
+          .gold-rect {
+            height: calc(min(var(--frame-w), var(--frame-h)) * var(--rect-scale) + 60px);
+            aspect-ratio: auto; /* prevent width from forcing height */
+          }
+        }
       `}</style>
     </div>
   )
