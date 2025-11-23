@@ -244,6 +244,7 @@ function AICreator() {
 
           {/* Centered hero image */}
           <img
+            id="ai-hero"
             key={heroKey}
             src={aiHero}
             alt="AI Creator"
@@ -866,6 +867,8 @@ function AICreator() {
         }
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
+        /* Reduce top spacing on mobile by decreasing margin (no transform clashes) */
+        @media (max-width: 1023.98px) { #ai-hero { margin-top: calc(clamp(48px, 8vw, 96px) - 55px) !important; transform: none; } }
 
         /* Match Creative: extra darkening overlay via pseudo */
         .ai-bg::before {

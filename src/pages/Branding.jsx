@@ -245,6 +245,7 @@ function Branding() {
 
           {/* Centered hero image */}
           <img
+            id="branding-hero"
             key={heroKey}
             src={brandingHero}
             alt="Brand Designer"
@@ -704,6 +705,8 @@ function Branding() {
           100% { opacity: 1; transform: scale(1); }
         }
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
+        /* Reduce top spacing on mobile by decreasing margin (no transform clashes) */
+        @media (max-width: 1023.98px) { #branding-hero { margin-top: calc(clamp(48px, 8vw, 96px) - 55px) !important; transform: none; } }
 
         /* Match Creative: extra darkening overlay via pseudo */
         .brand-bg::before { display: none; }

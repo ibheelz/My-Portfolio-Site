@@ -369,6 +369,7 @@ function CreativeDesigner() {
 
           {/* Center hero image */}
           <img
+            id="cd-hero"
             key={heroKey}
             src={cdHero}
             alt="Creative Designer"
@@ -904,6 +905,11 @@ function CreativeDesigner() {
         .anim-btn-soft { opacity: 0; animation: btnSoftIn 600ms ease-out both; }
         @media (prefers-reduced-motion: reduce) {
           .anim-btn-soft { animation: none; opacity: 1; }
+        }
+
+        /* Reduce top spacing on mobile by decreasing margin (no transform clashes) */
+        @media (max-width: 1023.98px) {
+          #cd-hero { margin-top: calc(clamp(48px, 8vw, 96px) - 55px) !important; transform: none; }
         }
 
         /* Creative button image style */
