@@ -342,6 +342,12 @@ function CreativeDesignerCaseStudy() {
           .header-spacer { height: var(--nav-h) !important; }
         }
 
+        /* Between 400px and 1024px: add space between top image and first frame */
+        @media (min-width: 400px) and (max-width: 1023.98px) {
+          .mid-fit-mobile { margin-bottom: clamp(14px, 2.2vh, 28px); }
+          .mobile-stack { row-gap: clamp(8px, 1.2vh, 16px); }
+        }
+
         /* Desktop: nudge left/right column content toward the middle column */
         @media (min-width: 1024px) {
           /* Tighter vertical spacing on desktop */
