@@ -306,6 +306,7 @@ function CreativeDesignerCaseStudy() {
           background: transparent !important; border-radius: clamp(10px, 1vw, 18px); z-index: 1;
           display: flex; align-items: center; justify-content: center;
         }
+        /* No background fill or hover square */
         
         .logo-img { position: relative; z-index: 2; width: var(--logo-w, 40%); height: auto; object-fit: contain; display: block; border: 0; backface-visibility: hidden; transform: translateZ(0); }
         .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(0); z-index: 3; width: var(--frame-w); height: var(--frame-h); object-fit: contain; display: block; border: 0; pointer-events: none; backface-visibility: hidden; }
@@ -320,7 +321,7 @@ function CreativeDesignerCaseStudy() {
 
         /* Miela (tile-3) — reduce logo size further to 28% */
         .tile-3 { --logo-w: 28%; }
-        /* Keep hover interactions for logos, but do not show any background fill */
+        /* Keep hover interactions for logos only; no background fill */
         .gold-rect:hover, .gold-rect:active { background: transparent !important; }
         .gold-rect:hover .logo-black, .gold-rect:active .logo-black { opacity: 0; transform: translateY(-2px) scale(0.995); }
         .gold-rect:hover .logo-white, .gold-rect:active .logo-white { opacity: 1; transform: translateY(0) scale(1.01); }
@@ -329,6 +330,22 @@ function CreativeDesignerCaseStudy() {
         .mobile-stack .mobile-cell { height: clamp(240px, 72vw, 440px); padding: clamp(16px, 4vw, 28px); padding-left: 0 !important; padding-right: 0 !important; }
         /* Use same square scale as desktop; keep frame roomy on mobile */
         .mobile-stack .mobile-cell .media { --frame-w: 92%; --frame-h: 92%; }
+
+        /* Medium screens (tablets): scale content down so it fits better */
+        @media (min-width: 768px) and (max-width: 1023.98px) {
+          .mobile-stack { row-gap: clamp(12px, 2vh, 18px); padding-left: clamp(8px, 2vw, 16px); padding-right: clamp(8px, 2vw, 16px); --logo-w: 34%; }
+          /* Keep a small inner padding so frame sits within parent */
+          .mobile-stack .mobile-cell { height: clamp(220px, 48vw, 360px); padding: clamp(12px, 2.5vw, 22px); }
+          /* Make the frame wider on medium screens while staying inside parent */
+          .mobile-stack .mobile-cell .media { --frame-w: 88%; --frame-h: 82%; --rect-scale: 0.68; }
+          /* Make top image ~20% bigger on medium screens */
+          .mobile-stack .mid-fit-mobile-img { max-height: 50vh; width: auto; height: auto; }
+        }
+
+        /* Ensure frames fit fully within their containers on desktop */
+        @media (min-width: 1024px) {
+          .columns-grid .media { --frame-w: 84%; --frame-h: 78%; --rect-scale: 0.66; }
+        }
 
 
         /* Desktop 3-column viewport grid */
@@ -366,21 +383,32 @@ function CreativeDesignerCaseStudy() {
           .mobile-stack { row-gap: clamp(8px, 1.2vh, 16px); }
         }
 
+        /* Medium screens: add extra space below top image so first frame isn't tight */
+        @media (min-width: 768px) and (max-width: 1023.98px) {
+          /* Keep a fixed 30px separation below the top image */
+          .mid-fit-mobile { margin-bottom: 30px !important; }
+          .mobile-stack { row-gap: clamp(16px, 3vh, 28px) !important; }
+        }
+
+        /* Desktop: move only the frames themselves 30px toward the middle */
+        @media (min-width: 1024px) {
+          .columns-grid > .col-block.split-rows:first-child .media .gold-rect,
+          .columns-grid > .col-block.split-rows:first-child .media .frame-img { margin-left: 30px; }
+          .columns-grid > .col-block.split-rows:last-child .media .gold-rect,
+          .columns-grid > .col-block.split-rows:last-child .media .frame-img { margin-left: -30px; }
+        }
+
         /* Desktop: nudge left/right column content toward the middle column */
         @media (min-width: 1024px) {
           /* Tighter vertical spacing on desktop */
           .columns-grid { gap: clamp(6px, 1vw, 18px); }
           .split-rows { row-gap: clamp(4px, 0.6vh, 10px); }
+          /* Restore inner padding so frame sits within cell edges */
           .cell-parent { padding: 24px; padding-left: 0; padding-right: 0; }
           /* Nudge middle image slightly closer to navbar */
           .mid-fit { margin-top: -24px; }
 
-          /* Left column (first col-block) – add 10% more inward shift */
-          .columns-grid > .col-block.split-rows:first-child .media .gold-rect,
-          .columns-grid > .col-block.split-rows:first-child .media .frame-img { left: 70%; }
-          /* Right column (last col-block) – add 10% more inward shift */
-          .columns-grid > .col-block.split-rows:last-child .media .gold-rect,
-          .columns-grid > .col-block.split-rows:last-child .media .frame-img { left: 30%; }
+          /* Keep frames centered horizontally; no inward left offsets */
           /* No extra gap above middle image */
           .mid-fit-img { transform: none; }
         }
