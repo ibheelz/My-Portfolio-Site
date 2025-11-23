@@ -72,7 +72,7 @@ function CreativeDesignerCaseStudy() {
       <div className="header-spacer" />
 
       {/* Desktop: three white, fully-rounded vertical columns with margins */}
-      <main className="content-layer" style={{ position: 'relative', zIndex: 1000 }}>
+      <main className="content-layer">
         <div className="columns-grid hidden lg:grid" aria-hidden>
           <div className="col-block split-rows">
             <div className="cell-parent">
@@ -166,9 +166,22 @@ function CreativeDesignerCaseStudy() {
       </main>
 
       <style>{`
-        /* Background spans the entire viewport */
-        .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
-        .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background: rgba(0,0,0,0.35); z-index: 1; pointer-events: none; }
+        /* Background spans the entire viewport (match Creative Designer page) */
+        .page-fixed-bg { position: fixed; inset: 0; z-index: 0; background-size: cover; background-position: center; pointer-events: none; }
+        .page-fixed-overlay { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+        /* Overlay strength like Creative Designer page */
+        @media (max-width: 1023.98px) { .page-fixed-overlay { background: rgba(0,0,0,0.35); } }
+        @media (min-width: 1024px) { .page-fixed-overlay { background: rgba(0,0,0,0.5); } }
+        /* On smaller screens, nudge background 4px to the right */
+        @media (max-width: 1023.98px) {
+          .page-fixed-bg { background-position: calc(50% - 4px) center; }
+        }
+        /* On bigger screens, nudge background 4px to the right */
+        @media (min-width: 1024px) {
+          .page-fixed-bg { background-position: calc(50% - 4px) center; }
+        }
+
+        
 
         /* Glass navbar */
         .liquid-glass-header {
@@ -186,7 +199,7 @@ function CreativeDesignerCaseStudy() {
         }
 
         .header-spacer { height: var(--nav-h); }
-        .content-layer { position: relative; z-index: 1000; }
+        .content-layer { position: relative; z-index: 2; }
 
         /* Three rounded columns (desktop only) */
         .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
@@ -237,14 +250,14 @@ function CreativeDesignerCaseStudy() {
           display: flex; align-items: center; justify-content: center;
         }
         
-        .logo-img { position: relative; z-index: 2; width: 40%; height: 40%; object-fit: contain; display: block; border: 0; }
+        .logo-img { position: relative; z-index: 2; width: var(--logo-w, 40%); height: auto; object-fit: contain; display: block; border: 0; }
         .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3; width: var(--frame-w); height: var(--frame-h); object-fit: contain; display: block; border: 0; pointer-events: none; }
 
         /* Interactions (only when hovering square/logo) */
         .cell-parent { cursor: default; }
         .gold-rect { transition: background-color 200ms ease, transform 200ms ease; cursor: pointer; }
         .logo-img { transition: opacity 200ms ease, transform 200ms ease; cursor: pointer; }
-        .logo-white { opacity: 0; position: absolute; inset: 0; margin: auto; width: 40%; height: 40%; object-fit: contain; }
+        .logo-white { opacity: 0; position: absolute; inset: 0; margin: auto; width: var(--logo-w, 40%); height: auto; object-fit: contain; }
         .logo-black { opacity: 1; }
         .gold-rect:hover, .gold-rect:active { background: #ec6d6c; }
         .gold-rect:hover .logo-black, .gold-rect:active .logo-black { opacity: 0; }
@@ -328,6 +341,19 @@ function CreativeDesignerCaseStudy() {
             height: calc(min(var(--frame-w), var(--frame-h)) * var(--rect-scale) + 60px);
             aspect-ratio: auto; /* prevent width from forcing height */
           }
+        }
+
+        /* Larger screens: make the square 10% smaller than base */
+        @media (min-width: 1280px) {
+          .media { --rect-scale: 0.648; } /* 0.72 * 0.9 */
+        }
+
+        /* Ultra‑wide screens: keep proportions comfortable */
+        @media (min-width: 1600px) {
+          .media { --frame-w: 75%; --frame-h: 75%; }
+        }
+        @media (min-width: 1920px) {
+          .media { --frame-w: 70%; --frame-h: 70%; }
         }
       `}</style>
     </div>
