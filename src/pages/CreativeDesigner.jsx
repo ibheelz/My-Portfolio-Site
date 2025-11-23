@@ -911,6 +911,10 @@ function CreativeDesigner() {
         @media (max-width: 1023.98px) {
           #cd-hero { margin-top: calc(clamp(48px, 8vw, 96px) - 55px) !important; transform: none; }
         }
+        /* Ensure exactly 20px gap on small-height mobiles */
+        @media (max-width: 1023.98px) and (max-height: 700px) {
+          #cd-hero { margin-top: 20px !important; }
+        }
 
         /* Creative button image style */
         .creative-image-button {

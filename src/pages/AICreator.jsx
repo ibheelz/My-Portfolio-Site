@@ -869,6 +869,8 @@ function AICreator() {
         .anim-content-soft { animation: contentSoftIn 900ms ease-out 200ms both; }
         /* Reduce top spacing on mobile by decreasing margin (no transform clashes) */
         @media (max-width: 1023.98px) { #ai-hero { margin-top: calc(clamp(48px, 8vw, 96px) - 55px) !important; transform: none; } }
+        /* Ensure exactly 20px gap on small-height mobiles */
+        @media (max-width: 1023.98px) and (max-height: 700px) { #ai-hero { margin-top: 20px !important; } }
 
         /* Match Creative: extra darkening overlay via pseudo */
         .ai-bg::before {

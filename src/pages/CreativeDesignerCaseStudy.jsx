@@ -15,7 +15,8 @@ const logo4 = `${import.meta.env.BASE_URL}images/logos/mielo-black.png`
 const logo1W = `${import.meta.env.BASE_URL}images/logos/martell-white.png`
 const logo2W = `${import.meta.env.BASE_URL}images/logos/wow-white.png`
 const logo3W = `${import.meta.env.BASE_URL}images/logos/miela-white.png`
-const logo4W = `${import.meta.env.BASE_URL}images/logos/mielo-white.png`
+// Use white Mielo logo from public/logos folder
+const logo4W = `${import.meta.env.BASE_URL}logos/mielo-white.png`
 
 function CreativeDesignerCaseStudy() {
   const navigate = useNavigate()
@@ -293,34 +294,39 @@ function CreativeDesignerCaseStudy() {
           box-shadow: none;
           overflow: hidden;
           padding: 40px;
+          padding-left: 0; padding-right: 0; /* remove horizontal padding */
           box-sizing: border-box;
         }
         .media { position: relative; width: 100%; height: 100%; --frame-w: 80%; --frame-h: 80%; --rect-scale: 0.72; }
-        /* Keep rectangle perfectly square: use the smaller of W/H */
-        /* Square: 90% of frame, never exceeds either axis */
+        /* Square inside the frame (kept perfectly square) — gold fill removed */
         .gold-rect {
           position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
           width: calc(min(var(--frame-w), var(--frame-h)) * var(--rect-scale));
           aspect-ratio: 1 / 1;
-          background: #eac28a; border-radius: clamp(10px, 1vw, 18px); z-index: 1;
+          background: transparent !important; border-radius: clamp(10px, 1vw, 18px); z-index: 1;
           display: flex; align-items: center; justify-content: center;
         }
         
-        .logo-img { position: relative; z-index: 2; width: var(--logo-w, 40%); height: auto; object-fit: contain; display: block; border: 0; }
-        .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3; width: var(--frame-w); height: var(--frame-h); object-fit: contain; display: block; border: 0; pointer-events: none; }
+        .logo-img { position: relative; z-index: 2; width: var(--logo-w, 40%); height: auto; object-fit: contain; display: block; border: 0; backface-visibility: hidden; transform: translateZ(0); }
+        .frame-img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(0); z-index: 3; width: var(--frame-w); height: var(--frame-h); object-fit: contain; display: block; border: 0; pointer-events: none; backface-visibility: hidden; }
 
         /* Interactions (only when hovering square/logo) */
         .cell-parent { cursor: default; }
         .gold-rect { transition: background-color 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1); cursor: pointer; }
         .logo-img { transition: opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1), transform 1200ms cubic-bezier(0.22, 1, 0.36, 1); cursor: pointer; }
-        .logo-white { opacity: 0; position: absolute; inset: 0; margin: auto; width: var(--logo-w, 40%); height: auto; object-fit: contain; }
-        .logo-black { opacity: 1; }
-        .gold-rect:hover, .gold-rect:active { background: #ec6d6c; }
+        /* Show white logo by default */
+        .logo-white { opacity: 1; position: absolute; inset: 0; margin: auto; width: var(--logo-w, 40%); height: auto; object-fit: contain; }
+        .logo-black { opacity: 0; }
+
+        /* Miela (tile-3) — reduce logo size further to 28% */
+        .tile-3 { --logo-w: 28%; }
+        /* Keep hover interactions for logos, but do not show any background fill */
+        .gold-rect:hover, .gold-rect:active { background: transparent !important; }
         .gold-rect:hover .logo-black, .gold-rect:active .logo-black { opacity: 0; transform: translateY(-2px) scale(0.995); }
         .gold-rect:hover .logo-white, .gold-rect:active .logo-white { opacity: 1; transform: translateY(0) scale(1.01); }
 
         /* Mobile cell sizing so absolute items have room */
-        .mobile-stack .mobile-cell { height: clamp(240px, 72vw, 440px); padding: clamp(16px, 4vw, 28px); }
+        .mobile-stack .mobile-cell { height: clamp(240px, 72vw, 440px); padding: clamp(16px, 4vw, 28px); padding-left: 0 !important; padding-right: 0 !important; }
         /* Use same square scale as desktop; keep frame roomy on mobile */
         .mobile-stack .mobile-cell .media { --frame-w: 92%; --frame-h: 92%; }
 
@@ -365,7 +371,7 @@ function CreativeDesignerCaseStudy() {
           /* Tighter vertical spacing on desktop */
           .columns-grid { gap: clamp(6px, 1vw, 18px); }
           .split-rows { row-gap: clamp(4px, 0.6vh, 10px); }
-          .cell-parent { padding: 24px; }
+          .cell-parent { padding: 24px; padding-left: 0; padding-right: 0; }
           /* Nudge middle image slightly closer to navbar */
           .mid-fit { margin-top: -24px; }
 
@@ -432,8 +438,8 @@ function CreativeDesignerCaseStudy() {
         /* Match Creative Designer page style: long, gentle slide-in (4.5s) */
         .animate-cases .cell-parent .gold-rect { animation: cdSlideInCenter 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--tile-stagger, 0ms); }
         .animate-cases .cell-parent .frame-img  { animation: cdSlideInCenter 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--tile-stagger, 0ms); }
-        /* Animate only the default (black) logo differently from frame/square */
-        .animate-cases .cell-parent .logo-img.logo-black { animation: cdLogoArcIn 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(var(--tile-stagger, 0ms) + 200ms); }
+        /* Avoid animating logos to prevent flicker */
+        .animate-cases .cell-parent .logo-img.logo-black { animation: none; }
         .animate-cases .cell-parent .logo-img.logo-white { animation: none; }
 
         .animate-cases .tile-1 { --tile-stagger: 120ms; }
@@ -463,53 +469,7 @@ function CreativeDesignerCaseStudy() {
           .animate-cases .cell-parent .logo-img { animation: none !important; opacity: 1; transform: none; }
         }
 
-        /* Removed mobile-specific targets previously */
-
-        /* 640px–1024px: reduce square by 15% only */
-        @media (min-width: 640px) and (max-width: 1024px) {
-          .media { --rect-scale: 0.612; }
-        }
-
-        /* Removed duplicate overlapping 740–1024 and 780–1024 ranges */
-
-        /* Progressive scaling: 1024→800 widens from 35% to 20% reduction */
-        /* 35% at ~1024 */
-        @media (min-width: 1000px) and (max-width: 1024px) {
-          .media { --rect-scale: 0.468; }
-        }
-        /* 30% near ~960–999 */
-        @media (min-width: 960px) and (max-width: 999.98px) {
-          .media { --rect-scale: 0.504; }
-        }
-        /* 25% near ~920–959 */
-        @media (min-width: 920px) and (max-width: 959.98px) {
-          .media { --rect-scale: 0.54; }
-        }
-        /* ~22% near 880–919 */
-        @media (min-width: 880px) and (max-width: 919.98px) {
-          .media { --rect-scale: 0.562; }
-        }
-        /* ~21% near 840–879 */
-        @media (min-width: 840px) and (max-width: 879.98px) {
-          .media { --rect-scale: 0.569; }
-        }
-        /* 20% at ~800–839 */
-        @media (min-width: 800px) and (max-width: 839.98px) {
-          .media { --rect-scale: 0.576; }
-        }
-
-        /* 1024px–730px: increase square height by 60px only */
-        @media (min-width: 730px) and (max-width: 1024px) {
-          .gold-rect {
-            height: calc(min(var(--frame-w), var(--frame-h)) * var(--rect-scale) + 60px);
-            aspect-ratio: auto; /* prevent width from forcing height */
-          }
-        }
-
-        /* Larger screens: make the square 10% smaller than base */
-        @media (min-width: 1280px) {
-          .media { --rect-scale: 0.648; } /* 0.72 * 0.9 */
-        }
+        /* Removed targeted size adjustments for the gold square */
 
         /* Ultra‑wide screens: keep proportions comfortable */
         @media (min-width: 1600px) {
