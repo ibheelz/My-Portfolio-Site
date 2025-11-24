@@ -6,6 +6,7 @@ const frameImage = `${import.meta.env.BASE_URL}frame.png`
 const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
 const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
 const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png`
+const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.png`
 const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png`
 const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png`
@@ -50,7 +51,7 @@ function CreativeDesignerCaseDetail() {
 
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
-  const [desktopFrame, setDesktopFrame] = useState(0) // 0: 1, 1: 2, 2: 3 on md+
+  const [desktopFrame, setDesktopFrame] = useState(0) // 0: 1, 1: 2, 2: 3, 3: 4 on md+
   const [mobileFrame, setMobileFrame] = useState(0) // png order: 1 -> 2 -> 3
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
@@ -65,7 +66,7 @@ function CreativeDesignerCaseDetail() {
     const stepByDir = (dir) => {
       if (dir === 0) return
       if (window.innerWidth >= 768) {
-        setDesktopFrame((i) => Math.min(2, Math.max(0, i + (dir > 0 ? 1 : -1))))
+        setDesktopFrame((i) => Math.min(3, Math.max(0, i + (dir > 0 ? 1 : -1))))
       }
     }
     // Desktop frame step lock (prevents multiple steps per gesture)
@@ -265,6 +266,15 @@ function CreativeDesignerCaseDetail() {
                   className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[76vw] h-[38vh] object-contain"
                   style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
+                />
+                <img
+                  src={mielaImage4}
+                  alt="Miela case artwork 4"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  style={{ opacity: desktopFrame === 3 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.png' }}
                 />
               </div>
             </div>
