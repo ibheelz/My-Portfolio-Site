@@ -1,8 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
 
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 const frameImage = `${import.meta.env.BASE_URL}frame.png`
 const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
+const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
 const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 
@@ -42,6 +44,52 @@ function CreativeDesignerCaseDetail() {
   const titles = { martell: 'Martell', wow: 'WOW', miela: 'Miela', mielo: 'Mielo' }
   const idx = Math.max(0, order.indexOf(slug || 'martell'))
   const nextSlug = order[(idx + 1) % order.length]
+
+  // Scroll-direction swap for Miela hero (md+ screens only)
+  const [showSecond, setShowSecond] = useState(false)
+  const lastYRef = useRef(0)
+  const lastSwapRef = useRef(0)
+  useEffect(() => {
+    if (slug !== 'miela') return undefined
+    if (typeof window === 'undefined') return undefined
+    lastYRef.current = window.scrollY || 0
+    const onScroll = () => {
+      if (window.innerWidth < 768) return // md+ only
+      const now = Date.now()
+      if (now - lastSwapRef.current < 150) return // debounce
+      const y = window.scrollY || 0
+      const dy = y - lastYRef.current
+      if (Math.abs(dy) < 6) return
+      if (dy > 0) { setShowSecond(true); lastSwapRef.current = now } // down
+      else { setShowSecond(false); lastSwapRef.current = now } // up
+      lastYRef.current = y
+    }
+    const onWheel = (e) => {
+      if (window.innerWidth < 768) return
+      const now = Date.now()
+      if (now - lastSwapRef.current < 150) return
+      const dy = e.deltaY || 0
+      if (Math.abs(dy) < 2) return
+      if (dy > 0) { setShowSecond(true) } else { setShowSecond(false) }
+      lastSwapRef.current = now
+    }
+    const onKey = (e) => {
+      if (window.innerWidth < 768) return
+      const now = Date.now()
+      if (now - lastSwapRef.current < 150) return
+      if (['ArrowDown','PageDown'].includes(e.key)) { setShowSecond(true); lastSwapRef.current = now }
+      if (['ArrowUp','PageUp'].includes(e.key)) { setShowSecond(false); lastSwapRef.current = now }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [slug])
+
 
   return (
     <div className="min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-hidden" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
@@ -105,19 +153,28 @@ function CreativeDesignerCaseDetail() {
               />
             </div>
 
-            {/* Desktop/Tablet: main Miela image */}
+            {/* Desktop/Tablet: main Miela image (scroll-direction swap: 1 <-> 2) */}
             <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in">
-              <img
-                src={mielaImage}
-                alt="Miela case artwork"
-                decoding="async"
-                loading="eager"
-                className="h-[40vh] w-auto max-w-[90vw] object-contain"
-                onError={(e) => {
-                  e.currentTarget.onerror = null
-                  e.currentTarget.src = '/miela-1.png'
-                }}
-              />
+              <div className="relative" style={{ height: '50vh', width: '100%' }}>
+                <img
+                  src={mielaImage}
+                  alt="Miela case artwork"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[90vw] h-[40vh] object-contain"
+                  style={{ opacity: showSecond ? 0 : 1 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
+                />
+                <img
+                  src={mielaImage2}
+                  alt="Miela case artwork 2"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[90vw] h-[50vh] object-contain"
+                  style={{ opacity: showSecond ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
+                />
+              </div>
             </div>
 
             {/* Smooth infinite marquee of b1..b6 images */}
@@ -198,6 +255,9 @@ function CreativeDesignerCaseDetail() {
         @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
         .miela-hero-in { opacity: 0; animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; }
         .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
+        .swap-img { transition: opacity 420ms ease; }
+
+        
 
         /* Smooth continuous marquee (seamless, not too large) */
         .marquee-bleed { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
