@@ -60,9 +60,7 @@ function CreativeDesignerCaseDetail() {
     lastYRef.current = window.scrollY || 0
     const stepByDir = (dir) => {
       if (dir === 0) return
-      if (window.innerWidth < 768) {
-        setMobileFrame((i) => Math.min(2, Math.max(0, i + (dir > 0 ? 1 : -1))))
-      } else {
+      if (window.innerWidth >= 768) {
         setShowSecond(dir > 0)
       }
     }
@@ -70,7 +68,7 @@ function CreativeDesignerCaseDetail() {
     const onScroll = () => {
       const now = Date.now()
       // If another input just fired, ignore this scroll to avoid double-steps
-      if ((lastInputRef.current.type === 'wheel' || lastInputRef.current.type === 'touch') && now - lastInputRef.current.t < 180) return
+      if ((lastInputRef.current.type === 'wheel') && now - lastInputRef.current.t < 180) return
       const y = window.scrollY || 0
       const dy = y - lastYRef.current
       if (Math.abs(dy) < 8) return
@@ -117,16 +115,36 @@ function CreativeDesignerCaseDetail() {
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('wheel', onWheel, { passive: true })
     window.addEventListener('keydown', onKey)
-    window.addEventListener('touchstart', onTouchStart, { passive: true })
-    window.addEventListener('touchend', onTouchEnd, { passive: true })
+    // Note: touch handlers are bound on the mobile hero container only
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('keydown', onKey)
-      window.removeEventListener('touchstart', onTouchStart)
-      window.removeEventListener('touchend', onTouchEnd)
     }
   }, [slug])
+
+  // Local mobile touch handlers: one image per swipe
+  const onMobileTouchStart = (e) => {
+    if (window.innerWidth >= 768) return
+    if (!e.touches || e.touches.length === 0) return
+    touchStartYRef.current = e.touches[0].clientY
+  }
+  const onMobileTouchEnd = (e) => {
+    if (window.innerWidth >= 768) return
+    if (!e.changedTouches || e.changedTouches.length === 0) return
+    const now = Date.now()
+    const endY = e.changedTouches[0].clientY
+    const dy = endY - touchStartYRef.current
+    const threshold = 40
+    if (Math.abs(dy) < threshold) return
+    if (now - lastStepTimeRef.current < 200) return
+    setMobileFrame((i) => {
+      const dir = dy < 0 ? 1 : -1
+      return Math.min(2, Math.max(0, i + dir))
+    })
+    lastStepTimeRef.current = now
+    lastInputRef.current = { type: 'touch', t: now }
+  }
 
 
   return (
@@ -177,7 +195,7 @@ function CreativeDesignerCaseDetail() {
         {slug === 'miela' && (
           <>
             {/* Mobile: dedicated Miela image */}
-            <div className="flex md:hidden w-full h-full items-center justify-center p-6 miela-hero-in">
+            <div className="flex md:hidden w-full h-full items-center justify-center p-6 miela-hero-in" onTouchStart={onMobileTouchStart} onTouchEnd={onMobileTouchEnd}>
               <div className="relative" style={{ height: '60vh', width: '100%' }}>
                 <img
                   src={mielaImageMobile}
@@ -277,7 +295,7 @@ function CreativeDesignerCaseDetail() {
         .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background: rgba(0,0,0,0.35); z-index: 1; pointer-events: none; }
         .liquid-glass-header { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1.5px solid rgba(255,255,255,0.1); border-radius: clamp(20px, 4vw, 30px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: fixed; top: 0; left: clamp(12px, 3vw, 24px); right: clamp(12px, 3vw, 24px); z-index: 10; }
         .header-spacer { height: var(--nav-h); }
-        .content-layer { position: relative; z-index: 1000; }
+        .content-layer { position: relative; z-index: 2; }
 
         .detail-cell { position: relative; width: min(800px, 90vw); aspect-ratio: 4 / 3; }
         .gold-rect { position: absolute; inset: 0; margin: auto; width: 64%; height: 72%; background: #eac28a; border-radius: clamp(10px, 1vw, 18px); z-index: 1; display: grid; place-items: center; }
@@ -322,7 +340,7 @@ function CreativeDesignerCaseDetail() {
         .smooth-marquee { width: 100%; overflow: hidden; }
         .marquee-track { display: flex; width: max-content; gap: 0; animation: marqueeScroll 40s linear infinite; will-change: transform; }
         .marquee-group { display: flex; gap: 0; }
-        .marquee-img { display: block; margin: 0; height: 30vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
+        .marquee-img { display: block; margin: 0; height: 25vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
 
         @keyframes marqueeScroll {
           from { transform: translateX(0); }
