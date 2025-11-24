@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 const frameImage = `${import.meta.env.BASE_URL}frame.png`
 const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
+const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
@@ -89,6 +90,22 @@ function CreativeDesignerCaseDetail() {
         {/* Miela-specific image visible only on md+ screens */}
         {slug === 'miela' && (
           <>
+            {/* Mobile: dedicated Miela image */}
+            <div className="flex md:hidden w-full h-full items-center justify-center p-6 miela-hero-in">
+              <img
+                src={mielaImageMobile}
+                alt="Miela case artwork (mobile)"
+                decoding="async"
+                loading="eager"
+                className="h-[52vh] w-auto max-w-[94vw] object-contain"
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  e.currentTarget.src = '/miela-1-mobile.png'
+                }}
+              />
+            </div>
+
+            {/* Desktop/Tablet: main Miela image */}
             <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in">
               <img
                 src={mielaImage}
