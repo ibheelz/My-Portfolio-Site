@@ -29,11 +29,11 @@ const logos = {
     fallbackBlack: '/logos/martell-black.png',
     fallbackWhite: '/logos/martell-white.png',
   },
-  wow: {
-    black: `${import.meta.env.BASE_URL}images/logos/wow-black.png`,
-    white: `${import.meta.env.BASE_URL}images/logos/wow-white.png`,
-    fallbackBlack: '/logos/wow-black.png',
-    fallbackWhite: '/logos/wow-white.png',
+  todoalrojo: {
+    black: `${import.meta.env.BASE_URL}images/logos/tojoalrojo-black.png`,
+    white: `${import.meta.env.BASE_URL}images/logos/tojoalrojo-white.png`,
+    fallbackBlack: '/logos/tojoalrojo.webp',
+    fallbackWhite: '/logos/tojoalrojo-white.png',
   },
   miela: {
     black: `${import.meta.env.BASE_URL}images/logos/miela-black.png`,
@@ -53,8 +53,8 @@ function CreativeDesignerCaseDetail() {
   const navigate = useNavigate()
   const { slug } = useParams()
   const entry = logos[slug] || logos.martell
-  const order = ['martell', 'wow', 'miela', 'mielo']
-  const titles = { martell: 'Martell', wow: 'WOW', miela: 'Miela', mielo: 'Mielo' }
+  const order = ['martell', 'todoalrojo', 'miela', 'mielo']
+  const titles = { martell: 'Martell', todoalrojo: 'Todoalrojo', miela: 'Miela', mielo: 'Mielo' }
   const idx = Math.max(0, order.indexOf(slug || 'martell'))
   const nextSlug = order[(idx + 1) % order.length]
 

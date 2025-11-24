@@ -9,11 +9,11 @@ const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 const frameImage = `${import.meta.env.BASE_URL}frame.png`
 // Four black + white logos from images/logos
 const logo1 = `${import.meta.env.BASE_URL}images/logos/martell-black.png`
-const logo2 = `${import.meta.env.BASE_URL}images/logos/wow-black.png`
+const logo2 = `${import.meta.env.BASE_URL}images/logos/tojoalrojo-black.png`
 const logo3 = `${import.meta.env.BASE_URL}images/logos/miela-black.png`
 const logo4 = `${import.meta.env.BASE_URL}images/logos/mielo-black.png`
 const logo1W = `${import.meta.env.BASE_URL}images/logos/martell-white.png`
-const logo2W = `${import.meta.env.BASE_URL}images/logos/wow-white.png`
+const logo2W = `${import.meta.env.BASE_URL}images/logos/tojoalrojo-white.png`
 const logo3W = `${import.meta.env.BASE_URL}images/logos/miela-white.png`
 // Use white Mielo logo from public/logos folder
 const logo4W = `${import.meta.env.BASE_URL}logos/mielo-white.png`
@@ -102,9 +102,9 @@ function CreativeDesignerCaseStudy() {
             </div>
             <div className="cell-parent tile-2">
               <div className="media">
-                <div className="gold-rect" onClick={() => navigate('/creative-designer/case/wow')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/wow') }}>
-                  <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
-                  <img className="logo-img logo-white" src={logo2W} alt="Logo 2 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-white.png' }} />
+                <div className="gold-rect" onClick={() => navigate('/creative-designer/case/todoalrojo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/todoalrojo') }}>
+                  <img className="logo-img logo-black" src={logo2} alt="Todoalrojo logo" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
+                  <img className="logo-img logo-white" src={logo2W} alt="Todoalrojo logo white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
                 </div>
                 <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
@@ -132,8 +132,8 @@ function CreativeDesignerCaseStudy() {
             <div className="cell-parent tile-4">
               <div className="media">
                 <div className="gold-rect" onClick={() => navigate('/creative-designer/case/mielo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/mielo') }}>
-                  <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
-                  <img className="logo-img logo-white" src={logo4W} alt="Logo 4 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
+                  <img className="logo-img logo-black" src={logo4} alt="Mielo logo" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
+                  <img className="logo-img logo-white" src={logo4W} alt="Mielo logo white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
                 </div>
                 <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
@@ -167,9 +167,9 @@ function CreativeDesignerCaseStudy() {
 
           <div className="cell-parent mobile-cell tile-2">
             <div className="media">
-              <div className="gold-rect" onClick={() => navigate('/creative-designer/case/wow')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/wow') }}>
-                <img className="logo-img logo-black" src={logo2} alt="Logo 2" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-black.png' }} />
-                <img className="logo-img logo-white" src={logo2W} alt="Logo 2 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/wow-white.png' }} />
+              <div className="gold-rect" onClick={() => navigate('/creative-designer/case/todoalrojo')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/creative-designer/case/todoalrojo') }}>
+                <img className="logo-img logo-black" src={logo2} alt="Todoalrojo logo" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
+                <img className="logo-img logo-white" src={logo2W} alt="Todoalrojo logo white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
               </div>
               <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
             </div>
