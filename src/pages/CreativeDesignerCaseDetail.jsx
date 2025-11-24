@@ -7,6 +7,7 @@ const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
 const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
 const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png`
 const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.png`
+const mielaImage5 = `${import.meta.env.BASE_URL}miela-5.png`
 const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png`
 const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png`
@@ -51,7 +52,7 @@ function CreativeDesignerCaseDetail() {
 
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
-  const [desktopFrame, setDesktopFrame] = useState(0) // 0: 1, 1: 2, 2: 3, 3: 4 on md+
+  const [desktopFrame, setDesktopFrame] = useState(0) // 0..4 maps to images 1..5 on md+
   const [mobileFrame, setMobileFrame] = useState(0) // png order: 1 -> 2 -> 3
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
@@ -66,7 +67,7 @@ function CreativeDesignerCaseDetail() {
     const stepByDir = (dir) => {
       if (dir === 0) return
       if (window.innerWidth >= 768) {
-        setDesktopFrame((i) => Math.min(3, Math.max(0, i + (dir > 0 ? 1 : -1))))
+        setDesktopFrame((i) => Math.min(4, Math.max(0, i + (dir > 0 ? 1 : -1))))
       }
     }
     // Desktop frame step lock (prevents multiple steps per gesture)
@@ -237,15 +238,15 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
 
-            {/* Desktop/Tablet: three-frame hero (1 -> 2 -> 3); frame 3 uses more width */}
-            <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in">
+            {/* Desktop/Tablet: hero frames (uniform sizing) */}
+            <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero">
               <div className="relative" style={{ height: '50vh', width: '100%' }}>
                 <img
                   src={mielaImage}
                   alt="Miela case artwork"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[90vw] h-[40vh] object-contain"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
                   style={{ opacity: desktopFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
                 />
@@ -254,7 +255,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 2"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[90vw] h-[50vh] object-contain"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
                   style={{ opacity: desktopFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
                 />
@@ -263,7 +264,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 3"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[76vw] h-[38vh] object-contain"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
                   style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
                 />
@@ -275,6 +276,15 @@ function CreativeDesignerCaseDetail() {
                   className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
                   style={{ opacity: desktopFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.png' }}
+                />
+                <img
+                  src={mielaImage5}
+                  alt="Miela case artwork 5"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  style={{ opacity: desktopFrame === 4 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.png' }}
                 />
               </div>
             </div>
@@ -379,6 +389,15 @@ function CreativeDesignerCaseDetail() {
         /* Respect reduced motion */
         @media (prefers-reduced-motion: reduce) {
           .marquee-track { animation-duration: 0.001ms; animation-iteration-count: 1; }
+        }
+
+        /* Nudge hero images down on short-height screens */
+        @media (max-height: 800px) {
+          .miela-desktop-hero .swap-img { transform: translate(-50%, calc(-50% + 60px)); }
+        }
+        /* Also nudge on ultra‑wide aspect ratios (very wide, limited vertical space) */
+        @media (min-aspect-ratio: 2/1) {
+          .miela-desktop-hero .swap-img { transform: translate(-50%, calc(-50% + 60px)); }
         }
       `}</style>
     </div>
