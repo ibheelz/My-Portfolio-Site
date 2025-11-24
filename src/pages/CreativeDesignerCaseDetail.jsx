@@ -2,6 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 const frameImage = `${import.meta.env.BASE_URL}frame.png`
+const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
+const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
@@ -82,8 +84,63 @@ function CreativeDesignerCaseDetail() {
 
       <div className="header-spacer" />
 
-      {/* No centered image/content on detail page; keep theme + navbar only */}
-      <section className="content-layer flex-1" />
+      {/* Content layer: show extra media for specific cases */}
+      <section className="content-layer flex-1">
+        {/* Miela-specific image visible only on md+ screens */}
+        {slug === 'miela' && (
+          <>
+            <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in">
+              <img
+                src={mielaImage}
+                alt="Miela case artwork"
+                decoding="async"
+                loading="eager"
+                className="h-[40vh] w-auto max-w-[90vw] object-contain"
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  e.currentTarget.src = '/miela-1.png'
+                }}
+              />
+            </div>
+
+            {/* Smooth infinite marquee of b1..b6 images */}
+            <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
+              <div className="smooth-marquee" aria-label="Brand strip">
+                <div className="marquee-track" aria-hidden>
+                  {/* group A */}
+                  <div className="marquee-group">
+                    {bImgs.map((src, i) => (
+                      <img
+                        key={`a-${i}`}
+                        src={src}
+                        alt=""
+                        decoding="async"
+                        loading="lazy"
+                        className="marquee-img"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.png` }}
+                      />
+                    ))}
+                  </div>
+                  {/* group B (duplicate for seamless loop) */}
+                  <div className="marquee-group" aria-hidden>
+                    {bImgs.map((src, i) => (
+                      <img
+                        key={`b-${i}`}
+                        src={src}
+                        alt=""
+                        decoding="async"
+                        loading="lazy"
+                        className="marquee-img"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.png` }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </section>
 
       <style>{`
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
@@ -118,6 +175,30 @@ function CreativeDesignerCaseDetail() {
         @keyframes subSvgInRight { from { transform: translateX(14px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .sub-anim-svg-left { animation: subSvgInLeft 4.5s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
         .sub-anim-svg-right { animation: subSvgInRight 4.5s cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
+
+        /* Miela content animations */
+        @keyframes fadeUpIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
+        .miela-hero-in { opacity: 0; animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; }
+        .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
+
+        /* Smooth continuous marquee (seamless, not too large) */
+        .marquee-bleed { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+        .marquee-dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+        .smooth-marquee { width: 100%; overflow: hidden; }
+        .marquee-track { display: flex; width: max-content; gap: 0; animation: marqueeScroll 40s linear infinite; will-change: transform; }
+        .marquee-group { display: flex; gap: 0; }
+        .marquee-img { display: block; margin: 0; height: 30vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
+
+        @keyframes marqueeScroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-track { animation-duration: 0.001ms; animation-iteration-count: 1; }
+        }
       `}</style>
     </div>
   )
