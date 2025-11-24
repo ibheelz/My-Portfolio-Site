@@ -61,13 +61,18 @@ function CreativeDesignerCaseDetail() {
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
   const [desktopFrame, setDesktopFrame] = useState(0) // 0..5 maps to images 1..6 on md+
-  const [mobileFrame, setMobileFrame] = useState(0) // mobile png order: 1 -> 2 -> ... -> 9
+  const [mobileFrame, setMobileFrame] = useState(0) // mobile png order: 1 -> 2 -> ... -> 10
+  const [enterDirDesktop, setEnterDirDesktop] = useState('') // for horizontal-only animation: '' | 'left' | 'right'
+  const [enterDirMobile, setEnterDirMobile] = useState('')   // for horizontal-only animation: '' | 'left' | 'right'
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
   const lastInputRef = useRef({ type: '', t: 0 })
   const wheelGestureActiveRef = useRef(false)
   const wheelGestureTimerRef = useRef(null)
   const touchStartYRef = useRef(0)
+  const touchStartXRef = useRef(0)
+  const pointerStartXRef = useRef(0)
+  const pointerActiveRef = useRef(false)
   useEffect(() => {
     if (slug !== 'miela') return undefined
     if (typeof window === 'undefined') return undefined
@@ -127,8 +132,10 @@ function CreativeDesignerCaseDetail() {
     const onKey = (e) => {
       const now = Date.now()
       if (now - lastStepTimeRef.current < 60) return
-      if (['ArrowDown','PageDown'].includes(e.key)) { stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
-      if (['ArrowUp','PageUp'].includes(e.key)) { stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
+      if (["ArrowRight"].includes(e.key)) { setEnterDirDesktop('left'); stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
+      if (["ArrowLeft"].includes(e.key))  { setEnterDirDesktop('right'); stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
+      if (['ArrowDown','PageDown'].includes(e.key)) { setEnterDirDesktop(''); stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
+      if (['ArrowUp','PageUp'].includes(e.key))   { setEnterDirDesktop(''); stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('wheel', onWheel, { passive: false })
@@ -147,22 +154,52 @@ function CreativeDesignerCaseDetail() {
     if (window.innerWidth >= 768) return
     if (!e.touches || e.touches.length === 0) return
     touchStartYRef.current = e.touches[0].clientY
+    touchStartXRef.current = e.touches[0].clientX
   }
   const onMobileTouchEnd = (e) => {
     if (window.innerWidth >= 768) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
     const now = Date.now()
     const endY = e.changedTouches[0].clientY
+    const endX = e.changedTouches[0].clientX
     const dy = endY - touchStartYRef.current
+    const dx = endX - touchStartXRef.current
     const threshold = 10
-    if (Math.abs(dy) < threshold) return
+    if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
     if (now - lastStepTimeRef.current < 60) return
-    setMobileFrame((i) => {
+    if (Math.abs(dx) > Math.abs(dy)) {
+      const dir = dx < 0 ? 1 : -1
+      setEnterDirMobile(dir > 0 ? 'left' : 'right')
+      setMobileFrame((i) => Math.min(9, Math.max(0, i + dir)))
+    } else {
       const dir = dy < 0 ? 1 : -1
-      return Math.min(9, Math.max(0, i + dir))
-    })
+      setEnterDirMobile('') // vertical keeps default fade
+      setMobileFrame((i) => Math.min(9, Math.max(0, i + dir)))
+    }
     lastStepTimeRef.current = now
     lastInputRef.current = { type: 'touch', t: now }
+  }
+
+  // Desktop horizontal swipe via pointer
+  const onDesktopPointerDown = (e) => {
+    if (window.innerWidth < 768) return
+    pointerActiveRef.current = true
+    pointerStartXRef.current = (e.clientX ?? 0)
+  }
+  const onDesktopPointerUp = (e) => {
+    if (window.innerWidth < 768) return
+    if (!pointerActiveRef.current) return
+    pointerActiveRef.current = false
+    const now = Date.now()
+    const endX = (e.clientX ?? 0)
+    const dx = endX - (pointerStartXRef.current || 0)
+    const threshold = 18
+    if (Math.abs(dx) < threshold) return
+    if (now - lastStepTimeRef.current < 60) return
+    const dir = dx < 0 ? 1 : -1
+    setEnterDirDesktop(dir > 0 ? 'left' : 'right')
+    setDesktopFrame((i) => Math.min(5, Math.max(0, i + dir)))
+    lastStepTimeRef.current = now
   }
 
 
@@ -214,14 +251,14 @@ function CreativeDesignerCaseDetail() {
         {slug === 'miela' && (
           <>
             {/* Mobile: dedicated Miela image */}
-            <div className="flex md:hidden w-full h-full items-center justify-center p-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
+            <div className="flex flex-col md:hidden w-full h-full items-center justify-center p-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
               <div className="relative" style={{ height: '60vh', width: '100%' }}>
                 <img
                   src={mielaImageMobile}
                   alt="Miela case artwork (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 0 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 0 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1-mobile.png' }}
                 />
@@ -230,7 +267,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 2 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 1 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 1 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2-mobile.png' }}
                 />
@@ -239,7 +276,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 3 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 2 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 2 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3-mobile.png' }}
                 />
@@ -248,7 +285,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 4 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 3 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 3 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4-mobile.png' }}
                 />
@@ -257,7 +294,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 5 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 4 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 4 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5-mobile.png' }}
                 />
@@ -266,7 +303,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 6 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 5 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 5 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 5 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.png' }}
                 />
@@ -275,7 +312,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 7 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 6 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 6 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 6 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-7-mobile.png' }}
                 />
@@ -284,7 +321,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 8 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 7 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 7 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 7 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-8-mobile.png' }}
                 />
@@ -293,7 +330,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 9 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 8 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 8 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 8 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.png' }}
                 />
@@ -302,7 +339,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 10 (mobile)"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 9 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 9 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 9 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-10-mobile.png' }}
                 />
@@ -310,14 +347,14 @@ function CreativeDesignerCaseDetail() {
             </div>
 
             {/* Desktop/Tablet: hero frames (uniform sizing) */}
-            <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero">
+            <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
               <div className="relative" style={{ height: '50vh', width: '100%' }}>
                 <img
                   src={mielaImage}
                   alt="Miela case artwork"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 0 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 0 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
                 />
@@ -326,7 +363,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 2"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 1 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 1 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
                 />
@@ -335,7 +372,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 3"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 2 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 2 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
                 />
@@ -344,7 +381,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 4"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 3 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 3 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.png' }}
                 />
@@ -353,7 +390,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 5"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 4 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 4 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.png' }}
                 />
@@ -362,15 +399,15 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 6"
                   decoding="async"
                   loading="eager"
-                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain"
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 5 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 5 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 5 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.png' }}
                 />
               </div>
             </div>
 
-            {/* Smooth infinite marquee of b1..b6 images */}
-            <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
+        {/* Smooth infinite marquee of b1..b6 images */}
+        <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
               <div className="smooth-marquee" aria-label="Brand strip">
                 <div className="marquee-track" aria-hidden>
                   {/* group A */}
@@ -386,7 +423,7 @@ function CreativeDesignerCaseDetail() {
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.png` }}
                       />
                     ))}
-                  </div>
+                </div>
                   {/* group B (duplicate for seamless loop) */}
                   <div className="marquee-group" aria-hidden>
                     {bImgs.map((src, i) => (
@@ -407,6 +444,20 @@ function CreativeDesignerCaseDetail() {
           </>
         )}
       </section>
+
+      {/* Fixed indicators 10px above carousel (all screens) */}
+      <div className="miela-dots-fixed" aria-hidden>
+        <div className="hidden md:flex justify-center">
+          {Array.from({ length: 6 }).map((_, idx) => (
+            <div key={`d-dot-${idx}`} className={`dot ${desktopFrame === idx ? 'active' : ''}`} />
+          ))}
+        </div>
+        <div className="flex md:hidden justify-center">
+          {Array.from({ length: 10 }).map((_, idx) => (
+            <div key={`m-dot-${idx}`} className={`dot ${mobileFrame === idx ? 'active' : ''}`} />
+          ))}
+        </div>
+      </div>
 
       <style>{`
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
@@ -470,6 +521,36 @@ function CreativeDesignerCaseDetail() {
         @media (prefers-reduced-motion: reduce) {
           .marquee-track { animation-duration: 0.001ms; animation-iteration-count: 1; }
         }
+
+        /* Indicator row hooked to marquee top (inside marquee-dock) */
+        .miela-dots-over { position: absolute; left: 0; right: 0; top: -10px; z-index: 6; justify-content: center; gap: 8px; pointer-events: none; }
+        .miela-dots-over .dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: rgba(255,255,255,0.3);
+          box-shadow: none;
+          transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease;
+        }
+        .miela-dots-over .dot.active {
+          width: 8px; height: 8px;
+          background: rgba(255,255,255,0.9);
+          box-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+
+        /* Lightbox-like horizontal enter for hero images */
+        @keyframes imgEnterL {
+          0%   { opacity: 0; filter: blur(6px); margin-left: 36px; }
+          100% { opacity: 1; filter: blur(0);   margin-left: 0; }
+        }
+        @keyframes imgEnterR {
+          0%   { opacity: 0; filter: blur(6px); margin-left: -36px; }
+          100% { opacity: 1; filter: blur(0);   margin-left: 0; }
+        }
+        .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
+        .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+        .miela-dots-fixed .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
         /* Nudge hero images down on short-height screens */
         @media (max-height: 800px) {
