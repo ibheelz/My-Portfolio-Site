@@ -71,8 +71,8 @@ function CreativeDesignerCaseDetail() {
         setDesktopFrame((i) => Math.min(5, Math.max(0, i + (dir > 0 ? 1 : -1))))
       }
     }
-    // Desktop frame step lock (prevents multiple steps per gesture)
-    const lockMs = 700
+    // Desktop frame step lock (minimal, still one step per gesture)
+    const lockMs = 60
     const onScroll = () => {
       const now = Date.now()
       // Do not step frames on generic scroll; wheel controls desktop frame changes
@@ -83,7 +83,7 @@ function CreativeDesignerCaseDetail() {
       const now = Date.now()
       const dy = e.deltaY || 0
       if (Math.abs(dy) < 1) return
-      // prevent page scroll; treat entire wheel burst as one step
+      // prevent page scroll; treat a small wheel burst as one step
       if (e && typeof e.preventDefault === 'function') e.preventDefault()
       if (!wheelGestureActiveRef.current && now - lastStepTimeRef.current >= lockMs) {
         const dir = dy > 0 ? 1 : -1
@@ -96,7 +96,7 @@ function CreativeDesignerCaseDetail() {
       wheelGestureTimerRef.current = setTimeout(() => {
         wheelGestureActiveRef.current = false
         wheelGestureTimerRef.current = null
-      }, 240)
+      }, 60)
     }
     const onTouchStart = (e) => {
       if (window.innerWidth >= 768) return
@@ -119,7 +119,7 @@ function CreativeDesignerCaseDetail() {
     }
     const onKey = (e) => {
       const now = Date.now()
-      if (now - lastStepTimeRef.current < 140) return
+      if (now - lastStepTimeRef.current < 60) return
       if (['ArrowDown','PageDown'].includes(e.key)) { stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
       if (['ArrowUp','PageUp'].includes(e.key)) { stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
     }
@@ -147,9 +147,9 @@ function CreativeDesignerCaseDetail() {
     const now = Date.now()
     const endY = e.changedTouches[0].clientY
     const dy = endY - touchStartYRef.current
-    const threshold = 40
+    const threshold = 10
     if (Math.abs(dy) < threshold) return
-    if (now - lastStepTimeRef.current < 200) return
+    if (now - lastStepTimeRef.current < 60) return
     setMobileFrame((i) => {
       const dir = dy < 0 ? 1 : -1
       return Math.min(2, Math.max(0, i + dir))
