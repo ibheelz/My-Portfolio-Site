@@ -12,6 +12,12 @@ const mielaImage6 = `${import.meta.env.BASE_URL}miela-6.png`
 const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png`
 const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png`
+const mielaImageMobile4 = `${import.meta.env.BASE_URL}miela-4-mobile.png`
+const mielaImageMobile5 = `${import.meta.env.BASE_URL}miela-5-mobile.png`
+const mielaImageMobile6 = `${import.meta.env.BASE_URL}miela-6-mobile.png`
+const mielaImageMobile7 = `${import.meta.env.BASE_URL}miela-7-mobile.png`
+const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png`
+const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
@@ -54,7 +60,7 @@ function CreativeDesignerCaseDetail() {
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
   const [desktopFrame, setDesktopFrame] = useState(0) // 0..5 maps to images 1..6 on md+
-  const [mobileFrame, setMobileFrame] = useState(0) // png order: 1 -> 2 -> 3
+  const [mobileFrame, setMobileFrame] = useState(0) // mobile png order: 1 -> 2 -> ... -> 9
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
   const lastInputRef = useRef({ type: '', t: 0 })
@@ -152,7 +158,7 @@ function CreativeDesignerCaseDetail() {
     if (now - lastStepTimeRef.current < 60) return
     setMobileFrame((i) => {
       const dir = dy < 0 ? 1 : -1
-      return Math.min(2, Math.max(0, i + dir))
+      return Math.min(8, Math.max(0, i + dir))
     })
     lastStepTimeRef.current = now
     lastInputRef.current = { type: 'touch', t: now }
@@ -235,6 +241,60 @@ function CreativeDesignerCaseDetail() {
                   className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
                   style={{ opacity: mobileFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile4}
+                  alt="Miela case artwork 4 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 3 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile5}
+                  alt="Miela case artwork 5 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 4 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile6}
+                  alt="Miela case artwork 6 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 5 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile7}
+                  alt="Miela case artwork 7 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 6 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-7-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile8}
+                  alt="Miela case artwork 8 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 7 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-8-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile9}
+                  alt="Miela case artwork 9 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 8 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.png' }}
                 />
               </div>
             </div>
