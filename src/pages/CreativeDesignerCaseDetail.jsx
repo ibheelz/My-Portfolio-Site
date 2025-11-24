@@ -8,6 +8,7 @@ const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
 const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png`
 const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.png`
 const mielaImage5 = `${import.meta.env.BASE_URL}miela-5.png`
+const mielaImage6 = `${import.meta.env.BASE_URL}miela-6.png`
 const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png`
 const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png`
@@ -52,7 +53,7 @@ function CreativeDesignerCaseDetail() {
 
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
-  const [desktopFrame, setDesktopFrame] = useState(0) // 0..4 maps to images 1..5 on md+
+  const [desktopFrame, setDesktopFrame] = useState(0) // 0..5 maps to images 1..6 on md+
   const [mobileFrame, setMobileFrame] = useState(0) // png order: 1 -> 2 -> 3
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
@@ -67,7 +68,7 @@ function CreativeDesignerCaseDetail() {
     const stepByDir = (dir) => {
       if (dir === 0) return
       if (window.innerWidth >= 768) {
-        setDesktopFrame((i) => Math.min(4, Math.max(0, i + (dir > 0 ? 1 : -1))))
+        setDesktopFrame((i) => Math.min(5, Math.max(0, i + (dir > 0 ? 1 : -1))))
       }
     }
     // Desktop frame step lock (prevents multiple steps per gesture)
@@ -286,6 +287,15 @@ function CreativeDesignerCaseDetail() {
                   style={{ opacity: desktopFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.png' }}
                 />
+                <img
+                  src={mielaImage6}
+                  alt="Miela case artwork 6"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain"
+                  style={{ opacity: desktopFrame === 5 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.png' }}
+                />
               </div>
             </div>
 
@@ -399,6 +409,8 @@ function CreativeDesignerCaseDetail() {
         @media (min-aspect-ratio: 2/1) {
           .miela-desktop-hero .swap-img { transform: translate(-50%, calc(-50% + 60px)); }
         }
+        /* Add a general top margin to all desktop hero images */
+        .miela-desktop-hero .swap-img { margin-top: 15px; }
       `}</style>
     </div>
   )
