@@ -160,7 +160,7 @@ function CreativeDesignerCaseDetail() {
 
 
   return (
-    <div className="min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -411,6 +411,15 @@ function CreativeDesignerCaseDetail() {
         }
         /* Add a general top margin to all desktop hero images */
         .miela-desktop-hero .swap-img { margin-top: 15px; }
+        /* Lock page scroll on Miela mobile */
+        @media (max-width: 767px) {
+          .miela-mobile-no-scroll { height: 100vh; overflow: hidden; overscroll-behavior: none; }
+          /* Ensure no top margin on mobile hero images */
+          .miela-mobile-no-scroll .swap-img { margin-top: 0 !important; }
+          /* Reduce gap: remove spacer and extra top padding under navbar */
+          .miela-mobile-no-scroll .header-spacer { height: 0 !important; }
+          .miela-mobile-no-scroll .miela-hero-in { padding-top: 0 !important; }
+        }
       `}</style>
     </div>
   )
