@@ -18,6 +18,7 @@ const mielaImageMobile6 = `${import.meta.env.BASE_URL}miela-6-mobile.png`
 const mielaImageMobile7 = `${import.meta.env.BASE_URL}miela-7-mobile.png`
 const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png`
 const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png`
+const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
@@ -158,7 +159,7 @@ function CreativeDesignerCaseDetail() {
     if (now - lastStepTimeRef.current < 60) return
     setMobileFrame((i) => {
       const dir = dy < 0 ? 1 : -1
-      return Math.min(8, Math.max(0, i + dir))
+      return Math.min(9, Math.max(0, i + dir))
     })
     lastStepTimeRef.current = now
     lastInputRef.current = { type: 'touch', t: now }
@@ -295,6 +296,15 @@ function CreativeDesignerCaseDetail() {
                   className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
                   style={{ opacity: mobileFrame === 8 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.png' }}
+                />
+                <img
+                  src={mielaImageMobile10}
+                  alt="Miela case artwork 10 (mobile)"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain"
+                  style={{ opacity: mobileFrame === 9 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-10-mobile.png' }}
                 />
               </div>
             </div>
