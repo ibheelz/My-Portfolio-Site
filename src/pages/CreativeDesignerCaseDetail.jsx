@@ -5,6 +5,7 @@ const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
 const frameImage = `${import.meta.env.BASE_URL}frame.png`
 const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
 const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
+const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png`
 const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
 const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png`
 const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png`
@@ -49,10 +50,13 @@ function CreativeDesignerCaseDetail() {
 
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
+  const [desktopFrame, setDesktopFrame] = useState(0) // 0: 1, 1: 2, 2: 3 on md+
   const [mobileFrame, setMobileFrame] = useState(0) // png order: 1 -> 2 -> 3
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
   const lastInputRef = useRef({ type: '', t: 0 })
+  const wheelGestureActiveRef = useRef(false)
+  const wheelGestureTimerRef = useRef(null)
   const touchStartYRef = useRef(0)
   useEffect(() => {
     if (slug !== 'miela') return undefined
@@ -61,31 +65,35 @@ function CreativeDesignerCaseDetail() {
     const stepByDir = (dir) => {
       if (dir === 0) return
       if (window.innerWidth >= 768) {
-        setShowSecond(dir > 0)
+        setDesktopFrame((i) => Math.min(2, Math.max(0, i + (dir > 0 ? 1 : -1))))
       }
     }
-    const lockMs = 180
+    // Desktop frame step lock (prevents multiple steps per gesture)
+    const lockMs = 700
     const onScroll = () => {
       const now = Date.now()
-      // If another input just fired, ignore this scroll to avoid double-steps
-      if ((lastInputRef.current.type === 'wheel') && now - lastInputRef.current.t < 180) return
-      const y = window.scrollY || 0
-      const dy = y - lastYRef.current
-      if (Math.abs(dy) < 8) return
-      if (now - lastStepTimeRef.current < lockMs) { lastYRef.current = y; return }
-      stepByDir(dy > 0 ? 1 : -1)
-      lastStepTimeRef.current = now
+      // Do not step frames on generic scroll; wheel controls desktop frame changes
+      lastYRef.current = window.scrollY || 0
       lastInputRef.current = { type: 'scroll', t: now }
-      lastYRef.current = y
     }
     const onWheel = (e) => {
       const now = Date.now()
       const dy = e.deltaY || 0
-      if (Math.abs(dy) < 2) return
-      if (now - lastStepTimeRef.current < lockMs) return
-      stepByDir(dy > 0 ? 1 : -1)
-      lastStepTimeRef.current = now
-      lastInputRef.current = { type: 'wheel', t: now }
+      if (Math.abs(dy) < 1) return
+      // prevent page scroll; treat entire wheel burst as one step
+      if (e && typeof e.preventDefault === 'function') e.preventDefault()
+      if (!wheelGestureActiveRef.current && now - lastStepTimeRef.current >= lockMs) {
+        const dir = dy > 0 ? 1 : -1
+        stepByDir(dir)
+        lastStepTimeRef.current = now
+        lastInputRef.current = { type: 'wheel', t: now }
+        wheelGestureActiveRef.current = true
+      }
+      if (wheelGestureTimerRef.current) clearTimeout(wheelGestureTimerRef.current)
+      wheelGestureTimerRef.current = setTimeout(() => {
+        wheelGestureActiveRef.current = false
+        wheelGestureTimerRef.current = null
+      }, 240)
     }
     const onTouchStart = (e) => {
       if (window.innerWidth >= 768) return
@@ -113,13 +121,14 @@ function CreativeDesignerCaseDetail() {
       if (['ArrowUp','PageUp'].includes(e.key)) { stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('wheel', onWheel, { passive: false })
     window.addEventListener('keydown', onKey)
     // Note: touch handlers are bound on the mobile hero container only
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('keydown', onKey)
+      if (wheelGestureTimerRef.current) clearTimeout(wheelGestureTimerRef.current)
     }
   }, [slug])
 
@@ -148,7 +157,7 @@ function CreativeDesignerCaseDetail() {
 
 
   return (
-    <div className="min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-hidden" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className="min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -195,7 +204,7 @@ function CreativeDesignerCaseDetail() {
         {slug === 'miela' && (
           <>
             {/* Mobile: dedicated Miela image */}
-            <div className="flex md:hidden w-full h-full items-center justify-center p-6 miela-hero-in" onTouchStart={onMobileTouchStart} onTouchEnd={onMobileTouchEnd}>
+            <div className="flex md:hidden w-full h-full items-center justify-center p-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
               <div className="relative" style={{ height: '60vh', width: '100%' }}>
                 <img
                   src={mielaImageMobile}
@@ -227,7 +236,7 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
 
-            {/* Desktop/Tablet: main Miela image (scroll-direction swap: 1 <-> 2) */}
+            {/* Desktop/Tablet: three-frame hero (1 -> 2 -> 3); frame 3 uses more width */}
             <div className="hidden md:flex w-full h-full items-center justify-center p-8 miela-hero-in">
               <div className="relative" style={{ height: '50vh', width: '100%' }}>
                 <img
@@ -236,7 +245,7 @@ function CreativeDesignerCaseDetail() {
                   decoding="async"
                   loading="eager"
                   className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[90vw] h-[40vh] object-contain"
-                  style={{ opacity: showSecond ? 0 : 1 }}
+                  style={{ opacity: desktopFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
                 />
                 <img
@@ -245,8 +254,17 @@ function CreativeDesignerCaseDetail() {
                   decoding="async"
                   loading="eager"
                   className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[90vw] h-[50vh] object-contain"
-                  style={{ opacity: showSecond ? 1 : 0 }}
+                  style={{ opacity: desktopFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
+                />
+                <img
+                  src={mielaImage3}
+                  alt="Miela case artwork 3"
+                  decoding="async"
+                  loading="eager"
+                  className="swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[76vw] h-[38vh] object-contain"
+                  style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
                 />
               </div>
             </div>
@@ -329,6 +347,7 @@ function CreativeDesignerCaseDetail() {
         @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
         .miela-hero-in { opacity: 0; animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; }
         .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
+        .miela-touch { touch-action: none; }
         .swap-img { transition: opacity 1600ms ease; will-change: opacity; }
         @media (prefers-reduced-motion: reduce) { .swap-img { transition-duration: 1ms; } }
 
