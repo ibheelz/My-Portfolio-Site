@@ -445,19 +445,21 @@ function CreativeDesignerCaseDetail() {
         )}
       </section>
 
-      {/* Fixed indicators 10px above carousel (all screens) */}
-      <div className="miela-dots-fixed" aria-hidden>
-        <div className="hidden md:flex justify-center">
-          {Array.from({ length: 6 }).map((_, idx) => (
-            <div key={`d-dot-${idx}`} className={`dot ${desktopFrame === idx ? 'active' : ''}`} />
-          ))}
+      {/* Fixed indicators 10px above carousel (all screens) — only for Miela */}
+      {slug === 'miela' && (
+        <div className="miela-dots-fixed" aria-hidden>
+          <div className="hidden md:flex justify-center">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={`d-dot-${idx}`} className={`dot ${desktopFrame === idx ? 'active' : ''}`} />
+            ))}
+          </div>
+          <div className="flex md:hidden justify-center">
+            {Array.from({ length: 10 }).map((_, idx) => (
+              <div key={`m-dot-${idx}`} className={`dot ${mobileFrame === idx ? 'active' : ''}`} />
+            ))}
+          </div>
         </div>
-        <div className="flex md:hidden justify-center">
-          {Array.from({ length: 10 }).map((_, idx) => (
-            <div key={`m-dot-${idx}`} className={`dot ${mobileFrame === idx ? 'active' : ''}`} />
-          ))}
-        </div>
-      </div>
+      )}
 
       <style>{`
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
