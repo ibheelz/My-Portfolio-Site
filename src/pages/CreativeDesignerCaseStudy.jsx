@@ -147,10 +147,10 @@ function CreativeDesignerCaseStudy() {
           <div className="mid-fit-mobile" id="cs-top-image">
             <img
               decoding="async"
-              src="/creative-fit.png"
+              src={`${import.meta.env.BASE_URL}creative-fit-mobile.png`}
               alt="Creative fit"
               className="mid-fit-mobile-img anim-content-soft"
-              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/creative-fit-mobile.png' }}
             />
           </div>
 
@@ -267,6 +267,11 @@ function CreativeDesignerCaseStudy() {
           .columns-grid { display: grid !important; }
           .mobile-stack { display: none !important; }
         }
+        /* Treat large touch devices (e.g., iPad Pro) as mobile layout */
+        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) {
+          .columns-grid { display: none !important; }
+          .mobile-stack { display: grid !important; }
+        }
         .col-block {
           height: 100%; width: 100%;
           background: transparent;
@@ -327,7 +332,7 @@ function CreativeDesignerCaseStudy() {
         .gold-rect:hover .logo-white, .gold-rect:active .logo-white { opacity: 1; transform: translateY(0) scale(1.01); }
 
         /* Mobile cell sizing so absolute items have room */
-        .mobile-stack .mobile-cell { height: clamp(240px, 72vw, 440px); padding: clamp(16px, 4vw, 28px); padding-left: 0 !important; padding-right: 0 !important; }
+        .mobile-stack .mobile-cell { height: clamp(200px, 30dvh, 380px); padding: clamp(16px, 4vw, 28px); padding-left: 0 !important; padding-right: 0 !important; }
         /* Use same square scale as desktop; keep frame roomy on mobile */
         .mobile-stack .mobile-cell .media { --frame-w: 92%; --frame-h: 92%; }
 
@@ -335,7 +340,7 @@ function CreativeDesignerCaseStudy() {
         @media (min-width: 768px) and (max-width: 1023.98px) {
           .mobile-stack { row-gap: clamp(12px, 2vh, 18px); padding-left: clamp(8px, 2vw, 16px); padding-right: clamp(8px, 2vw, 16px); --logo-w: 34%; }
           /* Keep a small inner padding so frame sits within parent */
-          .mobile-stack .mobile-cell { height: clamp(220px, 48vw, 360px); padding: clamp(12px, 2.5vw, 22px); }
+          .mobile-stack .mobile-cell { height: clamp(200px, 28dvh, 360px); padding: clamp(12px, 2.5vw, 22px); }
           /* Make the frame wider on medium screens while staying inside parent */
           .mobile-stack .mobile-cell .media { --frame-w: 88%; --frame-h: 82%; --rect-scale: 0.68; }
           /* Make top image ~20% bigger on medium screens */
@@ -358,29 +363,83 @@ function CreativeDesignerCaseStudy() {
 
         /* Mobile middle image at top — fill viewport (below navbar) */
         .mid-fit-mobile { display: flex; align-items: center; justify-content: center; padding: clamp(8px, 4vw, 16px); }
-        .mid-fit-mobile-img { height: calc(100vh - var(--nav-h)); width: auto; max-width: 100%; object-fit: contain; border: 0; display: block; }
+        .mid-fit-mobile-img { height: calc(100dvh - var(--nav-h)); width: auto; max-width: 100%; object-fit: contain; border: 0; display: block; }
         @media (max-width: 1023.98px) {
           /* On mobile, remove fixed viewport height from the top image */
-          .mid-fit-mobile-img { height: auto !important; }
+          .mid-fit-mobile-img { height: auto !important; max-height: 50dvh; width: auto; }
           /* Keep the middle image fully below the navbar (no overlap) and shift up by 25px */
-          .mid-fit-mobile { transform: none; padding: 0; margin-top: -25px; }
+          .mid-fit-mobile { transform: none; padding: 0; margin-top: -20px; }
           /* Do not add extra top padding on the stack */
           .mobile-stack { padding-top: 0; padding-left: clamp(12px, 3vw, 24px); padding-right: clamp(12px, 3vw, 24px); }
           /* Double page margin (x2) for the middle image horizontally */
           .mid-fit-mobile { padding-left: clamp(24px, 6vw, 48px); padding-right: clamp(24px, 6vw, 48px); }
-          /* Pull other frames closer to the middle image (tighter) */
-          .mobile-stack { row-gap: 0; }
-          .mid-fit-mobile { margin-bottom: -32px; }
+          /* Keep comfortable spacing below the top image and between frames */
+          .mobile-stack { row-gap: clamp(10px, 2vh, 18px); }
+          .mid-fit-mobile { margin-bottom: clamp(14px, 2.2vh, 28px); }
           .mobile-stack .mobile-cell { padding: clamp(4px, 2vw, 10px); }
           .mobile-stack .mobile-cell:first-of-type { padding-top: 0; }
           /* Use the global spacer (nav height) so content starts immediately under navbar */
           .header-spacer { height: var(--nav-h) !important; }
+        }
+        /* Galaxy Z Fold 5 (tall cover display): allow a bit larger top image */
+        @media (max-width: 540px) and (min-height: 900px) and (orientation: portrait) {
+          .mid-fit-mobile-img { max-height: 58dvh; }
+          .mid-fit-mobile { margin-top: -16px; }
+        }
+        /* Galaxy Z Fold 5 inner (portrait-ish mid width): slightly larger too */
+        @media (min-width: 541px) and (max-width: 900px) and (min-height: 1000px) {
+          .mid-fit-mobile-img { max-height: 56dvh; }
+        }
+        /* Apply mobile spacing/sizing rules to large touch devices (iPad Pro, etc.) */
+        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) {
+          .mid-fit-mobile-img { height: auto !important; max-height: 50dvh; width: auto; }
+          .mid-fit-mobile { transform: none; padding: 0; margin-top: -20px; margin-bottom: clamp(14px, 2.2vh, 28px); }
+          .mobile-stack { padding-top: 0; padding-left: clamp(12px, 3vw, 24px); padding-right: clamp(12px, 3vw, 24px); row-gap: clamp(10px, 2vh, 18px); --logo-w: 30%; }
+          /* Reduce Miela logo a bit further on iPad Pro */
+          .mobile-stack .tile-3 { --logo-w: 24%; }
+          .mobile-stack .mobile-cell { height: clamp(200px, 30dvh, 380px); padding: clamp(16px, 4vw, 28px); padding-left: 0 !important; padding-right: 0 !important; }
+          .mobile-stack .mobile-cell:first-of-type { padding-top: 0; }
+          .header-spacer { height: var(--nav-h) !important; }
+        }
+        /* EXCEPTION: Nest Hub / short-height large touch screens should use desktop view */
+        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) and (max-height: 820px) {
+          .columns-grid { display: grid !important; }
+          .mobile-stack { display: none !important; }
+        }
+        /* Large touch devices with short heights (Nest Hub, Nest Hub Max landscape) */
+        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) and (max-height: 800px) {
+          .mid-fit-mobile-img { max-height: 46dvh; }
+          .mobile-stack { row-gap: clamp(8px, 1.6vh, 14px); }
+          .mobile-stack .mobile-cell { height: clamp(180px, 26dvh, 340px); }
+          .mobile-stack .mobile-cell .media { --frame-w: 90%; --frame-h: 88%; --rect-scale: 0.68; }
+        }
+        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) and (max-height: 700px) {
+          .mid-fit-mobile-img { max-height: 42dvh; }
+          .mid-fit-mobile { margin-top: -12px; margin-bottom: clamp(10px, 1.8vh, 20px); }
+          .mobile-stack { row-gap: clamp(6px, 1.4vh, 12px); }
+          .mobile-stack .mobile-cell { height: clamp(160px, 24dvh, 300px); }
+          .mobile-stack .mobile-cell .media { --frame-w: 88%; --frame-h: 86%; --rect-scale: 0.66; }
+        }
+        /* Extra small heights: cap even smaller for comfort */
+        @media (max-width: 1023.98px) and (max-height: 700px) {
+          .mid-fit-mobile-img { max-height: 44dvh; }
+          .mid-fit-mobile { margin-top: 0; }
+        }
+        @media (max-width: 1023.98px) and (max-height: 600px) {
+          .mid-fit-mobile-img { max-height: 40dvh; }
+          .mobile-stack .mobile-cell { height: clamp(180px, 26dvh, 320px); }
         }
 
         /* Between 400px and 1024px: add space between top image and first frame */
         @media (min-width: 400px) and (max-width: 1023.98px) {
           .mid-fit-mobile { margin-bottom: clamp(14px, 2.2vh, 28px); }
           .mobile-stack { row-gap: clamp(8px, 1.2vh, 16px); }
+        }
+
+        /* Very small widths (e.g., iPhone 12/13 portrait at 390px): ensure margin */
+        @media (max-width: 399.98px) {
+          .mid-fit-mobile { margin-bottom: clamp(16px, 3vh, 28px) !important; }
+          .mobile-stack { row-gap: clamp(10px, 2vh, 18px) !important; }
         }
 
         /* Medium screens: add extra space below top image so first frame isn't tight */
