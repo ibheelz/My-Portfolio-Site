@@ -453,20 +453,22 @@ function CreativeDesignerCaseDetail() {
               <div className="relative rounded-none h-full pl-[100px] pr-[80px] flex items-center">
                 {/* Video layer (70% viewport height) */}
                 <div className="relative h-[70dvh] w-full flex items-center justify-center">
-                  <video
-                    src={`${import.meta.env.BASE_URL}martel-video.mp4`}
-                    className="block h-full w-auto max-w-full object-contain rounded-[24px]"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
-                    onPlaying={() => setMartellPlaying(true)}
-                    onCanPlay={() => { /* ensure fade-in if autoplay paused */ setMartellPlaying((p) => p || false) }}
-                    style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
-                  />
+                  <div className="h-full w-auto rounded-[24px] overflow-hidden">
+                    <video
+                      src={`${import.meta.env.BASE_URL}martel-video.mp4`}
+                      className="block h-full w-auto max-w-full object-contain"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
+                      onPlaying={() => setMartellPlaying(true)}
+                      onCanPlay={() => { /* ensure fade-in if autoplay paused */ setMartellPlaying((p) => p || false) }}
+                      style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="bg-transparent rounded-none h-full" />
