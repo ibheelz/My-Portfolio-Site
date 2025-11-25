@@ -72,6 +72,7 @@ function CreativeDesignerCaseDetail() {
   const touchStartXRef = useRef(0)
   const pointerStartXRef = useRef(0)
   const pointerActiveRef = useRef(false)
+  const [martellPlaying, setMartellPlaying] = useState(false)
   useEffect(() => {
     if (slug !== 'miela') return undefined
     if (typeof window === 'undefined') return undefined
@@ -460,7 +461,10 @@ function CreativeDesignerCaseDetail() {
                     loop
                     playsInline
                     preload="metadata"
-                    poster={`${import.meta.env.BASE_URL}martel-day.webp`}
+                    onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
+                    onPlaying={() => setMartellPlaying(true)}
+                    onCanPlay={() => { /* ensure fade-in if autoplay paused */ setMartellPlaying((p) => p || false) }}
+                    style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
                   />
                 </div>
