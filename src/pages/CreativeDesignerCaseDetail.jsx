@@ -23,27 +23,27 @@ const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
   martell: {
-    black: `${import.meta.env.BASE_URL}images/logos/martell-black.png`,
-    white: `${import.meta.env.BASE_URL}images/logos/martell-white.png`,
-    fallbackBlack: '/logos/martell-black.png',
+    black: `${import.meta.env.BASE_URL}logos/martell-white.png`,
+    white: `${import.meta.env.BASE_URL}logos/martell-white.png`,
+    fallbackBlack: '/logos/martell-white.png',
     fallbackWhite: '/logos/martell-white.png',
   },
   todoalrojo: {
-    black: `${import.meta.env.BASE_URL}images/logos/tojoalrojo-black.png`,
-    white: `${import.meta.env.BASE_URL}images/logos/tojoalrojo-white.png`,
-    fallbackBlack: '/logos/tojoalrojo.webp',
-    fallbackWhite: '/logos/tojoalrojo-white.png',
+    black: `${import.meta.env.BASE_URL}logos/tojoalrojo-logo.webp`,
+    white: `${import.meta.env.BASE_URL}logos/tojoalrojo-logo.webp`,
+    fallbackBlack: '/logos/tojoalrojo-logo.webp',
+    fallbackWhite: '/logos/tojoalrojo-logo.webp',
   },
   miela: {
-    black: `${import.meta.env.BASE_URL}images/logos/miela-black.png`,
-    white: `${import.meta.env.BASE_URL}images/logos/miela-white.png`,
-    fallbackBlack: '/logos/miela-black.png',
+    black: `${import.meta.env.BASE_URL}logos/miela-white.png`,
+    white: `${import.meta.env.BASE_URL}logos/miela-white.png`,
+    fallbackBlack: '/logos/miela-white.png',
     fallbackWhite: '/logos/miela-white.png',
   },
   mielo: {
-    black: `${import.meta.env.BASE_URL}images/logos/mielo-black.png`,
-    white: `${import.meta.env.BASE_URL}images/logos/mielo-white.png`,
-    fallbackBlack: '/logos/mielo-black.png',
+    black: `${import.meta.env.BASE_URL}logos/mielo-white.png`,
+    white: `${import.meta.env.BASE_URL}logos/mielo-white.png`,
+    fallbackBlack: '/logos/mielo-white.png',
     fallbackWhite: '/logos/mielo-white.png',
   },
 }
