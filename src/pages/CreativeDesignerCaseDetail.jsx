@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
-const frameImage = `${import.meta.env.BASE_URL}frame.png`
 const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
 const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
 const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png`
@@ -458,15 +457,6 @@ function CreativeDesignerCaseDetail() {
                     muted
                     loop
                     playsInline
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
-                  />
-                </div>
-                {/* Frame overlay layer (match left column height) */}
-                <div className="pointer-events-none absolute inset-0 z-20 m-0 p-0">
-                  <img
-                    src={`${import.meta.env.BASE_URL}tall-frame.png`}
-                    alt=""
-                    className="block h-full w-full object-cover rounded-[24px] m-0"
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
                   />
                 </div>
