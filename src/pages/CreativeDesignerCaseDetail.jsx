@@ -443,6 +443,38 @@ function CreativeDesignerCaseDetail() {
             </div>
           </>
         )}
+
+        {/* Martell: split the page into two equal columns under the navbar */}
+        {slug === 'martell' && (
+          <div className="w-full h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10">
+            <div className="grid grid-cols-1 md:grid-cols-[max-content_1fr] gap-4 md:gap-6 w-full h-full">
+              <div className="relative rounded-none h-full pl-[100px] pr-[80px] flex items-center">
+                {/* Video layer (70% viewport height) */}
+                <div className="relative h-[70dvh] w-full flex items-center justify-center">
+                  <video
+                    src={`${import.meta.env.BASE_URL}martel-video.mp4`}
+                    className="block h-full w-auto max-w-full object-contain rounded-[24px]"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
+                  />
+                </div>
+                {/* Frame overlay layer (match left column height) */}
+                <div className="pointer-events-none absolute inset-0 z-20 m-0 p-0">
+                  <img
+                    src={`${import.meta.env.BASE_URL}tall-frame.png`}
+                    alt=""
+                    className="block h-full w-full object-cover rounded-[24px] m-0"
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
+                  />
+                </div>
+              </div>
+              <div className="bg-transparent rounded-none h-full" />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Fixed indicators 10px above carousel (all screens) — only for Miela */}
@@ -573,6 +605,8 @@ function CreativeDesignerCaseDetail() {
           .miela-mobile-no-scroll .header-spacer { height: 0 !important; }
           .miela-mobile-no-scroll .miela-hero-in { padding-top: 0 !important; }
         }
+
+        
       `}</style>
     </div>
   )
