@@ -257,6 +257,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork (mobile)"
                   decoding="async"
                   loading="eager"
+                  fetchpriority="high"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 0 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 0 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1-mobile.png' }}
@@ -265,7 +266,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile2}
                   alt="Miela case artwork 2 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 1 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 1 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2-mobile.png' }}
@@ -274,7 +275,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile3}
                   alt="Miela case artwork 3 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 2 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 2 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3-mobile.png' }}
@@ -283,7 +284,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile4}
                   alt="Miela case artwork 4 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 3 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 3 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4-mobile.png' }}
@@ -292,7 +293,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile5}
                   alt="Miela case artwork 5 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 4 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 4 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5-mobile.png' }}
@@ -301,7 +302,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile6}
                   alt="Miela case artwork 6 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 5 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 5 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 5 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.png' }}
@@ -310,7 +311,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile7}
                   alt="Miela case artwork 7 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 6 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 6 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 6 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-7-mobile.png' }}
@@ -319,7 +320,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile8}
                   alt="Miela case artwork 8 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 7 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 7 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 7 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-8-mobile.png' }}
@@ -328,7 +329,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile9}
                   alt="Miela case artwork 9 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 8 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 8 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 8 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.png' }}
@@ -337,7 +338,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImageMobile10}
                   alt="Miela case artwork 10 (mobile)"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 9 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 9 ? 'img-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 9 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-10-mobile.png' }}
@@ -353,6 +354,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork"
                   decoding="async"
                   loading="eager"
+                  fetchpriority="high"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 0 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 0 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
@@ -361,7 +363,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImage2}
                   alt="Miela case artwork 2"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 1 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 1 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
@@ -370,7 +372,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImage3}
                   alt="Miela case artwork 3"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 2 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 2 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
@@ -379,7 +381,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImage4}
                   alt="Miela case artwork 4"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 3 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 3 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.png' }}
@@ -388,7 +390,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImage5}
                   alt="Miela case artwork 5"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 4 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 4 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.png' }}
@@ -397,7 +399,7 @@ function CreativeDesignerCaseDetail() {
                   src={mielaImage6}
                   alt="Miela case artwork 6"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 5 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 5 ? 'img-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 5 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.png' }}
@@ -457,6 +459,8 @@ function CreativeDesignerCaseDetail() {
                     muted
                     loop
                     playsInline
+                    preload="metadata"
+                    poster={`${import.meta.env.BASE_URL}martel-day.webp`}
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
                   />
                 </div>

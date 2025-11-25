@@ -9,20 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Libre+Baskerville:wght@400;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Preload critical hero/background images for fastest LCP on subpages (GitHub Pages safe) -->
-    <!-- Homepage visuals -->
+    <!-- Minimal, safe preloads (avoid referencing /src paths in production) -->
     <link rel="preload" as="image" href="/hero-bg.webp" />
     <link rel="preload" as="image" href="/ibheelz-logo.webp" />
     <link rel="preload" as="image" href="/left.svg" />
     <link rel="preload" as="image" href="/right.svg" />
-    <link rel="preload" as="image" href="/src/assets/creative-designer-BG.webp" />
-    <link rel="preload" as="image" href="/src/assets/creative-designer-hero.webp" />
-    <link rel="preload" as="image" href="/src/assets/branding-BG.webp" />
-    <link rel="preload" as="image" href="/src/assets/branding-hero.webp" />
-    <link rel="preload" as="image" href="/src/assets/ai-creator-BG.webp" />
-    <link rel="preload" as="image" href="/src/assets/ai-creator-hero.webp" />
-    <link rel="preload" as="image" href="/src/assets/annie-hero.webp" />
-    <link rel="preload" as="image" href="/src/assets/lucia-hero.webp" />
+    <!-- Case detail background for faster deep-link LCP -->
+    <link rel="preload" as="image" href="/creative-designer-cs-BG.png" />
     <script>
       // Single Page Apps for GitHub Pages
       // https://github.com/rafgraph/spa-github-pages

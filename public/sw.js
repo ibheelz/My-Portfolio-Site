@@ -2,11 +2,15 @@
 // Caches GET requests for static assets (images, CSS, JS, fonts) with a cache-first strategy.
 // HTML navigations use a network-first strategy to ensure you get the latest page.
 
-const VERSION = 'v1.0.0';
+const VERSION = 'v1.0.1';
 const RUNTIME = `runtime-${VERSION}`;
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
+  // Pre-cache the app shell (index.html) for SPA navigations
+  event.waitUntil(
+    caches.open(RUNTIME).then((cache) => cache.addAll(['/','/index.html']).catch(() => {}))
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -34,15 +38,19 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
 
   if (isHTMLRequest(request)) {
-    // Network-first for HTML (fallback to cache when offline)
+    // Network-first for HTML; fallback to cached app shell to support SPA routes
     event.respondWith(
       fetch(request)
         .then((response) => {
-          const copy = response.clone();
-          caches.open(RUNTIME).then((cache) => cache.put(request, copy));
-          return response;
+          if (response && response.ok) {
+            const copy = response.clone();
+            caches.open(RUNTIME).then((cache) => cache.put(request, copy));
+            return response;
+          }
+          // If GitHub Pages returns 404 page for deep link, serve app shell instead
+          return caches.match('/index.html');
         })
-        .catch(() => caches.match(request))
+        .catch(() => caches.match('/index.html'))
     );
     return;
   }
@@ -67,4 +75,3 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
-
