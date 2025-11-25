@@ -450,10 +450,10 @@ function CreativeDesignerCaseDetail() {
         {slug === 'martell' && (
           <div className="w-full h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10">
             <div className="grid grid-cols-1 md:grid-cols-[max-content_1fr] gap-4 md:gap-6 w-full h-full">
-              <div className="relative rounded-none h-full pl-[100px] pr-[80px] flex items-center">
+              <div className="relative rounded-none h-full px-[20px] md:pl-[100px] md:pr-[80px] flex items-center justify-center">
                 {/* Video layer (70% viewport height) */}
                 <div className="relative h-[70dvh] w-full flex items-center justify-center">
-                  <div className="h-full w-auto rounded-[24px] overflow-hidden">
+                  <div className="h-full w-auto rounded-[24px] overflow-hidden mx-auto">
                     <video
                       src={`${import.meta.env.BASE_URL}martel-video.mp4`}
                       className="block h-full w-auto max-w-full object-contain"
