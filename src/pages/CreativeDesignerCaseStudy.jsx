@@ -5,6 +5,8 @@ import { attachHireMe } from '../utils/attachHireMe'
 
 // Use custom case study background from public/
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
+// Frame image for each cell (on top of gold rectangle)
+const frameImage = `${import.meta.env.BASE_URL}frame.png`
 // Four black + white logos from images/logos
 const logo1 = `${import.meta.env.BASE_URL}images/logos/martell-black.png`
 const logo2 = `${import.meta.env.BASE_URL}images/logos/tojoalrojo-black.png`
@@ -95,7 +97,7 @@ function CreativeDesignerCaseStudy() {
                   <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
                   <img className="logo-img logo-white" src={logo1W} alt="Logo 1 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-white.png' }} />
                 </div>
-                {/* Frame overlay removed */}
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
             </div>
             <div className="cell-parent tile-2">
@@ -104,7 +106,7 @@ function CreativeDesignerCaseStudy() {
                   <img className="logo-img logo-black" src={logo2} alt="Todoalrojo logo" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
                   <img className="logo-img logo-white" src={logo2W} alt="Todoalrojo logo white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
                 </div>
-                {/* Frame overlay removed */}
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
             </div>
           </div>
@@ -124,7 +126,7 @@ function CreativeDesignerCaseStudy() {
                   <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
                   <img className="logo-img logo-white" src={logo3W} alt="Logo 3 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-white.png' }} />
                 </div>
-                {/* Frame overlay removed */}
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
             </div>
             <div className="cell-parent tile-4">
@@ -133,7 +135,7 @@ function CreativeDesignerCaseStudy() {
                   <img className="logo-img logo-black" src={logo4} alt="Mielo logo" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
                   <img className="logo-img logo-white" src={logo4W} alt="Mielo logo white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
                 </div>
-                {/* Frame overlay removed */}
+                <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
               </div>
             </div>
           </div>
@@ -159,7 +161,7 @@ function CreativeDesignerCaseStudy() {
                 <img className="logo-img logo-black" src={logo1} alt="Logo 1" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-black.png' }} />
                 <img className="logo-img logo-white" src={logo1W} alt="Logo 1 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/martell-white.png' }} />
               </div>
-              {/* Frame overlay removed */}
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
             </div>
           </div>
 
@@ -169,7 +171,7 @@ function CreativeDesignerCaseStudy() {
                 <img className="logo-img logo-black" src={logo2} alt="Todoalrojo logo" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
                 <img className="logo-img logo-white" src={logo2W} alt="Todoalrojo logo white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/tojoalrojo-logo.png' }} />
               </div>
-              {/* Frame overlay removed */}
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
             </div>
           </div>
 
@@ -179,7 +181,7 @@ function CreativeDesignerCaseStudy() {
                 <img className="logo-img logo-black" src={logo3} alt="Logo 3" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-black.png' }} />
                 <img className="logo-img logo-white" src={logo3W} alt="Logo 3 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/miela-white.png' }} />
               </div>
-              {/* Frame overlay removed */}
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
             </div>
           </div>
 
@@ -189,7 +191,7 @@ function CreativeDesignerCaseStudy() {
                 <img className="logo-img logo-black" src={logo4} alt="Logo 4" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-black.png' }} />
                 <img className="logo-img logo-white" src={logo4W} alt="Logo 4 white" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/mielo-white.png' }} />
               </div>
-              {/* Frame overlay removed */}
+              <img className="frame-img" src={frameImage} alt="Frame" decoding="async" loading="eager" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/frame.png' }} />
             </div>
           </div>
         </div>
