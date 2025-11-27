@@ -598,6 +598,31 @@ function CreativeDesignerCaseDetail() {
           </>
         )}
 
+        {/* Todoalrojo: two-column body layout */}
+        {slug === 'todoalrojo' && (
+          <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-[14vh] pt-6 md:pt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full px-[clamp(12px,3vw,24px)]">
+              <div className="flex items-center justify-center">
+                <div className="detail-cell">
+                  <div className="gold-rect">
+                    <img
+                      className="logo-img"
+                      src={entry.white}
+                      alt={`${titles[slug]} logo`}
+                      decoding="async"
+                      loading="eager"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/tojoalrojo-logo.webp' }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-center">
+                {/* Right column placeholder for future content */}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Todoalrojo: bottom marquee with two banners (same animation as Miela) */}
         {slug === 'todoalrojo' && (
           <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in todoalrojo-marquee">
