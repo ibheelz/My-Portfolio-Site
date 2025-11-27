@@ -19,6 +19,7 @@ const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png`
 const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png`
 const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
+const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.png`)
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
@@ -596,6 +597,44 @@ function CreativeDesignerCaseDetail() {
           </>
         )}
 
+        {/* Todoalrojo: bottom marquee with two banners (same animation as Miela) */}
+        {slug === 'todoalrojo' && (
+          <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in todoalrojo-marquee">
+            <div className="smooth-marquee" aria-label="Todoalrojo banner strip">
+              <div className="marquee-track" aria-hidden>
+                {/* group A */}
+                <div className="marquee-group">
+                  {rojoBanners.map((src, i) => (
+                    <img
+                      key={`ra-${i}`}
+                      src={src}
+                      alt=""
+                      decoding="async"
+                      loading="lazy"
+                      className="marquee-img"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/rojo-banner-${(i%2)+1}.png` }}
+                    />
+                  ))}
+                </div>
+                {/* group B duplicate for seamless loop */}
+                <div className="marquee-group" aria-hidden>
+                  {rojoBanners.map((src, i) => (
+                    <img
+                      key={`rb-${i}`}
+                      src={src}
+                      alt=""
+                      decoding="async"
+                      loading="lazy"
+                      className="marquee-img"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/rojo-banner-${(i%2)+1}.png` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Martell: split the page into two equal columns under the navbar */}
         {slug === 'martell' && (
           <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10 lg:pt-[100px]">
@@ -884,6 +923,8 @@ function CreativeDesignerCaseDetail() {
         .marquee-track { display: flex; width: max-content; gap: 0; animation: marqueeScroll 40s linear infinite; will-change: transform; }
         .marquee-group { display: flex; gap: 0; }
         .marquee-img { display: block; margin: 0; height: 25vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
+        /* Todoalrojo banners use smaller height */
+        .todoalrojo-marquee .marquee-img { height: 15vh; }
 
         @keyframes marqueeScroll {
           from { transform: translateX(0); }
