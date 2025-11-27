@@ -547,14 +547,14 @@ function CreativeDesignerCaseDetail() {
         {/* Martell: split the page into two equal columns under the navbar */}
         {slug === 'martell' && (
           <div className="w-full h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10">
-            <div className="grid grid-cols-1 md:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full">
+            <div className="grid grid-cols-1 md:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Video layer (70% viewport height) */}
                 <div className="relative h-[70dvh] w-full flex items-center justify-center">
-                  <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto">
+                  <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner">
                     <video
                       src={martellVideo1}
-                      className="block h-full w-auto max-w-full object-contain"
+                      className="block h-full w-auto max-w-full object-contain cursor-pointer"
                       autoPlay
                       muted
                       loop
@@ -564,6 +564,10 @@ function CreativeDesignerCaseDetail() {
                       onPlaying={() => setMartellPlaying(true)}
                       onCanPlay={() => { /* ensure fade-in if autoplay paused */ setMartellPlaying((p) => p || false) }}
                       style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
+                      onClick={() => openLightboxAt(0)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
                     />
                   </div>
@@ -572,8 +576,8 @@ function CreativeDesignerCaseDetail() {
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Right column: 70% Martell-1 image + 30% day image */}
                 <div className="relative h-[70dvh] w-full flex items-center justify-center">
-                  <div className="h-[90%] w-full mx-auto md:mr-[100px] flex flex-col items-center justify-start">
-                    <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px]">
+                  <div className="h-[90%] w-full mx-auto md:mr-[100px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
+                    <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top">
                       <img
                         src={martellImage1}
                         alt="Martell artwork"
@@ -583,7 +587,7 @@ function CreativeDesignerCaseDetail() {
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.png' }}
                       />
                     </div>
-                    <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden">
+                    <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden martell-bottom">
                       <img
                         src={martelDayImage}
                         alt="Martell day visual"
@@ -890,6 +894,15 @@ function CreativeDesignerCaseDetail() {
           .lightbox-image-wrap { padding: 12px 12px 90px; }
           .lightbox-chevron { display: none; }
         @media (prefers-reduced-motion: reduce) { .img-enter-left, .img-enter-right { animation-duration: 0ms; } }
+        }
+
+        /* Ultrawide responsiveness (21:9 and wider) */
+        @media (min-aspect-ratio: 21/9), (min-width: 2000px) {
+          .martell-grid { grid-template-columns: 33% 65% !important; gap: 24px !important; }
+          .martell-left-inner, .martell-right-inner { height: 92% !important; }
+          /* Show only Martell-1 (top) and let it fill the right container */
+          .martell-top { height: 100% !important; width: 100% !important; margin-bottom: 0 !important; }
+          .martell-bottom { display: none !important; }
         }
 
         /* Hide navbar while lightbox open */
