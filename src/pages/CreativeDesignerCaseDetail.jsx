@@ -21,6 +21,11 @@ const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.png`)
 const rojoBannerSeq = Array.from({ length: 10 }, (_, i) => rojoBanners[i % rojoBanners.length])
+const todoalrojoDashboard = `${import.meta.env.BASE_URL}todoalrojo-dashboard.png`
+const todoalrojoLeaderboard = `${import.meta.env.BASE_URL}todoalrojo-leaderboard.png`
+const todoalrojoVip = `${import.meta.env.BASE_URL}todoalrojo-vip.png`
+const todo1 = `${import.meta.env.BASE_URL}todo-1.png`
+const todo2 = `${import.meta.env.BASE_URL}todo-2.png`
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
@@ -73,6 +78,10 @@ function CreativeDesignerCaseDetail() {
   const [mobileFrame, setMobileFrame] = useState(0) // mobile png order: 1 -> 2 -> ... -> 10
   const [enterDirDesktop, setEnterDirDesktop] = useState('') // for horizontal-only animation: '' | 'left' | 'right'
   const [enterDirMobile, setEnterDirMobile] = useState('')   // for horizontal-only animation: '' | 'left' | 'right'
+
+  // Todoalrojo navigation state
+  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..1 for now (2 images)
+  const [enterDirTodoalrojo, setEnterDirTodoalrojo] = useState('')
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
   const lastInputRef = useRef({ type: '', t: 0 })
@@ -354,6 +363,57 @@ function CreativeDesignerCaseDetail() {
     lastStepTimeRef.current = now
   }
 
+  // Todoalrojo navigation (same pattern as Miela)
+  useEffect(() => {
+    if (slug !== 'todoalrojo') return undefined
+    if (typeof window === 'undefined') return undefined
+
+    const stepByDir = (dir) => {
+      if (dir === 0) return
+      setTodoalrojoFrame((i) => Math.min(1, Math.max(0, i + (dir > 0 ? 1 : -1))))
+    }
+
+    const lockMs = 60
+    const onWheel = (e) => {
+      const now = Date.now()
+      const dy = e.deltaY || 0
+      if (Math.abs(dy) < 1) return
+      if (e && typeof e.preventDefault === 'function') e.preventDefault()
+      if (!wheelGestureActiveRef.current && now - lastStepTimeRef.current >= lockMs) {
+        const dir = dy > 0 ? 1 : -1
+        setEnterDirTodoalrojo(dir > 0 ? 'right' : 'left')
+        stepByDir(dir)
+        lastStepTimeRef.current = now
+        wheelGestureActiveRef.current = true
+      }
+      if (wheelGestureTimerRef.current) clearTimeout(wheelGestureTimerRef.current)
+      wheelGestureTimerRef.current = setTimeout(() => {
+        wheelGestureActiveRef.current = false
+        wheelGestureTimerRef.current = null
+      }, 60)
+    }
+
+    const onKey = (e) => {
+      const k = e.key
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
+        if (typeof e.preventDefault === 'function') e.preventDefault()
+      }
+      const now = Date.now()
+      if (now - lastStepTimeRef.current < 60) return
+      if (k === 'ArrowRight') { setEnterDirTodoalrojo('right'); stepByDir(1); lastStepTimeRef.current = now; return }
+      if (k === 'ArrowLeft')  { setEnterDirTodoalrojo('left'); stepByDir(-1); lastStepTimeRef.current = now; return }
+      if (k === 'ArrowDown' || k === 'PageDown') { setEnterDirTodoalrojo(''); stepByDir(1); lastStepTimeRef.current = now; return }
+      if (k === 'ArrowUp'   || k === 'PageUp')   { setEnterDirTodoalrojo(''); stepByDir(-1); lastStepTimeRef.current = now; return }
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKey)
+      if (wheelGestureTimerRef.current) clearTimeout(wheelGestureTimerRef.current)
+    }
+  }, [slug])
 
   return (
     <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
@@ -598,12 +658,77 @@ function CreativeDesignerCaseDetail() {
           </>
         )}
 
-        {/* Todoalrojo: two-column body layout */}
+        {/* Todoalrojo: two-column body layout with navigation */}
         {slug === 'todoalrojo' && (
-          <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center">
-            <div className="grid grid-cols-2 gap-6 md:gap-8 w-full max-w-[1400px] h-[80%] px-[clamp(12px,3vw,24px)]">
-              <div className="h-full"></div>
-              <div className="h-full"></div>
+          <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center relative">
+            <div className="relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh] px-[clamp(12px,3vw,24px)]">
+              {/* Frame 0: todoalrojo-dashboard + todo-1 */}
+              <div className="absolute inset-0 grid grid-cols-[50%_50%] gap-12 md:gap-16 2xl:gap-24" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todoalrojoDashboard}
+                      alt="Todoalrojo Dashboard"
+                      decoding="async"
+                      loading="eager"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.png' }}
+                    />
+                  </div>
+                </div>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todo1}
+                      alt="Todo 1"
+                      decoding="async"
+                      loading="eager"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-1.png' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Frame 1: todo-2 + vip (left) + todoalrojo-leaderboard (right) */}
+              <div className="absolute inset-0 grid grid-cols-[50%_50%] gap-12 md:gap-16 2xl:gap-24" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+                <div className="h-full flex flex-col justify-end">
+                  {/* Todo-2 on top with 50px margin from VIP */}
+                  <div className={`mb-[50px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todo2}
+                      alt="Todo 2"
+                      decoding="async"
+                      loading="lazy"
+                      className="w-auto max-w-full h-auto object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-2.png' }}
+                    />
+                  </div>
+                  {/* VIP image at bottom, full width and rounded */}
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todoalrojoVip}
+                      alt="Todoalrojo VIP"
+                      decoding="async"
+                      loading="lazy"
+                      className="w-full h-auto object-cover"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-vip.png' }}
+                    />
+                  </div>
+                </div>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todoalrojoLeaderboard}
+                      alt="Todoalrojo Leaderboard"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.png' }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -882,6 +1007,17 @@ function CreativeDesignerCaseDetail() {
         </div>
       )}
 
+      {/* Fixed indicators 50px above carousel — for Todoalrojo */}
+      {slug === 'todoalrojo' && (
+        <div className="todoalrojo-dots-fixed" aria-hidden>
+          <div className="flex justify-center">
+            {Array.from({ length: 2 }).map((_, idx) => (
+              <div key={`todo-dot-${idx}`} className={`dot ${todoalrojoFrame === idx ? 'active' : ''}`} />
+            ))}
+          </div>
+        </div>
+      )}
+
       <style>{`
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
         .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background: rgba(0,0,0,0.35); z-index: 1; pointer-events: none; }
@@ -976,6 +1112,10 @@ function CreativeDesignerCaseDetail() {
         .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
         .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .miela-dots-fixed .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+
+        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 50px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
+        .todoalrojo-dots-fixed .dot { width: 5.7px; height: 5.7px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+        .todoalrojo-dots-fixed .dot.active { width: 7.6px; height: 7.6px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
         /* Nudge hero images down on short-height screens */
         @media (max-height: 800px) {
@@ -1116,6 +1256,11 @@ function CreativeDesignerCaseDetail() {
 
         /* Hide navbar while lightbox open */
         .lightbox-open .liquid-glass-header { display: none !important; }
+
+        /* Ultrawide screen responsiveness for todoalrojo (3440px+) */
+        @media (min-width: 3440px) {
+          .todoalrojo-ultrawide-adjust { max-width: 2400px !important; }
+        }
       `}</style>
     </div>
   )
