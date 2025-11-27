@@ -24,8 +24,11 @@ const rojoBannerSeq = Array.from({ length: 10 }, (_, i) => rojoBanners[i % rojoB
 const todoalrojoDashboard = `${import.meta.env.BASE_URL}todoalrojo-dashboard.png`
 const todoalrojoLeaderboard = `${import.meta.env.BASE_URL}todoalrojo-leaderboard.png`
 const todoalrojoVip = `${import.meta.env.BASE_URL}todoalrojo-vip.png`
+const todoalrojoTask = `${import.meta.env.BASE_URL}todoalrojo-task.png`
+const todoalrojoShop = `${import.meta.env.BASE_URL}todoalrojo-shop.png`
 const todo1 = `${import.meta.env.BASE_URL}todo-1.png`
 const todo2 = `${import.meta.env.BASE_URL}todo-2.png`
+const todo3 = `${import.meta.env.BASE_URL}todo-3.png`
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
@@ -80,7 +83,7 @@ function CreativeDesignerCaseDetail() {
   const [enterDirMobile, setEnterDirMobile] = useState('')   // for horizontal-only animation: '' | 'left' | 'right'
 
   // Todoalrojo navigation state
-  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..1 for now (2 images)
+  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..3 (4 frames)
   const [enterDirTodoalrojo, setEnterDirTodoalrojo] = useState('')
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
@@ -370,7 +373,7 @@ function CreativeDesignerCaseDetail() {
 
     const stepByDir = (dir) => {
       if (dir === 0) return
-      setTodoalrojoFrame((i) => Math.min(1, Math.max(0, i + (dir > 0 ? 1 : -1))))
+      setTodoalrojoFrame((i) => Math.min(3, Math.max(0, i + (dir > 0 ? 1 : -1))))
     }
 
     const lockMs = 60
@@ -661,9 +664,9 @@ function CreativeDesignerCaseDetail() {
         {/* Todoalrojo: two-column body layout with navigation */}
         {slug === 'todoalrojo' && (
           <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center relative">
-            <div className="relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh] px-[clamp(12px,3vw,24px)]">
+            <div className="relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh]">
               {/* Frame 0: todoalrojo-dashboard + todo-1 */}
-              <div className="absolute inset-0 grid grid-cols-[50%_50%] gap-12 md:gap-16 2xl:gap-24" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+              <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
                     <img
@@ -690,11 +693,67 @@ function CreativeDesignerCaseDetail() {
                 </div>
               </div>
 
-              {/* Frame 1: todo-2 + vip (left) + todoalrojo-leaderboard (right) */}
-              <div className="absolute inset-0 grid grid-cols-[50%_50%] gap-12 md:gap-16 2xl:gap-24" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+              {/* Frame 1: todoalrojo-task (left) + todo-2 (right) */}
+              <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todoalrojoTask}
+                      alt="Todoalrojo Task"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.png' }}
+                    />
+                  </div>
+                </div>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todo2}
+                      alt="Todo 2"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-2.png' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Frame 2: todoalrojo-shop (left) + todo-3 (right) */}
+              <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 2 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todoalrojoShop}
+                      alt="Todoalrojo Shop"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.png' }}
+                    />
+                  </div>
+                </div>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todo3}
+                      alt="Todo 3"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-3.png' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Frame 3: todo-2 + vip (left) + todoalrojo-leaderboard (right) */}
+              <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 3 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex flex-col justify-end">
                   {/* Todo-2 on top with 50px margin from VIP */}
-                  <div className={`mb-[50px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                  <div className={`mb-[50px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todo2}
                       alt="Todo 2"
@@ -705,7 +764,7 @@ function CreativeDesignerCaseDetail() {
                     />
                   </div>
                   {/* VIP image at bottom, full width and rounded */}
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoVip}
                       alt="Todoalrojo VIP"
@@ -717,7 +776,7 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoLeaderboard}
                       alt="Todoalrojo Leaderboard"
@@ -1011,7 +1070,7 @@ function CreativeDesignerCaseDetail() {
       {slug === 'todoalrojo' && (
         <div className="todoalrojo-dots-fixed" aria-hidden>
           <div className="flex justify-center">
-            {Array.from({ length: 2 }).map((_, idx) => (
+            {Array.from({ length: 4 }).map((_, idx) => (
               <div key={`todo-dot-${idx}`} className={`dot ${todoalrojoFrame === idx ? 'active' : ''}`} />
             ))}
           </div>
