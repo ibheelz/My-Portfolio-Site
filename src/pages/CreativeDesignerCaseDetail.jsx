@@ -601,7 +601,7 @@ function CreativeDesignerCaseDetail() {
         {/* Todoalrojo: two-column body layout */}
         {slug === 'todoalrojo' && (
           <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full max-w-[1400px] h-[80%] px-[clamp(12px,3vw,24px)]">
+            <div className="grid grid-cols-2 gap-6 md:gap-8 w-full max-w-[1400px] h-[80%] px-[clamp(12px,3vw,24px)]">
               <div className="h-full"></div>
               <div className="h-full"></div>
             </div>
