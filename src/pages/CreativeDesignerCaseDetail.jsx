@@ -19,6 +19,9 @@ const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png`
 const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png`
 const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
+const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
+const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
+const martellVideo = `${import.meta.env.BASE_URL}martel-video.mp4`
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
@@ -73,6 +76,95 @@ function CreativeDesignerCaseDetail() {
   const pointerStartXRef = useRef(0)
   const pointerActiveRef = useRef(false)
   const [martellPlaying, setMartellPlaying] = useState(false)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxClosing, setLightboxClosing] = useState(false)
+  const [lightboxEntering, setLightboxEntering] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [enterDir, setEnterDir] = useState(null)
+  const lightboxRef = useRef(null)
+  const closeBtnRef = useRef(null)
+  const thumbsScrollRef = useRef(null)
+  const thumbsInnerRef = useRef(null)
+
+  const martellGallery = [
+    { type: 'video', src: martellVideo },
+    { type: 'image', src: martelDayImage, thumb: martelDayImage },
+  ]
+
+  // Lock scroll when lightbox/modal open and hide navbar
+  useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    if (lightboxOpen) {
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      html.classList.add('lightbox-open')
+      body.classList.add('lightbox-open')
+    } else {
+      html.style.overflow = '';
+      body.style.overflow = '';
+      html.classList.remove('lightbox-open')
+      body.classList.remove('lightbox-open')
+    }
+    return () => {
+      html.style.overflow = '';
+      body.style.overflow = '';
+      html.classList.remove('lightbox-open')
+      body.classList.remove('lightbox-open')
+    }
+  }, [lightboxOpen])
+
+  // Keyboard: Escape/Arrows inside lightbox
+  useEffect(() => {
+    if (!lightboxOpen) return undefined
+    const onKey = (e) => {
+      if (e.key === 'Escape') handleCloseLightbox()
+      else if (e.key === 'ArrowRight') nextImage()
+      else if (e.key === 'ArrowLeft') prevImage()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightboxOpen, currentIndex])
+
+  // Entrance animation toggles
+  const enterTimerRef = useRef(null)
+  useEffect(() => {
+    if (lightboxOpen) {
+      setLightboxEntering(true)
+      if (enterTimerRef.current) clearTimeout(enterTimerRef.current)
+      enterTimerRef.current = setTimeout(() => setLightboxEntering(false), 1600)
+    } else {
+      setLightboxEntering(false)
+    }
+    return () => { if (enterTimerRef.current) clearTimeout(enterTimerRef.current) }
+  }, [lightboxOpen])
+
+  const openLightboxAt = (index) => {
+    setCurrentIndex(index)
+    setLightboxOpen(true)
+  }
+  const handleCloseLightbox = () => {
+    setLightboxClosing(true)
+    setTimeout(() => { setLightboxOpen(false); setLightboxClosing(false) }, 140)
+  }
+  const nextImage = () => {
+    setEnterDir('left')
+    setCurrentIndex((i) => (i + 1) % martellGallery.length)
+  }
+  const prevImage = () => {
+    setEnterDir('right')
+    setCurrentIndex((i) => (i - 1 + martellGallery.length) % martellGallery.length)
+  }
+
+  // Simple touch swipe for lightbox
+  const touchStartXRef2 = useRef(0)
+  const onTouchStart = (e) => { if (!lightboxOpen) return; if (e.touches && e.touches[0]) touchStartXRef2.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (!lightboxOpen) return
+    const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchStartXRef2.current
+    const dx = endX - touchStartXRef2.current
+    if (Math.abs(dx) > 28) { if (dx < 0) nextImage(); else prevImage() }
+  }
   useEffect(() => {
     if (slug !== 'miela') return undefined
     if (typeof window === 'undefined') return undefined
@@ -449,13 +541,13 @@ function CreativeDesignerCaseDetail() {
         {/* Martell: split the page into two equal columns under the navbar */}
         {slug === 'martell' && (
           <div className="w-full h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10">
-            <div className="grid grid-cols-1 md:grid-cols-[max-content_1fr] gap-4 md:gap-6 w-full h-full">
-              <div className="relative rounded-none h-full px-[20px] md:pl-[100px] md:pr-[80px] flex items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full">
+              <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Video layer (70% viewport height) */}
                 <div className="relative h-[70dvh] w-full flex items-center justify-center">
-                  <div className="h-full w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto">
+                  <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto">
                     <video
-                      src={`${import.meta.env.BASE_URL}martel-video.mp4`}
+                      src={martellVideo}
                       className="block h-full w-auto max-w-full object-contain"
                       autoPlay
                       muted
@@ -471,7 +563,128 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
               </div>
-              <div className="bg-transparent rounded-none h-full" />
+              <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
+                {/* Right column: 70% Martell-1 image + 30% day image */}
+                <div className="relative h-[70dvh] w-full flex items-center justify-center">
+                  <div className="h-[90%] w-full mx-auto md:mr-[100px] flex flex-col items-center justify-start">
+                    <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px]">
+                      <img
+                        src={martellImage1}
+                        alt="Martell artwork"
+                        decoding="async"
+                        loading="eager"
+                        className="block h-full w-full object-contain"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.png' }}
+                      />
+                    </div>
+                    <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden">
+                      <img
+                        src={martelDayImage}
+                        alt="Martell day visual"
+                        decoding="async"
+                        loading="lazy"
+                        className="block w-full h-auto object-contain cursor-pointer rounded-[28px] md:rounded-[24px]"
+                        onClick={() => openLightboxAt(1)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(1) }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {(slug === 'martell') && (lightboxOpen || lightboxClosing) && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Martell gallery"
+            className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+            onClick={handleCloseLightbox}
+            style={{
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
+            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); prevImage() }}>
+              <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            </button>
+            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); nextImage() }}>
+              <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+            <div
+              ref={lightboxRef}
+              className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="lightbox-image-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                {martellGallery[currentIndex].type === 'video' ? (
+                  <video
+                    key={`v-${currentIndex}`}
+                    src={martellGallery[currentIndex].src}
+                    className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
+                    onAnimationEnd={() => setEnterDir(null)}
+                  />
+                ) : (
+                  <img
+                    key={`i-${currentIndex}`}
+                    src={martellGallery[currentIndex].src}
+                    alt="Martell gallery item"
+                    decoding="async"
+                    fetchpriority="high"
+                    loading="eager"
+                    className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                    onAnimationEnd={() => setEnterDir(null)}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
+                  />
+                )}
+              </div>
+            </div>
+            <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+              <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
+                <div className="thumbs-inner" ref={thumbsInnerRef}>
+                  {martellGallery.map((it, i) => (
+                    <button
+                      key={i}
+                      role="option"
+                      aria-selected={i === currentIndex}
+                      className={`thumb ${i === currentIndex ? 'thumb-active' : ''} ${it.type === 'video' ? 'video-thumb' : ''}`}
+                      onClick={() => setCurrentIndex(i)}
+                      title={`View ${it.type}`}
+                    >
+                      {it.type === 'video' ? (
+                        <video
+                          src={it.src}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      ) : (
+                        <img src={it.thumb || it.src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -606,7 +819,75 @@ function CreativeDesignerCaseDetail() {
           .miela-mobile-no-scroll .miela-hero-in { padding-top: 0 !important; }
         }
 
-        
+        /* Lightbox (same style as Posters & Flyers) */
+        .lightbox-overlay {
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          display: flex; align-items: center; justify-content: center;
+          opacity: 0; transition: opacity 120ms ease;
+          overflow: hidden; overscroll-behavior: contain;
+        }
+        .lightbox-fade-in { opacity: 1; }
+        .lightbox-fade-out { opacity: 0; }
+        .lightbox-modal {
+          position: relative; width: min(70vw, 1200px); max-height: 80vh;
+          background: rgba(20,20,22,0.2); border-radius: 16px; overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #e7f2f8;
+          transform: scale(0.98); transform-origin: center center;
+          transition: transform 120ms ease; opacity: 0;
+        }
+        .scale-in { transform: scale(1); opacity: 1; }
+        .scale-out { transform: scale(0.98); }
+        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(24px) scale(0.99); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-pop-in { animation: modalPopIn 1200ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+        @keyframes controlsPopIn { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
+        .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
+        .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
+        .chevron-content { display: inline-flex; align-items: center; justify-content: center; }
+        .lightbox-close {
+          position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001;
+          width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+          background: transparent; color: #ffffff; border: none; font-size: 24px; line-height: 1; font-weight: 600; border-radius: 8px;
+        }
+        .lightbox-close:hover { background: #ec6d6c; color: #ffffff; }
+        .lightbox-close:active { background: #ec6d6c; color: #ffffff; }
+        .lightbox-chevron {
+          position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
+          width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
+          background: rgba(0,0,0,0.45); color: #fff;
+          display: inline-flex; align-items: center; justify-content: center;
+          transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+        }
+        .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
+        .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
+        .lightbox-chevron:hover { background: #ed6d6d; border-color: #ed6d6d; color: #ffffff; }
+        .lightbox-chevron:active { background: #d95857; border-color: #d95857; color: #ffffff; }
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
+        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: cover; object-position: top center; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
+        @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
+        @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
+        .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
+        .lightbox-thumbs-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+        .lightbox-thumbs-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
+        .thumbs-inner { display: inline-block; white-space: nowrap; }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; position: relative; }
+        .thumb:hover { transform: translateY(-1px); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+        .thumb-active { border-color: #ed6d6d; }
+        .thumb.video-thumb::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.1), rgba(0,0,0,0.35)); }
+        .thumb.video-thumb::before { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 0; height: 0; border-left: 12px solid #fff; border-top: 8px solid transparent; border-bottom: 8px solid transparent; opacity: 0.9; }
+        @media (max-width: 768px) {
+          .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; }
+          .lightbox-image-wrap { padding: 12px 12px 90px; }
+          .lightbox-chevron { display: none; }
+        @media (prefers-reduced-motion: reduce) { .img-enter-left, .img-enter-right { animation-duration: 0ms; } }
+        }
+
+        /* Hide navbar while lightbox open */
+        .lightbox-open .liquid-glass-header { display: none !important; }
       `}</style>
     </div>
   )
