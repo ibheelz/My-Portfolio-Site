@@ -29,6 +29,17 @@ const todoalrojoShop = `${import.meta.env.BASE_URL}todoalrojo-shop.png`
 const todo1 = `${import.meta.env.BASE_URL}todo-1.png`
 const todo2 = `${import.meta.env.BASE_URL}todo-2.png`
 const todo3 = `${import.meta.env.BASE_URL}todo-3.png`
+const todo4 = `${import.meta.env.BASE_URL}todo-4.png`
+const todo5 = `${import.meta.env.BASE_URL}todo-5.png`
+const todoMobile1 = `${import.meta.env.BASE_URL}todo-mobile-1.png`
+const todoMobile2 = `${import.meta.env.BASE_URL}todo-mobile-2.png`
+const todoMobile3 = `${import.meta.env.BASE_URL}todo-mobile-3.png`
+const todoMobile5 = `${import.meta.env.BASE_URL}todo-mobile-5.png`
+const todoMobile4 = `${import.meta.env.BASE_URL}todo-mobile-4.png`
+const todoalrojo1 = `${import.meta.env.BASE_URL}todoalrojo-1.webp`
+const todoalrojo2 = `${import.meta.env.BASE_URL}todoalrojo-2.webp`
+const todoalrojo3 = `${import.meta.env.BASE_URL}todoalrojo-3.webp`
+const todoalrojoCards = [1,2,3,4].map(n => `${import.meta.env.BASE_URL}todoalrojo-card-${n}.png`)
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
@@ -83,7 +94,7 @@ function CreativeDesignerCaseDetail() {
   const [enterDirMobile, setEnterDirMobile] = useState('')   // for horizontal-only animation: '' | 'left' | 'right'
 
   // Todoalrojo navigation state
-  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..3 (4 frames)
+  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..4 (5 frames)
   const [enterDirTodoalrojo, setEnterDirTodoalrojo] = useState('')
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
@@ -100,6 +111,15 @@ function CreativeDesignerCaseDetail() {
   const [lightboxEntering, setLightboxEntering] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [enterDir, setEnterDir] = useState(null)
+  const [rojoSlide, setRojoSlide] = useState(0) // 0 or 1 for slide 5 bottom slideshow
+  const [rojoCardsSlide, setRojoCardsSlide] = useState(0) // 0 or 1 for right-column cards slideshow
+  const [todoEntryAnim, setTodoEntryAnim] = useState(false)
+  const [todoMobileDir, setTodoMobileDir] = useState('') // '' | 'left' | 'right'
+  const [todoMobileKey, setTodoMobileKey] = useState(0)
+  const todoMobileTimerRef = useRef(null)
+  const [todoMobileVertDir, setTodoMobileVertDir] = useState('') // '' | 'up' | 'down'
+  const todoMobileVertTimerRef = useRef(null)
+  const TOTAL_TODO_FRAMES = 5
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const thumbsScrollRef = useRef(null)
@@ -111,6 +131,15 @@ function CreativeDesignerCaseDetail() {
     { type: 'image', src: martellImage2, thumb: martellImage2 },
     { type: 'image', src: martellImage3, thumb: martellImage3 },
     { type: 'video', src: martellVideo2 },
+  ]
+
+  // Todoalrojo lightbox gallery (images only)
+  const todoalrojoGallery = [
+    { type: 'image', src: todoalrojoDashboard, thumb: todoalrojoDashboard },
+    { type: 'image', src: todoalrojoLeaderboard, thumb: todoalrojoLeaderboard },
+    { type: 'image', src: todoalrojoVip, thumb: todoalrojoVip },
+    { type: 'image', src: todoalrojoTask, thumb: todoalrojoTask },
+    { type: 'image', src: todoalrojoShop, thumb: todoalrojoShop },
   ]
 
   // Lock scroll when lightbox/modal open and hide navbar
@@ -138,6 +167,16 @@ function CreativeDesignerCaseDetail() {
 
   // Keyboard: Escape/Arrows inside lightbox
   useEffect(() => {
+    // Trigger a one-time entry animation for Todoalrojo columns on page load
+    if (slug === 'todoalrojo') {
+      setTodoEntryAnim(true)
+      const t = setTimeout(() => setTodoEntryAnim(false), 1000)
+      return () => clearTimeout(t)
+    }
+    return undefined
+  }, [slug])
+
+  useEffect(() => {
     if (!lightboxOpen) return undefined
     const onKey = (e) => {
       if (e.key === 'Escape') handleCloseLightbox()
@@ -147,6 +186,23 @@ function CreativeDesignerCaseDetail() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [lightboxOpen, currentIndex])
+
+  // Simple looping slideshow for Todoalrojo slide 5 bottom panel (toggle between -1 and -2)
+  useEffect(() => {
+    if (slug !== 'todoalrojo') return undefined
+    if (todoalrojoFrame !== 4) return undefined
+    // Slow, subtle crossfade every ~6.5s
+    const id = setInterval(() => setRojoSlide((i) => (i + 1) % 2), 6500)
+    return () => clearInterval(id)
+  }, [slug, todoalrojoFrame])
+
+  // Faster 3s interval for right-column cards crossfade
+  useEffect(() => {
+    if (slug !== 'todoalrojo') return undefined
+    if (todoalrojoFrame !== 4) return undefined
+    const id = setInterval(() => setRojoCardsSlide((i) => (i + 1) % 2), 3000)
+    return () => clearInterval(id)
+  }, [slug, todoalrojoFrame])
 
   // Entrance animation toggles
   const enterTimerRef = useRef(null)
@@ -180,12 +236,50 @@ function CreativeDesignerCaseDetail() {
 
   // Simple touch swipe for lightbox
   const touchStartXRef2 = useRef(0)
+  const todoTouchStartYRef = useRef(0)
   const onTouchStart = (e) => { if (!lightboxOpen) return; if (e.touches && e.touches[0]) touchStartXRef2.current = e.touches[0].clientX }
   const onTouchEnd = (e) => {
     if (!lightboxOpen) return
     const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchStartXRef2.current
     const dx = endX - touchStartXRef2.current
     if (Math.abs(dx) > 28) { if (dx < 0) nextImage(); else prevImage() }
+  }
+
+  // Todoalrojo mobile swipe (stacked mobile view): swipe up/down to change frames
+  const onTodoMobileTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return
+    todoTouchStartYRef.current = e.touches[0].clientY
+    touchStartXRef.current = e.touches[0].clientX
+  }
+  const onTodoMobileTouchEnd = (e) => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return
+    const endY = e.changedTouches[0].clientY
+    const endX = e.changedTouches[0].clientX
+    const dy = endY - (todoTouchStartYRef.current || 0)
+    const dx = endX - (touchStartXRef.current || 0)
+    const threshold = 14
+    if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
+    // Horizontal swipe: next/prev frame with left/right slide animation
+    if (Math.abs(dx) > Math.abs(dy)) {
+      const dir = dx < 0 ? 1 : -1
+      const d = dir > 0 ? 'right' : 'left'
+      setEnterDirTodoalrojo(d)
+      setTodoMobileDir(d)
+      setTodoalrojoFrame((i) => (i + dir + TOTAL_TODO_FRAMES) % TOTAL_TODO_FRAMES)
+      if (todoMobileTimerRef.current) clearTimeout(todoMobileTimerRef.current)
+      todoMobileTimerRef.current = setTimeout(() => { setTodoMobileDir(''); setEnterDirTodoalrojo('') }, 900)
+    } else {
+      // Vertical swipe: next/prev without directional slide
+      const dir = dy < 0 ? 1 : -1
+      setEnterDirTodoalrojo('')
+      // set vertical animation direction similar to Miela's gentle fade/slide
+      const vd = dir > 0 ? 'up' : 'down'
+      setTodoMobileVertDir(vd)
+      setTodoMobileKey((k) => k + 1)
+      if (todoMobileVertTimerRef.current) clearTimeout(todoMobileVertTimerRef.current)
+      todoMobileVertTimerRef.current = setTimeout(() => setTodoMobileVertDir(''), 900)
+      setTodoalrojoFrame((i) => (i + dir + TOTAL_TODO_FRAMES) % TOTAL_TODO_FRAMES)
+    }
   }
 
   // Scroll-reveal for Martell sections (gentle, slow)
@@ -373,7 +467,7 @@ function CreativeDesignerCaseDetail() {
 
     const stepByDir = (dir) => {
       if (dir === 0) return
-      setTodoalrojoFrame((i) => Math.min(3, Math.max(0, i + (dir > 0 ? 1 : -1))))
+      setTodoalrojoFrame((i) => (i + (dir > 0 ? 1 : -1) + TOTAL_TODO_FRAMES) % TOTAL_TODO_FRAMES)
     }
 
     const lockMs = 60
@@ -419,15 +513,15 @@ function CreativeDesignerCaseDetail() {
   }, [slug])
 
   return (
-    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
 
       {/* Navbar (same style as case study) */}
       <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
-        <img decoding="async" src="/left.svg" alt="" className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left svg-gold sub-anim-svg-left" />
-        <img decoding="async" src="/right.svg" alt="" className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right svg-gold sub-anim-svg-right" />
+        <img decoding="async" src="/left.svg" alt="" className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left sub-anim-svg-left" />
+        <img decoding="async" src="/right.svg" alt="" className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-right sub-anim-svg-right" />
 
         <div className="absolute left-[clamp(16px,3vw,40px)] w-auto">
           <button
@@ -664,23 +758,28 @@ function CreativeDesignerCaseDetail() {
         {/* Todoalrojo: two-column body layout with navigation */}
         {slug === 'todoalrojo' && (
           <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center relative">
-            <div className="relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh]">
+            {/* Desktop/Tablet (md+): original 2-column carousel */}
+            <div className="hidden md:block relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh] todoalrojo-desktop">
               {/* Frame 0: todoalrojo-dashboard + todo-1 */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoDashboard}
                       alt="Todoalrojo Dashboard"
                       decoding="async"
                       loading="eager"
-                      className="max-w-full max-h-[70vh] object-contain"
+                      className="max-w-full max-h-[70vh] object-contain cursor-pointer"
+                      onClick={() => openLightboxAt(0)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.png' }}
                     />
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                  <div className={`max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todo1}
                       alt="Todo 1"
@@ -702,7 +801,11 @@ function CreativeDesignerCaseDetail() {
                       alt="Todoalrojo Task"
                       decoding="async"
                       loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain"
+                      className="max-w-full max-h-[70vh] object-contain cursor-pointer"
+                      onClick={() => openLightboxAt(3)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(3) }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.png' }}
                     />
                   </div>
@@ -730,7 +833,11 @@ function CreativeDesignerCaseDetail() {
                       alt="Todoalrojo Shop"
                       decoding="async"
                       loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain"
+                      className="max-w-full max-h-[70vh] object-contain cursor-pointer"
+                      onClick={() => openLightboxAt(4)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(4) }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.png' }}
                     />
                   </div>
@@ -749,18 +856,18 @@ function CreativeDesignerCaseDetail() {
                 </div>
               </div>
 
-              {/* Frame 3: todo-2 + vip (left) + todoalrojo-leaderboard (right) */}
+              {/* Frame 3: todo-4 + vip (left) + todoalrojo-leaderboard (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 3 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex flex-col justify-end">
-                  {/* Todo-2 on top with 50px margin from VIP */}
-                  <div className={`mb-[50px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                  {/* Todo-4 on top with 50px margin from VIP */}
+                  <div className={`mb-[50px] mt-[60px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
-                      src={todo2}
-                      alt="Todo 2"
+                      src={todo4}
+                      alt="Todo 4"
                       decoding="async"
                       loading="lazy"
                       className="w-auto max-w-full h-auto object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-2.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-4.png' }}
                     />
                   </div>
                   {/* VIP image at bottom, full width and rounded */}
@@ -775,7 +882,7 @@ function CreativeDesignerCaseDetail() {
                     />
                   </div>
                 </div>
-                <div className="h-full flex items-center justify-center">
+                <div className="h-full flex items-end justify-center">
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoLeaderboard}
@@ -786,6 +893,207 @@ function CreativeDesignerCaseDetail() {
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.png' }}
                     />
                   </div>
+                </div>
+              </div>
+
+              {/* Frame 4: todo-5 (top-left) + rojo-3 full-width under; right column 2x2 cards */}
+              <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 4 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+                {/* Left column: split into two rows, fill parent (each row = 1fr) */}
+                <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-start ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todo5}
+                      alt="Todo 5"
+                      decoding="async"
+                      loading="lazy"
+                      className="w-[85%] h-[85%] object-contain"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-5.png' }}
+                    />
+                  </div>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden relative ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                    <img
+                      src={todoalrojo1}
+                      alt="Todoalrojo slide 1"
+                      decoding="async"
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                      style={{ opacity: rojoSlide === 0 ? 1 : 0, transition: 'opacity 2400ms ease-in-out', willChange: 'opacity' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-1.webp' }}
+                    />
+                    <img
+                      src={todoalrojo2}
+                      alt="Todoalrojo slide 2"
+                      decoding="async"
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                      style={{ opacity: rojoSlide === 1 ? 1 : 0, transition: 'opacity 2400ms ease-in-out', willChange: 'opacity' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-2.webp' }}
+                    />
+                    {/* Background fallback (3) visible briefly while first image fades in */}
+                    <img
+                      src={todoalrojo3}
+                      alt="Todoalrojo background"
+                      decoding="async"
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                      style={{ opacity: 0.0001 }}
+                      aria-hidden
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-3.webp' }}
+                    />
+                  </div>
+                </div>
+                {/* Right column: single row, two cards side-by-side using full column height; bottom-aligned; crossfade 1↔3 and 2↔4 */}
+                <div className={`h-full min-h-0 grid grid-cols-2 gap-x-[20px] items-end ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                  {/* Left cell: card-1 ⇄ card-3, each image in its own wrapper using 90% height, bottom-aligned (no gap) */}
+                  <div className="relative h-full min-h-0 overflow-hidden">
+                    <div
+                      className="absolute left-0 right-0 bottom-0 h-[90%]"
+                      style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                    >
+                      <img
+                        src={todoalrojoCards[0]}
+                        alt="Todoalrojo card 1"
+                        decoding="async"
+                        loading="lazy"
+                        className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.png' }}
+                      />
+                    </div>
+                    <div
+                      className="absolute left-0 right-0 bottom-0 h-[90%]"
+                      style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                    >
+                      <img
+                        src={todoalrojoCards[2]}
+                        alt="Todoalrojo card 3"
+                        decoding="async"
+                        loading="lazy"
+                        className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.png' }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Right cell: card-2 ⇄ card-4, each image in its own wrapper using 90% height, bottom-aligned (no gap) */}
+                  <div className="relative h-full min-h-0 overflow-hidden">
+                    <div
+                      className="absolute left-0 right-0 bottom-0 h-[90%]"
+                      style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                    >
+                      <img
+                        src={todoalrojoCards[1]}
+                        alt="Todoalrojo card 2"
+                        decoding="async"
+                        loading="lazy"
+                        className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.png' }}
+                      />
+                    </div>
+                    <div
+                      className="absolute left-0 right-0 bottom-0 h-[90%]"
+                      style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                    >
+                      <img
+                        src={todoalrojoCards[3]}
+                        alt="Todoalrojo card 4"
+                        decoding="async"
+                        loading="lazy"
+                        className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.png' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
+            <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
+              <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
+                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[40vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                  <img
+                    src={
+                      todoalrojoFrame === 0 ? todoMobile1 :
+                      (todoalrojoFrame === 2 ? todoMobile3 :
+                      (todoalrojoFrame === 3 ? todoMobile4 :
+                      (todoalrojoFrame === 4 ? todoMobile5 : todoMobile2)))
+                    }
+                    alt={
+                      todoalrojoFrame === 0 ? 'Todo mobile 1 (mobile-specific)' :
+                      (todoalrojoFrame === 2 ? 'Todo mobile 3 (mobile-specific)' :
+                      (todoalrojoFrame === 3 ? 'Todo mobile 4 (mobile-specific)' :
+                      (todoalrojoFrame === 4 ? 'Todo mobile 5 (mobile-specific)' : 'Todo mobile 2 (mobile-specific)')))
+                    }
+                    decoding="async"
+                    loading="eager"
+                    className={`block w-full h-full object-contain object-center rounded-[clamp(10px,1vw,18px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todo-mobile-1.png' : (todoalrojoFrame === 2 ? '/todo-mobile-3.png' : (todoalrojoFrame === 3 ? '/todo-mobile-4.png' : (todoalrojoFrame === 4 ? '/todo-mobile-5.png' : '/todo-mobile-2.png')))) }}
+                  />
+                </div>
+                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] mt-[30px] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                  {todoalrojoFrame === 4 ? (
+                    <div className="grid grid-cols-2 h-full gap-x-[20px] items-end">
+                      {/* Left card stack: 1 ⇄ 3 */}
+                      <div className="relative h-full min-h-0 overflow-hidden rounded-[clamp(16px,2.5vw,28px)]">
+                        <img
+                          src={todoalrojoCards[0]}
+                          alt="Todoalrojo card 1"
+                          decoding="async"
+                          loading="lazy"
+                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                          style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.png' }}
+                        />
+                        <img
+                          src={todoalrojoCards[2]}
+                          alt="Todoalrojo card 3"
+                          decoding="async"
+                          loading="lazy"
+                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                          style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.png' }}
+                        />
+                      </div>
+                      {/* Right card stack: 2 ⇄ 4 */}
+                      <div className="relative h-full min-h-0 overflow-hidden rounded-[clamp(16px,2.5vw,28px)]">
+                        <img
+                          src={todoalrojoCards[1]}
+                          alt="Todoalrojo card 2"
+                          decoding="async"
+                          loading="lazy"
+                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                          style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.png' }}
+                        />
+                        <img
+                          src={todoalrojoCards[3]}
+                          alt="Todoalrojo card 4"
+                          decoding="async"
+                          loading="lazy"
+                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                          style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.png' }}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <img
+                      src={
+                        todoalrojoFrame === 0 ? todoalrojoDashboard :
+                        (todoalrojoFrame === 2 ? todoalrojoShop :
+                        (todoalrojoFrame === 3 ? todoalrojoVip : todoalrojoTask))
+                      }
+                      alt={
+                        todoalrojoFrame === 0 ? 'Todoalrojo Dashboard' :
+                        (todoalrojoFrame === 2 ? 'Todoalrojo Shop' :
+                        (todoalrojoFrame === 3 ? 'Todoalrojo VIP' : 'Todoalrojo Task'))
+                      }
+                      decoding="async"
+                      loading="lazy"
+                      className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(16px,2.5vw,28px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.png' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.png' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.png' : '/todoalrojo-task.png'))) }}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -832,12 +1140,12 @@ function CreativeDesignerCaseDetail() {
 
         {/* Martell: split the page into two equal columns under the navbar */}
         {slug === 'martell' && (
-          <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10 lg:pt-[100px]">
+          <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10 lg:pt-0">
             {/* Large screens (lg+): two columns */}
             <div className="hidden lg:grid lg:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
-                {/* Video layer (70% viewport height) */}
-                <div className="relative h-[70dvh] w-full flex items-center justify-center compat-dvh">
+                {/* Video layer: 90% of page height (minus navbar) */}
+                <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
                   <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner">
                     <video
                       src={martellVideo1}
@@ -862,9 +1170,9 @@ function CreativeDesignerCaseDetail() {
                 </div>
               </div>
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
-                {/* Right column: 70% Martell-1 image + 30% day image */}
-                <div className="relative h-[70dvh] w-full flex items-center justify-center compat-dvh">
-                  <div className="h-[90%] w-full mx-auto md:mr-[100px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
+                {/* Right column container: 90% of page height (minus navbar) */}
+                <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
+                  <div className="h-[90%] w-full mx-auto lg:ml-[-30px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
                     <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top">
                       <img
                         src={martellImage1}
@@ -1048,6 +1356,70 @@ function CreativeDesignerCaseDetail() {
             </div>
           </div>
         )}
+
+        {(slug === 'todoalrojo') && (lightboxOpen || lightboxClosing) && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Todoalrojo gallery"
+            className={`fixed inset-0 z[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+            onClick={handleCloseLightbox}
+            style={{
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
+            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setEnterDir('right'); setCurrentIndex((i)=> (i - 1 + todoalrojoGallery.length) % todoalrojoGallery.length) }}>
+              <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            </button>
+            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); setEnterDir('left'); setCurrentIndex((i)=> (i + 1) % todoalrojoGallery.length) }}>
+              <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+            <div
+              ref={lightboxRef}
+              className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="lightbox-image-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                <img
+                  key={`t-i-${currentIndex}`}
+                  src={todoalrojoGallery[currentIndex % todoalrojoGallery.length].src}
+                  alt="Todoalrojo gallery item"
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
+                  className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                  onAnimationEnd={() => setEnterDir(null)}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.png' }}
+                />
+              </div>
+            </div>
+            <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+              <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
+                <div className="thumbs-inner" ref={thumbsInnerRef}>
+                  {todoalrojoGallery.map((it, i) => (
+                    <button
+                      key={`t-${i}`}
+                      role="option"
+                      aria-selected={i === currentIndex}
+                      className={`thumb ${i === currentIndex ? 'thumb-active' : ''}`}
+                      onClick={() => setCurrentIndex(i)}
+                      title={`View image ${i+1}`}
+                    >
+                      <img src={it.thumb || it.src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Fixed indicators 10px above carousel (all screens) — only for Miela */}
@@ -1070,7 +1442,7 @@ function CreativeDesignerCaseDetail() {
       {slug === 'todoalrojo' && (
         <div className="todoalrojo-dots-fixed" aria-hidden>
           <div className="flex justify-center">
-            {Array.from({ length: 4 }).map((_, idx) => (
+            {Array.from({ length: 5 }).map((_, idx) => (
               <div key={`todo-dot-${idx}`} className={`dot ${todoalrojoFrame === idx ? 'active' : ''}`} />
             ))}
           </div>
@@ -1167,12 +1539,23 @@ function CreativeDesignerCaseDetail() {
         }
         .miela-enter-left  { animation: mielaEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
         .miela-enter-right { animation: mielaEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        /* Vertical mobile entrance (gentle) */
+        @keyframes mielaEnterU {
+          0%   { opacity: 0; transform: translateY(16px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes mielaEnterD {
+          0%   { opacity: 0; transform: translateY(-16px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .miela-enter-up   { animation: mielaEnterU 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
+        .miela-enter-down { animation: mielaEnterD 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
 
         .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
         .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .miela-dots-fixed .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
-        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 50px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
+        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
         .todoalrojo-dots-fixed .dot { width: 5.7px; height: 5.7px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .todoalrojo-dots-fixed .dot.active { width: 7.6px; height: 7.6px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
@@ -1272,6 +1655,8 @@ function CreativeDesignerCaseDetail() {
           .martell-bottom { display: none !important; }
         }
 
+        
+
         /* Very slow, subtle image sway */
         @keyframes slowSway {
           0%   { transform: translateY(0) scale(1); }
@@ -1300,7 +1685,7 @@ function CreativeDesignerCaseDetail() {
 
         /* Dynamic viewport fallback: older browsers use vh instead of dvh */
         @supports not (height: 1dvh) {
-          .compat-dvh { height: 70vh !important; }
+          .compat-dvh { height: calc(100vh - var(--nav-h)) !important; }
         }
 
         
@@ -1319,6 +1704,20 @@ function CreativeDesignerCaseDetail() {
         /* Ultrawide screen responsiveness for todoalrojo (3440px+) */
         @media (min-width: 3440px) {
           .todoalrojo-ultrawide-adjust { max-width: 2400px !important; }
+        }
+
+        /* Force mobile layout on portrait devices (e.g., Zenbook Fold portrait) */
+        @media (orientation: portrait) {
+          .todoalrojo-desktop { display: none !important; }
+          .todoalrojo-mobile { display: block !important; }
+        }
+        /* Reduce overall top spacing by 30px for Todoalrojo */
+        .todoalrojo-compact .header-spacer { height: max(0px, calc(var(--nav-h) - 30px)) !important; }
+
+        /* Mobile: reduce top spacer/nav height for Todoalrojo */
+        @media (max-width: 768px) {
+          .todoalrojo-mobile-compact { --nav-h: 48px; }
+          .todoalrojo-mobile-compact .header-spacer { height: var(--nav-h) !important; }
         }
       `}</style>
     </div>
