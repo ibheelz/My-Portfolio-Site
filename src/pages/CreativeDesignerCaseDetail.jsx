@@ -23,6 +23,8 @@ const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
 const martellImage3 = `${import.meta.env.BASE_URL}martell-3.webp`
+const martellImage1Mobile = `${import.meta.env.BASE_URL}martell-1-mobile.png?v=4`
+const martellImage2Mobile = `${import.meta.env.BASE_URL}martell-2-mobile.png`
 const martellVideo1 = `${import.meta.env.BASE_URL}martell-video-1.mp4`
 const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
 
@@ -171,6 +173,50 @@ function CreativeDesignerCaseDetail() {
     const dx = endX - touchStartXRef2.current
     if (Math.abs(dx) > 28) { if (dx < 0) nextImage(); else prevImage() }
   }
+
+  // Scroll-reveal for Martell sections (gentle, slow)
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    const els = Array.from(document.querySelectorAll('.martell-scroll'))
+    if (els.length === 0) return undefined
+    // Fallback: if IntersectionObserver not supported, reveal immediately
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('in-view'))
+      return undefined
+    }
+    // use IntersectionObserver when available
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target
+            const d = el.getAttribute('data-delay') || '0'
+            if (d) el.style.transitionDelay = `${parseInt(d, 10)}ms`
+            el.classList.add('in-view')
+            io.unobserve(el)
+          }
+        })
+      },
+      { threshold: 0.12 }
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  // Preload key assets to avoid flashes across browsers
+  useEffect(() => {
+    const imgs = [martellImage1, martelDayImage, martellImage2, martellImage3]
+    const pool = []
+    imgs.forEach((src) => {
+      if (!src) return
+      const im = new Image()
+      im.src = src
+      pool.push(im)
+    })
+    return () => { pool.splice(0, pool.length) }
+  }, [])
+
+  
   useEffect(() => {
     if (slug !== 'miela') return undefined
     if (typeof window === 'undefined') return undefined
@@ -197,6 +243,8 @@ function CreativeDesignerCaseDetail() {
       if (e && typeof e.preventDefault === 'function') e.preventDefault()
       if (!wheelGestureActiveRef.current && now - lastStepTimeRef.current >= lockMs) {
         const dir = dy > 0 ? 1 : -1
+        // set horizontal enter direction for smoother nav on desktop
+        setEnterDirDesktop(dir > 0 ? 'right' : 'left')
         stepByDir(dir)
         lastStepTimeRef.current = now
         lastInputRef.current = { type: 'wheel', t: now }
@@ -228,12 +276,16 @@ function CreativeDesignerCaseDetail() {
       lastInputRef.current = { type: 'touch', t: now }
     }
     const onKey = (e) => {
+      const k = e.key
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
+        if (typeof e.preventDefault === 'function') e.preventDefault()
+      }
       const now = Date.now()
       if (now - lastStepTimeRef.current < 60) return
-      if (["ArrowRight"].includes(e.key)) { setEnterDirDesktop('left'); stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
-      if (["ArrowLeft"].includes(e.key))  { setEnterDirDesktop('right'); stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
-      if (['ArrowDown','PageDown'].includes(e.key)) { setEnterDirDesktop(''); stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
-      if (['ArrowUp','PageUp'].includes(e.key))   { setEnterDirDesktop(''); stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } }
+      if (k === 'ArrowRight') { setEnterDirDesktop('right'); stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } ; return }
+      if (k === 'ArrowLeft')  { setEnterDirDesktop('left'); stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } ; return }
+      if (k === 'ArrowDown' || k === 'PageDown') { setEnterDirDesktop(''); stepByDir(1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } ; return }
+      if (k === 'ArrowUp'   || k === 'PageUp')   { setEnterDirDesktop(''); stepByDir(-1); lastStepTimeRef.current = now; lastInputRef.current = { type: 'key', t: now } ; return }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('wheel', onWheel, { passive: false })
@@ -357,7 +409,7 @@ function CreativeDesignerCaseDetail() {
                   decoding="async"
                   loading="eager"
                   fetchpriority="high"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 0 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 0 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 0 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 0 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1-mobile.png' }}
                 />
@@ -366,7 +418,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 2 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 1 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 1 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 1 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 1 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2-mobile.png' }}
                 />
@@ -375,7 +427,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 3 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 2 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 2 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 2 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 2 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3-mobile.png' }}
                 />
@@ -384,7 +436,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 4 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 3 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 3 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 3 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 3 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4-mobile.png' }}
                 />
@@ -393,7 +445,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 5 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 4 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 4 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 4 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 4 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5-mobile.png' }}
                 />
@@ -402,7 +454,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 6 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 5 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 5 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 5 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 5 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 5 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.png' }}
                 />
@@ -411,7 +463,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 7 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 6 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 6 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 6 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 6 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 6 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-7-mobile.png' }}
                 />
@@ -420,7 +472,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 8 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 7 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 7 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 7 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 7 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 7 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-8-mobile.png' }}
                 />
@@ -429,7 +481,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 9 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 8 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 8 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 8 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 8 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 8 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.png' }}
                 />
@@ -438,7 +490,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 10 (mobile)"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 9 ? 'img-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 9 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 9 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 9 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 9 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-10-mobile.png' }}
                 />
@@ -454,7 +506,7 @@ function CreativeDesignerCaseDetail() {
                   decoding="async"
                   loading="eager"
                   fetchpriority="high"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 0 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 0 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 0 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 0 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 0 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
                 />
@@ -463,7 +515,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 2"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 1 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 1 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 1 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 1 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 1 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
                 />
@@ -472,7 +524,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 3"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 2 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 2 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 2 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 2 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
                 />
@@ -481,7 +533,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 4"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 3 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 3 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 3 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 3 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 3 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.png' }}
                 />
@@ -490,7 +542,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 5"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 4 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 4 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 4 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 4 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 4 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.png' }}
                 />
@@ -499,7 +551,7 @@ function CreativeDesignerCaseDetail() {
                   alt="Miela case artwork 6"
                   decoding="async"
                   loading="lazy"
-                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 5 ? 'img-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 5 ? 'img-enter-right' : ''}`}
+                  className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 5 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 5 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 5 ? 1 : 0 }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.png' }}
                 />
@@ -546,15 +598,17 @@ function CreativeDesignerCaseDetail() {
 
         {/* Martell: split the page into two equal columns under the navbar */}
         {slug === 'martell' && (
-          <div className="w-full h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10">
-            <div className="grid grid-cols-1 md:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
+          <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10 lg:pt-[100px]">
+            {/* Large screens (lg+): two columns */}
+            <div className="hidden lg:grid lg:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Video layer (70% viewport height) */}
-                <div className="relative h-[70dvh] w-full flex items-center justify-center">
+                <div className="relative h-[70dvh] w-full flex items-center justify-center compat-dvh">
                   <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner">
                     <video
                       src={martellVideo1}
-                      className="block h-full w-auto max-w-full object-contain cursor-pointer"
+                      className="block h-full w-auto max-w-full object-contain cursor-pointer martell-enter martell-delay-1"
+                      poster={martellImage1}
                       autoPlay
                       muted
                       loop
@@ -575,7 +629,7 @@ function CreativeDesignerCaseDetail() {
               </div>
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Right column: 70% Martell-1 image + 30% day image */}
-                <div className="relative h-[70dvh] w-full flex items-center justify-center">
+                <div className="relative h-[70dvh] w-full flex items-center justify-center compat-dvh">
                   <div className="h-[90%] w-full mx-auto md:mr-[100px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
                     <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top">
                       <img
@@ -583,7 +637,7 @@ function CreativeDesignerCaseDetail() {
                         alt="Martell artwork"
                         decoding="async"
                         loading="eager"
-                        className="block h-full w-full object-contain"
+                        className="block h-full w-full object-contain slow-sway martell-enter martell-delay-1"
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.png' }}
                       />
                     </div>
@@ -593,7 +647,7 @@ function CreativeDesignerCaseDetail() {
                         alt="Martell day visual"
                         decoding="async"
                         loading="lazy"
-                        className="block w-full h-auto object-contain cursor-pointer rounded-[28px] md:rounded-[24px]"
+                        className="block w-full h-auto object-contain cursor-pointer rounded-[28px] md:rounded-[24px] slow-sway martell-enter martell-delay-2"
                         onClick={() => openLightboxAt(1)}
                         role="button"
                         tabIndex={0}
@@ -602,6 +656,67 @@ function CreativeDesignerCaseDetail() {
                       />
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tablet and smaller (lg-): stacked order */}
+            <div className="lg:hidden w-full px-[clamp(12px,3vw,24px)] mb-[20px] martell-ipad">
+              <div className="w-full mx-auto flex flex-col items-center justify-start gap-8 md:gap-12 martell-stack">
+                {/* 1) martell-1-mobile on top */}
+                <div className="w-full mt-[30px] martell-scroll martell-hero-mobile" data-delay="80">
+                  <img
+                    src={martellImage1Mobile}
+                    alt="Martell mobile hero"
+                    decoding="async"
+                    loading="eager"
+                    className="block w-full h-auto object-contain slow-sway martell-enter martell-delay-1"
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1-mobile.png' }}
+                  />
+                </div>
+                {/* 2) martell video (left column video) */}
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="140">
+                  <video
+                    src={martellVideo1}
+                    className="block w-full h-auto object-contain cursor-pointer martell-enter martell-delay-2"
+                    poster={martellImage1}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
+                    onClick={() => openLightboxAt(0)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
+                  />
+                </div>
+                {/* 3) martell-2-mobile image */}
+                <div className="w-full martell-scroll" data-delay="200">
+                  <img
+                    src={martellImage2Mobile}
+                    alt="Martell mobile secondary"
+                    decoding="async"
+                    loading="lazy"
+                    className="block w-full h-auto object-contain slow-sway martell-enter martell-delay-3"
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-2-mobile.png' }}
+                  />
+                </div>
+                {/* 4) martell day image (click to open lightbox) */}
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="260">
+                  <img
+                    src={martelDayImage}
+                    alt="Martell day visual"
+                    decoding="async"
+                    loading="lazy"
+                    className="block w-full h-auto object-contain cursor-pointer slow-sway martell-enter martell-delay-4"
+                    onClick={() => openLightboxAt(1)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(1) }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
+                  />
                 </div>
               </div>
             </div>
@@ -642,6 +757,7 @@ function CreativeDesignerCaseDetail() {
                     key={`v-${currentIndex}`}
                     src={martellGallery[currentIndex].src}
                     className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
+                    poster={martellImage1}
                     controls
                     autoPlay
                     muted
@@ -793,17 +909,17 @@ function CreativeDesignerCaseDetail() {
           box-shadow: 0 0 8px rgba(255,255,255,0.5);
         }
 
-        /* Lightbox-like horizontal enter for hero images */
-        @keyframes imgEnterL {
-          0%   { opacity: 0; filter: blur(6px); margin-left: 36px; }
-          100% { opacity: 1; filter: blur(0);   margin-left: 0; }
-        }
-        @keyframes imgEnterR {
+        /* Miela hero horizontal enter (margin-left to preserve absolute centering) */
+        @keyframes mielaEnterL {
           0%   { opacity: 0; filter: blur(6px); margin-left: -36px; }
           100% { opacity: 1; filter: blur(0);   margin-left: 0; }
         }
-        .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
-        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes mielaEnterR {
+          0%   { opacity: 0; filter: blur(6px); margin-left: 36px; }
+          100% { opacity: 1; filter: blur(0);   margin-left: 0; }
+        }
+        .miela-enter-left  { animation: mielaEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .miela-enter-right { animation: mielaEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
 
         .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
         .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
@@ -903,6 +1019,47 @@ function CreativeDesignerCaseDetail() {
           /* Show only Martell-1 (top) and let it fill the right container */
           .martell-top { height: 100% !important; width: 100% !important; margin-bottom: 0 !important; }
           .martell-bottom { display: none !important; }
+        }
+
+        /* Very slow, subtle image sway */
+        @keyframes slowSway {
+          0%   { transform: translateY(0) scale(1); }
+          50%  { transform: translateY(-6px) scale(1.008); }
+          100% { transform: translateY(0) scale(1); }
+        }
+        .slow-sway { animation: slowSway 26s ease-in-out infinite; will-change: transform; transform-origin: center center; }
+        @media (prefers-reduced-motion: reduce) { .slow-sway { animation: none !important; } }
+
+        /* Soft on-load entrance for Martell media */
+        @keyframes martellEnter {
+          0%   { opacity: 0; transform: translateY(18px) scale(0.992); }
+          100% { opacity: 1; transform: translateY(0)     scale(1); }
+        }
+        .martell-enter { opacity: 0; animation: martellEnter 1800ms cubic-bezier(0.2, 0.85, 0.2, 1) both; will-change: transform, opacity; }
+        .martell-delay-1 { animation-delay: 140ms; }
+        .martell-delay-2 { animation-delay: 300ms; }
+        .martell-delay-3 { animation-delay: 460ms; }
+        .martell-delay-4 { animation-delay: 620ms; }
+        @media (prefers-reduced-motion: reduce) { .martell-enter { animation: none !important; opacity: 1 !important; } }
+
+        /* Scroll reveal (very gentle) */
+        .martell-scroll { opacity: 0; transform: translateY(22px) scale(0.996); transition: opacity 1200ms ease, transform 1200ms cubic-bezier(0.2, 0.85, 0.2, 1); will-change: transform, opacity; }
+        .martell-scroll.in-view { opacity: 1; transform: translateY(0) scale(1); }
+        @media (prefers-reduced-motion: reduce) { .martell-scroll { opacity: 1 !important; transform: none !important; } }
+
+        /* Dynamic viewport fallback: older browsers use vh instead of dvh */
+        @supports not (height: 1dvh) {
+          .compat-dvh { height: 70vh !important; }
+        }
+
+        
+
+        /* iPad mini tuning (target 744–834px widths) */
+        @media screen and (min-width: 744px) and (max-width: 834px) {
+          /* 3x increased spacing on iPad mini only */
+          .martell-ipad { padding-left: 108px !important; padding-right: 108px !important; padding-bottom: 108px !important; }
+          .martell-ipad .martell-stack { gap: 84px !important; }
+          .martell-ipad .martell-hero-mobile { margin-top: 120px !important; }
         }
 
         /* Hide navbar while lightbox open */
