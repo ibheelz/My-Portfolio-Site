@@ -21,7 +21,10 @@ const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
-const martellVideo = `${import.meta.env.BASE_URL}martel-video.mp4`
+const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
+const martellImage3 = `${import.meta.env.BASE_URL}martell-3.webp`
+const martellVideo1 = `${import.meta.env.BASE_URL}martell-video-1.mp4`
+const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
@@ -87,8 +90,11 @@ function CreativeDesignerCaseDetail() {
   const thumbsInnerRef = useRef(null)
 
   const martellGallery = [
-    { type: 'video', src: martellVideo },
+    { type: 'video', src: martellVideo1 },
     { type: 'image', src: martelDayImage, thumb: martelDayImage },
+    { type: 'image', src: martellImage2, thumb: martellImage2 },
+    { type: 'image', src: martellImage3, thumb: martellImage3 },
+    { type: 'video', src: martellVideo2 },
   ]
 
   // Lock scroll when lightbox/modal open and hide navbar
@@ -547,7 +553,7 @@ function CreativeDesignerCaseDetail() {
                 <div className="relative h-[70dvh] w-full flex items-center justify-center">
                   <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto">
                     <video
-                      src={martellVideo}
+                      src={martellVideo1}
                       className="block h-full w-auto max-w-full object-contain"
                       autoPlay
                       muted
