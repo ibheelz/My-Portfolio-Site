@@ -600,25 +600,10 @@ function CreativeDesignerCaseDetail() {
 
         {/* Todoalrojo: two-column body layout */}
         {slug === 'todoalrojo' && (
-          <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-[14vh] pt-6 md:pt-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full px-[clamp(12px,3vw,24px)]">
-              <div className="flex items-center justify-center">
-                <div className="detail-cell">
-                  <div className="gold-rect">
-                    <img
-                      className="logo-img"
-                      src={entry.white}
-                      alt={`${titles[slug]} logo`}
-                      decoding="async"
-                      loading="eager"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/logos/tojoalrojo-logo.webp' }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                {/* Right column placeholder for future content */}
-              </div>
+          <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full max-w-[1400px] h-[80%] px-[clamp(12px,3vw,24px)]">
+              <div className="h-full"></div>
+              <div className="h-full"></div>
             </div>
           </div>
         )}
