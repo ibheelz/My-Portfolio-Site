@@ -20,6 +20,7 @@ const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png`
 const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.png`)
+const rojoBannerSeq = Array.from({ length: 10 }, (_, i) => rojoBanners[i % rojoBanners.length])
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
@@ -604,7 +605,7 @@ function CreativeDesignerCaseDetail() {
               <div className="marquee-track" aria-hidden>
                 {/* group A */}
                 <div className="marquee-group">
-                  {rojoBanners.map((src, i) => (
+                  {rojoBannerSeq.map((src, i) => (
                     <img
                       key={`ra-${i}`}
                       src={src}
@@ -618,7 +619,7 @@ function CreativeDesignerCaseDetail() {
                 </div>
                 {/* group B duplicate for seamless loop */}
                 <div className="marquee-group" aria-hidden>
-                  {rojoBanners.map((src, i) => (
+                  {rojoBannerSeq.map((src, i) => (
                     <img
                       key={`rb-${i}`}
                       src={src}
@@ -924,7 +925,7 @@ function CreativeDesignerCaseDetail() {
         .marquee-group { display: flex; gap: 0; }
         .marquee-img { display: block; margin: 0; height: 25vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
         /* Todoalrojo banners use smaller height */
-        .todoalrojo-marquee .marquee-img { height: 15vh; }
+        .todoalrojo-marquee .marquee-img { height: 10vh; }
 
         @keyframes marqueeScroll {
           from { transform: translateX(0); }
