@@ -39,7 +39,7 @@ const todoMobile4 = `${import.meta.env.BASE_URL}todo-mobile-4.png`
 const todoalrojo1 = `${import.meta.env.BASE_URL}todoalrojo-1.webp`
 const todoalrojo2 = `${import.meta.env.BASE_URL}todoalrojo-2.webp`
 const todoalrojo3 = `${import.meta.env.BASE_URL}todoalrojo-3.webp`
-const todoalrojoCards = [1,2,3,4].map(n => `${import.meta.env.BASE_URL}todoalrojo-card-${n}.png`)
+const todoalrojoCards = [1,2,3,4].map(n => `${import.meta.env.BASE_URL}todoalrojo-card-${n}.webp`)
 const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
@@ -973,7 +973,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.webp' }}
                       />
                     </div>
                     <div
@@ -986,7 +986,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.webp' }}
                       />
                     </div>
                   </div>
@@ -1003,7 +1003,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.webp' }}
                       />
                     </div>
                     <div
@@ -1016,7 +1016,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className="absolute inset-x-0 bottom-0 w-full h-auto max-h-full object-contain block"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.webp' }}
                       />
                     </div>
                   </div>
@@ -1059,7 +1059,7 @@ function CreativeDesignerCaseDetail() {
                           loading="lazy"
                           className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
                           style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
-                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.png' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.webp' }}
                         />
                         <img
                           src={todoalrojoCards[2]}
@@ -1068,7 +1068,7 @@ function CreativeDesignerCaseDetail() {
                           loading="lazy"
                           className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
                           style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
-                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.png' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.webp' }}
                         />
                       </div>
                       {/* Right card stack: 2 ⇄ 4 */}
@@ -1080,7 +1080,7 @@ function CreativeDesignerCaseDetail() {
                           loading="lazy"
                           className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
                           style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
-                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.png' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.webp' }}
                         />
                         <img
                           src={todoalrojoCards[3]}
@@ -1089,7 +1089,7 @@ function CreativeDesignerCaseDetail() {
                           loading="lazy"
                           className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
                           style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
-                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.png' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.webp' }}
                         />
                       </div>
                     </div>
@@ -1510,10 +1510,10 @@ function CreativeDesignerCaseDetail() {
         .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; opacity: 1; }
         .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
         .miela-touch { touch-action: none; }
-        .swap-img { transition: opacity 1600ms ease; will-change: opacity; object-fit: contain; }
-        /* Ensure images are loaded/visible by default, then transition opacity */
-        .swap-img { opacity: 1; }
-        .swap-img[style*="opacity: 0"] { opacity: 0; }
+        .swap-img { transition: opacity 1600ms ease; will-change: opacity; object-fit: contain; opacity: 1 !important; }
+        /* Allow inline opacity to override when explicitly hidden */
+        .swap-img[style*="opacity: 0"] { opacity: 0 !important; }
+        .swap-img[style*="opacity: 1"] { opacity: 1 !important; }
         @media (prefers-reduced-motion: reduce) { .swap-img { transition-duration: 1ms; } }
 
         
