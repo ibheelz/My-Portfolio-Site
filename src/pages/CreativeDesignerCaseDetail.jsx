@@ -1027,7 +1027,7 @@ function CreativeDesignerCaseDetail() {
             {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
             <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
-                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[40vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[55vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   <img
                     src={
                       todoalrojoFrame === 0 ? todoMobile1 :
