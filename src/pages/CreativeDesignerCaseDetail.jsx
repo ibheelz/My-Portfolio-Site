@@ -1510,10 +1510,9 @@ function CreativeDesignerCaseDetail() {
         .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; opacity: 1; }
         .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
         .miela-touch { touch-action: none; }
-        .swap-img { transition: opacity 1600ms ease; will-change: opacity; object-fit: contain; opacity: 1 !important; }
-        /* Allow inline opacity to override when explicitly hidden */
-        .swap-img[style*="opacity: 0"] { opacity: 0 !important; }
-        .swap-img[style*="opacity: 1"] { opacity: 1 !important; }
+        .swap-img { transition: opacity 1600ms ease; will-change: opacity; object-fit: contain; }
+        /* Ensure inline opacity styles work correctly */
+        .swap-img { opacity: 1; }
         @media (prefers-reduced-motion: reduce) { .swap-img { transition-duration: 1ms; } }
 
         
