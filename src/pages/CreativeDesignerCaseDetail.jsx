@@ -875,9 +875,9 @@ function CreativeDesignerCaseDetail() {
 
               {/* Frame 3: todo-4 + vip (left) + todoalrojo-leaderboard (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 3 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
-                <div className="h-full flex flex-col justify-end">
-                  {/* Todo-4 on top with 50px margin from VIP */}
-                  <div className={`mb-[50px] mt-[60px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                <div className="h-full flex flex-col justify-center items-center gap-8">
+                  {/* Todo-4 on top with spacing from VIP */}
+                  <div className={`${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todo4}
                       alt="Todo 4"
@@ -887,8 +887,8 @@ function CreativeDesignerCaseDetail() {
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-4.png' }}
                     />
                   </div>
-                  {/* VIP image at bottom, full width and rounded */}
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                  {/* VIP image, rounded and constrained */}
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoVip}
                       alt="Todoalrojo VIP"
@@ -899,8 +899,8 @@ function CreativeDesignerCaseDetail() {
                     />
                   </div>
                 </div>
-                <div className="h-full flex items-end justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoLeaderboard}
                       alt="Todoalrojo Leaderboard"
@@ -915,7 +915,7 @@ function CreativeDesignerCaseDetail() {
 
               {/* Frame 4: todo-5 (top-left) + rojo-3 full-width under; right column 2x2 cards */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 4 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
-                {/* Left column: split into two rows, fill parent (each row = 1fr) */}
+                {/* Left column: split into two rows, fill parent */}
                 <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-center ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                     <img
@@ -959,8 +959,8 @@ function CreativeDesignerCaseDetail() {
                     />
                   </div>
                 </div>
-                {/* Right column: single row, two cards side-by-side using full column height; bottom-aligned; crossfade 1↔3 and 2↔4 */}
-                <div className={`h-full min-h-0 grid grid-cols-2 gap-x-[20px] items-end ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                {/* Right column: cards side-by-side, allow overflow at bottom */}
+                <div className={`grid grid-cols-2 gap-x-[20px] items-end pb-[40px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                   {/* Left cell: card-1 ⇄ card-3, each image in its own wrapper using 90% height, bottom-aligned (no gap) */}
                   <div className="relative h-full min-h-0 overflow-hidden">
                     <div
