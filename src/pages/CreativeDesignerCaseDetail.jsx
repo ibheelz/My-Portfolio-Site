@@ -1107,7 +1107,7 @@ function CreativeDesignerCaseDetail() {
                       }
                       decoding="async"
                       loading="lazy"
-                      className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(16px,2.5vw,28px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                      className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(20px,4vw,32px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.png' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.png' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.png' : '/todoalrojo-task.png'))) }}
                     />
                   )}
@@ -1507,7 +1507,7 @@ function CreativeDesignerCaseDetail() {
         .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; opacity: 1; }
         .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
         .miela-touch { touch-action: none; }
-        .swap-img { transition: opacity 1600ms ease; will-change: opacity; object-fit: contain; }
+        .swap-img { transition: opacity 1600ms ease; will-change: opacity; }
         /* Ensure inline opacity styles work correctly */
         .swap-img { opacity: 1; }
         @media (prefers-reduced-motion: reduce) { .swap-img { transition-duration: 1ms; } }
