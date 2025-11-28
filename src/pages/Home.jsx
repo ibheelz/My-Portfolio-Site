@@ -923,7 +923,7 @@ function Home() {
 
         /* SVG color filter - #d8ac65 */
         .svg-gold {
-          filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
+          filter: brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(589%) hue-rotate(349deg) brightness(99%) contrast(91%);
         }
 
         /* Apple-style liquid glass buttons */

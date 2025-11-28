@@ -41,7 +41,7 @@ function GameDesign() {
             onClick={() => navigate('/')}
             className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full sm:rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] whitespace-nowrap"
           >
-            <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)] svg-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             <span className="hidden sm:inline">Character Select</span>
@@ -63,7 +63,7 @@ function GameDesign() {
             onClick={() => window.open('/Resume.pdf', '_blank')}
             className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full sm:rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] cursor-pointer"
           >
-            <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)] svg-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14,2 14,8 20,8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -115,7 +115,7 @@ function GameDesign() {
 
       <style jsx>{`
         .svg-gold {
-          filter: brightness(0) saturate(100%) invert(76%) sepia(36%) saturate(459%) hue-rotate(358deg) brightness(97%) contrast(89%);
+          filter: brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(589%) hue-rotate(349deg) brightness(99%) contrast(91%);
         }
 
         .svg-left {
@@ -194,7 +194,7 @@ function GameDesign() {
           background: #ec6d6c;
           border-color: #ec6d6c;
           box-shadow: none;
-          color: #10171d;
+          color: #ffffff; /* white icons/text on hover/click */
         }
 
         /* Cards match navbar fill */
