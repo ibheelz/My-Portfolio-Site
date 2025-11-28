@@ -1027,7 +1027,7 @@ function CreativeDesignerCaseDetail() {
             {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
             <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
-                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[55vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[48vh] flex items-start ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   <img
                     src={
                       todoalrojoFrame === 0 ? todoMobile1 :
@@ -1043,11 +1043,11 @@ function CreativeDesignerCaseDetail() {
                     }
                     decoding="async"
                     loading="eager"
-                    className={`block w-full h-full object-contain object-center rounded-[clamp(10px,1vw,18px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                    className={`block w-full h-full object-contain object-top rounded-[clamp(10px,1vw,18px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todo-mobile-1.png' : (todoalrojoFrame === 2 ? '/todo-mobile-3.png' : (todoalrojoFrame === 3 ? '/todo-mobile-4.png' : (todoalrojoFrame === 4 ? '/todo-mobile-5.png' : '/todo-mobile-2.png')))) }}
                   />
                 </div>
-                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] mt-[30px] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoFrame === 4 ? (
                     <div className="grid grid-cols-2 h-full gap-x-[20px] items-end">
                       {/* Left card stack: 1 ⇄ 3 */}
