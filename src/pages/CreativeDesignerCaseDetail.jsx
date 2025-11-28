@@ -2,22 +2,22 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 
 const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
-const mielaImage = `${import.meta.env.BASE_URL}miela-1.png`
-const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png`
-const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png`
-const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.png`
-const mielaImage5 = `${import.meta.env.BASE_URL}miela-5.png`
-const mielaImage6 = `${import.meta.env.BASE_URL}miela-6.png`
-const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png`
-const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png`
-const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png`
-const mielaImageMobile4 = `${import.meta.env.BASE_URL}miela-4-mobile.png`
-const mielaImageMobile5 = `${import.meta.env.BASE_URL}miela-5-mobile.png`
-const mielaImageMobile6 = `${import.meta.env.BASE_URL}miela-6-mobile.png`
-const mielaImageMobile7 = `${import.meta.env.BASE_URL}miela-7-mobile.png`
-const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png`
-const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png`
-const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png`
+const mielaImage = `${import.meta.env.BASE_URL}miela-1.png?v=1`
+const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png?v=1`
+const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png?v=1`
+const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.png?v=1`
+const mielaImage5 = `${import.meta.env.BASE_URL}miela-5.png?v=1`
+const mielaImage6 = `${import.meta.env.BASE_URL}miela-6.png?v=1`
+const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png?v=1`
+const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png?v=1`
+const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png?v=1`
+const mielaImageMobile4 = `${import.meta.env.BASE_URL}miela-4-mobile.png?v=1`
+const mielaImageMobile5 = `${import.meta.env.BASE_URL}miela-5-mobile.png?v=1`
+const mielaImageMobile6 = `${import.meta.env.BASE_URL}miela-6-mobile.png?v=1`
+const mielaImageMobile7 = `${import.meta.env.BASE_URL}miela-7-mobile.png?v=1`
+const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png?v=1`
+const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png?v=1`
+const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png?v=1`
 const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
 const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.png`)
 const rojoBannerSeq = Array.from({ length: 10 }, (_, i) => rojoBanners[i % rojoBanners.length])
