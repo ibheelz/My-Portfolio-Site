@@ -601,6 +601,12 @@ function CreativeDesignerCaseStudy() {
         @media (min-width: 1920px) {
           .media { --frame-w: 70%; --frame-h: 70%; }
         }
+        /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
+        @media (max-width: 767px) {
+          .liquid-glass-header .glass-button svg { stroke: #e4c492; }
+          .liquid-glass-header .glass-button:hover svg,
+          .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
+        }
       `}</style>
     </div>
   )

@@ -104,6 +104,12 @@ function AICreatorCaseStudy() {
         .anim-bg-soft { animation: bgSoftIn 800ms ease-out both; }
         @keyframes subLogoSlowIn { from { transform: translateY(-40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .sub-anim-logo-slow { animation: subLogoSlowIn 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
+        @media (max-width: 767px) {
+          .liquid-glass-header .glass-button svg { stroke: #e4c492; }
+          .liquid-glass-header .glass-button:hover svg,
+          .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
+        }
       `}</style>
     </div>
   )

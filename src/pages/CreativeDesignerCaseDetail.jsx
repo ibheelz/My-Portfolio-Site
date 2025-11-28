@@ -311,9 +311,9 @@ function CreativeDesignerCaseDetail() {
     return () => io.disconnect()
   }, [])
 
-  // Preload key assets to avoid flashes across browsers
+  // Preload key assets to avoid flashes across browsers (skip martellImage1 to avoid flicker before video loads)
   useEffect(() => {
-    const imgs = [martellImage1, martelDayImage, martellImage2, martellImage3]
+    const imgs = [martelDayImage, martellImage2, martellImage3]
     const pool = []
     imgs.forEach((src) => {
       if (!src) return
@@ -1507,10 +1507,13 @@ function CreativeDesignerCaseDetail() {
         /* Miela content animations */
         @keyframes fadeUpIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
-        .miela-hero-in { opacity: 0; animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; }
+        .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; opacity: 1; }
         .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
         .miela-touch { touch-action: none; }
-        .swap-img { transition: opacity 1600ms ease; will-change: opacity; }
+        .swap-img { transition: opacity 1600ms ease; will-change: opacity; object-fit: contain; }
+        /* Ensure images are loaded/visible by default, then transition opacity */
+        .swap-img { opacity: 1; }
+        .swap-img[style*="opacity: 0"] { opacity: 0; }
         @media (prefers-reduced-motion: reduce) { .swap-img { transition-duration: 1ms; } }
 
         
@@ -1645,6 +1648,14 @@ function CreativeDesignerCaseDetail() {
         .lightbox-chevron:active { background: rgba(122,31,43,0.24); border-color: #7a1f2b; color: #7a1f2b; }
         /* Ensure nav button arrows stay gold even on hover */
         .glass-button svg.svg-gold { color: #e4c492; }
+
+        /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
+        @media (max-width: 767px) {
+          .liquid-glass-header .glass-button svg { stroke: #e4c492; }
+          .liquid-glass-header .glass-button:hover svg,
+          .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
+        }
+
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
         .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: cover; object-position: top center; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }

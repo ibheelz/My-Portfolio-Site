@@ -910,6 +910,12 @@ function Branding() {
         .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
         .thumb-active { border-color: #ed6d6d; }
         @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
+        /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
+        @media (max-width: 767px) {
+          .liquid-glass-header .glass-button svg { stroke: #e4c492; }
+          .liquid-glass-header .glass-button:hover svg,
+          .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
+        }
       `}</style>
     </div>
   )

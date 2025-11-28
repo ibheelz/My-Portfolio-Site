@@ -1186,6 +1186,12 @@ function CreativeDesigner() {
             .img-enter-left, .img-enter-right { animation-duration: 0ms; }
           }
         }
+        /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
+        @media (max-width: 767px) {
+          .liquid-glass-header .glass-button svg { stroke: #e4c492; }
+          .liquid-glass-header .glass-button:hover svg,
+          .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
+        }
       `}</style>
     </div>
   )
