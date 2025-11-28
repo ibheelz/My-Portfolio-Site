@@ -162,7 +162,7 @@ function Home() {
           aria-hidden
           className="absolute inset-0 pointer-events-none transition-opacity duration-[800ms] ease-out"
           style={{
-            backgroundImage: "url('/test.png')",
+            backgroundImage: "url('/test.webp')",
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'auto 100%',
@@ -182,7 +182,7 @@ function Home() {
           aria-hidden
           className="absolute inset-0 pointer-events-none transition-opacity duration-[800ms] ease-out"
           style={{
-            backgroundImage: "url('/testtt.png')",
+            backgroundImage: "url('/testtt.webp')",
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'auto 100%',
@@ -202,7 +202,7 @@ function Home() {
           aria-hidden
           className="absolute inset-0 pointer-events-none transition-opacity duration-[800ms] ease-out"
           style={{
-            backgroundImage: "url('/testt.png')",
+            backgroundImage: "url('/testt.webp')",
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'auto 100%',

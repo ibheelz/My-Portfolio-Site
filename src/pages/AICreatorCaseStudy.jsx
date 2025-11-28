@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
-const csBG = `${import.meta.env.BASE_URL}ai-creator-cs-BG.png`
+const csBG = `${import.meta.env.BASE_URL}ai-creator-cs-BG.webp`
 
 function AICreatorCaseStudy() {
   const navigate = useNavigate()

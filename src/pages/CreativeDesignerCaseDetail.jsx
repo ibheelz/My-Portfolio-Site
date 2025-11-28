@@ -1,61 +1,61 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 
-const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.png`
-const mielaImage = `${import.meta.env.BASE_URL}miela-1.png?v=1`
-const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.png?v=1`
-const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.png?v=1`
-const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.png?v=1`
-const mielaImage5 = `${import.meta.env.BASE_URL}miela-5.png?v=1`
-const mielaImage6 = `${import.meta.env.BASE_URL}miela-6.png?v=1`
-const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.png?v=1`
-const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.png?v=1`
-const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.png?v=1`
-const mielaImageMobile4 = `${import.meta.env.BASE_URL}miela-4-mobile.png?v=1`
-const mielaImageMobile5 = `${import.meta.env.BASE_URL}miela-5-mobile.png?v=1`
-const mielaImageMobile6 = `${import.meta.env.BASE_URL}miela-6-mobile.png?v=1`
-const mielaImageMobile7 = `${import.meta.env.BASE_URL}miela-7-mobile.png?v=1`
-const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.png?v=1`
-const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.png?v=1`
-const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.png?v=1`
-const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.png`)
-const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.png`)
+const csBG = `${import.meta.env.BASE_URL}creative-designer-cs-BG.webp`
+const mielaImage = `${import.meta.env.BASE_URL}miela-1.webp?v=1`
+const mielaImage2 = `${import.meta.env.BASE_URL}miela-2.webp?v=1`
+const mielaImage3 = `${import.meta.env.BASE_URL}miela-3.webp?v=1`
+const mielaImage4 = `${import.meta.env.BASE_URL}miela-4.webp?v=1`
+const mielaImage5 = `${import.meta.env.BASE_URL}miela-5.webp?v=1`
+const mielaImage6 = `${import.meta.env.BASE_URL}miela-6.webp?v=1`
+const mielaImageMobile = `${import.meta.env.BASE_URL}miela-1-mobile.webp?v=1`
+const mielaImageMobile2 = `${import.meta.env.BASE_URL}miela-2-mobile.webp?v=1`
+const mielaImageMobile3 = `${import.meta.env.BASE_URL}miela-3-mobile.webp?v=1`
+const mielaImageMobile4 = `${import.meta.env.BASE_URL}miela-4-mobile.webp?v=1`
+const mielaImageMobile5 = `${import.meta.env.BASE_URL}miela-5-mobile.webp?v=1`
+const mielaImageMobile6 = `${import.meta.env.BASE_URL}miela-6-mobile.webp?v=1`
+const mielaImageMobile7 = `${import.meta.env.BASE_URL}miela-7-mobile.webp?v=1`
+const mielaImageMobile8 = `${import.meta.env.BASE_URL}miela-8-mobile.webp?v=1`
+const mielaImageMobile9 = `${import.meta.env.BASE_URL}miela-9-mobile.webp?v=1`
+const mielaImageMobile10 = `${import.meta.env.BASE_URL}miela-10-mobile.webp?v=1`
+const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.webp`)
+const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.webp`)
 const rojoBannerSeq = Array.from({ length: 10 }, (_, i) => rojoBanners[i % rojoBanners.length])
-const todoalrojoDashboard = `${import.meta.env.BASE_URL}todoalrojo-dashboard.png`
-const todoalrojoLeaderboard = `${import.meta.env.BASE_URL}todoalrojo-leaderboard.png`
-const todoalrojoVip = `${import.meta.env.BASE_URL}todoalrojo-vip.png`
-const todoalrojoTask = `${import.meta.env.BASE_URL}todoalrojo-task.png`
-const todoalrojoShop = `${import.meta.env.BASE_URL}todoalrojo-shop.png`
-const todo1 = `${import.meta.env.BASE_URL}todo-1.png`
-const todo2 = `${import.meta.env.BASE_URL}todo-2.png`
-const todo3 = `${import.meta.env.BASE_URL}todo-3.png`
-const todo4 = `${import.meta.env.BASE_URL}todo-4.png`
-const todo5 = `${import.meta.env.BASE_URL}todo-5.png`
-const todoMobile1 = `${import.meta.env.BASE_URL}todo-mobile-1.png`
-const todoMobile2 = `${import.meta.env.BASE_URL}todo-mobile-2.png`
-const todoMobile3 = `${import.meta.env.BASE_URL}todo-mobile-3.png`
-const todoMobile5 = `${import.meta.env.BASE_URL}todo-mobile-5.png`
-const todoMobile4 = `${import.meta.env.BASE_URL}todo-mobile-4.png`
+const todoalrojoDashboard = `${import.meta.env.BASE_URL}todoalrojo-dashboard.webp`
+const todoalrojoLeaderboard = `${import.meta.env.BASE_URL}todoalrojo-leaderboard.webp`
+const todoalrojoVip = `${import.meta.env.BASE_URL}todoalrojo-vip.webp`
+const todoalrojoTask = `${import.meta.env.BASE_URL}todoalrojo-task.webp`
+const todoalrojoShop = `${import.meta.env.BASE_URL}todoalrojo-shop.webp`
+const todo1 = `${import.meta.env.BASE_URL}todo-1.webp`
+const todo2 = `${import.meta.env.BASE_URL}todo-2.webp`
+const todo3 = `${import.meta.env.BASE_URL}todo-3.webp`
+const todo4 = `${import.meta.env.BASE_URL}todo-4.webp`
+const todo5 = `${import.meta.env.BASE_URL}todo-5.webp`
+const todoMobile1 = `${import.meta.env.BASE_URL}todo-mobile-1.webp`
+const todoMobile2 = `${import.meta.env.BASE_URL}todo-mobile-2.webp`
+const todoMobile3 = `${import.meta.env.BASE_URL}todo-mobile-3.webp`
+const todoMobile5 = `${import.meta.env.BASE_URL}todo-mobile-5.webp`
+const todoMobile4 = `${import.meta.env.BASE_URL}todo-mobile-4.webp`
 const todoalrojo1 = `${import.meta.env.BASE_URL}todoalrojo-1.webp`
 const todoalrojo2 = `${import.meta.env.BASE_URL}todoalrojo-2.webp`
 const todoalrojo3 = `${import.meta.env.BASE_URL}todoalrojo-3.webp`
 const todoalrojoCards = [1,2,3,4].map(n => `${import.meta.env.BASE_URL}todoalrojo-card-${n}.webp`)
-const martellImage1 = `${import.meta.env.BASE_URL}martell-1.png`
+const martellImage1 = `${import.meta.env.BASE_URL}martell-1.webp`
 const martelDayImage = `${import.meta.env.BASE_URL}martel-day.webp`
 const martellImage2 = `${import.meta.env.BASE_URL}martell-2.webp`
 const martellImage3 = `${import.meta.env.BASE_URL}martell-3.webp`
-const martellImage1Mobile = `${import.meta.env.BASE_URL}martell-1-mobile.png?v=4`
-const martellImage2Mobile = `${import.meta.env.BASE_URL}martell-2-mobile.png`
+const martellImage1Mobile = `${import.meta.env.BASE_URL}martell-1-mobile.webp?v=4`
+const martellImage2Mobile = `${import.meta.env.BASE_URL}martell-2-mobile.webp`
 const martellVideo1 = `${import.meta.env.BASE_URL}martell-video-1.mp4`
 const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
   martell: {
-    black: `${import.meta.env.BASE_URL}logos/martell-white.png`,
-    white: `${import.meta.env.BASE_URL}logos/martell-white.png`,
-    fallbackBlack: '/logos/martell-white.png',
-    fallbackWhite: '/logos/martell-white.png',
+    black: `${import.meta.env.BASE_URL}logos/martell-white.webp`,
+    white: `${import.meta.env.BASE_URL}logos/martell-white.webp`,
+    fallbackBlack: '/logos/martell-white.webp',
+    fallbackWhite: '/logos/martell-white.webp',
   },
   todoalrojo: {
     black: `${import.meta.env.BASE_URL}logos/tojoalrojo-logo.webp`,
@@ -64,16 +64,16 @@ const logos = {
     fallbackWhite: '/logos/tojoalrojo-logo.webp',
   },
   miela: {
-    black: `${import.meta.env.BASE_URL}logos/miela-white.png`,
-    white: `${import.meta.env.BASE_URL}logos/miela-white.png`,
-    fallbackBlack: '/logos/miela-white.png',
-    fallbackWhite: '/logos/miela-white.png',
+    black: `${import.meta.env.BASE_URL}logos/miela-white.webp`,
+    white: `${import.meta.env.BASE_URL}logos/miela-white.webp`,
+    fallbackBlack: '/logos/miela-white.webp',
+    fallbackWhite: '/logos/miela-white.webp',
   },
   mielo: {
-    black: `${import.meta.env.BASE_URL}logos/mielo-white.png`,
-    white: `${import.meta.env.BASE_URL}logos/mielo-white.png`,
-    fallbackBlack: '/logos/mielo-white.png',
-    fallbackWhite: '/logos/mielo-white.png',
+    black: `${import.meta.env.BASE_URL}logos/mielo-white.webp`,
+    white: `${import.meta.env.BASE_URL}logos/mielo-white.webp`,
+    fallbackBlack: '/logos/mielo-white.webp',
+    fallbackWhite: '/logos/mielo-white.webp',
   },
 }
 
@@ -587,7 +587,7 @@ function CreativeDesignerCaseDetail() {
                   fetchpriority="high"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 0 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 0 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 0 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile2}
@@ -596,7 +596,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 1 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 1 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 1 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile3}
@@ -605,7 +605,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 2 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 2 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 2 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile4}
@@ -614,7 +614,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 3 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 3 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 3 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile5}
@@ -623,7 +623,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 4 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 4 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 4 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile6}
@@ -632,7 +632,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 5 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 5 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 5 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile7}
@@ -641,7 +641,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 6 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 6 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 6 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-7-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-7-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile8}
@@ -650,7 +650,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 7 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 7 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 7 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-8-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-8-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile9}
@@ -659,7 +659,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 8 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 8 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 8 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-9-mobile.webp' }}
                 />
                 <img
                   src={mielaImageMobile10}
@@ -668,7 +668,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] h-[60vh] w-auto max-w-[94vw] object-contain ${enterDirMobile === 'left' && mobileFrame === 9 ? 'miela-enter-left' : ''} ${enterDirMobile === 'right' && mobileFrame === 9 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: mobileFrame === 9 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-10-mobile.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-10-mobile.webp' }}
                 />
               </div>
             </div>
@@ -684,7 +684,7 @@ function CreativeDesignerCaseDetail() {
                   fetchpriority="high"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 0 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 0 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 0 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-1.webp' }}
                 />
                 <img
                   src={mielaImage2}
@@ -693,7 +693,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 1 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 1 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 1 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-2.webp' }}
                 />
                 <img
                   src={mielaImage3}
@@ -702,7 +702,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 2 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 2 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 2 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-3.webp' }}
                 />
                 <img
                   src={mielaImage4}
@@ -711,7 +711,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 3 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 3 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 3 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.webp' }}
                 />
                 <img
                   src={mielaImage5}
@@ -720,7 +720,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[54vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 4 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 4 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 4 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-5.webp' }}
                 />
                 <img
                   src={mielaImage6}
@@ -729,7 +729,7 @@ function CreativeDesignerCaseDetail() {
                   loading="lazy"
                   className={`swap-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-auto max-w-[94vw] h-[58vh] object-contain ${enterDirDesktop === 'left' && desktopFrame === 5 ? 'miela-enter-left' : ''} ${enterDirDesktop === 'right' && desktopFrame === 5 ? 'miela-enter-right' : ''}`}
                   style={{ opacity: desktopFrame === 5 ? 1 : 0 }}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.webp' }}
                 />
               </div>
             </div>
@@ -748,7 +748,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className="marquee-img"
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.png` }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.webp` }}
                       />
                     ))}
                 </div>
@@ -762,7 +762,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className="marquee-img"
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.png` }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.webp` }}
                       />
                     ))}
                   </div>
@@ -791,7 +791,7 @@ function CreativeDesignerCaseDetail() {
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.webp' }}
                     />
                   </div>
                 </div>
@@ -803,7 +803,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="eager"
                       className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-1.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-1.webp' }}
                     />
                   </div>
                 </div>
@@ -823,7 +823,7 @@ function CreativeDesignerCaseDetail() {
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(3) }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.webp' }}
                     />
                   </div>
                 </div>
@@ -835,7 +835,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-2.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-2.webp' }}
                     />
                   </div>
                 </div>
@@ -855,7 +855,7 @@ function CreativeDesignerCaseDetail() {
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(4) }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.webp' }}
                     />
                   </div>
                 </div>
@@ -867,7 +867,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-3.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-3.webp' }}
                     />
                   </div>
                 </div>
@@ -884,7 +884,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="w-auto max-w-full h-auto object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-4.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-4.webp' }}
                     />
                   </div>
                   {/* VIP image, rounded and constrained */}
@@ -895,7 +895,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="w-full h-auto object-cover"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-vip.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-vip.webp' }}
                     />
                   </div>
                 </div>
@@ -907,7 +907,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.webp' }}
                     />
                   </div>
                 </div>
@@ -924,7 +924,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="w-full h-full object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-5.png' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-5.webp' }}
                     />
                   </div>
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden relative ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
@@ -1044,7 +1044,7 @@ function CreativeDesignerCaseDetail() {
                     decoding="async"
                     loading="eager"
                     className={`block w-full h-full object-contain object-top rounded-[clamp(10px,1vw,18px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todo-mobile-1.png' : (todoalrojoFrame === 2 ? '/todo-mobile-3.png' : (todoalrojoFrame === 3 ? '/todo-mobile-4.png' : (todoalrojoFrame === 4 ? '/todo-mobile-5.png' : '/todo-mobile-2.png')))) }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todo-mobile-1.webp' : (todoalrojoFrame === 2 ? '/todo-mobile-3.webp' : (todoalrojoFrame === 3 ? '/todo-mobile-4.webp' : (todoalrojoFrame === 4 ? '/todo-mobile-5.webp' : '/todo-mobile-2.webp')))) }}
                   />
                 </div>
                 <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
@@ -1108,7 +1108,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(20px,4vw,32px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.png' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.png' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.png' : '/todoalrojo-task.png'))) }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.webp' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.webp' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.webp' : '/todoalrojo-task.webp'))) }}
                     />
                   )}
                 </div>
@@ -1132,7 +1132,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="marquee-img"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/rojo-banner-${(i%2)+1}.png` }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/rojo-banner-${(i%2)+1}.webp` }}
                     />
                   ))}
                 </div>
@@ -1146,7 +1146,7 @@ function CreativeDesignerCaseDetail() {
                       decoding="async"
                       loading="lazy"
                       className="marquee-img"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/rojo-banner-${(i%2)+1}.png` }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/rojo-banner-${(i%2)+1}.webp` }}
                     />
                   ))}
                 </div>
@@ -1196,7 +1196,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="eager"
                         className="block h-full w-full object-contain slow-sway martell-enter martell-delay-1"
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.png' }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.webp' }}
                       />
                     </div>
                     <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden martell-bottom">
@@ -1229,7 +1229,7 @@ function CreativeDesignerCaseDetail() {
                     decoding="async"
                     loading="eager"
                     className="block w-full h-auto object-contain slow-sway martell-enter martell-delay-1"
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1-mobile.png' }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1-mobile.webp' }}
                   />
                 </div>
                 {/* 2) martell video (left column video) */}
@@ -1257,7 +1257,7 @@ function CreativeDesignerCaseDetail() {
                     decoding="async"
                     loading="lazy"
                     className="block w-full h-auto object-contain slow-sway martell-enter martell-delay-3"
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-2-mobile.png' }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-2-mobile.webp' }}
                   />
                 </div>
                 {/* 4) martell day image (click to open lightbox) */}
@@ -1410,7 +1410,7 @@ function CreativeDesignerCaseDetail() {
                   loading="eager"
                   className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
                   onAnimationEnd={() => setEnterDir(null)}
-                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.png' }}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.webp' }}
                 />
               </div>
             </div>
