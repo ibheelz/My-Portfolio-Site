@@ -1626,22 +1626,24 @@ function CreativeDesignerCaseDetail() {
         .chevron-content { display: inline-flex; align-items: center; justify-content: center; }
         .lightbox-close {
           position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001;
-          width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
-          background: transparent; color: #7a1f2b; border: none; font-size: 24px; line-height: 1; font-weight: 600; border-radius: 8px;
+          width: 32px; height: 32px;
+          display: inline-flex; align-items: center; justify-content: center;
+          background: transparent; color: #ffffff; border: none;
+          font-size: 24px; line-height: 1; font-weight: 600; border-radius: 8px;
         }
-        .lightbox-close:hover { background: rgba(122,31,43,0.18); color: #7a1f2b; }
-        .lightbox-close:active { background: rgba(122,31,43,0.24); color: #7a1f2b; }
+        .lightbox-close:hover { background: #7a1f2b; color: #ffffff; }
+        .lightbox-close:active { background: #7a1f2b; color: #ffffff; }
         .lightbox-chevron {
           position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
-          width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #7a1f2b;
-          background: rgba(0,0,0,0.45); color: #7a1f2b;
+          width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
+          background: rgba(0,0,0,0.45); color: #fff;
           display: inline-flex; align-items: center; justify-content: center;
           transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
         }
         .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
         .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
-        .lightbox-chevron:hover { background: rgba(122,31,43,0.18); border-color: #7a1f2b; color: #7a1f2b; }
-        .lightbox-chevron:active { background: rgba(122,31,43,0.24); border-color: #7a1f2b; color: #7a1f2b; }
+        .lightbox-chevron:hover { background: rgba(122,31,43,0.9); border-color: #7a1f2b; color: #ffffff; }
+        .lightbox-chevron:active { background: rgba(122,31,43,1); border-color: #7a1f2b; color: #ffffff; }
         /* Ensure nav button arrows stay gold even on hover */
         .glass-button svg.svg-gold { color: #e4c492; }
 
