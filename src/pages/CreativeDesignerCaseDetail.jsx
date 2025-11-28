@@ -917,13 +917,13 @@ function CreativeDesignerCaseDetail() {
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 4 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 {/* Left column: split into two rows, fill parent (each row = 1fr) */}
                 <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-start ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-center ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todo5}
                       alt="Todo 5"
                       decoding="async"
                       loading="lazy"
-                      className="w-[85%] h-[85%] object-contain"
+                      className="w-full h-full object-contain"
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-5.png' }}
                     />
                   </div>
