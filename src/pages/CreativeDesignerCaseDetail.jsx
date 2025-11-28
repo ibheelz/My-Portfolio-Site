@@ -1167,7 +1167,6 @@ function CreativeDesignerCaseDetail() {
                     <video
                       src={martellVideo1}
                       className="block h-full w-auto max-w-full object-contain cursor-pointer martell-enter martell-delay-1"
-                      poster={martellImage1}
                       autoPlay
                       muted
                       loop
@@ -1238,7 +1237,6 @@ function CreativeDesignerCaseDetail() {
                   <video
                     src={martellVideo1}
                     className="block w-full h-auto object-contain cursor-pointer martell-enter martell-delay-2"
-                    poster={martellImage1}
                     autoPlay
                     muted
                     loop
@@ -1316,7 +1314,6 @@ function CreativeDesignerCaseDetail() {
                     key={`v-${currentIndex}`}
                     src={martellGallery[currentIndex].src}
                     className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
-                    poster={martellImage1}
                     controls
                     autoPlay
                     muted
