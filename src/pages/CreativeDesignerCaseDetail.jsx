@@ -1578,6 +1578,7 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-marquee .marquee-img { height: 8vh; }
           .marquee-track {
             animation: marqueeScroll 40s linear infinite !important;
+            -webkit-animation: marqueeScroll 40s linear infinite !important;
           }
         }
 
