@@ -5,7 +5,7 @@ function Home() {
   const [hoveredChar, setHoveredChar] = useState(null)
   const [clickedChar, setClickedChar] = useState(null)
   const [bigCharAnimation, setBigCharAnimation] = useState(null)
-  const [activeSlide, setActiveSlide] = useState(2)
+  const [activeSlide, setActiveSlide] = useState(1) // Default to Creative Designer on mobile (was 2 for AI Creator)
   const [hasSwipedFromFirst, setHasSwipedFromFirst] = useState(false)
   const [expandedDesc, setExpandedDesc] = useState(null)
   const [sliderReady, setSliderReady] = useState(false)
@@ -91,33 +91,33 @@ function Home() {
     return () => slider.removeEventListener('scroll', handleScroll)
   }, [hasSwipedFromFirst])
 
-  // Mobile: render AI Creator (middle slide) first, with no jump/swipe on load
+  // Mobile: render Creative Designer (first slide) first, with no jump/swipe on load
   useLayoutEffect(() => {
     const slider = sliderRef.current
     if (!slider) return
     if (window.innerWidth >= 1024) return
 
-    // Synchronously position the slider to the middle slide before first paint
+    // Synchronously position the slider to the first slide before first paint
     const slideWidth = slider.offsetWidth
-    slider.scrollLeft = slideWidth
-    setActiveSlide(2)
+    slider.scrollLeft = 0 // Position at Creative Designer (index 0)
+    setActiveSlide(1)
     // Do not mark as swiped or trigger rise animation on initial load
     setHasSwipedFromFirst(false)
     setMiddleAnim(false)
     setSliderReady(true)
   }, [])
 
-  // Keep forcing middle when entering mobile layout (e.g., on resize or slow assets)
+  // Keep forcing Creative Designer when entering mobile layout (e.g., on resize or slow assets)
   useEffect(() => {
     const slider = sliderRef.current
     if (!slider) return
     const onResize = () => {
       if (window.innerWidth < 1024) {
         const slideWidth = slider.offsetWidth
-        if (Math.abs(slider.scrollLeft - slideWidth) > 2) {
-          slider.scrollLeft = slideWidth
-          setActiveSlide(2)
-          setHasSwipedFromFirst(true)
+        if (Math.abs(slider.scrollLeft - 0) > 2) {
+          slider.scrollLeft = 0 // Position at Creative Designer (index 0)
+          setActiveSlide(1)
+          setHasSwipedFromFirst(false)
         }
       }
     }
@@ -608,7 +608,7 @@ function Home() {
             transition: 'opacity 600ms ease'
           }}
         >
-          {(window.innerWidth < 1024 && !sliderReady ? [3] : [1, 3, 2]).map((charNum, idx) => (
+          {[1, 3, 2].map((charNum, idx) => (
             <div
               key={charNum}
               className={
