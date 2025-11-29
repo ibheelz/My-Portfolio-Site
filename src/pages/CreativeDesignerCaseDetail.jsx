@@ -430,16 +430,19 @@ function CreativeDesignerCaseDetail() {
     const endX = e.changedTouches[0].clientX
     const dy = endY - touchStartYRef.current
     const dx = endX - touchStartXRef.current
-    const threshold = 10
+    const threshold = 14
     if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
     if (now - lastStepTimeRef.current < 60) return
+    // SAME ANIMATION AS TODOALROJO: horizontal swipe with left/right animation
     if (Math.abs(dx) > Math.abs(dy)) {
       const dir = dx < 0 ? 1 : -1
-      setEnterDirMobile(dir > 0 ? 'left' : 'right')
+      const d = dir > 0 ? 'right' : 'left'
+      setEnterDirMobile(d)
       setMobileFrame((i) => Math.min(9, Math.max(0, i + dir)))
     } else {
+      // Vertical swipe: same as todoalrojo approach
       const dir = dy < 0 ? 1 : -1
-      setEnterDirMobile('') // vertical keeps default fade
+      setEnterDirMobile('')
       setMobileFrame((i) => Math.min(9, Math.max(0, i + dir)))
     }
     lastStepTimeRef.current = now
@@ -1536,11 +1539,12 @@ function CreativeDesignerCaseDetail() {
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: 5;
+          z-index: 100 !important;
           padding-bottom: max(0px, env(safe-area-inset-bottom));
           visibility: visible !important;
           opacity: 1 !important;
           display: flex !important;
+          pointer-events: none;
         }
         /* Ensure carousel is always visible, even during animation */
         .marquee-dock.miela-marquee-in { min-height: 25vh; }
@@ -1550,15 +1554,17 @@ function CreativeDesignerCaseDetail() {
           .marquee-dock.miela-marquee-in { min-height: 15vh !important; }
           .marquee-dock.miela-marquee-in.todoalrojo-marquee { min-height: 8vh !important; }
         }
-        .smooth-marquee { width: 100%; overflow: hidden; }
+        .smooth-marquee { width: 100%; overflow: hidden; position: relative; }
         /* BULLETPROOF marquee animation - works on all browsers and mobile */
         .marquee-track {
           display: flex;
           width: max-content;
           gap: 0;
           animation: marqueeScroll 40s linear infinite !important;
+          -webkit-animation: marqueeScroll 40s linear infinite !important;
           will-change: transform;
           transform: translateZ(0);
+          -webkit-transform: translateZ(0) translate3d(0, 0, 0);
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
         }
@@ -1577,8 +1583,12 @@ function CreativeDesignerCaseDetail() {
 
         /* BULLETPROOF marquee scroll animation - continuous loop */
         @keyframes marqueeScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          0% { transform: translateX(0); -webkit-transform: translateX(0); }
+          100% { transform: translateX(-50%); -webkit-transform: translateX(-50%); }
+        }
+        @-webkit-keyframes marqueeScroll {
+          0% { -webkit-transform: translateX(0); }
+          100% { -webkit-transform: translateX(-50%); }
         }
 
         /* Respect reduced motion but still show carousel */
