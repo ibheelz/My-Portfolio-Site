@@ -204,6 +204,14 @@ function CreativeDesignerCaseDetail() {
     return () => clearInterval(id)
   }, [slug, todoalrojoFrame])
 
+  // Carousel animation state
+  const [carouselKey, setCarouselKey] = useState(0)
+
+  // Reset carousel animation on page load and navigation
+  useEffect(() => {
+    setCarouselKey((k) => k + 1)
+  }, [slug])
+
   // Entrance animation toggles
   const enterTimerRef = useRef(null)
   useEffect(() => {
@@ -735,7 +743,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
         {/* Smooth infinite marquee of b1..b6 images */}
-        <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
+        <div key={`miela-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
               <div className="smooth-marquee" aria-label="Brand strip">
                 <div className="marquee-track" aria-hidden>
                   {/* group A */}
@@ -1119,7 +1127,7 @@ function CreativeDesignerCaseDetail() {
 
         {/* Todoalrojo: bottom marquee with two banners (same animation as Miela) */}
         {slug === 'todoalrojo' && (
-          <div className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in todoalrojo-marquee">
+          <div key={`todoalrojo-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in todoalrojo-marquee">
             <div className="smooth-marquee" aria-label="Todoalrojo banner strip">
               <div className="marquee-track" aria-hidden>
                 {/* group A */}
@@ -1505,7 +1513,8 @@ function CreativeDesignerCaseDetail() {
         @keyframes fadeUpIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
         .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; opacity: 1; }
-        .miela-marquee-in { opacity: 0; animation: fadeInSlow 900ms ease-out 400ms forwards; }
+        /* Carousel always starts visible, animation fades it in smoothly */
+        .miela-marquee-in { opacity: 1; animation: fadeInSlow 900ms ease-out 400ms forwards; }
         .miela-touch { touch-action: none; }
         .swap-img { transition: opacity 1600ms ease; will-change: opacity; }
         /* Ensure inline opacity styles work correctly */
@@ -1516,7 +1525,14 @@ function CreativeDesignerCaseDetail() {
 
         /* Smooth continuous marquee (seamless, not too large) */
         .marquee-bleed { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
-        .marquee-dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+        .marquee-dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding-bottom: max(0px, env(safe-area-inset-bottom)); visibility: visible; }
+        /* Ensure carousel is always visible, even during animation */
+        .marquee-dock.miela-marquee-in { min-height: 25vh; }
+        .marquee-dock.miela-marquee-in.todoalrojo-marquee { min-height: 10vh; }
+        @media (max-width: 767px) {
+          .marquee-dock.miela-marquee-in { min-height: 15vh; }
+          .marquee-dock.miela-marquee-in.todoalrojo-marquee { min-height: 8vh; }
+        }
         .smooth-marquee { width: 100%; overflow: hidden; }
         .marquee-track { display: flex; width: max-content; gap: 0; animation: marqueeScroll 40s linear infinite; will-change: transform; }
         .marquee-group { display: flex; gap: 0; }
