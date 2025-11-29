@@ -37,15 +37,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 )
 
-// Idle-time warmup: prefetch route bundles and common hero assets
+// Aggressive prefetch on idle: load all route bundles and assets faster
 ;(function prefetchOnIdle(){
-  const idle = (cb) => (window.requestIdleCallback ? window.requestIdleCallback(cb, { timeout: 2000 }) : setTimeout(cb, 1200))
+  const idle = (cb) => (window.requestIdleCallback ? window.requestIdleCallback(cb, { timeout: 1000 }) : setTimeout(cb, 600))
   idle(() => {
-    // Warm route chunks
+    // Warm all route chunks for instant navigation
     Promise.allSettled([
+      import('./pages/Home'),
       import('./pages/CreativeDesigner'),
+      import('./pages/CreativeDesignerCaseStudy'),
+      import('./pages/CreativeDesignerCaseDetail'),
       import('./pages/Branding'),
+      import('./pages/BrandingCaseStudy'),
       import('./pages/AICreator'),
+      import('./pages/AICreatorCaseStudy'),
       import('./pages/ThreeDDesign'),
       import('./pages/GameDesign'),
     ])

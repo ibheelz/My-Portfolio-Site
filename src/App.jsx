@@ -15,6 +15,11 @@ const AICreatorCaseStudy = lazy(() => import('./pages/AICreatorCaseStudy'))
 function RouteGate() {
   const location = useLocation()
   useEffect(() => {
+    // Instant scroll to top on navigation (smooth experience)
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [location.pathname])
+
+  useEffect(() => {
     // Map routes to critical assets to preload before revealing page animations
     const base = import.meta.env.BASE_URL || '/'
     let assets = []
@@ -37,7 +42,8 @@ function RouteGate() {
     } else if (location.pathname.includes('game-design')) {
       assets = [ `${base}game-design-hero.webp` ]
     }
-    if (window.preloadGate) window.preloadGate(assets, { minMs: 0, maxMs: 0, silent: true })
+    // Aggressive preloading: minMs 0, maxMs 200 for instant but safe display
+    if (window.preloadGate) window.preloadGate(assets, { minMs: 0, maxMs: 200, silent: true })
   }, [location.pathname])
   return null
 }
