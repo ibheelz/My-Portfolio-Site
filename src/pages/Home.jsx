@@ -10,6 +10,7 @@ function Home() {
   const [expandedDesc, setExpandedDesc] = useState(null)
   const [sliderReady, setSliderReady] = useState(false)
   const [middleAnim, setMiddleAnim] = useState(false)
+  const [char1Entered, setChar1Entered] = useState(false) // Trigger entrance animation for char 1
   const isCharacterClickRef = useRef(false)
   const justUnfocusedRef = useRef(false)
   const sliderRef = useRef(null)
@@ -126,6 +127,15 @@ function Home() {
     const t = setTimeout(onResize, 600)
     return () => { window.removeEventListener('resize', onResize); clearTimeout(t) }
   }, [])
+
+  // Trigger character 1 entrance animation on mobile after slider is ready
+  useEffect(() => {
+    if (sliderReady && window.innerWidth < 1024) {
+      // Small delay to ensure DOM is fully painted before animation starts
+      const t = setTimeout(() => setChar1Entered(true), 100)
+      return () => clearTimeout(t)
+    }
+  }, [sliderReady])
 
   return (
     <div className="h-screen overflow-auto lg:overflow-hidden bg-[#06080a] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
@@ -613,6 +623,7 @@ function Home() {
               key={charNum}
               className={
                 "flex-shrink-0 w-full h-full flex items-end justify-center snap-center pb-0" +
+                (charNum === 1 && char1Entered ? " char-1-rise" : "") +
                 (idx === 1 && middleAnim ? " middle-char-rise" : "")
               }
               style={{ scrollSnapAlign: 'center' }}
@@ -1366,6 +1377,15 @@ function Home() {
         }
         .middle-char-rise {
           animation: middleRise 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; /* match logo timing */
+        }
+
+        /* Character 1 rises from beneath on mobile load */
+        @keyframes char1Rise {
+          0% { transform: translateY(120%); }
+          100% { transform: translateY(0); }
+        }
+        .char-1-rise {
+          animation: char1Rise 4.5s cubic-bezier(0.22, 1, 0.36, 1) both; /* match logo timing */
         }
 
         /* Subtle, varied hero animations */
