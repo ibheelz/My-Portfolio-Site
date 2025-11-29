@@ -189,6 +189,13 @@ function ThreeDDesign() {
           overflow: hidden;
         }
 
+
+        /* SVG icons gold by default */
+        .glass-button svg {
+          stroke: #e4c492;
+          fill: none;
+        }
+
         .glass-button:hover,
         .glass-button:active {
           background: #ec6d6c;
