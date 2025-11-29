@@ -14,6 +14,7 @@ function Home() {
   const isCharacterClickRef = useRef(false)
   const justUnfocusedRef = useRef(false)
   const sliderRef = useRef(null)
+  const logoCarouselRef = useRef(null)
   const navigate = useNavigate()
 
   const activeChar = clickedChar || hoveredChar
@@ -136,6 +137,27 @@ function Home() {
       return () => clearTimeout(t)
     }
   }, [sliderReady])
+
+  // JavaScript-based seamless logo carousel animation for mobile
+  useEffect(() => {
+    const carousel = logoCarouselRef.current
+    if (!carousel || window.innerWidth >= 870) return
+
+    let animationFrameId
+    let startTime = Date.now()
+    const DURATION = 20000 // 20 seconds per loop
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime
+      const progress = (elapsed % DURATION) / DURATION
+      const translateX = progress * 50 // Translate 50% over the duration
+      carousel.style.transform = `translateX(-${translateX}%)`
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animationFrameId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [])
 
   return (
     <div className="h-screen overflow-auto lg:overflow-hidden bg-[#06080a] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
