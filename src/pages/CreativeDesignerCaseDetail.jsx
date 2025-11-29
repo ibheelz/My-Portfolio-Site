@@ -212,6 +212,22 @@ function CreativeDesignerCaseDetail() {
     setCarouselKey((k) => k + 1)
   }, [slug])
 
+  // Resume carousel animation when page becomes visible (fixes mobile Safari pause on lock)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        // Page became visible - force animation resume
+        const marqueeTrack = document.querySelector('.marquee-track')
+        if (marqueeTrack) {
+          marqueeTrack.style.animationPlayState = 'running'
+          marqueeTrack.style.webkitAnimationPlayState = 'running'
+        }
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [])
+
   // Entrance animation toggles
   const enterTimerRef = useRef(null)
   useEffect(() => {
@@ -1562,6 +1578,8 @@ function CreativeDesignerCaseDetail() {
           gap: 0;
           animation: marqueeScroll 40s linear infinite !important;
           -webkit-animation: marqueeScroll 40s linear infinite !important;
+          animation-play-state: running !important;
+          -webkit-animation-play-state: running !important;
           will-change: transform;
           transform: translateZ(0);
           -webkit-transform: translateZ(0) translate3d(0, 0, 0);
@@ -1579,6 +1597,8 @@ function CreativeDesignerCaseDetail() {
           .marquee-track {
             animation: marqueeScroll 40s linear infinite !important;
             -webkit-animation: marqueeScroll 40s linear infinite !important;
+            animation-play-state: running !important;
+            -webkit-animation-play-state: running !important;
           }
         }
 
