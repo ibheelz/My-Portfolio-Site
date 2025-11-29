@@ -212,6 +212,31 @@ function CreativeDesignerCaseDetail() {
     setCarouselKey((k) => k + 1)
   }, [slug])
 
+  // Force carousel animation to start immediately on mount (before visibility API can pause it)
+  useEffect(() => {
+    const forceAnimationStart = () => {
+      const marqueeTrack = document.querySelector('.marquee-track')
+      if (marqueeTrack) {
+        marqueeTrack.style.animationPlayState = 'running'
+        marqueeTrack.style.webkitAnimationPlayState = 'running'
+      }
+    }
+
+    // Start animation immediately
+    forceAnimationStart()
+
+    // Also start on next tick to ensure DOM is fully ready
+    const immediateId = setTimeout(forceAnimationStart, 0)
+
+    // And once more after a short delay for good measure
+    const delayedId = setTimeout(forceAnimationStart, 50)
+
+    return () => {
+      clearTimeout(immediateId)
+      clearTimeout(delayedId)
+    }
+  }, [carouselKey])
+
   // Resume carousel animation when page becomes visible (fixes mobile Safari pause on lock)
   useEffect(() => {
     const handleVisibilityChange = () => {

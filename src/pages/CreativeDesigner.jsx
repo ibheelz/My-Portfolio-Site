@@ -71,10 +71,10 @@ function CreativeDesigner() {
 
   // Galleries config: served via public/ symlinks to images/
   const galleries = {
-    posters: { base: 'posters-and-flyers', length: 27 },
+    posters: { base: 'posters-and-flyers', length: 16 },
     web: { base: 'web-designs', length: 12 },
     editorial: { base: 'editorial-designs', length: 5 },
-    ooh: { base: 'ooh', length: oohImages.length || 24 },
+    ooh: { base: 'ooh', length: oohImages.length || 9 },
   }
 
   const active = galleries[galleryType]
