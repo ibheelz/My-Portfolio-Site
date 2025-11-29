@@ -206,10 +206,17 @@ function CreativeDesignerCaseDetail() {
 
   // Carousel animation state
   const [carouselKey, setCarouselKey] = useState(0)
+  const [carouselAnimating, setCarouselAnimating] = useState(false)
 
   // Reset carousel animation on page load and navigation
   useEffect(() => {
+    setCarouselAnimating(false)
     setCarouselKey((k) => k + 1)
+    // Trigger animation after a brief delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      setCarouselAnimating(true)
+    }, 50)
+    return () => clearTimeout(timer)
   }, [slug])
 
   // Entrance animation toggles
@@ -743,7 +750,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
         {/* Smooth infinite marquee of b1..b6 images */}
-        <div key={`miela-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
+        <div key={`miela-carousel-${carouselKey}`} className={`content-layer marquee-bleed marquee-dock flex justify-center items-center ${carouselAnimating ? 'miela-marquee-in' : ''}`}>
               <div className="smooth-marquee" aria-label="Brand strip">
                 <div className="marquee-track" aria-hidden>
                   {/* group A */}
@@ -1127,7 +1134,7 @@ function CreativeDesignerCaseDetail() {
 
         {/* Todoalrojo: bottom marquee with two banners (same animation as Miela) */}
         {slug === 'todoalrojo' && (
-          <div key={`todoalrojo-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in todoalrojo-marquee">
+          <div key={`todoalrojo-carousel-${carouselKey}`} className={`content-layer marquee-bleed marquee-dock flex justify-center items-center ${carouselAnimating ? 'miela-marquee-in' : ''} todoalrojo-marquee`}>
             <div className="smooth-marquee" aria-label="Todoalrojo banner strip">
               <div className="marquee-track" aria-hidden>
                 {/* group A */}
