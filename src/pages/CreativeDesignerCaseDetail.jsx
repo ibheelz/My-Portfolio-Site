@@ -1645,6 +1645,8 @@ function CreativeDesignerCaseDetail() {
 
         /* Buttons (same theme hover) */
         .glass-button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: #e7f2f8; }
+        /* SVG icons gold by default */
+        .glass-button svg { stroke: #e4c492; fill: none; }
         .glass-button:hover { background: #7a1f2b; color: #ffffff; border-color: transparent; }
         /* SVG icons turn white on hover */
         .glass-button:hover svg { stroke: #ffffff; fill: none; }

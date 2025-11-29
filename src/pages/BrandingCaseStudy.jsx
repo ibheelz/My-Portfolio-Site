@@ -115,6 +115,8 @@ function BrandingCaseStudy() {
           .svg-right { right: calc(50% - 90px); }
         }
         .glass-button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: #e7f2f8; }
+        /* SVG icons gold by default */
+        .glass-button svg { stroke: #e4c492; fill: none; }
         /* Branding theme hover */
         .glass-button:hover { background: #aa90db; color: #ffffff; border-color: transparent; }
         /* SVG icons turn white on hover */

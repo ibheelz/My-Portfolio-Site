@@ -92,6 +92,8 @@ function AICreatorCaseStudy() {
         @media (min-width: 1280px) { .svg-left { left: calc(50% - 200px) } .svg-right { right: calc(50% - 200px) } }
         @media (min-width: 640px) { .svg-left { left: calc(50% - 90px) } .svg-right { right: calc(50% - 90px) } }
         .glass-button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: #e7f2f8; }
+        /* SVG icons gold by default */
+        .glass-button svg { stroke: #e4c492; fill: none; }
         /* AI theme hover */
         .glass-button:hover { background: #eac28a; color: #10171d; border-color: transparent; }
         /* SVG icons turn black on hover */
