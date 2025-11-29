@@ -92,6 +92,12 @@ function CreativeDesignerCaseDetail() {
   const [mobileFrame, setMobileFrame] = useState(0) // mobile png order: 1 -> 2 -> ... -> 10
   const [enterDirDesktop, setEnterDirDesktop] = useState('') // for horizontal-only animation: '' | 'left' | 'right'
   const [enterDirMobile, setEnterDirMobile] = useState('')   // for horizontal-only animation: '' | 'left' | 'right'
+  const [mielaMobileDir, setMielaMobileDir] = useState('') // '' | 'left' | 'right' (horizontal)
+  const [mielaMobileKey, setMielaMobileKey] = useState(0) // triggers animation reset on vertical swipe
+  const mielaMobileTimerRef = useRef(null) // clears direction after animation
+  const [mielaMobileVertDir, setMielaMobileVertDir] = useState('') // '' | 'up' | 'down' (vertical)
+  const mielaMobileVertTimerRef = useRef(null)
+  const TOTAL_MIELA_FRAMES = 10
 
   // Todoalrojo navigation state
   const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..4 (5 frames)
@@ -550,6 +556,7 @@ function CreativeDesignerCaseDetail() {
   }, [slug])
 
   // Local mobile touch handlers: one image per swipe
+  // === MIELA MOBILE TOUCH: uses exact TODOALROJO animation logic ===
   const onMobileTouchStart = (e) => {
     if (window.innerWidth >= 768) return
     if (!e.touches || e.touches.length === 0) return
@@ -559,28 +566,34 @@ function CreativeDesignerCaseDetail() {
   const onMobileTouchEnd = (e) => {
     if (window.innerWidth >= 768) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
-    const now = Date.now()
     const endY = e.changedTouches[0].clientY
     const endX = e.changedTouches[0].clientX
     const dy = endY - touchStartYRef.current
     const dx = endX - touchStartXRef.current
     const threshold = 14
     if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
-    if (now - lastStepTimeRef.current < 60) return
-    // SAME ANIMATION AS TODOALROJO: horizontal swipe with left/right animation
+    // Horizontal swipe: next/prev frame with left/right slide animation (EXACT TODOALROJO LOGIC)
     if (Math.abs(dx) > Math.abs(dy)) {
       const dir = dx < 0 ? 1 : -1
       const d = dir > 0 ? 'right' : 'left'
       setEnterDirMobile(d)
-      setMobileFrame((i) => Math.min(9, Math.max(0, i + dir)))
+      setMielaMobileDir(d)
+      setMobileFrame((i) => (i + dir + TOTAL_MIELA_FRAMES) % TOTAL_MIELA_FRAMES)
+      if (mielaMobileTimerRef.current) clearTimeout(mielaMobileTimerRef.current)
+      mielaMobileTimerRef.current = setTimeout(() => { setMielaMobileDir(''); setEnterDirMobile('') }, 900)
     } else {
-      // Vertical swipe: same as todoalrojo approach
+      // Vertical swipe: next/prev without directional slide (EXACT TODOALROJO LOGIC)
       const dir = dy < 0 ? 1 : -1
       setEnterDirMobile('')
-      setMobileFrame((i) => Math.min(9, Math.max(0, i + dir)))
+      setMielaMobileDir('')
+      // set vertical animation direction similar to Todoalrojo's approach
+      const vd = dir > 0 ? 'up' : 'down'
+      setMielaMobileVertDir(vd)
+      setMielaMobileKey((k) => k + 1)
+      if (mielaMobileVertTimerRef.current) clearTimeout(mielaMobileVertTimerRef.current)
+      mielaMobileVertTimerRef.current = setTimeout(() => setMielaMobileVertDir(''), 900)
+      setMobileFrame((i) => (i + dir + TOTAL_MIELA_FRAMES) % TOTAL_MIELA_FRAMES)
     }
-    lastStepTimeRef.current = now
-    lastInputRef.current = { type: 'touch', t: now }
   }
 
   // Desktop horizontal swipe via pointer
