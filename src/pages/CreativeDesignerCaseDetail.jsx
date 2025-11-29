@@ -1521,8 +1521,8 @@ function CreativeDesignerCaseDetail() {
         .marquee-track { display: flex; width: max-content; gap: 0; animation: marqueeScroll 40s linear infinite; will-change: transform; }
         .marquee-group { display: flex; gap: 0; }
         .marquee-img { display: block; margin: 0; height: 25vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
-        /* Todoalrojo banners: 15vh on desktop, 8vh on mobile */
-        .todoalrojo-marquee .marquee-img { height: 15vh; }
+        /* Todoalrojo banners: 10vh on desktop, 8vh on mobile */
+        .todoalrojo-marquee .marquee-img { height: 10vh; }
         /* Smaller screens: reduce carousel heights */
         @media (max-width: 767px) {
           .marquee-img { height: 15vh; }
@@ -1580,7 +1580,7 @@ function CreativeDesignerCaseDetail() {
         .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .miela-dots-fixed .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
-        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(15vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
+        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 10px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
 
         /* Mobile: adjust dots position for reduced carousel height */
         @media (max-width: 767px) {
