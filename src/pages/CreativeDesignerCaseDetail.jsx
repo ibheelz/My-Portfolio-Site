@@ -212,45 +212,138 @@ function CreativeDesignerCaseDetail() {
     setCarouselKey((k) => k + 1)
   }, [slug])
 
-  // Force carousel animation to start immediately on mount (before visibility API can pause it)
+  // === MOBILE CAROUSEL ANIMATION FIX ===
+  // For mobile: use JavaScript-based animation (most reliable)
+  // For desktop: rely on CSS animation
+  const animationRef = useRef(null)
+  const animationStartTimeRef = useRef(null)
+  const isMobileRef = useRef(false)
+  const isAnimatingRef = useRef(false)
+
+  // Initialize mobile carousel animation on mount and when carousel key changes
   useEffect(() => {
-    const forceAnimationStart = () => {
-      const marqueeTrack = document.querySelector('.marquee-track')
-      if (marqueeTrack) {
-        marqueeTrack.style.animationPlayState = 'running'
-        marqueeTrack.style.webkitAnimationPlayState = 'running'
+    // Detect mobile (max-width 768px)
+    isMobileRef.current = window.innerWidth <= 768
+
+    // Get all marquee tracks (Miela, Todoalrojo, etc)
+    const marqueeElements = document.querySelectorAll('.marquee-track')
+    if (!marqueeElements.length) return
+
+    // Mobile: use JavaScript-based animation for reliability
+    if (isMobileRef.current) {
+      let frameId = null
+      let lastTimestamp = 0
+      isAnimatingRef.current = true
+      animationStartTimeRef.current = null
+
+      const animateMobile = (timestamp) => {
+        if (!isAnimatingRef.current) {
+          frameId = requestAnimationFrame(animateMobile)
+          return
+        }
+
+        // Initialize start time on first frame
+        if (animationStartTimeRef.current === null) {
+          animationStartTimeRef.current = timestamp
+        }
+
+        // Calculate elapsed time in seconds
+        const elapsed = (timestamp - animationStartTimeRef.current) / 1000
+        // 40 second animation cycle
+        const cycleDuration = 40
+        // Current position in cycle (0 to 1)
+        const progress = (elapsed % cycleDuration) / cycleDuration
+        // Translate from 0 to -50%
+        const translateValue = -50 * progress
+
+        // Apply to all marquee tracks
+        marqueeElements.forEach((track) => {
+          track.style.transform = `translateX(${translateValue}%)`
+          track.style.WebkitTransform = `translateX(${translateValue}%)`
+        })
+
+        frameId = requestAnimationFrame(animateMobile)
+      }
+
+      // Start animation with a small delay to ensure DOM is ready
+      const startId = setTimeout(() => {
+        frameId = requestAnimationFrame(animateMobile)
+      }, 10)
+
+      return () => {
+        clearTimeout(startId)
+        if (frameId) {
+          cancelAnimationFrame(frameId)
+        }
+        isAnimatingRef.current = false
       }
     }
 
-    // Start animation immediately
-    forceAnimationStart()
+    // Desktop: use CSS animation, but force it to restart
+    else {
+      // Force CSS animation restart by toggling animation
+      const restartAnimation = () => {
+        marqueeElements.forEach((track) => {
+          // Remove animation temporarily
+          track.style.animation = 'none'
+          track.style.webkitAnimation = 'none'
 
-    // Also start on next tick to ensure DOM is fully ready
-    const immediateId = setTimeout(forceAnimationStart, 0)
+          // Trigger reflow
+          void track.offsetHeight
 
-    // And once more after a short delay for good measure
-    const delayedId = setTimeout(forceAnimationStart, 50)
+          // Re-apply animation
+          track.style.animation = 'marqueeScroll 40s linear infinite !important'
+          track.style.webkitAnimation = 'marqueeScroll 40s linear infinite !important'
+          track.style.animationPlayState = 'running !important'
+          track.style.webkitAnimationPlayState = 'running !important'
+        })
+      }
 
-    return () => {
-      clearTimeout(immediateId)
-      clearTimeout(delayedId)
+      // Start immediately and also after a tick
+      restartAnimation()
+      const timerId = setTimeout(restartAnimation, 100)
+
+      return () => clearTimeout(timerId)
     }
   }, [carouselKey])
 
-  // Resume carousel animation when page becomes visible (fixes mobile Safari pause on lock)
+  // Handle visibility change (pause/resume on mobile, ensure running on desktop)
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        // Page became visible - force animation resume
-        const marqueeTrack = document.querySelector('.marquee-track')
-        if (marqueeTrack) {
-          marqueeTrack.style.animationPlayState = 'running'
-          marqueeTrack.style.webkitAnimationPlayState = 'running'
+      if (document.hidden) {
+        // Page hidden: pause mobile animation
+        if (isMobileRef.current) {
+          isAnimatingRef.current = false
+        }
+      } else {
+        // Page visible: resume animation
+        if (isMobileRef.current) {
+          isAnimatingRef.current = true
+          // Reset timing so animation restarts smoothly
+          animationStartTimeRef.current = null
+        } else {
+          // Desktop: ensure CSS animation is running
+          const marqueeElements = document.querySelectorAll('.marquee-track')
+          marqueeElements.forEach((track) => {
+            track.style.animationPlayState = 'running !important'
+            track.style.webkitAnimationPlayState = 'running !important'
+          })
         }
       }
     }
+
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [])
+
+  // Handle window resize to detect mobile/desktop change
+  useEffect(() => {
+    const handleResize = () => {
+      isMobileRef.current = window.innerWidth <= 768
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   // Entrance animation toggles
@@ -1596,20 +1689,32 @@ function CreativeDesignerCaseDetail() {
           .marquee-dock.miela-marquee-in.todoalrojo-marquee { min-height: 8vh !important; }
         }
         .smooth-marquee { width: 100%; overflow: hidden; position: relative; }
-        /* BULLETPROOF marquee animation - works on all browsers and mobile */
+        /* BULLETPROOF marquee animation - works on all browsers */
         .marquee-track {
           display: flex;
           width: max-content;
           gap: 0;
-          animation: marqueeScroll 40s linear infinite !important;
-          -webkit-animation: marqueeScroll 40s linear infinite !important;
-          animation-play-state: running !important;
-          -webkit-animation-play-state: running !important;
           will-change: transform;
           transform: translateZ(0);
           -webkit-transform: translateZ(0) translate3d(0, 0, 0);
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
+        }
+        /* Desktop: CSS animation */
+        @media (min-width: 769px) {
+          .marquee-track {
+            animation: marqueeScroll 40s linear infinite !important;
+            -webkit-animation: marqueeScroll 40s linear infinite !important;
+            animation-play-state: running !important;
+            -webkit-animation-play-state: running !important;
+          }
+        }
+        /* Mobile: JavaScript handles animation (no CSS animation to avoid conflicts) */
+        @media (max-width: 768px) {
+          .marquee-track {
+            animation: none !important;
+            -webkit-animation: none !important;
+          }
         }
         .marquee-group { display: flex; gap: 0; }
         .marquee-img { display: block; margin: 0; height: 25vh; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); opacity: 0.95; }
@@ -1619,12 +1724,6 @@ function CreativeDesignerCaseDetail() {
         @media (max-width: 767px) {
           .marquee-img { height: 15vh; }
           .todoalrojo-marquee .marquee-img { height: 8vh; }
-          .marquee-track {
-            animation: marqueeScroll 40s linear infinite !important;
-            -webkit-animation: marqueeScroll 40s linear infinite !important;
-            animation-play-state: running !important;
-            -webkit-animation-play-state: running !important;
-          }
         }
 
         /* BULLETPROOF marquee scroll animation - continuous loop */
