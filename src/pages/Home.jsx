@@ -739,7 +739,7 @@ function Home() {
               <img src="/logos/thunderpick.webp" alt="Thunderpick" className="h-5 w-auto logo-color" />
               <img src="/logos/wow.webp" alt="WOW" className="h-5 w-auto logo-color" />
             </div>
-            <div className="flex gap-8 shrink-0 ml-8">
+            <div className="flex gap-8 shrink-0">
               <img src="/logos/1xbet.webp" alt="1xBet" className="h-5 w-auto logo-color" />
               <img src="/logos/betsson.webp" alt="Betsson" className="h-5 w-auto logo-color" />
               <img src="/logos/parimatch.webp" alt="Parimatch" className="h-5 w-auto logo-color" />
@@ -1208,12 +1208,12 @@ function Home() {
             transform: translateX(0);
           }
           to {
-            transform: translateX(calc(-50% - 1rem));
+            transform: translateX(-50%);
           }
         }
 
         .animate-scroll-mobile {
-          animation: scrollMobile 12s linear infinite;
+          animation: scrollMobile 20s linear infinite;
           will-change: transform;
         }
 
