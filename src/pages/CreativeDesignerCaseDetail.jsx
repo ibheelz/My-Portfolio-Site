@@ -2154,7 +2154,7 @@ function CreativeDesignerCaseDetail() {
         .lightbox-close:hover { background: #7a1f2b; color: #ffffff; }
         .lightbox-close:active { background: #7a1f2b; color: #ffffff; }
         @media (max-width: 768px) {
-          .lightbox-close { background: #d4af37; color: #000000; border-radius: 50%; border: 10px solid #000000; }
+          .lightbox-close { background: #d4af37; color: #000000; border-radius: 50%; border: none; box-shadow: 0 0 0 10px #000000; }
           .lightbox-close:hover { background: #e5c158; color: #000000; }
           .lightbox-close:active { background: #c49f2f; color: #000000; }
         }
