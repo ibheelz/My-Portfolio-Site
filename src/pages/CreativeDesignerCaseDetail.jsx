@@ -2153,6 +2153,11 @@ function CreativeDesignerCaseDetail() {
         }
         .lightbox-close:hover { background: #7a1f2b; color: #ffffff; }
         .lightbox-close:active { background: #7a1f2b; color: #ffffff; }
+        @media (max-width: 768px) {
+          .lightbox-close { background: #d4af37; color: #000000; border-radius: 50%; }
+          .lightbox-close:hover { background: #e5c158; color: #000000; }
+          .lightbox-close:active { background: #c49f2f; color: #000000; }
+        }
         .lightbox-chevron {
           position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001;
           width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff;
