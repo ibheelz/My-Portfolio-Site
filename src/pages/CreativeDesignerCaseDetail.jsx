@@ -1802,7 +1802,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Image container: 50% height with 9 frames */}
-              <div className="h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+              <div className="h-[50%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
                 {mieloMobileImages.map((src, idx) => (
                   <div
