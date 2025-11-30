@@ -1852,7 +1852,7 @@ function CreativeDesignerCaseDetail() {
               ref={mieloLightboxRef}
               className={`mielo-lightbox-modal ${mieloLightboxClosing ? 'mielo-modal-scale-out' : 'mielo-modal-pop-in'}`}
               style={{ width: '95vw', height: '95vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleCloseMieloLightbox}
             >
               <img
                 key={`mielo-${mieloLightboxIndex}`}
@@ -1863,6 +1863,7 @@ function CreativeDesignerCaseDetail() {
                 loading="eager"
                 className="mielo-lightbox-image"
                 style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain', margin: '0 auto' }}
+                onClick={(e) => e.stopPropagation()}
                 onError={(e) => {
                   e.currentTarget.onerror = null
                   if (window.innerWidth < 768) {
