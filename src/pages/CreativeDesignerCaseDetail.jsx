@@ -1829,7 +1829,7 @@ function CreativeDesignerCaseDetail() {
             role="dialog"
             aria-modal="true"
             aria-label="Mielo image lightbox"
-            className={`fixed inset-0 z-[9998] lightbox-overlay ${mieloLightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+            className={`fixed inset-0 z-[9998] mielo-lightbox-bg ${mieloLightboxClosing ? 'mielo-lightbox-fade-out' : 'mielo-lightbox-fade-in'}`}
             onClick={handleCloseMieloLightbox}
             style={{
               backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
@@ -1837,10 +1837,10 @@ function CreativeDesignerCaseDetail() {
               backgroundPosition: 'center'
             }}
           >
-            <button ref={mieloCloseBtnRef} className={`lightbox-close ${mieloLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseMieloLightbox}>×</button>
+            <button ref={mieloCloseBtnRef} className={`mielo-lightbox-close ${mieloLightboxEntering ? 'mielo-close-pop-in' : ''}`} aria-label="Close" onClick={handleCloseMieloLightbox}>×</button>
             <div
               ref={mieloLightboxRef}
-              className={`lightbox-modal ${mieloLightboxEntering ? 'modal-pop-in' : (mieloLightboxClosing ? 'scale-out' : 'scale-in')}`}
+              className={`mielo-lightbox-modal ${mieloLightboxEntering ? 'mielo-modal-pop-in' : (mieloLightboxClosing ? 'mielo-modal-scale-out' : 'mielo-modal-scale-in')}`}
               style={{ width: '95vw', height: '95vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -1851,7 +1851,7 @@ function CreativeDesignerCaseDetail() {
                 decoding="async"
                 fetchpriority="high"
                 loading="eager"
-                className="lightbox-image"
+                className="mielo-lightbox-image"
                 style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain' }}
                 onError={(e) => {
                   e.currentTarget.onerror = null
@@ -2260,6 +2260,48 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile-compact { --nav-h: 48px; }
           .todoalrojo-mobile-compact .header-spacer { height: var(--nav-h) !important; }
         }
+
+        /* Mielo lightbox animations */
+        @keyframes mieloLightboxFadeIn {
+          0% { opacity: 0; backdrop-filter: blur(0); }
+          100% { opacity: 1; backdrop-filter: blur(8px); }
+        }
+        @keyframes mieloLightboxFadeOut {
+          0% { opacity: 1; backdrop-filter: blur(8px); }
+          100% { opacity: 0; backdrop-filter: blur(0); }
+        }
+        @keyframes mieloModalScaleIn {
+          0% { opacity: 0; transform: scale(0.92) translateY(-20px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes mieloModalPopIn {
+          0% { opacity: 0; transform: scale(0.88) translateY(-30px); }
+          50% { transform: scale(1.02); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes mieloModalScaleOut {
+          0% { opacity: 1; transform: scale(1) translateY(0); }
+          100% { opacity: 0; transform: scale(0.92) translateY(-20px); }
+        }
+        @keyframes mieloClosePopIn {
+          0% { opacity: 0; transform: scale(0.4) rotate(-45deg); }
+          75% { transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .mielo-lightbox-bg { animation: mieloLightboxFadeIn 500ms ease-out forwards; }
+        .mielo-lightbox-fade-in { animation: mieloLightboxFadeIn 500ms ease-out forwards; }
+        .mielo-lightbox-fade-out { animation: mieloLightboxFadeOut 140ms ease-out forwards; }
+
+        .mielo-lightbox-modal { will-change: transform, opacity; }
+        .mielo-modal-scale-in { animation: mieloModalScaleIn 600ms cubic-bezier(0.23, 1, 0.320, 1) forwards; }
+        .mielo-modal-pop-in { animation: mieloModalPopIn 800ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .mielo-modal-scale-out { animation: mieloModalScaleOut 140ms ease-in forwards; }
+
+        .mielo-lightbox-close { animation: mieloClosePopIn 600ms cubic-bezier(0.23, 1, 0.320, 1) forwards; }
+        .mielo-close-pop-in { animation: mieloClosePopIn 600ms cubic-bezier(0.23, 1, 0.320, 1) forwards; }
+
+        .mielo-lightbox-image { will-change: transform, opacity; }
       `}</style>
     </div>
   )
