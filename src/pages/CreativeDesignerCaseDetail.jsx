@@ -1841,6 +1841,7 @@ function CreativeDesignerCaseDetail() {
             <div
               ref={mieloLightboxRef}
               className={`lightbox-modal ${mieloLightboxEntering ? 'modal-pop-in' : (mieloLightboxClosing ? 'scale-out' : 'scale-in')}`}
+              style={{ width: '95vw', height: '95vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onClick={(e) => e.stopPropagation()}
             >
               <img
@@ -1851,6 +1852,7 @@ function CreativeDesignerCaseDetail() {
                 fetchpriority="high"
                 loading="eager"
                 className="lightbox-image"
+                style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain' }}
                 onError={(e) => {
                   e.currentTarget.onerror = null
                   if (window.innerWidth < 768) {
