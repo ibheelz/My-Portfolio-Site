@@ -424,7 +424,8 @@ function CreativeDesignerCaseDetail() {
   }, [mieloLightboxOpen])
 
   const openMieloLightboxAt = (index) => {
-    setMieloLightboxIndex(index)
+    // Always use the current frame index to ensure correct image is shown
+    setMieloLightboxIndex(mieloFrame)
     setMieloLightboxOpen(true)
   }
   const handleCloseMieloLightbox = () => {
@@ -809,7 +810,7 @@ function CreativeDesignerCaseDetail() {
       <div className="page-fixed-overlay" aria-hidden />
 
       {/* Navbar (same style as case study) */}
-      <div className="liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative">
+      <div className={`liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative ${mieloLightboxOpen ? 'hidden' : ''}`}>
         {/* Inline SVGs to ensure exact color #e4c492 */}
         <svg
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left sub-anim-svg-left"
@@ -1851,6 +1852,7 @@ function CreativeDesignerCaseDetail() {
                   fetchpriority="high"
                   loading="eager"
                   className="lightbox-image"
+                  style={{ maxHeight: '90vh', maxWidth: '90vw', height: 'auto', width: 'auto' }}
                   onError={(e) => {
                     e.currentTarget.onerror = null
                     if (window.innerWidth < 768) {
