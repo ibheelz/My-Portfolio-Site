@@ -1829,7 +1829,7 @@ function CreativeDesignerCaseDetail() {
             role="dialog"
             aria-modal="true"
             aria-label="Mielo image lightbox"
-            className={`fixed inset-0 z-[9998] mielo-lightbox-bg ${mieloLightboxClosing ? 'mielo-lightbox-fade-out' : 'mielo-lightbox-fade-in'}`}
+            className={`fixed inset-0 z-[9998] mielo-lightbox-bg flex items-center justify-center ${mieloLightboxClosing ? 'mielo-lightbox-fade-out' : 'mielo-lightbox-fade-in'}`}
             onClick={handleCloseMieloLightbox}
             style={{
               backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
@@ -1840,7 +1840,7 @@ function CreativeDesignerCaseDetail() {
             <button ref={mieloCloseBtnRef} className={`mielo-lightbox-close ${mieloLightboxEntering ? 'mielo-close-pop-in' : ''}`} aria-label="Close" onClick={handleCloseMieloLightbox}>×</button>
             <div
               ref={mieloLightboxRef}
-              className={`mielo-lightbox-modal ${mieloLightboxEntering ? 'mielo-modal-pop-in' : (mieloLightboxClosing ? 'mielo-modal-scale-out' : 'mielo-modal-scale-in')}`}
+              className={`mielo-lightbox-modal ${mieloLightboxClosing ? 'mielo-modal-scale-out' : 'mielo-modal-pop-in'}`}
               style={{ width: '95vw', height: '95vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -1852,7 +1852,7 @@ function CreativeDesignerCaseDetail() {
                 fetchpriority="high"
                 loading="eager"
                 className="mielo-lightbox-image"
-                style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain' }}
+                style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain', margin: '0 auto' }}
                 onError={(e) => {
                   e.currentTarget.onerror = null
                   if (window.innerWidth < 768) {
