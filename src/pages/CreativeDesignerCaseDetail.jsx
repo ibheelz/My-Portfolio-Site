@@ -423,6 +423,16 @@ function CreativeDesignerCaseDetail() {
     return () => { if (mieloLightboxEnterTimerRef.current) clearTimeout(mieloLightboxEnterTimerRef.current) }
   }, [mieloLightboxOpen])
 
+  // Mielo lightbox ESC key handler
+  useEffect(() => {
+    if (!mieloLightboxOpen) return undefined
+    const onKey = (e) => {
+      if (e.key === 'Escape') handleCloseMieloLightbox()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [mieloLightboxOpen])
+
   const openMieloLightboxAt = (index) => {
     // Always use the current frame index to ensure correct image is shown
     setMieloLightboxIndex(mieloFrame)
@@ -2298,7 +2308,34 @@ function CreativeDesignerCaseDetail() {
         .mielo-modal-pop-in { animation: mieloModalPopIn 800ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .mielo-modal-scale-out { animation: mieloModalScaleOut 140ms ease-in forwards; }
 
-        .mielo-lightbox-close { animation: mieloClosePopIn 600ms cubic-bezier(0.23, 1, 0.320, 1) forwards; }
+        .mielo-lightbox-close {
+          position: fixed;
+          top: clamp(12px, 3vw, 24px);
+          right: clamp(12px, 3vw, 24px);
+          z-index: 9999;
+          width: 48px;
+          height: 48px;
+          background: rgba(255,255,255,0.12);
+          border: 2px solid rgba(255,255,255,0.2);
+          border-radius: 50%;
+          color: #ffffff;
+          font-size: 32px;
+          font-weight: 300;
+          line-height: 1;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 200ms ease;
+        }
+        .mielo-lightbox-close:hover {
+          background: rgba(255,255,255,0.18);
+          border-color: rgba(255,255,255,0.3);
+          transform: scale(1.1);
+        }
+        .mielo-lightbox-close:active {
+          transform: scale(0.95);
+        }
         .mielo-close-pop-in { animation: mieloClosePopIn 600ms cubic-bezier(0.23, 1, 0.320, 1) forwards; }
 
         .mielo-lightbox-image { will-change: transform, opacity; }
