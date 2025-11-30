@@ -1843,26 +1843,23 @@ function CreativeDesignerCaseDetail() {
               className={`lightbox-modal ${mieloLightboxEntering ? 'modal-pop-in' : (mieloLightboxClosing ? 'scale-out' : 'scale-in')}`}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="lightbox-image-wrap">
-                <img
-                  key={`mielo-${mieloLightboxIndex}`}
-                  src={window.innerWidth < 768 ? mieloMobileImages[mieloLightboxIndex] : mieloImages[mieloLightboxIndex]}
-                  alt={`Mielo image ${mieloLightboxIndex}`}
-                  decoding="async"
-                  fetchpriority="high"
-                  loading="eager"
-                  className="lightbox-image"
-                  style={{ maxHeight: '90vh', maxWidth: '90vw', height: 'auto', width: 'auto' }}
-                  onError={(e) => {
-                    e.currentTarget.onerror = null
-                    if (window.innerWidth < 768) {
-                      e.currentTarget.src = mieloLightboxIndex === 0 ? '/mielo-0.webp' : `/mielo-mobile-${mieloLightboxIndex}.webp`
-                    } else {
-                      e.currentTarget.src = `/mielo-${mieloLightboxIndex}.webp`
-                    }
-                  }}
-                />
-              </div>
+              <img
+                key={`mielo-${mieloLightboxIndex}`}
+                src={window.innerWidth < 768 ? mieloMobileImages[mieloLightboxIndex] : mieloImages[mieloLightboxIndex]}
+                alt={`Mielo image ${mieloLightboxIndex}`}
+                decoding="async"
+                fetchpriority="high"
+                loading="eager"
+                className="lightbox-image"
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  if (window.innerWidth < 768) {
+                    e.currentTarget.src = mieloLightboxIndex === 0 ? '/mielo-0.webp' : `/mielo-mobile-${mieloLightboxIndex}.webp`
+                  } else {
+                    e.currentTarget.src = `/mielo-${mieloLightboxIndex}.webp`
+                  }
+                }}
+              />
             </div>
           </div>
         )}
