@@ -146,6 +146,14 @@ function CreativeDesignerCaseDetail() {
   const mieloPointerStartXRef = useRef(0)
   const mieloPointerActiveRef = useRef(false)
 
+  // Mielo lightbox state
+  const [mieloLightboxOpen, setMieloLightboxOpen] = useState(false)
+  const [mieloLightboxClosing, setMieloLightboxClosing] = useState(false)
+  const [mieloLightboxEntering, setMieloLightboxEntering] = useState(false)
+  const [mieloLightboxIndex, setMieloLightboxIndex] = useState(0)
+  const mieloLightboxRef = useRef(null)
+  const mieloCloseBtnRef = useRef(null)
+
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const thumbsScrollRef = useRef(null)
@@ -400,6 +408,28 @@ function CreativeDesignerCaseDetail() {
   const prevImage = () => {
     setEnterDir('right')
     setCurrentIndex((i) => (i - 1 + martellGallery.length) % martellGallery.length)
+  }
+
+  // Mielo lightbox handlers
+  const mieloLightboxEnterTimerRef = useRef(null)
+  useEffect(() => {
+    if (mieloLightboxOpen) {
+      setMieloLightboxEntering(true)
+      if (mieloLightboxEnterTimerRef.current) clearTimeout(mieloLightboxEnterTimerRef.current)
+      mieloLightboxEnterTimerRef.current = setTimeout(() => setMieloLightboxEntering(false), 1600)
+    } else {
+      setMieloLightboxEntering(false)
+    }
+    return () => { if (mieloLightboxEnterTimerRef.current) clearTimeout(mieloLightboxEnterTimerRef.current) }
+  }, [mieloLightboxOpen])
+
+  const openMieloLightboxAt = (index) => {
+    setMieloLightboxIndex(index)
+    setMieloLightboxOpen(true)
+  }
+  const handleCloseMieloLightbox = () => {
+    setMieloLightboxClosing(true)
+    setTimeout(() => { setMieloLightboxOpen(false); setMieloLightboxClosing(false) }, 140)
   }
 
   // Simple touch swipe for lightbox
@@ -1706,12 +1736,16 @@ function CreativeDesignerCaseDetail() {
                 {mieloImages.map((src, idx) => (
                   <div
                     key={idx}
-                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute"
+                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute cursor-pointer"
                     style={{
                       opacity: mieloFrame === idx ? 1 : 0,
                       transition: 'opacity 1600ms ease',
                       willChange: 'opacity'
                     }}
+                    onClick={() => openMieloLightboxAt(idx)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') openMieloLightboxAt(idx) }}
                   >
                     <img
                       src={src}
@@ -1748,12 +1782,16 @@ function CreativeDesignerCaseDetail() {
                 {mieloMobileImages.map((src, idx) => (
                   <div
                     key={idx}
-                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute"
+                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute cursor-pointer"
                     style={{
                       opacity: mieloFrame === idx ? 1 : 0,
                       transition: 'opacity 1600ms ease',
                       willChange: 'opacity'
                     }}
+                    onClick={() => openMieloLightboxAt(idx)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') openMieloLightboxAt(idx) }}
                   >
                     <img
                       src={src}
@@ -1782,6 +1820,49 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
           </>
+        )}
+
+        {/* Mielo lightbox modal */}
+        {(slug === 'mielo') && (mieloLightboxOpen || mieloLightboxClosing) && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mielo image lightbox"
+            className={`fixed inset-0 z-[9998] lightbox-overlay ${mieloLightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+            onClick={handleCloseMieloLightbox}
+            style={{
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <button ref={mieloCloseBtnRef} className={`lightbox-close ${mieloLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseMieloLightbox}>×</button>
+            <div
+              ref={mieloLightboxRef}
+              className={`lightbox-modal ${mieloLightboxEntering ? 'modal-pop-in' : (mieloLightboxClosing ? 'scale-out' : 'scale-in')}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="lightbox-image-wrap">
+                <img
+                  key={`mielo-${mieloLightboxIndex}`}
+                  src={window.innerWidth < 768 ? mieloMobileImages[mieloLightboxIndex] : mieloImages[mieloLightboxIndex]}
+                  alt={`Mielo image ${mieloLightboxIndex}`}
+                  decoding="async"
+                  fetchpriority="high"
+                  loading="eager"
+                  className="lightbox-image"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null
+                    if (window.innerWidth < 768) {
+                      e.currentTarget.src = mieloLightboxIndex === 0 ? '/mielo-0.webp' : `/mielo-mobile-${mieloLightboxIndex}.webp`
+                    } else {
+                      e.currentTarget.src = `/mielo-${mieloLightboxIndex}.webp`
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         )}
       </section>
 
