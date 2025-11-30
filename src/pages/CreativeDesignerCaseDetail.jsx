@@ -1787,22 +1787,8 @@ function CreativeDesignerCaseDetail() {
 
             {/* Mobile: 9 mobile frames (mielo-0 + mielo-mobile-1 through 8) */}
             <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h))] flex flex-col gap-4 relative miela-hero-in" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
-              {/* Content container: 50% height */}
-              <div className="h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
-                {/* Add content here */}
-              </div>
-
-              {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(50% + 8px)', zIndex: 20 }}>
-                <div className="mielo-gap-dots flex justify-center gap-2">
-                  {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
-                    <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
-                  ))}
-                </div>
-              </div>
-
               {/* Image container: 50% height with 9 frames */}
-              <div className="h-[50%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+              <div className="h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
                 {mieloMobileImages.map((src, idx) => (
                   <div
@@ -1828,6 +1814,20 @@ function CreativeDesignerCaseDetail() {
                     />
                   </div>
                 ))}
+              </div>
+
+              {/* Navigation dots in the gap */}
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(50% + 8px)', zIndex: 20 }}>
+                <div className="mielo-gap-dots flex justify-center gap-2">
+                  {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
+                    <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Content container: 50% height */}
+              <div className="h-[50%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center">
+                {/* Add content here */}
               </div>
             </div>
           </>
