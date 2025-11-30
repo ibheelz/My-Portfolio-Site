@@ -49,7 +49,10 @@ const martellImage2Mobile = `${import.meta.env.BASE_URL}martell-2-mobile.webp`
 const martellVideo1 = `${import.meta.env.BASE_URL}martell-video-1.mp4`
 const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
 const mieloImages = Array.from({ length: 9 }, (_, i) => `${import.meta.env.BASE_URL}mielo-${i}.webp`)
-const mieloMobileImages = Array.from({ length: 8 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
+const mieloMobileImages = [
+  `${import.meta.env.BASE_URL}mielo-0.webp`,
+  ...Array.from({ length: 8 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
+]
 const TOTAL_MIELO_FRAMES = 9
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
@@ -1694,46 +1697,91 @@ function CreativeDesignerCaseDetail() {
 
         {/* Mielo: single column with 70/30 split and navigation */}
         {slug === 'mielo' && (
-          <div className="w-full h-[calc(100dvh-var(--nav-h))] flex flex-col gap-4 relative" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
-            {/* Image container: 70% height with 9 frames */}
-            <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
-              {/* All 9 image frames stacked */}
-              {mieloImages.map((src, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute"
-                  style={{
-                    opacity: mieloFrame === idx ? 1 : 0,
-                    transition: 'opacity 1600ms ease',
-                    willChange: 'opacity'
-                  }}
-                >
-                  <img
-                    src={src}
-                    alt={`Mielo design frame ${idx}`}
-                    decoding="async"
-                    loading={idx === 0 ? 'eager' : 'lazy'}
-                    className={`h-full w-auto object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Navigation dots in the gap */}
-            <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)' }}>
-              <div className="mielo-gap-dots flex justify-center gap-2">
-                {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
-                  <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
+          <>
+            {/* Desktop: 9 desktop frames */}
+            <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h))] flex-col gap-4 relative" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
+              {/* Image container: 70% height with 9 frames */}
+              <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+                {/* All 9 image frames stacked */}
+                {mieloImages.map((src, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute"
+                    style={{
+                      opacity: mieloFrame === idx ? 1 : 0,
+                      transition: 'opacity 1600ms ease',
+                      willChange: 'opacity'
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`Mielo design frame ${idx}`}
+                      decoding="async"
+                      loading={idx === 0 ? 'eager' : 'lazy'}
+                      className={`h-full w-auto object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
+                    />
+                  </div>
                 ))}
+              </div>
+
+              {/* Navigation dots in the gap */}
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)' }}>
+                <div className="mielo-gap-dots flex justify-center gap-2">
+                  {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
+                    <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Content container: 30% height */}
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
+                {/* Add content here */}
               </div>
             </div>
 
-            {/* Content container: 30% height */}
-            <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
-              {/* Add content here */}
+            {/* Mobile: 9 mobile frames (mielo-0 + mielo-mobile-1 through 8) */}
+            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h))] flex flex-col gap-4 relative" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
+              {/* Image container: 70% height with 9 frames */}
+              <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+                {/* All 9 image frames stacked */}
+                {mieloMobileImages.map((src, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute"
+                    style={{
+                      opacity: mieloFrame === idx ? 1 : 0,
+                      transition: 'opacity 1600ms ease',
+                      willChange: 'opacity'
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`Mielo mobile frame ${idx}`}
+                      decoding="async"
+                      loading={idx === 0 ? 'eager' : 'lazy'}
+                      className={`h-full w-auto object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = idx === 0 ? '/mielo-0.webp' : `/mielo-mobile-${idx}.webp` }}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Navigation dots in the gap */}
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)' }}>
+                <div className="mielo-gap-dots flex justify-center gap-2">
+                  {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
+                    <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Content container: 30% height */}
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
+                {/* Add content here */}
+              </div>
             </div>
-          </div>
+          </>
         )}
       </section>
 
