@@ -48,6 +48,9 @@ const martellImage1Mobile = `${import.meta.env.BASE_URL}martell-1-mobile.webp?v=
 const martellImage2Mobile = `${import.meta.env.BASE_URL}martell-2-mobile.webp`
 const martellVideo1 = `${import.meta.env.BASE_URL}martell-video-1.mp4`
 const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
+const mieloImages = Array.from({ length: 9 }, (_, i) => `${import.meta.env.BASE_URL}mielo-${i}.webp`)
+const mieloMobileImages = Array.from({ length: 8 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
+const TOTAL_MIELO_FRAMES = 9
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
@@ -126,6 +129,20 @@ function CreativeDesignerCaseDetail() {
   const [todoMobileVertDir, setTodoMobileVertDir] = useState('') // '' | 'up' | 'down'
   const todoMobileVertTimerRef = useRef(null)
   const TOTAL_TODO_FRAMES = 5
+
+  // Mielo navigation state
+  const [mieloFrame, setMieloFrame] = useState(0) // 0..8 (9 frames)
+  const [enterDirMielo, setEnterDirMielo] = useState('')
+  const mieloLastYRef = useRef(0)
+  const mieloLastStepTimeRef = useRef(0)
+  const mieloLastInputRef = useRef({ type: '', t: 0 })
+  const mieloWheelGestureActiveRef = useRef(false)
+  const mieloWheelGestureTimerRef = useRef(null)
+  const mieloTouchStartYRef = useRef(0)
+  const mieloTouchStartXRef = useRef(0)
+  const mieloPointerStartXRef = useRef(0)
+  const mieloPointerActiveRef = useRef(false)
+
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const thumbsScrollRef = useRef(null)
@@ -669,6 +686,88 @@ function CreativeDesignerCaseDetail() {
       if (wheelGestureTimerRef.current) clearTimeout(wheelGestureTimerRef.current)
     }
   }, [slug])
+
+  // Mielo navigation (same pattern as Todoalrojo)
+  useEffect(() => {
+    if (slug !== 'mielo') return undefined
+    if (typeof window === 'undefined') return undefined
+
+    const stepByDir = (dir) => {
+      if (dir === 0) return
+      setMieloFrame((i) => (i + (dir > 0 ? 1 : -1) + TOTAL_MIELO_FRAMES) % TOTAL_MIELO_FRAMES)
+    }
+
+    const lockMs = 60
+    const onWheel = (e) => {
+      const now = Date.now()
+      const dy = e.deltaY || 0
+      if (Math.abs(dy) < 1) return
+      if (e && typeof e.preventDefault === 'function') e.preventDefault()
+      if (!mieloWheelGestureActiveRef.current && now - mieloLastStepTimeRef.current >= lockMs) {
+        const dir = dy > 0 ? 1 : -1
+        setEnterDirMielo(dir > 0 ? 'right' : 'left')
+        stepByDir(dir)
+        mieloLastStepTimeRef.current = now
+        mieloWheelGestureActiveRef.current = true
+      }
+      if (mieloWheelGestureTimerRef.current) clearTimeout(mieloWheelGestureTimerRef.current)
+      mieloWheelGestureTimerRef.current = setTimeout(() => {
+        mieloWheelGestureActiveRef.current = false
+        mieloWheelGestureTimerRef.current = null
+      }, 60)
+    }
+
+    const onKey = (e) => {
+      const k = e.key
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
+        if (typeof e.preventDefault === 'function') e.preventDefault()
+      }
+      const now = Date.now()
+      if (now - mieloLastStepTimeRef.current < 60) return
+      if (k === 'ArrowRight') { setEnterDirMielo('right'); stepByDir(1); mieloLastStepTimeRef.current = now; return }
+      if (k === 'ArrowLeft')  { setEnterDirMielo('left'); stepByDir(-1); mieloLastStepTimeRef.current = now; return }
+      if (k === 'ArrowDown' || k === 'PageDown') { setEnterDirMielo(''); stepByDir(1); mieloLastStepTimeRef.current = now; return }
+      if (k === 'ArrowUp'   || k === 'PageUp')   { setEnterDirMielo(''); stepByDir(-1); mieloLastStepTimeRef.current = now; return }
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKey)
+      if (mieloWheelGestureTimerRef.current) clearTimeout(mieloWheelGestureTimerRef.current)
+    }
+  }, [slug])
+
+  // Mielo mobile touch handlers
+  const onMieloTouchStart = (e) => {
+    if (window.innerWidth >= 768) return
+    if (!e.touches || e.touches.length === 0) return
+    mieloTouchStartYRef.current = e.touches[0].clientY
+    mieloTouchStartXRef.current = e.touches[0].clientX
+  }
+  const onMieloTouchEnd = (e) => {
+    if (window.innerWidth >= 768) return
+    if (!e.changedTouches || e.changedTouches.length === 0) return
+    const endY = e.changedTouches[0].clientY
+    const endX = e.changedTouches[0].clientX
+    const dy = endY - mieloTouchStartYRef.current
+    const dx = endX - mieloTouchStartXRef.current
+    const threshold = 14
+    if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
+    // Horizontal swipe: next/prev frame with left/right slide animation
+    if (Math.abs(dx) > Math.abs(dy)) {
+      const dir = dx < 0 ? 1 : -1
+      const d = dir > 0 ? 'right' : 'left'
+      setEnterDirMielo(d)
+      setMieloFrame((i) => (i + dir + TOTAL_MIELO_FRAMES) % TOTAL_MIELO_FRAMES)
+    } else {
+      // Vertical swipe: next/prev without directional slide
+      const dir = dy < 0 ? 1 : -1
+      setEnterDirMielo('')
+      setMieloFrame((i) => (i + dir + TOTAL_MIELO_FRAMES) % TOTAL_MIELO_FRAMES)
+    }
+  }
 
   return (
     <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
@@ -1592,6 +1691,50 @@ function CreativeDesignerCaseDetail() {
             </div>
           </div>
         )}
+
+        {/* Mielo: single column with 70/30 split and navigation */}
+        {slug === 'mielo' && (
+          <div className="w-full h-[calc(100dvh-var(--nav-h))] flex flex-col gap-4 relative" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
+            {/* Image container: 70% height with 9 frames */}
+            <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+              {/* All 9 image frames stacked */}
+              {mieloImages.map((src, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute"
+                  style={{
+                    opacity: mieloFrame === idx ? 1 : 0,
+                    transition: 'opacity 1600ms ease',
+                    willChange: 'opacity'
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt={`Mielo design frame ${idx}`}
+                    decoding="async"
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    className={`h-full w-auto object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation dots in the gap */}
+            <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)' }}>
+              <div className="mielo-gap-dots flex justify-center gap-2">
+                {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
+                  <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
+                ))}
+              </div>
+            </div>
+
+            {/* Content container: 30% height */}
+            <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
+              {/* Add content here */}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Fixed indicators 10px above carousel (all screens) — only for Miela */}
@@ -1809,6 +1952,11 @@ function CreativeDesignerCaseDetail() {
         }
         .todoalrojo-dots-fixed .dot { width: 5.7px; height: 5.7px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .todoalrojo-dots-fixed .dot.active { width: 7.6px; height: 7.6px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+
+        /* Mielo gap dots - positioned in the margin between image and content sections */
+        .mielo-gap-dots { display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+        .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
         /* Nudge hero images down on short-height screens */
         @media (max-height: 800px) {
