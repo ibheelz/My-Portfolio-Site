@@ -1948,7 +1948,7 @@ function CreativeDesignerCaseDetail() {
         /* Miela content animations */
         @keyframes fadeUpIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
-        .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards; will-change: transform, opacity; opacity: 1; }
+        .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both; will-change: transform, opacity; }
         /* BULLETPROOF carousel animation - always visible, never disappears */
         .miela-marquee-in {
           opacity: 1 !important;
