@@ -1771,7 +1771,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)' }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)', zIndex: 20 }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
@@ -1793,7 +1793,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(50% + 8px)' }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(50% + 8px)', zIndex: 20 }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
