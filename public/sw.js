@@ -2,8 +2,9 @@
 // Caches GET requests for static assets (images, CSS, JS, fonts) with a cache-first strategy.
 // HTML navigations use a network-first strategy to ensure you get the latest page.
 
-const VERSION = 'v1.0.1';
+const VERSION = 'v1.1.0';
 const RUNTIME = `runtime-${VERSION}`;
+const NETWORK_TIMEOUT = 3000; // 3 second timeout for network requests
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -33,24 +34,36 @@ function isStaticAsset(request) {
   return /\.(?:js|css|webp|png|jpe?g|gif|svg|woff2?|ttf|eot)$/i.test(url.pathname);
 }
 
+// Network timeout helper: race network request against a timeout
+function fetchWithTimeout(request, timeout) {
+  return Promise.race([
+    fetch(request),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), timeout))
+  ]);
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
 
   if (isHTMLRequest(request)) {
-    // Network-first for HTML; fallback to cached app shell to support SPA routes
+    // Network-first for HTML with timeout; always try network first
     event.respondWith(
-      fetch(request)
+      fetchWithTimeout(request, NETWORK_TIMEOUT)
         .then((response) => {
           if (response && response.ok) {
             const copy = response.clone();
             caches.open(RUNTIME).then((cache) => cache.put(request, copy));
             return response;
           }
-          // If GitHub Pages returns 404 page for deep link, serve app shell instead
+          // If network response not ok, serve cached version
           return caches.match('/index.html');
         })
-        .catch(() => caches.match('/index.html'))
+        .catch(() => {
+          // Network failed or timed out, use cache
+          return caches.match(request)
+            .then(cached => cached || caches.match('/index.html'));
+        })
     );
     return;
   }
