@@ -1712,7 +1712,7 @@ function CreativeDesignerCaseDetail() {
             <div className="lg:hidden w-full px-[clamp(12px,3vw,24px)] mb-[20px] martell-ipad">
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-8 md:gap-12 martell-stack">
                 {/* 1) martell-1-mobile on top */}
-                <div className="w-full mt-[30px] martell-scroll martell-hero-mobile" data-delay="80">
+                <div className="w-full mt-[30px] martell-scroll martell-hero-mobile" data-delay="80" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
                   <img
                     src={martellImage1Mobile}
                     alt="Martell mobile hero"
@@ -1723,7 +1723,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 2) martell video (left column video) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="140">
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="140" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
                   <video
                     src={martellVideo1}
                     className="block w-full h-auto object-contain cursor-pointer martell-enter martell-delay-2"
@@ -1743,7 +1743,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 3) martell-2-mobile image */}
-                <div className="w-full martell-scroll" data-delay="200">
+                <div className="w-full martell-scroll" data-delay="200" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
                   <img
                     src={martellImage2Mobile}
                     alt="Martell mobile secondary"
@@ -1754,7 +1754,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 4) martell day image (click to open lightbox) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="260">
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="260" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
                   <img
                     src={martelDayImage}
                     alt="Martell day visual"
