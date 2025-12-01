@@ -349,6 +349,12 @@ function CreativeDesignerCaseDetail() {
       const t = setTimeout(() => setTodoEntryAnim(false), 1000)
       return () => clearTimeout(t)
     }
+    // Ensure martell video becomes visible when navigating to page
+    if (slug === 'martell') {
+      setMartellPlaying(false)
+      const timer = setTimeout(() => setMartellPlaying(true), 500)
+      return () => clearTimeout(timer)
+    }
     return undefined
   }, [slug])
 
