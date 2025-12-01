@@ -288,6 +288,14 @@ function CreativeDesignerCaseDetail() {
   const mieloLightboxRef = useRef(null)
   const mieloCloseBtnRef = useRef(null)
 
+  // Todoalrojo lightbox state
+  const [todoalrojoLightboxOpen, setTodoalrojoLightboxOpen] = useState(false)
+  const [todoalrojoLightboxClosing, setTodoalrojoLightboxClosing] = useState(false)
+  const [todoalrojoLightboxEntering, setTodoalrojoLightboxEntering] = useState(false)
+  const [todoalrojoLightboxIndex, setTodoalrojoLightboxIndex] = useState(0)
+  const todoalrojoLightboxRef = useRef(null)
+  const todoalrojoCloseBtnRef = useRef(null)
+
   const lightboxRef = useRef(null)
   const closeBtnRef = useRef(null)
   const thumbsScrollRef = useRef(null)
@@ -577,6 +585,15 @@ function CreativeDesignerCaseDetail() {
     setTimeout(() => { setMieloLightboxOpen(false); setMieloLightboxClosing(false) }, 140)
   }
 
+  const openTodoalrojoLightboxAt = (index) => {
+    setTodoalrojoLightboxIndex(index)
+    setTodoalrojoLightboxOpen(true)
+  }
+  const handleCloseTodoalrojoLightbox = () => {
+    setTodoalrojoLightboxClosing(true)
+    setTimeout(() => { setTodoalrojoLightboxOpen(false); setTodoalrojoLightboxClosing(false) }, 140)
+  }
+
   // Simple touch swipe for lightbox
   const touchStartXRef2 = useRef(0)
   const todoTouchStartYRef = useRef(0)
@@ -590,11 +607,13 @@ function CreativeDesignerCaseDetail() {
 
   // Todoalrojo mobile swipe (stacked mobile view): swipe up/down to change frames
   const onTodoMobileTouchStart = (e) => {
+    if (todoalrojoLightboxOpen || todoalrojoLightboxClosing) return
     if (!e.touches || e.touches.length === 0) return
     todoTouchStartYRef.current = e.touches[0].clientY
     touchStartXRef.current = e.touches[0].clientX
   }
   const onTodoMobileTouchEnd = (e) => {
+    if (todoalrojoLightboxOpen || todoalrojoLightboxClosing) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
     const endY = e.changedTouches[0].clientY
     const endX = e.changedTouches[0].clientX
@@ -825,6 +844,7 @@ function CreativeDesignerCaseDetail() {
 
     const lockMs = 60
     const onWheel = (e) => {
+      if (todoalrojoLightboxOpen || todoalrojoLightboxClosing) return
       const now = Date.now()
       const dy = e.deltaY || 0
       if (Math.abs(dy) < 1) return
@@ -844,6 +864,7 @@ function CreativeDesignerCaseDetail() {
     }
 
     const onKey = (e) => {
+      if (todoalrojoLightboxOpen || todoalrojoLightboxClosing) return
       const k = e.key
       if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
         if (typeof e.preventDefault === 'function') e.preventDefault()
@@ -863,7 +884,7 @@ function CreativeDesignerCaseDetail() {
       window.removeEventListener('keydown', onKey)
       if (wheelGestureTimerRef.current) clearTimeout(wheelGestureTimerRef.current)
     }
-  }, [slug])
+  }, [slug, todoalrojoLightboxOpen, todoalrojoLightboxClosing])
 
   // Mielo navigation (same pattern as Todoalrojo)
   useEffect(() => {
@@ -879,6 +900,7 @@ function CreativeDesignerCaseDetail() {
 
     const lockMs = 60
     const onWheel = (e) => {
+      if (mieloLightboxOpen || mieloLightboxClosing) return
       const now = Date.now()
       const dy = e.deltaY || 0
       if (Math.abs(dy) < 1) return
@@ -898,6 +920,7 @@ function CreativeDesignerCaseDetail() {
     }
 
     const onKey = (e) => {
+      if (mieloLightboxOpen || mieloLightboxClosing) return
       const k = e.key
       if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
         if (typeof e.preventDefault === 'function') e.preventDefault()
@@ -917,16 +940,18 @@ function CreativeDesignerCaseDetail() {
       window.removeEventListener('keydown', onKey)
       if (mieloWheelGestureTimerRef.current) clearTimeout(mieloWheelGestureTimerRef.current)
     }
-  }, [slug])
+  }, [slug, mieloLightboxOpen, mieloLightboxClosing])
 
   // Mielo mobile touch handlers
   const onMieloTouchStart = (e) => {
+    if (mieloLightboxOpen || mieloLightboxClosing) return
     if (window.innerWidth >= 768) return
     if (!e.touches || e.touches.length === 0) return
     mieloTouchStartYRef.current = e.touches[0].clientY
     mieloTouchStartXRef.current = e.touches[0].clientX
   }
   const onMieloTouchEnd = (e) => {
+    if (mieloLightboxOpen || mieloLightboxClosing) return
     if (window.innerWidth >= 768) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
     const endY = e.changedTouches[0].clientY
@@ -958,7 +983,7 @@ function CreativeDesignerCaseDetail() {
       <div className="page-fixed-overlay" aria-hidden />
 
       {/* Navbar (same style as case study) */}
-      <div className={`liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative ${mieloLightboxOpen ? 'hidden' : ''}`}>
+      <div className={`liquid-glass-header animate-slideDownNav flex items-center justify-center py-[clamp(10px,2.5vh,16px)] relative ${mieloLightboxOpen || mieloLightboxClosing || todoalrojoLightboxOpen || todoalrojoLightboxClosing ? 'hidden' : ''}`}>
         {/* Inline SVGs to ensure exact color #e4c492 */}
         <svg
           className="absolute h-[20px] sm:h-[26px] md:h-[32px] w-auto transform svg-left sub-anim-svg-left"
@@ -1219,17 +1244,14 @@ function CreativeDesignerCaseDetail() {
               {/* Frame 0: todoalrojo-dashboard + text content */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(0) }}>
                     <img
                       src={todoalrojoDashboard}
                       alt="Todoalrojo Dashboard"
                       decoding="async"
                       loading="eager"
-                      className="max-w-full max-h-[70vh] object-contain cursor-pointer"
-                      onClick={() => openLightboxAt(0)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
+                      className="max-w-full max-h-[70vh] object-contain"
+                      style={{ pointerEvents: 'none' }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.webp' }}
                     />
                   </div>
@@ -1257,17 +1279,14 @@ function CreativeDesignerCaseDetail() {
               {/* Frame 1: todoalrojo-task (left) + text content (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(3)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(3) }}>
                     <img
                       src={todoalrojoTask}
                       alt="Todoalrojo Task"
                       decoding="async"
                       loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain cursor-pointer"
-                      onClick={() => openLightboxAt(3)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(3) }}
+                      className="max-w-full max-h-[70vh] object-contain"
+                      style={{ pointerEvents: 'none' }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.webp' }}
                     />
                   </div>
@@ -1295,17 +1314,14 @@ function CreativeDesignerCaseDetail() {
               {/* Frame 2: todoalrojo-shop (left) + text content (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 2 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(4)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(4) }}>
                     <img
                       src={todoalrojoShop}
                       alt="Todoalrojo Shop"
                       decoding="async"
                       loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain cursor-pointer"
-                      onClick={() => openLightboxAt(4)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(4) }}
+                      className="max-w-full max-h-[70vh] object-contain"
+                      style={{ pointerEvents: 'none' }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.webp' }}
                     />
                   </div>
@@ -1351,25 +1367,27 @@ function CreativeDesignerCaseDetail() {
                     )}
                   </div>
                   {/* VIP image, rounded and constrained - sits at bottom */}
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] mt-auto ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] mt-auto cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(2) }}>
                     <img
                       src={todoalrojoVip}
                       alt="Todoalrojo VIP"
                       decoding="async"
                       loading="lazy"
                       className="w-full h-auto object-cover"
+                      style={{ pointerEvents: 'none' }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-vip.webp' }}
                     />
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(1)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(1) }}>
                     <img
                       src={todoalrojoLeaderboard}
                       alt="Todoalrojo Leaderboard"
                       decoding="async"
                       loading="lazy"
                       className="max-w-full max-h-[70vh] object-contain"
+                      style={{ pointerEvents: 'none' }}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.webp' }}
                     />
                   </div>
@@ -1559,7 +1577,7 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     </div>
                   ) : (
-                    <div className={`w-full h-full ${todoalrojoFrame === 3 ? 'flex items-end justify-center' : ''}`}>
+                    <div className={`w-full h-full cursor-pointer ${todoalrojoFrame === 3 ? 'flex items-end justify-center' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(todoalrojoFrame === 0 ? 0 : (todoalrojoFrame === 2 ? 4 : (todoalrojoFrame === 3 ? 2 : 3)))} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(todoalrojoFrame === 0 ? 0 : (todoalrojoFrame === 2 ? 4 : (todoalrojoFrame === 3 ? 2 : 3))) }}>
                       <img
                         src={
                           todoalrojoFrame === 0 ? todoalrojoDashboard :
@@ -1574,6 +1592,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading="lazy"
                         className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(20px,4vw,32px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                        style={{ pointerEvents: 'none' }}
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.webp' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.webp' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.webp' : '/todoalrojo-task.webp'))) }}
                       />
                     </div>
@@ -1937,7 +1956,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)', transform: 'translateY(-50%)', zIndex: 20, display: mieloLightboxOpen || mieloLightboxClosing ? 'none' : 'flex' }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
@@ -1996,7 +2015,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20, display: mieloLightboxOpen || mieloLightboxClosing ? 'none' : 'flex' }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MIELO_FRAMES_MOBILE }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
@@ -2068,6 +2087,47 @@ function CreativeDesignerCaseDetail() {
             </div>
           </div>
         )}
+
+        {/* Todoalrojo lightbox modal */}
+        {(slug === 'todoalrojo') && (todoalrojoLightboxOpen || todoalrojoLightboxClosing) && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Todoalrojo image lightbox"
+            className={`fixed inset-0 z-[9998] mielo-lightbox-bg flex items-center justify-center ${todoalrojoLightboxClosing ? 'mielo-lightbox-fade-out' : 'mielo-lightbox-fade-in'}`}
+            onClick={handleCloseTodoalrojoLightbox}
+            style={{
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <button ref={todoalrojoCloseBtnRef} className={`lightbox-close ${todoalrojoLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseTodoalrojoLightbox}>×</button>
+            <div
+              ref={todoalrojoLightboxRef}
+              className={`mielo-lightbox-modal ${todoalrojoLightboxClosing ? 'mielo-modal-scale-out' : 'mielo-modal-pop-in'} ${window.innerWidth < 768 && todoalrojoLightboxIndex === 2 ? 'todoalrojo-vip-mobile-offset' : ''}`}
+              style={{ width: '95vw', height: '95vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              onClick={handleCloseTodoalrojoLightbox}
+            >
+              <img
+                key={`todoalrojo-${todoalrojoLightboxIndex}`}
+                src={todoalrojoGallery[todoalrojoLightboxIndex].src}
+                alt={`Todoalrojo image ${todoalrojoLightboxIndex}`}
+                decoding="async"
+                fetchpriority="high"
+                loading="eager"
+                className="mielo-lightbox-image"
+                style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain', margin: '0 auto' }}
+                onClick={(e) => e.stopPropagation()}
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  const fallbackImages = ['/todoalrojo-dashboard.webp', '/todoalrojo-leaderboard.webp', '/todoalrojo-vip.webp', '/todoalrojo-task.webp', '/todoalrojo-shop.webp']
+                  e.currentTarget.src = fallbackImages[todoalrojoLightboxIndex % fallbackImages.length]
+                }}
+              />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Fixed indicators 10px above carousel (all screens) — only for Miela */}
@@ -2088,7 +2148,7 @@ function CreativeDesignerCaseDetail() {
 
       {/* Fixed indicators 50px above carousel — for Todoalrojo */}
       {slug === 'todoalrojo' && (
-        <div className="todoalrojo-dots-fixed" aria-hidden>
+        <div className="todoalrojo-dots-fixed" aria-hidden style={{ display: todoalrojoLightboxOpen || todoalrojoLightboxClosing ? 'none' : 'flex' }}>
           <div className="flex justify-center">
             {Array.from({ length: 5 }).map((_, idx) => (
               <div key={`todo-dot-${idx}`} className={`dot ${todoalrojoFrame === idx ? 'active' : ''}`} />
@@ -2272,11 +2332,11 @@ function CreativeDesignerCaseDetail() {
         .miela-enter-up   { animation: mielaEnterU 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
         .miela-enter-down { animation: mielaEnterD 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
 
-        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
+        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; }
         .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .miela-dots-fixed .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
-        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; }
+        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; }
 
         /* Mobile: adjust dots position for reduced carousel height */
         @media (max-width: 767px) {
@@ -2501,6 +2561,8 @@ function CreativeDesignerCaseDetail() {
         .mielo-modal-scale-out { animation: mieloModalScaleOut 140ms ease-in forwards; }
 
         .mielo-lightbox-image { will-change: transform, opacity; }
+
+        .todoalrojo-vip-mobile-offset { transform: translateY(300px) !important; }
       `}</style>
     </div>
   )
