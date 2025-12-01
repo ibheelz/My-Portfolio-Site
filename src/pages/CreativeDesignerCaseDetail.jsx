@@ -982,13 +982,13 @@ function CreativeDesignerCaseDetail() {
         <div className="absolute left-[clamp(16px,3vw,40px)] w-auto">
           <button
             onClick={handleBackClick}
-            aria-label="Back to Case Studies"
+            aria-label={idx === 0 ? "Back to Case Studies" : `Back to ${titles[prevSlug]}`}
             className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] whitespace-nowrap"
           >
             <svg className="w-[clamp(14px,3vw,18px)] h-[clamp(14px,3vw,18px)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
-            <span className="hidden sm:inline">Back to Case Studies</span>
+            <span className="hidden sm:inline">{idx === 0 ? "Back to Case Studies" : `Back to ${titles[prevSlug]}`}</span>
           </button>
         </div>
 
