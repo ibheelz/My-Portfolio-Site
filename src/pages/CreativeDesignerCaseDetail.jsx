@@ -1480,7 +1480,7 @@ function CreativeDesignerCaseDetail() {
                     </div>
                   )}
                 </div>
-                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] px-[clamp(12px,3vw,24px)] py-[clamp(12px,3vw,24px)] flex items-start justify-center ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] px-[clamp(12px,3vw,24px)] mt-[50px] flex items-start justify-center ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoFrame === 4 ? (
                     <div className="grid grid-cols-2 w-full h-full gap-x-[20px] items-end">
                       {/* Left card stack: 1 ⇄ 3 */}
