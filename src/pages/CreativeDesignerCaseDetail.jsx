@@ -51,9 +51,10 @@ const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
 const mieloImages = Array.from({ length: 9 }, (_, i) => `${import.meta.env.BASE_URL}mielo-${i}.webp`)
 const mieloMobileImages = [
   `${import.meta.env.BASE_URL}mielo-0.webp`,
-  ...Array.from({ length: 8 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
+  ...Array.from({ length: 7 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
 ]
 const TOTAL_MIELO_FRAMES = 9
+const TOTAL_MIELO_FRAMES_MOBILE = 8
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
@@ -1785,11 +1786,11 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
 
-            {/* Mobile: 9 mobile frames (mielo-0 + mielo-mobile-1 through 8) */}
+            {/* Mobile: 8 mobile frames (mielo-0 + mielo-mobile-1 through 7) */}
             <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h))] flex flex-col gap-4 relative miela-hero-in" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
-              {/* Image container: 70% height with 9 frames */}
+              {/* Image container: 70% height with 8 frames */}
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
-                {/* All 9 image frames stacked */}
+                {/* All 8 image frames stacked */}
                 {mieloMobileImages.map((src, idx) => (
                   <div
                     key={idx}
@@ -1819,7 +1820,7 @@ function CreativeDesignerCaseDetail() {
               {/* Navigation dots in the gap */}
               <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 5px)', transform: 'translateY(-50%)', zIndex: 20 }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
-                  {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
+                  {Array.from({ length: TOTAL_MIELO_FRAMES_MOBILE }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
                   ))}
                 </div>
