@@ -1467,10 +1467,10 @@ function CreativeDesignerCaseDetail() {
                 <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoDesktopContent[todoalrojoFrame] && (
                     <div className="text-center w-full h-full flex flex-col items-center justify-center overflow-y-auto">
-                      <h3 className="text-[clamp(22px,4.8vw,28px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
+                      <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                         {todoalrojoDesktopContent[todoalrojoFrame].heading}
                       </h3>
-                      <p className="text-[clamp(16px,3.8vw,22px)] text-white/80 leading-relaxed whitespace-pre-line">
+                      <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line">
                         {todoalrojoDesktopContent[todoalrojoFrame].body.split('. ').map((sentence, idx, arr) => (
                           <span key={idx}>
                             {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
@@ -1527,22 +1527,24 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     </div>
                   ) : (
-                    <img
-                      src={
-                        todoalrojoFrame === 0 ? todoalrojoDashboard :
-                        (todoalrojoFrame === 2 ? todoalrojoShop :
-                        (todoalrojoFrame === 3 ? todoalrojoVip : todoalrojoTask))
-                      }
-                      alt={
-                        todoalrojoFrame === 0 ? 'Todoalrojo Dashboard' :
-                        (todoalrojoFrame === 2 ? 'Todoalrojo Shop' :
-                        (todoalrojoFrame === 3 ? 'Todoalrojo VIP' : 'Todoalrojo Task'))
-                      }
-                      decoding="async"
-                      loading="lazy"
-                      className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(20px,4vw,32px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.webp' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.webp' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.webp' : '/todoalrojo-task.webp'))) }}
-                    />
+                    <div className={`w-full h-full ${todoalrojoFrame === 3 ? 'flex items-end justify-center' : ''}`}>
+                      <img
+                        src={
+                          todoalrojoFrame === 0 ? todoalrojoDashboard :
+                          (todoalrojoFrame === 2 ? todoalrojoShop :
+                          (todoalrojoFrame === 3 ? todoalrojoVip : todoalrojoTask))
+                        }
+                        alt={
+                          todoalrojoFrame === 0 ? 'Todoalrojo Dashboard' :
+                          (todoalrojoFrame === 2 ? 'Todoalrojo Shop' :
+                          (todoalrojoFrame === 3 ? 'Todoalrojo VIP' : 'Todoalrojo Task'))
+                        }
+                        decoding="async"
+                        loading="lazy"
+                        className={`block w-full ${todoalrojoFrame === 3 ? 'h-auto max-h-full object-contain object-center' : 'h-full object-cover object-top'} rounded-[clamp(20px,4vw,32px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todoalrojo-dashboard.webp' : (todoalrojoFrame === 2 ? '/todoalrojo-shop.webp' : (todoalrojoFrame === 3 ? '/todoalrojo-vip.webp' : '/todoalrojo-task.webp'))) }}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
@@ -1962,7 +1964,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 5px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20 }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MIELO_FRAMES_MOBILE }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
@@ -1971,13 +1973,13 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Content container: 30% height */}
-              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center">
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)]">
                 {mieloMobileContent[mieloFrame] && (
-                  <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
-                    <h3 className="text-[clamp(22px,4.8vw,28px)] font-bold text-[#e4c492] mb-3 capitalize">
+                  <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start overflow-y-auto">
+                    <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloMobileContent[mieloFrame].heading}
                     </h3>
-                    <p className="text-[clamp(16px,3.8vw,22px)] text-white/80 leading-relaxed whitespace-pre-line">
+                    <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line">
                       {mieloMobileContent[mieloFrame].body.split('. ').map((sentence, idx, arr) => (
                         <span key={idx}>
                           {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
