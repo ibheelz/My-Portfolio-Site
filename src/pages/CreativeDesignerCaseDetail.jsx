@@ -59,39 +59,39 @@ const TOTAL_MIELO_FRAMES_MOBILE = 9
 const mieloMobileContent = {
   0: {
     heading: 'The problem',
-    body: 'Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why'
+    body: 'Mielo is a discovery management platform for LATAM streamers. AI search returns zero results for all queries'
   },
   1: {
     heading: 'Dashboard',
-    body: 'Dashboard displays overall streamer statistics and real-time live counts across multiple platforms. Seamlessly integrated with Twitch, Kick, YouTube for effortless access to all data'
+    body: 'Dashboard displays streamer statistics and real-time live counts. Seamlessly integrated with Twitch, Kick, YouTube platforms'
   },
   2: {
     heading: 'Top Categories',
-    body: 'Stream categories organized by viewer volume, making talent sourcing for campaigns possible. Painless way to find top performers and influencers for your next campaign'
+    body: 'Stream categories organized by viewer volume for sourcing. Find top performers and influencers for campaigns'
   },
   3: {
     heading: 'Live Streamers',
-    body: 'Minimalist card design presenting accurate streamer data: country, followers, socials, and viewers. Last streamed timestamp and contact information all organized in one clean interface'
+    body: 'Minimalist card design presenting accurate streamer data. Timestamps and contact information organized in clean interface'
   },
   4: {
     heading: 'Mobile Navigation',
-    body: 'Mobile interface designed for staff usability with individual accounts and personalized history. No more shared passwords or security risks affecting your entire team accounts'
+    body: 'Mobile interface designed for staff with accounts. No shared passwords or security risks'
   },
   5: {
     heading: 'AI Chat',
-    body: 'AI assistant intelligently matches streamers to campaigns: gaming, casino, slots, and more. Never guess wrong with smart recommendations tailored to your specific campaign needs'
+    body: 'AI assistant intelligently matches streamers to campaigns. Smart recommendations tailored to your campaign needs'
   },
   6: {
     heading: 'Streamer Profile',
-    body: 'Detailed streamer profiles showing followers, peak viewership, last activity, and direct links. Connect directly to their channels for real-time monitoring and complete engagement opportunities'
+    body: 'Detailed streamer profiles show followers, viewership, activity. Connect directly to channels for monitoring'
   },
   7: {
     heading: 'Streamers List',
-    body: 'Complete streamer directory with search, region filtering, live status indicators and more. Actual performance data that matters for making informed decisions about streamer partnerships'
+    body: 'Complete streamer directory with search and filtering. Performance data matters for partnerships'
   },
   8: {
     heading: 'Streamer Details',
-    body: 'Scraped internet data to collect accurate panels from Twitch and Kick streamer profiles. Incorporated stream history and past stream titles for complete streamer performance analysis'
+    body: 'Scraped data from Twitch and Kick profiles. Stream history and titles for analysis'
   }
 }
 
@@ -131,6 +131,29 @@ const mieloDesktopContent = {
   8: {
     heading: 'Streamer Profile Modal',
     body: 'Individual streamer profiles reveal tags, social links, donation panels, and Discord information. Complete stream history enables comprehensive evaluation and effective streamer outreach strategy planning'
+  }
+}
+
+const todoalrojoMobileContent = {
+  0: {
+    heading: 'Todo Al Rojo Casino\nGamification Platform',
+    body: 'I built a casino with Red Chips currency. Players do tasks and get very addicted'
+  },
+  1: {
+    heading: 'Task Dashboard',
+    body: 'Designed dashboard that turns task obsession systems. Earn Red Chips trade free bets leaderboard'
+  },
+  2: {
+    heading: 'Shop Dashboard',
+    body: 'Built reward shop where Chips become valuable currency. Free bets ten thousand bonus upgrade rewards'
+  },
+  3: {
+    heading: 'Leaderboard',
+    body: 'Leaderboard pure psychological warfare ranking obsession level always. Three-tier VIP card system free bets network'
+  },
+  4: {
+    heading: 'Other Assets',
+    body: 'These banners and stickers my addiction marketing purposes. I wanted simple something makes people click'
   }
 }
 
@@ -1465,13 +1488,13 @@ function CreativeDesignerCaseDetail() {
             <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
                 <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
-                  {todoalrojoDesktopContent[todoalrojoFrame] && (
+                  {todoalrojoMobileContent[todoalrojoFrame] && (
                     <div className="text-center w-full h-full flex flex-col items-center justify-center overflow-y-auto">
                       <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
-                        {todoalrojoDesktopContent[todoalrojoFrame].heading}
+                        {todoalrojoMobileContent[todoalrojoFrame].heading}
                       </h3>
                       <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line">
-                        {todoalrojoDesktopContent[todoalrojoFrame].body.split('. ').map((sentence, idx, arr) => (
+                        {todoalrojoMobileContent[todoalrojoFrame].body.split('. ').map((sentence, idx, arr) => (
                           <span key={idx}>
                             {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                           </span>
