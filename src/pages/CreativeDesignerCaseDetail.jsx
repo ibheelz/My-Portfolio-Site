@@ -137,7 +137,7 @@ const mieloDesktopContent = {
 const todoalrojoDesktopContent = {
   0: {
     heading: 'Todo Al Rojo Casino Gamification Platform',
-    body: 'I built a casino inside a casino with Red Chips currency system. Players complete daily tasks and suddenly they're addicted to grinding achievement points'
+    body: 'I built a casino inside a casino with Red Chips currency system. Players complete daily tasks and suddenly they\'re addicted to grinding achievement points'
   },
   1: {
     heading: 'Task Dashboard',
@@ -1212,7 +1212,7 @@ function CreativeDesignerCaseDetail() {
                         <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                           {todoalrojoDesktopContent[0].body.split('. ').map((sentence, idx, arr) => (
                             <span key={idx}>
-                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                             </span>
                           ))}
                         </p>
@@ -1250,7 +1250,7 @@ function CreativeDesignerCaseDetail() {
                         <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                           {todoalrojoDesktopContent[1].body.split('. ').map((sentence, idx, arr) => (
                             <span key={idx}>
-                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                             </span>
                           ))}
                         </p>
@@ -1288,7 +1288,7 @@ function CreativeDesignerCaseDetail() {
                         <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                           {todoalrojoDesktopContent[2].body.split('. ').map((sentence, idx, arr) => (
                             <span key={idx}>
-                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                             </span>
                           ))}
                         </p>
@@ -1300,7 +1300,7 @@ function CreativeDesignerCaseDetail() {
 
               {/* Frame 3: text content + vip (left) + todoalrojo-leaderboard (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 3 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
-                <div className="h-full flex flex-col justify-center items-center gap-8">
+                <div className="h-full flex flex-col justify-start items-center">
                   {/* Text content on top with spacing from VIP */}
                   <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[3] && (
@@ -1311,15 +1311,15 @@ function CreativeDesignerCaseDetail() {
                         <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                           {todoalrojoDesktopContent[3].body.split('. ').map((sentence, idx, arr) => (
                             <span key={idx}>
-                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                             </span>
                           ))}
                         </p>
                       </div>
                     )}
                   </div>
-                  {/* VIP image, rounded and constrained */}
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                  {/* VIP image, rounded and constrained - sits at bottom */}
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] mt-auto ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     <img
                       src={todoalrojoVip}
                       alt="Todoalrojo VIP"
@@ -1348,16 +1348,16 @@ function CreativeDesignerCaseDetail() {
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 4 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 {/* Left column: split into two rows, fill parent */}
                 <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-center font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-start font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[4] && (
-                      <div className="text-left p-4">
-                        <h3 className="text-[clamp(18px,2.2vw,24px)] font-bold text-[#e4c492] mb-2 capitalize">
+                      <div className="text-left pl-0">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {todoalrojoDesktopContent[4].heading}
                         </h3>
-                        <p className="text-[clamp(13px,1.8vw,18px)] text-white/80 leading-relaxed whitespace-pre-line">
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                           {todoalrojoDesktopContent[4].body.split('. ').map((sentence, idx, arr) => (
                             <span key={idx}>
-                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                             </span>
                           ))}
                         </p>
@@ -1397,7 +1397,7 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
                 {/* Right column: cards side-by-side, allow overflow at bottom */}
-                <div className={`grid grid-cols-2 gap-x-[20px] items-end pb-[40px] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                <div className={`grid grid-cols-2 gap-x-[20px] items-end ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                   {/* Left cell: card-1 ⇄ card-3, each image in its own wrapper using 90% height, bottom-aligned (no gap) */}
                   <div className="relative h-full min-h-0 overflow-hidden">
                     <div
@@ -1429,7 +1429,7 @@ function CreativeDesignerCaseDetail() {
                   </div>
 
                   {/* Right cell: card-2 ⇄ card-4, each image in its own wrapper using 90% height, bottom-aligned (no gap) */}
-                  <div className="relative h-full min-h-0 overflow-hidden">
+                  <div className="relative h-full overflow-hidden min-h-0">
                     <div
                       className="absolute left-0 right-0 bottom-0 h-[90%]"
                       style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
