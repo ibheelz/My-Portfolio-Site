@@ -1741,7 +1741,7 @@ function CreativeDesignerCaseDetail() {
         {slug === 'mielo' && (
           <>
             {/* Desktop: 9 desktop frames */}
-            <div className="hidden md:flex w-full flex-1 flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
+            <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
               {/* Image container: 70% height with 9 frames */}
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
@@ -1787,7 +1787,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
             {/* Mobile: 8 mobile frames (mielo-0 + mielo-mobile-1 through 7) */}
-            <div className="md:hidden w-full flex-1 flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
+            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
               {/* Image container: 70% height with 8 frames */}
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* All 8 image frames stacked */}
