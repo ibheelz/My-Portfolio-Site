@@ -739,7 +739,9 @@ function CreativeDesignerCaseDetail() {
 
     const stepByDir = (dir) => {
       if (dir === 0) return
-      setMieloFrame((i) => (i + (dir > 0 ? 1 : -1) + TOTAL_MIELO_FRAMES) % TOTAL_MIELO_FRAMES)
+      const isMobile = window.innerWidth < 768
+      const totalFrames = isMobile ? TOTAL_MIELO_FRAMES_MOBILE : TOTAL_MIELO_FRAMES
+      setMieloFrame((i) => (i + (dir > 0 ? 1 : -1) + totalFrames) % totalFrames)
     }
 
     const lockMs = 60
