@@ -136,7 +136,7 @@ const mieloDesktopContent = {
 
 const todoalrojoDesktopContent = {
   0: {
-    heading: 'Todo Al Rojo Casino Gamification Platform',
+    heading: 'Todo Al Rojo Casino\nGamification Platform',
     body: 'I built a casino inside a casino with Red Chips currency system. Players complete daily tasks and suddenly they\'re addicted to grinding achievement points'
   },
   1: {
@@ -1206,7 +1206,7 @@ function CreativeDesignerCaseDetail() {
                   <div className={`w-full font-['Jost',sans-serif] ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[0] && (
                       <div className="text-left">
-                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                           {todoalrojoDesktopContent[0].heading}
                         </h3>
                         <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
@@ -1467,7 +1467,7 @@ function CreativeDesignerCaseDetail() {
                 <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoDesktopContent[todoalrojoFrame] && (
                     <div className="text-center w-full h-full flex flex-col items-center justify-center overflow-y-auto">
-                      <h3 className="text-[clamp(22px,4.8vw,28px)] font-bold text-[#e4c492] mb-3 capitalize">
+                      <h3 className="text-[clamp(22px,4.8vw,28px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                         {todoalrojoDesktopContent[todoalrojoFrame].heading}
                       </h3>
                       <p className="text-[clamp(16px,3.8vw,22px)] text-white/80 leading-relaxed whitespace-pre-line">
