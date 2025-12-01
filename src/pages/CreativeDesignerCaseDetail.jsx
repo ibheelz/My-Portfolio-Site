@@ -1464,7 +1464,7 @@ function CreativeDesignerCaseDetail() {
             {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
             <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
-                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[48vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoDesktopContent[todoalrojoFrame] && (
                     <div className="text-center w-full h-full flex flex-col items-center justify-center overflow-y-auto">
                       <h3 className="text-[clamp(20px,4.4vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
@@ -1480,7 +1480,7 @@ function CreativeDesignerCaseDetail() {
                     </div>
                   )}
                 </div>
-                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] px-[clamp(12px,3vw,24px)] mt-[50px] flex items-start justify-center ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] px-[clamp(12px,3vw,24px)] flex items-start justify-center ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoFrame === 4 ? (
                     <div className="grid grid-cols-2 w-full h-full gap-x-[20px] items-end">
                       {/* Left card stack: 1 ⇄ 3 */}
