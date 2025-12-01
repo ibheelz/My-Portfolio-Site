@@ -1473,7 +1473,7 @@ function CreativeDesignerCaseDetail() {
                       <p className="text-[clamp(15px,3.5vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                         {todoalrojoDesktopContent[todoalrojoFrame].body.split('. ').map((sentence, idx, arr) => (
                           <span key={idx}>
-                            {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                            {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                           </span>
                         ))}
                       </p>
