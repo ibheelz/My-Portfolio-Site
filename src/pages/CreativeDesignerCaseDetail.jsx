@@ -56,6 +56,84 @@ const mieloMobileImages = [
 const TOTAL_MIELO_FRAMES = 9
 const TOTAL_MIELO_FRAMES_MOBILE = 9
 
+const mieloMobileContent = {
+  0: {
+    heading: 'The problem',
+    body: 'Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why'
+  },
+  1: {
+    heading: 'Dashboard',
+    body: 'Dashboard displays overall streamer statistics and real-time live counts across multiple platforms. Seamlessly integrated with Twitch, Kick, YouTube for effortless access to all data'
+  },
+  2: {
+    heading: 'Top Categories',
+    body: 'Stream categories organized by viewer volume, making talent sourcing for campaigns possible. Painless way to find top performers and influencers for your next campaign'
+  },
+  3: {
+    heading: 'Live Streamers',
+    body: 'Minimalist card design presenting accurate streamer data: country, followers, socials, and viewers. Last streamed timestamp and contact information all organized in one clean interface'
+  },
+  4: {
+    heading: 'Mobile Navigation',
+    body: 'Mobile interface designed for staff usability with individual accounts and personalized history. No more shared passwords or security risks affecting your entire team accounts'
+  },
+  5: {
+    heading: 'AI Chat',
+    body: 'AI assistant intelligently matches streamers to campaigns: gaming, casino, slots, and more. Never guess wrong with smart recommendations tailored to your specific campaign needs'
+  },
+  6: {
+    heading: 'Streamer Profile',
+    body: 'Detailed streamer profiles showing followers, peak viewership, last activity, and direct links. Connect directly to their channels for real-time monitoring and complete engagement opportunities'
+  },
+  7: {
+    heading: 'Streamers List',
+    body: 'Complete streamer directory with search, region filtering, live status indicators and more. Actual performance data that matters for making informed decisions about streamer partnerships'
+  },
+  8: {
+    heading: 'Streamer Details',
+    body: 'Scraped internet data to collect accurate panels from Twitch and Kick streamer profiles. Incorporated stream history and past stream titles for complete streamer performance analysis'
+  }
+}
+
+const mieloDesktopContent = {
+  0: {
+    heading: 'The problem',
+    body: 'Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why'
+  },
+  1: {
+    heading: 'Dashboard',
+    body: 'Dashboard displays overall streamer statistics and real-time live viewer counts across platforms. Unified access to Twitch, Kick, YouTube with complete streamer analytics and data'
+  },
+  2: {
+    heading: 'Live Streamers Table',
+    body: 'Live streamers table showing region, current viewers, peak performance, and channel links. Quick access to streamer information enables rapid talent evaluation and campaign matching'
+  },
+  3: {
+    heading: 'AI Chat Interface',
+    body: 'AI assistant intelligently matches streamers to gaming, casino, and slots campaign types. Smart recommendations eliminate manual scrolling and ensure perfect campaign-streamer matches every time'
+  },
+  4: {
+    heading: 'Streamers Directory',
+    body: 'Complete streamer directory organized by region with all counts and live status. Advanced search and performance metrics make finding ideal campaigns effortless and fast'
+  },
+  5: {
+    heading: 'Filtered by Platform',
+    body: 'Platform filtering system lets you browse streamers by Twitch, YouTube, or Kick. Verified channel data ensures accuracy and completeness for all platform-specific streamer information'
+  },
+  6: {
+    heading: 'YouTube-focused View',
+    body: 'YouTube-focused streamer view displaying followers, peak viewers, and complete streaming history data. Detailed channel evaluation and outreach data enable precise campaign planning and decisions'
+  },
+  7: {
+    heading: 'Kick Streamers',
+    body: 'Kick platform streamers ranked by performance metrics for easy emerging talent identification. Discover emerging talent effortlessly with comprehensive rankings and detailed performance data analysis'
+  },
+  8: {
+    heading: 'Streamer Profile Modal',
+    body: 'Individual streamer profiles reveal tags, social links, donation panels, and Discord information. Complete stream history enables comprehensive evaluation and effective streamer outreach strategy planning'
+  }
+}
+
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
   martell: {
@@ -1786,15 +1864,28 @@ function CreativeDesignerCaseDetail() {
 
               {/* Content container: 30% height */}
               <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
-                {/* Add content here */}
+                {mieloDesktopContent[mieloFrame] && (
+                  <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
+                    <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                      {mieloDesktopContent[mieloFrame].heading}
+                    </h3>
+                    <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                      {mieloDesktopContent[mieloFrame].body.split('. ').map((sentence, idx, arr) => (
+                        <span key={idx}>
+                          {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Mobile: 8 mobile frames (mielo-0 + mielo-mobile-1 through 7) */}
+            {/* Mobile: 9 mobile frames (mielo-0 + mielo-mobile-1 through 8) */}
             <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
-              {/* Image container: 70% height with 8 frames */}
+              {/* Image container: 70% height with 9 frames */}
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
-                {/* All 8 image frames stacked */}
+                {/* All 9 image frames stacked */}
                 {mieloMobileImages.map((src, idx) => (
                   <div
                     key={idx}
@@ -1832,7 +1923,20 @@ function CreativeDesignerCaseDetail() {
 
               {/* Content container: 30% height */}
               <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center">
-                {/* Add content here */}
+                {mieloMobileContent[mieloFrame] && (
+                  <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
+                    <h3 className="text-[clamp(20px,4.4vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                      {mieloMobileContent[mieloFrame].heading}
+                    </h3>
+                    <p className="text-[clamp(15px,3.5vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                      {mieloMobileContent[mieloFrame].body.split('. ').map((sentence, idx, arr) => (
+                        <span key={idx}>
+                          {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </>
