@@ -1733,6 +1733,9 @@ function CreativeDesignerCaseDetail() {
                     playsInline
                     preload="metadata"
                     onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
+                    onPlaying={() => setMartellPlaying(true)}
+                    onCanPlay={() => { setMartellPlaying((p) => p || false) }}
+                    style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
                     onClick={() => openLightboxAt(0)}
                     role="button"
                     tabIndex={0}
