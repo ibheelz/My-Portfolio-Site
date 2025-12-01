@@ -1464,25 +1464,21 @@ function CreativeDesignerCaseDetail() {
             {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
             <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
-                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[48vh] flex items-start ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
-                  <img
-                    src={
-                      todoalrojoFrame === 0 ? todoMobile1 :
-                      (todoalrojoFrame === 2 ? todoMobile3 :
-                      (todoalrojoFrame === 3 ? todoMobile4 :
-                      (todoalrojoFrame === 4 ? todoMobile5 : todoMobile2)))
-                    }
-                    alt={
-                      todoalrojoFrame === 0 ? 'Todo mobile 1 (mobile-specific)' :
-                      (todoalrojoFrame === 2 ? 'Todo mobile 3 (mobile-specific)' :
-                      (todoalrojoFrame === 3 ? 'Todo mobile 4 (mobile-specific)' :
-                      (todoalrojoFrame === 4 ? 'Todo mobile 5 (mobile-specific)' : 'Todo mobile 2 (mobile-specific)')))
-                    }
-                    decoding="async"
-                    loading="eager"
-                    className={`block w-full h-full object-contain object-top rounded-[clamp(10px,1vw,18px)] swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (todoalrojoFrame === 0 ? '/todo-mobile-1.webp' : (todoalrojoFrame === 2 ? '/todo-mobile-3.webp' : (todoalrojoFrame === 3 ? '/todo-mobile-4.webp' : (todoalrojoFrame === 4 ? '/todo-mobile-5.webp' : '/todo-mobile-2.webp')))) }}
-                  />
+                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[48vh] flex items-start justify-start px-[clamp(12px,3vw,24px)] py-[clamp(12px,3vw,24px)] font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                  {todoalrojoDesktopContent[todoalrojoFrame] && (
+                    <div className="text-left w-full">
+                      <h3 className="text-[clamp(16px,4.4vw,24px)] font-bold text-[#e4c492] mb-2 capitalize">
+                        {todoalrojoDesktopContent[todoalrojoFrame].heading}
+                      </h3>
+                      <p className="text-[clamp(12px,3.5vw,18px)] text-white/80 leading-relaxed whitespace-pre-line">
+                        {todoalrojoDesktopContent[todoalrojoFrame].body.split('. ').map((sentence, idx, arr) => (
+                          <span key={idx}>
+                            {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoFrame === 4 ? (
