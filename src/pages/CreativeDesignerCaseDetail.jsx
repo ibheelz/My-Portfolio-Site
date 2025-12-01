@@ -1467,10 +1467,10 @@ function CreativeDesignerCaseDetail() {
                 <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoDesktopContent[todoalrojoFrame] && (
                     <div className="text-center w-full h-full flex flex-col items-center justify-center overflow-y-auto">
-                      <h3 className="text-[clamp(20px,4.4vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                      <h3 className="text-[clamp(22px,4.8vw,28px)] font-bold text-[#e4c492] mb-3 capitalize">
                         {todoalrojoDesktopContent[todoalrojoFrame].heading}
                       </h3>
-                      <p className="text-[clamp(15px,3.5vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                      <p className="text-[clamp(16px,3.8vw,22px)] text-white/80 leading-relaxed whitespace-pre-line">
                         {todoalrojoDesktopContent[todoalrojoFrame].body.split('. ').map((sentence, idx, arr) => (
                           <span key={idx}>
                             {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
@@ -1974,13 +1974,13 @@ function CreativeDesignerCaseDetail() {
               <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center">
                 {mieloMobileContent[mieloFrame] && (
                   <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
-                    <h3 className="text-[clamp(20px,4.4vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                    <h3 className="text-[clamp(22px,4.8vw,28px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloMobileContent[mieloFrame].heading}
                     </h3>
-                    <p className="text-[clamp(15px,3.5vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                    <p className="text-[clamp(16px,3.8vw,22px)] text-white/80 leading-relaxed whitespace-pre-line">
                       {mieloMobileContent[mieloFrame].body.split('. ').map((sentence, idx, arr) => (
                         <span key={idx}>
-                          {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                          {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
                         </span>
                       ))}
                     </p>
