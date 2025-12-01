@@ -351,9 +351,7 @@ function CreativeDesignerCaseDetail() {
     }
     // Ensure martell video becomes visible when navigating to page
     if (slug === 'martell') {
-      setMartellPlaying(false)
-      const timer = setTimeout(() => setMartellPlaying(true), 500)
-      return () => clearTimeout(timer)
+      setMartellPlaying(true)
     }
     return undefined
   }, [slug])
