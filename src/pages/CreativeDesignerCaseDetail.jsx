@@ -134,6 +134,29 @@ const mieloDesktopContent = {
   }
 }
 
+const todoalrojoDesktopContent = {
+  0: {
+    heading: 'Todo Al Rojo Casino Gamification Platform',
+    body: 'I built a casino inside a casino with Red Chips currency system. Players complete daily tasks and suddenly they're addicted to grinding achievement points'
+  },
+  1: {
+    heading: 'Task Dashboard',
+    body: 'Designed a dashboard that turns task completion into an addictive obsession system. Earn Red Chips, trade for free bets, climb the leaderboard for progression'
+  },
+  2: {
+    heading: 'Shop Dashboard',
+    body: 'Built a reward shop where Red Chips become actual valuable trading currency. Free bets up to ten thousand dollars exclusive bonuses and VIP upgrades'
+  },
+  3: {
+    heading: 'Leaderboard',
+    body: 'The leaderboard is pure psychological warfare ranking people by obsession level always. Three-tier VIP card system with free bets and affiliate network across platforms'
+  },
+  4: {
+    heading: 'Other Assets',
+    body: 'These banners and stickers are basically my fault for addiction marketing purposes. I wanted something simple that makes people stop scrolling and click it'
+  }
+}
+
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
   martell: {
@@ -1161,7 +1184,7 @@ function CreativeDesignerCaseDetail() {
           <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center relative">
             {/* Desktop/Tablet (md+): original 2-column carousel */}
             <div className="hidden md:block relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh] todoalrojo-desktop">
-              {/* Frame 0: todoalrojo-dashboard + todo-1 */}
+              {/* Frame 0: todoalrojo-dashboard + text content */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
@@ -1180,20 +1203,26 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
-                    <img
-                      src={todo1}
-                      alt="Todo 1"
-                      decoding="async"
-                      loading="eager"
-                      className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-1.webp' }}
-                    />
+                  <div className={`w-full font-['Jost',sans-serif] ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                    {todoalrojoDesktopContent[0] && (
+                      <div className="text-left">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {todoalrojoDesktopContent[0].heading}
+                        </h3>
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {todoalrojoDesktopContent[0].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                            </span>
+                          ))}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Frame 1: todoalrojo-task (left) + todo-2 (right) */}
+              {/* Frame 1: todoalrojo-task (left) + text content (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
@@ -1212,20 +1241,26 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
-                    <img
-                      src={todo2}
-                      alt="Todo 2"
-                      decoding="async"
-                      loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-2.webp' }}
-                    />
+                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                    {todoalrojoDesktopContent[1] && (
+                      <div className="text-left">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {todoalrojoDesktopContent[1].heading}
+                        </h3>
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {todoalrojoDesktopContent[1].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                            </span>
+                          ))}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Frame 2: todoalrojo-shop (left) + todo-3 (right) */}
+              {/* Frame 2: todoalrojo-shop (left) + text content (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 2 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`}>
@@ -1244,32 +1279,44 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`max-h-full max-w-full ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`}>
-                    <img
-                      src={todo3}
-                      alt="Todo 3"
-                      decoding="async"
-                      loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-3.webp' }}
-                    />
+                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`}>
+                    {todoalrojoDesktopContent[2] && (
+                      <div className="text-left">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {todoalrojoDesktopContent[2].heading}
+                        </h3>
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {todoalrojoDesktopContent[2].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                            </span>
+                          ))}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Frame 3: todo-4 + vip (left) + todoalrojo-leaderboard (right) */}
+              {/* Frame 3: text content + vip (left) + todoalrojo-leaderboard (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 3 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex flex-col justify-center items-center gap-8">
-                  {/* Todo-4 on top with spacing from VIP */}
-                  <div className={`${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
-                    <img
-                      src={todo4}
-                      alt="Todo 4"
-                      decoding="async"
-                      loading="lazy"
-                      className="w-auto max-w-full h-auto object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-4.webp' }}
-                    />
+                  {/* Text content on top with spacing from VIP */}
+                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
+                    {todoalrojoDesktopContent[3] && (
+                      <div className="text-left">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {todoalrojoDesktopContent[3].heading}
+                        </h3>
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {todoalrojoDesktopContent[3].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                            </span>
+                          ))}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   {/* VIP image, rounded and constrained */}
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
@@ -1297,19 +1344,25 @@ function CreativeDesignerCaseDetail() {
                 </div>
               </div>
 
-              {/* Frame 4: todo-5 (top-left) + rojo-3 full-width under; right column 2x2 cards */}
+              {/* Frame 4: text content (top-left) + rojo-3 full-width under; right column 2x2 cards */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 4 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 {/* Left column: split into two rows, fill parent */}
                 <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-center ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
-                    <img
-                      src={todo5}
-                      alt="Todo 5"
-                      decoding="async"
-                      loading="lazy"
-                      className="w-full h-full object-contain"
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-5.webp' }}
-                    />
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-center font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                    {todoalrojoDesktopContent[4] && (
+                      <div className="text-left p-4">
+                        <h3 className="text-[clamp(18px,2.2vw,24px)] font-bold text-[#e4c492] mb-2 capitalize">
+                          {todoalrojoDesktopContent[4].heading}
+                        </h3>
+                        <p className="text-[clamp(13px,1.8vw,18px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {todoalrojoDesktopContent[4].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
+                            </span>
+                          ))}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden relative ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                     <img
