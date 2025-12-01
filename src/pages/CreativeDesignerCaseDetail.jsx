@@ -216,6 +216,15 @@ function CreativeDesignerCaseDetail() {
   const titles = { martell: 'Martell', todoalrojo: 'Todoalrojo', miela: 'Miela', mielo: 'Mielo' }
   const idx = Math.max(0, order.indexOf(slug || 'martell'))
   const nextSlug = order[(idx + 1) % order.length]
+  const prevSlug = idx === 0 ? null : order[idx - 1]
+
+  const handleBackClick = () => {
+    if (idx === 0) {
+      navigate('/creative-designer/case-study', { replace: false })
+    } else {
+      navigate(`/creative-designer/case/${prevSlug}`, { replace: false })
+    }
+  }
 
   // Scroll-direction swap for Miela hero (md+ screens only) + mobile 3-frame stepper
   const [showSecond, setShowSecond] = useState(false)
@@ -972,7 +981,7 @@ function CreativeDesignerCaseDetail() {
 
         <div className="absolute left-[clamp(16px,3vw,40px)] w-auto">
           <button
-            onClick={() => navigate('/creative-designer/case-study', { replace: false })}
+            onClick={handleBackClick}
             aria-label="Back to Case Studies"
             className="glass-button p-[clamp(12px,3vw,18px)] sm:px-[clamp(10px,2vw,14px)] sm:py-[clamp(6px,1.5vh,10px)] rounded-full text-[clamp(10px,2vw,14px)] font-['Jost',sans-serif] font-medium transition-all duration-300 flex items-center gap-[clamp(4px,1vw,6px)] whitespace-nowrap"
           >
@@ -1327,7 +1336,7 @@ function CreativeDesignerCaseDetail() {
                   {/* Text content on top with spacing from VIP */}
                   <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[3] && (
-                      <div className="text-left">
+                      <div className="text-left mt-[100px]">
                         <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {todoalrojoDesktopContent[3].heading}
                         </h3>
