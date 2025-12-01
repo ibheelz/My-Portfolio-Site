@@ -805,12 +805,14 @@ function CreativeDesignerCaseDetail() {
       const dir = dx < 0 ? 1 : -1
       const d = dir > 0 ? 'right' : 'left'
       setEnterDirMielo(d)
-      setMieloFrame((i) => (i + dir + TOTAL_MIELO_FRAMES) % TOTAL_MIELO_FRAMES)
+      // Mobile: cycle through slides 0-7 (wrap at boundaries)
+      setMieloFrame((i) => (i + dir + TOTAL_MIELO_FRAMES_MOBILE) % TOTAL_MIELO_FRAMES_MOBILE)
     } else {
       // Vertical swipe: next/prev without directional slide
       const dir = dy < 0 ? 1 : -1
       setEnterDirMielo('')
-      setMieloFrame((i) => (i + dir + TOTAL_MIELO_FRAMES) % TOTAL_MIELO_FRAMES)
+      // Mobile: cycle through slides 0-7 (wrap at boundaries)
+      setMieloFrame((i) => (i + dir + TOTAL_MIELO_FRAMES_MOBILE) % TOTAL_MIELO_FRAMES_MOBILE)
     }
   }
 
