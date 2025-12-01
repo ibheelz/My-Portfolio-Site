@@ -51,10 +51,10 @@ const martellVideo2 = `${import.meta.env.BASE_URL}martell-video-2.mp4`
 const mieloImages = Array.from({ length: 9 }, (_, i) => `${import.meta.env.BASE_URL}mielo-${i}.webp`)
 const mieloMobileImages = [
   `${import.meta.env.BASE_URL}mielo-0.webp`,
-  ...Array.from({ length: 7 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
+  ...Array.from({ length: 8 }, (_, i) => `${import.meta.env.BASE_URL}mielo-mobile-${i + 1}.webp`)
 ]
 const TOTAL_MIELO_FRAMES = 9
-const TOTAL_MIELO_FRAMES_MOBILE = 8
+const TOTAL_MIELO_FRAMES_MOBILE = 9
 
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
