@@ -1344,7 +1344,7 @@ function CreativeDesignerCaseDetail() {
                               alt="Miela slide 6"
                               decoding="async"
                               loading="eager"
-                              className="col-start-1 row-start-1 h-full w-auto object-contain block transform origin-top"
+                              className="col-start-1 row-start-1 h-[80%] w-auto object-contain block transform origin-top"
                               style={{ transform: 'translateY(-50px) scale(1.25)' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.webp' }}
                             />
