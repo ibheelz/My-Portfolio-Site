@@ -3387,6 +3387,12 @@ function CreativeDesignerCaseDetail() {
           /* Fix: keep two-column Miela section vertically centered */
           .miela-desktop-hero { height: 65vh !important; }
           .miela-text-col { height: 65vh !important; }
+          /* Increase right-column text size by ~30% on wide screens (Miela) */
+          .miela-text-col h3 { font-size: clamp(31px, 3.5vw, 39px) !important; }
+          .miela-text-col p  { font-size: clamp(22px, 2.6vw, 31px) !important; }
+          /* Increase right-column text size by ~30% on wide screens (Todoalrojo) */
+          .todoalrojo-desktop .text-left h3 { font-size: clamp(26px, 3.25vw, 34px) !important; }
+          .todoalrojo-desktop .text-left p  { font-size: clamp(20px, 2.6vw, 26px) !important; }
           .miela-touch { display: none !important; }
         }
 
