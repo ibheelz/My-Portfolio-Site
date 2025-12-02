@@ -1553,7 +1553,7 @@ function CreativeDesignerCaseDetail() {
 
                 {/* Right column: Text content */}
                 <div className="flex-1 md:w-1/2 md:h-[65vh] hidden md:flex">
-                  <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                  <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in miela-text-col ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                   {mielaDesktopContent[mielaSlide] && (
                     <div className={`text-left w-[97%] ${mielaSlide === 5 ? 'pl-[60px]' : ''}`}>
                       <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] capitalize whitespace-pre-line">
@@ -3374,6 +3374,9 @@ function CreativeDesignerCaseDetail() {
         @media screen and (min-width: 1440px) and (max-height: 950px) {
           html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
           .miela-hero-in { height: calc(100dvh - var(--nav-h)) !important; }
+          /* Fix: keep two-column Miela section vertically centered */
+          .miela-desktop-hero { height: 65vh !important; }
+          .miela-text-col { height: 65vh !important; }
           .miela-touch { display: none !important; }
         }
 
@@ -3381,6 +3384,9 @@ function CreativeDesignerCaseDetail() {
         @media screen and (min-width: 1728px) {
           html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
           .miela-hero-in { height: calc(100dvh - var(--nav-h)) !important; }
+          /* Fix: keep two-column Miela section vertically centered */
+          .miela-desktop-hero { height: 65vh !important; }
+          .miela-text-col { height: 65vh !important; }
           .miela-touch { display: none !important; }
         }
 
