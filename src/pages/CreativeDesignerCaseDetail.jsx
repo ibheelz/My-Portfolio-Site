@@ -394,6 +394,42 @@ function CreativeDesignerCaseDetail() {
     return undefined
   }, [slug])
 
+  // Lock page scroll on mobile for todoalrojo and miela
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    const html = document.documentElement
+    const body = document.body
+    const isMobile = window.innerWidth <= 768
+    const shouldLock = isMobile && (slug === 'miela' || slug === 'todoalrojo')
+
+    if (shouldLock) {
+      html.classList.add('case-detail-mobile-no-scroll')
+      body.classList.add('case-detail-mobile-no-scroll')
+    } else {
+      html.classList.remove('case-detail-mobile-no-scroll')
+      body.classList.remove('case-detail-mobile-no-scroll')
+    }
+
+    const onResize = () => {
+      const isMobileNow = window.innerWidth <= 768
+      const shouldLockNow = isMobileNow && (slug === 'miela' || slug === 'todoalrojo')
+      if (shouldLockNow) {
+        html.classList.add('case-detail-mobile-no-scroll')
+        body.classList.add('case-detail-mobile-no-scroll')
+      } else {
+        html.classList.remove('case-detail-mobile-no-scroll')
+        body.classList.remove('case-detail-mobile-no-scroll')
+      }
+    }
+
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      html.classList.remove('case-detail-mobile-no-scroll')
+      body.classList.remove('case-detail-mobile-no-scroll')
+    }
+  }, [slug])
+
   // Miela slide 2 crossfade (matches Todoalrojo cards animation timing/curve)
   useEffect(() => {
     if (slug !== 'miela') return undefined
@@ -2667,6 +2703,11 @@ function CreativeDesignerCaseDetail() {
           .miela-mobile-no-scroll .miela-hero-in { padding-top: 0 !important; }
         }
 
+        /* Prevent scroll on html/body for mobile todoalrojo and miela */
+        @media (max-width: 767px) {
+          .case-detail-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; }
+        }
+
         /* Lightbox (same style as Posters & Flyers) */
         .lightbox-overlay {
           backdrop-filter: blur(6px);
@@ -2821,7 +2862,7 @@ function CreativeDesignerCaseDetail() {
 
         /* Mobile: reduce top spacer/nav height for Todoalrojo */
         @media (max-width: 768px) {
-          .todoalrojo-mobile-compact { --nav-h: 48px; }
+          .todoalrojo-mobile-compact { --nav-h: 48px; height: 100vh; overflow: hidden; overscroll-behavior: none; }
           .todoalrojo-mobile-compact .header-spacer { height: var(--nav-h) !important; }
         }
 
