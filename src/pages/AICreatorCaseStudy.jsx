@@ -157,6 +157,8 @@ function AICreatorCaseStudy() {
     ]},
   ]
   const [aiFrame, setAiFrame] = useState(0)
+  // Track viewport width for iPad-specific layout tweaks
+  const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 0)
   const lastStepRef = useRef(0)
   // Mobile touch swipe state
   const aiTouchStartXRef = useRef(0)
@@ -167,6 +169,16 @@ function AICreatorCaseStudy() {
   useEffect(() => {
     const cleanup = attachHireMe(document)
     return cleanup
+  }, [])
+
+  // Update viewport width on resize for responsive logic (iPad rules)
+  useEffect(() => {
+    const onResize = () => { try { setVw(window.innerWidth || 0) } catch {} }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', onResize)
+      onResize()
+    }
+    return () => { if (typeof window !== 'undefined') window.removeEventListener('resize', onResize) }
   }, [])
 
   // Lock page scroll on mobile (prevent page moving/scrolling)
@@ -295,19 +307,45 @@ function AICreatorCaseStudy() {
       {/* Duplicate of Mielo slide 1 (desktop and mobile) with the same positioning/layout */}
       <section className="page-content relative subpad flex-1 px-0 anim-bg-soft">
         {/* Desktop/tablet: 70/30 split with dots in the gap */}
-        <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col relative miela-hero-in mt-[15px]">
-          {/* Image container: 70% */}
-          <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+        <div
+          className="ai-desktop-container hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col relative miela-hero-in mt-[15px]"
+          onTouchStart={(e) => {
+            if (!e.touches || e.touches.length === 0) return
+            aiTouchStartXRef.current = e.touches[0].clientX
+            aiTouchStartYRef.current = e.touches[0].clientY
+          }}
+          onTouchMove={(e) => { if (typeof e.preventDefault === 'function') e.preventDefault() }}
+          onTouchEnd={(e) => {
+            if (!e.changedTouches || e.changedTouches.length === 0) return
+            const now = Date.now()
+            if (now - lastStepRef.current < 60) return
+            const endX = e.changedTouches[0].clientX
+            const endY = e.changedTouches[0].clientY
+            const dx = endX - (aiTouchStartXRef.current || 0)
+            const dy = endY - (aiTouchStartYRef.current || 0)
+            const threshold = 14
+            if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
+            if (Math.abs(dx) >= Math.abs(dy)) {
+              setAiFrame((i) => (i + (dx < 0 ? 1 : -1) + aiSlidesDesktop.length) % aiSlidesDesktop.length)
+            } else {
+              setAiFrame((i) => (i + (dy < 0 ? 1 : -1) + aiSlidesDesktop.length) % aiSlidesDesktop.length)
+            }
+            lastStepRef.current = now
+          }}
+        >
+          {/* Image container: 70% (at top) */}
+          <div className="order-1 h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
             {/* Stack all frames (like Mielo) */}
             {aiSlidesDesktop.map((src, idx) => (
               <div
                 key={`desk-${idx}`}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block rounded-[clamp(10px,1vw,18px)] overflow-hidden"
+                className="ai-desk-img-wrap absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block rounded-[clamp(10px,1vw,18px)] overflow-hidden"
                 style={{
                   opacity: aiFrame === idx ? 1 : 0,
                   transition: 'opacity 1600ms ease',
                   willChange: 'opacity',
-                  border: '1.5px solid rgba(255,255,255,0.1)'
+                  border: '1.5px solid rgba(255,255,255,0.1)',
+                  ...(vw >= 744 && vw <= 1366 ? { width: '100%' } : {})
                 }}
               >
                 <img
@@ -315,40 +353,46 @@ function AICreatorCaseStudy() {
                   alt={`AI Creator slide ${idx+1}`}
                   decoding="async"
                   loading={idx === 0 ? 'eager' : 'lazy'}
-                  className="w-auto h-auto max-h-full object-contain"
+                  className="ai-desk-img max-h-full object-contain"
+                  style={{ width: vw >= 744 && vw <= 1366 ? '100%' : 'auto', height: vw >= 744 && vw <= 1366 ? 'auto' : 'auto' }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                 />
               </div>
             ))}
           </div>
-          {/* Dots in the gap */}
-          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 28px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+          {/* Dots 15px below image (at 70% + 15px) */}
+          <div
+            className="ai-desktop-dots absolute left-0 right-0 flex justify-center pointer-events-none"
+            style={{ top: 'calc(70% + 15px)', zIndex: 30 }}
+          >
             <div className="mielo-gap-dots flex justify-center gap-2">
               {Array.from({ length: aiSlidesDesktop.length }).map((_, idx) => (
                 <div key={idx} className={`dot ${aiFrame === idx ? 'active' : ''}`} />
               ))}
             </div>
           </div>
-          {/* Text container: 30% */}
-          <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
-            <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
+          {/* Text container: 30% (at bottom) */}
+          <div className="order-2 h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+            <div className="ai-desktop-text text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
               <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
-              <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
-                {(aiSlidesContent[aiFrame]?.lines || []).join('\n')}
-              </p>
+              <div className="ai-desc-block w-full">
+                {(aiSlidesContent[aiFrame]?.lines || []).map((ln, i) => (
+                  <p key={i} className="ai-desc-para text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed">{ln}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Mobile: image (70%), dots, then text (30%) */}
         <div
-          className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col relative miela-hero-in mt-[15px]"
+          className="ai-mobile-container md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col relative miela-hero-in mt-[15px]"
           onTouchStart={(e) => {
             if (!e.touches || e.touches.length === 0) return
             aiTouchStartXRef.current = e.touches[0].clientX
             aiTouchStartYRef.current = e.touches[0].clientY
           }}
-          onTouchMove={(e) => { e.preventDefault() }}
+          onTouchMove={(e) => { if (typeof e.preventDefault === 'function') e.preventDefault() }}
           onTouchEnd={(e) => {
             if (!e.changedTouches || e.changedTouches.length === 0) return
             const now = Date.now()
@@ -368,12 +412,12 @@ function AICreatorCaseStudy() {
           }}
         >
           {/* Image container: 70% */}
-          <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+          <div className="order-2 h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
             {/* Stack mobile frames center (like Mielo) */}
             {aiSlidesMobile.map((src, idx) => (
               <div key={`mob-${idx}`} className="w-full h-full absolute flex items-center justify-center">
                 <div
-                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full"
+                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden h-[80%]"
                   style={{
                     opacity: aiFrame === idx ? 1 : 0,
                     transition: 'opacity 1600ms ease',
@@ -385,27 +429,27 @@ function AICreatorCaseStudy() {
                     alt={`AI Creator slide mobile ${idx+1}`}
                     decoding="async"
                     loading={idx === 0 ? 'eager' : 'lazy'}
-                    className="w-full h-auto object-contain"
+                    className="h-full w-auto object-contain"
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                   />
                 </div>
               </div>
             ))}
           </div>
-          {/* Dots in the gap */}
-          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+          {/* Dots sit 15px below text block */}
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(30% + 15px)', transform: 'translateY(-50%)', zIndex: 20 }}>
             <div className="mielo-gap-dots flex justify-center gap-2">
               {Array.from({ length: aiSlidesMobile.length }).map((_, idx) => (
                 <div key={idx} className={`dot ${aiFrame === idx ? 'active' : ''}`} />
               ))}
             </div>
           </div>
-          {/* Text container: 30% */}
-          <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
-            <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start mobile-paras overflow-hidden">
+          {/* Text container: 30% (shown above via order) */}
+          <div className="order-1 h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-center justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
+            <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center mobile-paras overflow-hidden">
               <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
               {(aiSlidesMobileShort[aiFrame]?.lines || []).map((ln, i) => (
-                <p key={i} className="text-[clamp(18px,4vw,24px)] text-white/80">{ln}</p>
+                <p key={i} className="ai-desc-para text-[clamp(18px,4vw,24px)] text-white/80">{ln}</p>
               ))}
             </div>
           </div>
@@ -413,6 +457,7 @@ function AICreatorCaseStudy() {
       </section>
 
       <style jsx>{`
+        html, body { overflow: hidden !important; height: 100vh !important; }
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
         .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background: rgba(0,0,0,0.35); z-index: 1; }
         .liquid-glass-header {
@@ -430,6 +475,20 @@ function AICreatorCaseStudy() {
         }
         .header-spacer { height: var(--nav-h); }
         .page-content { position: relative; z-index: 2; }
+        /* Ensure desktop/tablet layout (image top, text bottom) on md+ screens */
+        @media (min-width: 768px) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+        }
+        /* iPad portrait widths: force desktop-style layout (image top, text bottom) */
+        @media screen and (min-width: 728px) and (max-width: 834px) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+        }
+        @media screen and (min-width: 800px) and (max-width: 834px) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+        }
         /* Prevent page scroll/bounce on mobile */
         @media (max-width: 767px) {
           .ai-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; touch-action: none !important; -webkit-touch-callout: none; -webkit-user-select: none; }
@@ -488,10 +547,83 @@ function AICreatorCaseStudy() {
         .mielo-gap-dots { display: flex; justify-content: center; align-items: center; gap: 8px; }
         .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        /* Paragraph spacing: add an empty row under each sentence */
+        .ai-desc-block .ai-desc-para, .mobile-paras .ai-desc-para { margin: 0 0 1em 0; }
+        .ai-desc-block .ai-desc-para:last-child, .mobile-paras .ai-desc-para:last-child { margin-bottom: 0; }
+        /* iPad portrait widths: make image full-width and place dots 15px below image */
+        @media screen and (min-width: 744px) and (max-width: 834px) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+          .ai-desk-img-wrap { width: 100% !important; height: auto !important; }
+          .ai-desk-img { width: 100% !important; height: auto !important; max-height: 100% !important; }
+          .ai-desktop-dots { top: calc(70% + 15px) !important; bottom: auto !important; transform: none !important; }
+          /* Enlarge headings and body by ~15% for readability */
+          .ai-desktop-container h3 { font-size: calc(1.15 * clamp(20px, 2.5vw, 26px)) !important; }
+          .ai-desktop-container p { font-size: calc(1.15 * clamp(15px, 2vw, 20px)) !important; }
+        }
+        /* iPad mini specific: place dots 15px below image */
+        @media screen and (width: 744px) and (height: 1024px),
+               screen and (width: 1024px) and (height: 744px),
+               screen and (width: 1133px) and (height: 744px),
+               screen and (width: 744px) and (height: 1133px) {
+          .ai-desktop-dots { top: calc(70% + 15px) !important; bottom: auto !important; transform: none !important; }
+        }
+        /* iPad portrait + landscape common widths: bump text ~20% for readability */
+        @media screen and (min-width: 744px) and (max-width: 1366px) {
+          .ai-desktop-text h3 { font-size: calc(1.2 * clamp(20px, 2.5vw, 26px)) !important; }
+          .ai-desktop-text p { font-size: calc(1.2 * clamp(15px, 2vw, 20px)) !important; }
+          .ai-page-container { margin-bottom: 50px !important; }
+        }
         /* Mobile paragraph spacing (slide text) */
         @media (max-width: 767px) {
           .mobile-paras p { line-height: 1.2; margin: 0 0 1.2em 0; }
           .mobile-paras p:last-child { margin-bottom: 0; }
+        }
+        /* Surface Duo (540x720) and foldable screens: text uses full available height */
+        @media (width: 540px) {
+          .ai-mobile-container .order-1 { height: auto !important; min-height: fit-content; overflow: visible !important; }
+          .ai-mobile-container .mobile-paras { height: auto !important; overflow: visible !important; }
+          .ai-mobile-container h3 { font-size: calc(0.85 * clamp(24px, 5vw, 30px)) !important; }
+          .ai-mobile-container p { font-size: calc(0.85 * clamp(18px, 4vw, 24px)) !important; }
+        }
+        /* Nest Hub (1024x600): image and text full height of rows, width auto */
+        @media (width: 1024px) and (height: 600px) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+          .ai-desktop-container > div:first-child { padding: 0 !important; height: 60% !important; }
+          .ai-desk-img-wrap { position: absolute !important; top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; height: 100% !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+          .ai-desk-img { height: 100% !important; width: auto !important; }
+          .ai-desktop-container > div:last-child { height: 40% !important; }
+          .ai-desktop-text { height: 100% !important; width: 90% !important; overflow: hidden !important; }
+          .ai-desktop-text h3 { font-size: 16px !important; margin-bottom: 6px !important; }
+          .ai-desktop-text p { font-size: 13px !important; line-height: 1.4 !important; margin: 0 !important; }
+          .ai-desktop-dots { top: calc(60% + 20px) !important; }
+        }
+        /* Nest Hub Max (1280x800) and similar landscape displays */
+        @media (width: 1280px) and (height: 800px) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+          .ai-desktop-container > div:first-child { padding: 0 !important; height: 60% !important; }
+          .ai-desk-img-wrap { position: absolute !important; top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; height: 100% !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+          .ai-desk-img { height: 100% !important; width: auto !important; }
+          .ai-desktop-container > div:last-child { height: 40% !important; }
+          .ai-desktop-text { height: 100% !important; width: 90% !important; overflow: hidden !important; }
+          .ai-desktop-text h3 { font-size: 18px !important; margin-bottom: 6px !important; }
+          .ai-desktop-text p { font-size: 14px !important; line-height: 1.4 !important; margin: 0 !important; }
+          .ai-desktop-dots { top: calc(60% + 20px) !important; }
+        }
+        /* Generic landscape displays (1024x768 and similar aspect ratios) */
+        @media (min-height: 600px) and (max-height: 900px) and (min-width: 1000px) and (max-width: 1400px) and (orientation: landscape) {
+          .ai-desktop-container { display: flex !important; }
+          .ai-mobile-container { display: none !important; }
+          .ai-desktop-container > div:first-child { padding: 0 !important; height: 60% !important; }
+          .ai-desk-img-wrap { position: absolute !important; top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; height: 100% !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+          .ai-desk-img { height: 100% !important; width: auto !important; }
+          .ai-desktop-container > div:last-child { height: 40% !important; }
+          .ai-desktop-text { height: 100% !important; width: 90% !important; overflow: hidden !important; }
+          .ai-desktop-text h3 { font-size: clamp(15px, 2vw, 18px) !important; margin-bottom: 6px !important; }
+          .ai-desktop-text p { font-size: clamp(12px, 1.5vw, 14px) !important; line-height: 1.4 !important; margin: 0 !important; }
+          .ai-desktop-dots { top: calc(60% + 20px) !important; }
         }
       `}</style>
     </div>
