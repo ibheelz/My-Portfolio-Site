@@ -3143,6 +3143,14 @@ function CreativeDesignerCaseDetail() {
           .miela-touch { padding-left: 16px !important; padding-right: 16px !important; }
         }
 
+        /* Screen 3.5: 720px-767px Special size - 20% smaller content */
+        @media screen and (min-width: 720px) and (max-width: 767px) {
+          .miela-touch { padding-left: 64px !important; padding-right: 64px !important; }
+          .miela-touch h3 { font-size: clamp(24px, 5vw, 32px) !important; }
+          .miela-touch p { font-size: clamp(16px, 4vw, 22px) !important; }
+          .miela-hero-in { gap: 16px !important; }
+        }
+
         /* Screen 4: iPad Mini (744px) */
         @media screen and (min-width: 728px) and (max-width: 834px) {
           .miela-touch { padding-left: 108px !important; padding-right: 108px !important; }
