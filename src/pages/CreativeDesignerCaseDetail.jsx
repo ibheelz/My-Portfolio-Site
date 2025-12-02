@@ -1344,7 +1344,7 @@ function CreativeDesignerCaseDetail() {
                               alt="Miela slide 6"
                               decoding="async"
                               loading="eager"
-                              className="col-start-1 row-start-1 h-[80%] w-auto object-contain block transform origin-top"
+                              className="col-start-1 row-start-1 h-[60%] w-auto object-contain block transform origin-top"
                               style={{ transform: 'translateY(-50px) scale(1.25)' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.webp' }}
                             />
@@ -1364,7 +1364,7 @@ function CreativeDesignerCaseDetail() {
                                 alt={`Miela slide 5 mobile ${idx+1}`}
                                 decoding="async"
                                 loading={idx === 0 ? 'eager' : 'lazy'}
-                                className="col-start-1 row-start-1 h-full w-auto object-contain block"
+                                className="col-start-1 row-start-1 h-[60%] w-auto object-contain block"
                                 style={{ opacity: miela5MobileFrame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                                 onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                               />
@@ -1466,7 +1466,7 @@ function CreativeDesignerCaseDetail() {
                             alt="Miela slide 6"
                             decoding="async"
                             loading="eager"
-                            className="max-h-full w-[80%] h-full object-contain"
+                            className="max-h-full w-[80%] h-[60%] object-contain"
                             onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.webp' }}
                           />
                         </div>
@@ -1482,7 +1482,7 @@ function CreativeDesignerCaseDetail() {
                                 alt={`Miela 5 image ${idx+1}`}
                                 decoding="async"
                                 loading={idx === 0 ? 'eager' : 'lazy'}
-                                className="h-full w-auto max-w-full object-contain"
+                                className="h-[60%] w-auto max-w-full object-contain"
                                 onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                               />
                             </div>
