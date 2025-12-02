@@ -1224,7 +1224,7 @@ function CreativeDesignerCaseDetail() {
   }, [slug])
 
   return (
-    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'mielo' ? 'mielo-case-mobile-fixed' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'mielo' ? 'mielo-case-mobile-fixed' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''} ${slug === 'martell' ? 'martell-nesthub' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -2590,6 +2590,11 @@ function CreativeDesignerCaseDetail() {
         .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background: rgba(0,0,0,0.35); z-index: 1; pointer-events: none; }
         .liquid-glass-header { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1.5px solid rgba(255,255,255,0.1); border-radius: clamp(20px, 4vw, 30px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: fixed; top: 0; left: clamp(6px, 1.5vw, 12px); right: clamp(6px, 1.5vw, 12px); z-index: 10; }
         .header-spacer { height: var(--nav-h); }
+        /* Nest Hub only: slightly reduce top space for Martell */
+        @media (width: 1024px) and (height: 600px), (width: 600px) and (height: 1024px), (width: 1280px) and (height: 800px), (width: 800px) and (height: 1280px) {
+          /* Ensure Martell content does not underlap navbar on Nest Hub */
+          .martell-nesthub .header-spacer { height: calc(var(--nav-h) + 10px) !important; }
+        }
         /* Nest Hub devices: add 50px extra top space */
         @media (width: 1024px) and (height: 600px), (width: 600px) and (height: 1024px), (width: 1280px) and (height: 800px), (width: 800px) and (height: 1280px) {
           .header-spacer { height: calc(var(--nav-h) + 50px) !important; }
