@@ -1040,7 +1040,7 @@ function CreativeDesignerCaseDetail() {
       <div className="header-spacer" />
 
       {/* Content layer: show extra media for specific cases */}
-      <section className="content-layer flex-1 flex flex-col w-full">
+      <section className="content-layer flex-1 flex flex-col w-full gap-0">
         {/* Miela-specific image visible only on md+ screens */}
         {slug === 'miela' && (
           <>
