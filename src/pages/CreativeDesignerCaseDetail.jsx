@@ -1994,7 +1994,7 @@ function CreativeDesignerCaseDetail() {
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Right column container: 90% of page height (minus navbar) */}
                 <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
-                  <div className="h-[90%] w-full mx-auto lg:ml-[-30px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
+                  <div className="h-[90%] w-full lg:ml-[-30px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
                     <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top">
                       <img
                         src={martellImage1}
