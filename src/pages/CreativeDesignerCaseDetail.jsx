@@ -1056,7 +1056,36 @@ function CreativeDesignerCaseDetail() {
               {/* Left column: Centered content container */}
               <div className="flex-1 flex flex-col items-center justify-center md:w-1/2">
                 {/* Mobile: dedicated Miela image */}
-                <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
+                <div className="flex flex-col md:hidden w-full h-[calc(100dvh-var(--nav-h))] items-center px-6 miela-hero-in miela-touch" style={{ marginTop: 'var(--nav-h)' }} onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
+                  {/* Image at top */}
+                  <div className="w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px]">
+                    <img
+                      src="/miela-1.webp"
+                      alt="Miela slide 1"
+                      decoding="async"
+                      loading="eager"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+
+                  {/* Text below */}
+                  {mielaDesktopContent[0] && (
+                    <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start mt-6">
+                      <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                        {mielaDesktopContent[0].heading}
+                      </h3>
+                      <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
+                        {mielaDesktopContent[0].body.split('. ').map((sentence, idx, arr) => {
+                          const trimmed = sentence.trim();
+                          return (
+                            <span key={idx}>
+                              {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
+                            </span>
+                          );
+                        })}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Desktop/Tablet: hero frames (uniform sizing) */}
@@ -1082,11 +1111,14 @@ function CreativeDesignerCaseDetail() {
                       {mielaDesktopContent[0].heading}
                     </h3>
                     <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
-                      {mielaDesktopContent[0].body.split('. ').map((sentence, idx, arr) => (
-                        <span key={idx}>
-                          {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
-                        </span>
-                      ))}
+                      {mielaDesktopContent[0].body.split('. ').map((sentence, idx, arr) => {
+                        const trimmed = sentence.trim();
+                        return (
+                          <span key={idx}>
+                            {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
+                          </span>
+                        );
+                      })}
                     </p>
                   </div>
                 )}
