@@ -402,12 +402,19 @@ function CreativeDesignerCaseDetail() {
     const isMobile = window.innerWidth <= 768
     const shouldLock = isMobile && (slug === 'miela' || slug === 'todoalrojo')
 
+    // Prevent default touch scroll behavior
+    const preventScroll = (e) => {
+      if (window.innerWidth <= 768 && (slug === 'miela' || slug === 'todoalrojo')) {
+        e.preventDefault()
+      }
+    }
+
     if (shouldLock) {
       html.classList.add('case-detail-mobile-no-scroll')
       body.classList.add('case-detail-mobile-no-scroll')
+      document.addEventListener('touchmove', preventScroll, { passive: false })
     } else {
-      html.classList.remove('case-detail-mobile-no-scroll')
-      body.classList.remove('case-detail-mobile-no-scroll')
+      document.removeEventListener('touchmove', preventScroll)
     }
 
     const onResize = () => {
@@ -416,15 +423,18 @@ function CreativeDesignerCaseDetail() {
       if (shouldLockNow) {
         html.classList.add('case-detail-mobile-no-scroll')
         body.classList.add('case-detail-mobile-no-scroll')
+        document.addEventListener('touchmove', preventScroll, { passive: false })
       } else {
         html.classList.remove('case-detail-mobile-no-scroll')
         body.classList.remove('case-detail-mobile-no-scroll')
+        document.removeEventListener('touchmove', preventScroll)
       }
     }
 
     window.addEventListener('resize', onResize)
     return () => {
       window.removeEventListener('resize', onResize)
+      document.removeEventListener('touchmove', preventScroll)
       html.classList.remove('case-detail-mobile-no-scroll')
       body.classList.remove('case-detail-mobile-no-scroll')
     }

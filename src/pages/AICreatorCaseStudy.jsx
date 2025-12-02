@@ -175,23 +175,36 @@ function AICreatorCaseStudy() {
     const html = document.documentElement
     const body = document.body
     const apply = window.innerWidth <= 768
+
+    // Prevent default touch scroll behavior
+    const preventScroll = (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault()
+      }
+    }
+
     if (apply) {
       html.classList.add('ai-mobile-no-scroll')
       body.classList.add('ai-mobile-no-scroll')
+      document.addEventListener('touchmove', preventScroll, { passive: false })
     }
+
     const onResize = () => {
       const isMobile = window.innerWidth <= 768
       if (isMobile) {
         html.classList.add('ai-mobile-no-scroll')
         body.classList.add('ai-mobile-no-scroll')
+        document.addEventListener('touchmove', preventScroll, { passive: false })
       } else {
         html.classList.remove('ai-mobile-no-scroll')
         body.classList.remove('ai-mobile-no-scroll')
+        document.removeEventListener('touchmove', preventScroll)
       }
     }
     window.addEventListener('resize', onResize)
     return () => {
       window.removeEventListener('resize', onResize)
+      document.removeEventListener('touchmove', preventScroll)
       html.classList.remove('ai-mobile-no-scroll')
       body.classList.remove('ai-mobile-no-scroll')
     }
@@ -230,7 +243,7 @@ function AICreatorCaseStudy() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col ai-page-container" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -419,7 +432,7 @@ function AICreatorCaseStudy() {
         .page-content { position: relative; z-index: 2; }
         /* Prevent page scroll/bounce on mobile */
         @media (max-width: 767px) {
-          .ai-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; }
+          .ai-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; touch-action: none !important; }
           /* Ensure the mobile wrapper accounts for bottom margin space */
           .ai-mobile-wrap { box-sizing: border-box; }
           /* Very short screens: tighten split to avoid clipping */
@@ -427,6 +440,13 @@ function AICreatorCaseStudy() {
             .ai-mobile-wrap .mobile-paras h3 { margin-bottom: 8px; }
             .ai-mobile-wrap .mobile-paras p { font-size: clamp(16px,4.2vw,20px); }
           }
+        }
+        /* Additional mobile scroll prevention for main container */
+        @media (max-width: 767px) {
+          .ai-mobile-no-scroll.ai-page-container { height: 100vh !important; overflow: hidden !important; }
+          /* Prevent scrolling on the page content */
+          .ai-mobile-no-scroll .page-content { overflow: hidden !important; }
+          .ai-mobile-no-scroll .miela-hero-in { overflow: hidden !important; }
         }
         /* Decorative SVGs and inline arrow icons */
         img.svg-gold { filter: brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(589%) hue-rotate(349deg) brightness(99%) contrast(91%); }
