@@ -1653,7 +1653,7 @@ function CreativeDesignerCaseDetail() {
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Video layer: 90% of page height (minus navbar) */}
                 <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
-                  <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                  <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner martell-enter martell-delay-1" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                     <video
                       src={martellVideo1}
                       className="block h-full w-auto max-w-full object-contain cursor-pointer martell-enter martell-delay-1"
@@ -1689,7 +1689,7 @@ function CreativeDesignerCaseDetail() {
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.webp' }}
                       />
                     </div>
-                    <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden martell-bottom" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                    <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden martell-bottom martell-enter martell-delay-2" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                       <img
                         src={martelDayImage}
                         alt="Martell day visual"
@@ -1723,7 +1723,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 2) martell video (left column video) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="140" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll martell-enter martell-delay-2" data-delay="140" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
                   <video
                     src={martellVideo1}
                     className="block w-full h-auto object-contain cursor-pointer martell-enter martell-delay-2"
@@ -1754,7 +1754,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 4) martell day image (click to open lightbox) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="260" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll martell-enter martell-delay-4" data-delay="260" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
                   <img
                     src={martelDayImage}
                     alt="Martell day visual"
