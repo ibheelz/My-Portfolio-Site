@@ -192,6 +192,14 @@ const mielaDesktopContent = {
   2: {
     heading: 'Stream‑Native Promos',
     body: 'Created 50+ designs making betting promos feel native within streams for viewers. Goal was simple: become the brand streamers actually chose to promote daily.'
+  },
+  3: {
+    heading: 'QR & Overlays',
+    body: 'Designed QR system and banner overlays that lived on streamers’ screens daily. Clean, scannable and native; purpose-built to pull attention without interruption during streams.'
+  },
+  4: {
+    heading: 'Unmissable Results',
+    body: 'Seventy percent engagement boost; Pin‑Up and Thunderpick went from invisible to unmissable. Designs became the template by meeting people where they scroll every day.'
   }
 }
 
@@ -289,6 +297,9 @@ function CreativeDesignerCaseDetail() {
   const [miela2Frame, setMiela2Frame] = useState(0) // 0..3 cycles images 2.1..2.4
   // Miela slide 3 (3.1 -> 3.2) simple crossfade
   const [miela3Frame, setMiela3Frame] = useState(0) // 0..1 cycles images 3.1..3.2
+  // Miela slide 5 mobile (5.1-mobile -> 5.3-mobile) crossfade
+  const [miela5MobileFrame, setMiela5MobileFrame] = useState(0) // 0..2 cycles mobile images
+  // Miela slide 5: static trio (no animation)
 
   // Mielo navigation state
   const [mieloFrame, setMieloFrame] = useState(0) // 0..8 (9 frames)
@@ -392,6 +403,17 @@ function CreativeDesignerCaseDetail() {
     if (slug !== 'miela') return undefined
     if (mielaSlide !== 2) return undefined
     const id = setInterval(() => setMiela3Frame((i) => (i + 1) % 2), 3000)
+    return () => clearInterval(id)
+  }, [slug, mielaSlide])
+
+  // (no animation needed for slide 5 on desktop)
+
+  // Miela slide 5 mobile crossfade between 3 mobile images
+  useEffect(() => {
+    if (slug !== 'miela') return undefined
+    if (mielaSlide !== 4) return undefined
+    if (typeof window !== 'undefined' && window.innerWidth >= 768) return undefined
+    const id = setInterval(() => setMiela5MobileFrame((i) => (i + 1) % 3), 3000)
     return () => clearInterval(id)
   }, [slug, mielaSlide])
 
@@ -838,13 +860,13 @@ function CreativeDesignerCaseDetail() {
         const dir = dx < 0 ? 1 : -1
         const d = dir > 0 ? 'right' : 'left'
         setEnterDirMiela(d)
-        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 3) % 3)
+        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 5) % 5)
       } else {
         // Vertical swipe: navigate slides (up = next, down = prev)
         const dir = dy < 0 ? 1 : -1
         const d = dir > 0 ? 'right' : 'left'
         setEnterDirMiela(d)
-        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 3) % 3)
+        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 5) % 5)
       }
       return
     }
@@ -1049,7 +1071,7 @@ function CreativeDesignerCaseDetail() {
 
     const stepByDir = (dir) => {
       if (dir === 0) return
-      setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 3) % 3) // 3 slides total
+      setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 5) % 5) // 5 slides total
     }
 
     const lockMs = 60
@@ -1177,6 +1199,25 @@ function CreativeDesignerCaseDetail() {
                         />
                       </div>
                     )}
+
+                    {/* Slide 5: show text above the image on mobile */}
+                    {mielaSlide === 4 && mielaDesktopContent[mielaSlide] && (
+                      <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
+                        <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {mielaDesktopContent[mielaSlide].heading}
+                        </h3>
+                        <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
+                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => {
+                            const trimmed = sentence.trim();
+                            return (
+                              <span key={idx}>
+                                {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
+                              </span>
+                            );
+                          })}
+                        </p>
+                      </div>
+                    )}
                     {mielaSlide === 1 && (
                       <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                         <div className="relative w-full h-full max-w-full max-h-full">
@@ -1213,9 +1254,41 @@ function CreativeDesignerCaseDetail() {
                         </div>
                       </div>
                     )}
+                    {mielaSlide === 3 && (
+                      <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="relative w-full h-full max-w-full max-h-full">
+                          <img
+                            src="/miela-4.webp"
+                            alt="Miela slide 4"
+                            decoding="async"
+                            loading="eager"
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.webp' }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    {mielaSlide === 4 && (
+                      <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="relative w-full h-full max-w-full max-h-full">
+                          {['/miela-5.1-mobile.webp','/miela-5.2-mobile.webp','/miela-5.3-mobile.webp'].map((src, idx) => (
+                            <img
+                              key={`miela5-m-${idx}`}
+                              src={src}
+                              alt={`Miela slide 5 mobile ${idx+1}`}
+                              decoding="async"
+                              loading={idx === 0 ? 'eager' : 'lazy'}
+                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
+                              style={{ opacity: miela5MobileFrame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-                    {/* Text below at bottom */}
-                    {mielaDesktopContent[mielaSlide] && (
+                    {/* Text below at bottom (all slides except slide 5 where text is above) */}
+                    {mielaSlide !== 4 && mielaDesktopContent[mielaSlide] && (
                       <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
                         <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {mielaDesktopContent[mielaSlide].heading}
@@ -1280,6 +1353,38 @@ function CreativeDesignerCaseDetail() {
                               style={{ opacity: miela3Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                             />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {mielaSlide === 3 && (
+                      <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="relative w-full h-full max-w-full max-h-full px-[100px] flex items-center justify-center">
+                          <img
+                            src="/miela-4.webp"
+                            alt="Miela slide 4"
+                            decoding="async"
+                            loading="eager"
+                            className="max-w-full max-h-full w-auto h-full object-contain"
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.webp' }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    {mielaSlide === 4 && (
+                      <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="w-full h-full flex items-center justify-center gap-[20px] px-0 md:px-[100px]">
+                          {['/miela-5.1.webp','/miela-5.2.webp','/miela-5.3.webp'].map((src, idx) => (
+                            <div key={`miela5d-wrap-${idx}`} className="flex-1 min-w-0 h-full flex items-center justify-center">
+                              <img
+                                src={src}
+                                alt={`Miela 5 image ${idx+1}`}
+                                decoding="async"
+                                loading={idx === 0 ? 'eager' : 'lazy'}
+                                className="h-full w-auto max-w-full object-contain"
+                                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                              />
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -2266,13 +2371,13 @@ function CreativeDesignerCaseDetail() {
       {slug === 'miela' && (
         <div className="miela-dots-fixed" aria-hidden>
           <div className="hidden md:flex justify-center">
-            {Array.from({ length: 6 }).map((_, idx) => (
-              <div key={`d-dot-${idx}`} className={`dot ${desktopFrame === idx ? 'active' : ''}`} />
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <div key={`d-dot-${idx}`} className={`dot ${mielaSlide === idx ? 'active' : ''}`} />
             ))}
           </div>
           <div className="flex md:hidden justify-center">
-            {Array.from({ length: 10 }).map((_, idx) => (
-              <div key={`m-dot-${idx}`} className={`dot ${mobileFrame === idx ? 'active' : ''}`} />
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <div key={`m-dot-${idx}`} className={`dot ${mielaSlide === idx ? 'active' : ''}`} />
             ))}
           </div>
         </div>
