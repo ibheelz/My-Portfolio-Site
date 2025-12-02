@@ -345,8 +345,7 @@ function AICreatorCaseStudy() {
                   transition: 'opacity 1600ms ease',
                   willChange: 'opacity',
                   border: '1.5px solid rgba(255,255,255,0.1)',
-                  height: '70%',
-                  width: '70%'
+                  height: '70%'
                 }}
               >
                 <img
@@ -355,7 +354,7 @@ function AICreatorCaseStudy() {
                   decoding="async"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   className="ai-desk-img max-h-full object-contain"
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: 'auto', height: '100%' }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                 />
               </div>
