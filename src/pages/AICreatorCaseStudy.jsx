@@ -61,8 +61,75 @@ function AICreatorCaseStudy() {
 
       <div className="header-spacer" />
 
-      {/* Content placeholder */}
-      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft" />
+      {/* Duplicate of Mielo slide 1 (desktop and mobile) */}
+      <section className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft flex flex-col items-center justify-start gap-6">
+        {/* Desktop/tablet */}
+        <div className="hidden md:flex w-full flex-col items-center justify-start gap-3">
+          <div className="w-full h-[70vh] max-w-full max-h-full flex items-center justify-center">
+            <img
+              src="/mielo-0.webp"
+              alt="Mielo slide 1 duplicate"
+              decoding="async"
+              loading="eager"
+              className="h-full w-auto max-w-full object-contain rounded-[clamp(10px,1vw,18px)] border border-white/10"
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/mielo-0.webp' }}
+            />
+          </div>
+          {/* Dots under image */}
+          <div className="mielo-gap-dots" aria-hidden>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div key={`dot-d-${i}`} className={`dot ${i === 0 ? 'active' : ''}`} />
+            ))}
+          </div>
+          {/* Text content */}
+          <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-center">
+            <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+              The problem
+            </h3>
+            <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line w-[min(960px,90%)]">
+              Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why.
+            </p>
+          </div>
+        </div>
+
+        {/* Mobile */}
+        <div className="md:hidden w-full flex flex-col items-center justify-start gap-3">
+          <div className="w-full h-[70vh] max-w-full max-h-full flex items-center justify-center">
+            <img
+              src="/mielo-0.webp"
+              alt="Mielo slide 1 duplicate mobile"
+              decoding="async"
+              loading="eager"
+              className="h-full w-auto max-w-full object-contain rounded-[clamp(10px,1vw,18px)] border border-white/10"
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/mielo-0.webp' }}
+            />
+          </div>
+          {/* Dots under image */}
+          <div className="mielo-gap-dots" aria-hidden>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div key={`dot-m-${i}`} className={`dot ${i === 0 ? 'active' : ''}`} />
+            ))}
+          </div>
+          {/* Text content */}
+          <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-center">
+            <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+              The problem
+            </h3>
+            <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
+              Mielo is a discovery management platform for LATAM streamers. AI search returns zero results for all queries.
+            </p>
+          </div>
+          {/* Back button */}
+          <div className="mt-2">
+            <button
+              onClick={() => navigate('/ai-creator', { replace: false })}
+              className="glass-button px-4 py-2 rounded-full text-sm font-['Jost',sans-serif]"
+            >
+              Back to AI Creator
+            </button>
+          </div>
+        </div>
+      </section>
 
       <style jsx>{`
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background-size: cover; background-position: center; z-index: 0; }
@@ -112,6 +179,11 @@ function AICreatorCaseStudy() {
           .liquid-glass-header .glass-button:hover svg,
           .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
         }
+
+        /* Mielo gap dots (same style) */
+        .mielo-gap-dots { display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+        .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
       `}</style>
     </div>
   )
