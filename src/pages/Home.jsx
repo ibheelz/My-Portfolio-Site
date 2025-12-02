@@ -160,10 +160,10 @@ function Home() {
   }, [])
 
   return (
-    <div className="h-screen overflow-auto lg:overflow-hidden bg-[#06080a] p-[8px] lg:p-[12px] flex flex-col animate-fadeIn">
-      {/* White container with responsive margins */}
+    <div className="home-wrapper h-screen overflow-auto lg:overflow-hidden bg-[#06080a] flex flex-col animate-fadeIn">
+      {/* Background image container - full width */}
       <div
-        className="w-full rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
+        className="w-screen rounded-[20px] lg:rounded-[30px] bg-cover bg-center bg-no-repeat relative overflow-hidden hero-container"
         style={{
           backgroundImage: 'url(/hero-bg.webp)',
           backgroundSize: 'cover',
@@ -666,7 +666,7 @@ function Home() {
         </div>
 
         {/* Desktop: All characters at bottom */}
-        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5 animate-slideUp" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
+        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-[95%] lg:w-[90%] justify-center items-end gap-5 animate-slideUp char-container" style={{ bottom: 'clamp(-100px, calc(-150px + 20vh), 0px)' }}>
           <img
             src="/characters/1.webp"
             alt="Character 1"
@@ -811,12 +811,34 @@ function Home() {
         /* Hero container height - responsive across all screen sizes */
         .hero-container {
           height: clamp(420px, calc(100vh - 280px), 650px);
+          width: 100vw !important;
+          margin-left: calc(-50vw + 50%) !important;
         }
 
         /* Ultra-wide screens: increase max height for better proportions */
         @media (min-width: 1920px) {
+          .home-wrapper {
+            overflow: visible !important;
+            width: 100% !important;
+          }
+
           .hero-container {
             height: clamp(420px, calc(100vh - 280px), 850px);
+            border-radius: 0 !important;
+            width: 100vw !important;
+            margin-left: calc(50% - 50vw) !important;
+            margin-right: calc(50% - 50vw) !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            background-origin: border-box !important;
+            flex-shrink: 0;
+          }
+
+          .char-container {
+            width: 100vw !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
           }
 
           /* Reduce character widths and constrain height on ultra-wide screens */
