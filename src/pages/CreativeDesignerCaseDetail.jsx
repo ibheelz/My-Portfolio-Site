@@ -1052,7 +1052,7 @@ function CreativeDesignerCaseDetail() {
         {slug === 'miela' && (
           <>
             {/* Two-column layout for desktop */}
-            <div className="w-full flex flex-col md:flex-row gap-0 md:max-h-[70vh]">
+            <div className="w-full flex flex-col md:flex-row gap-0 md:max-h-[65vh]">
               {/* Left column: Centered content container */}
               <div className="flex-1 flex flex-col items-center justify-center md:w-1/2">
                 {/* Mobile: dedicated Miela image */}
@@ -1066,7 +1066,7 @@ function CreativeDesignerCaseDetail() {
                     alt="Miela slide 1"
                     decoding="async"
                     loading="eager"
-                    className="max-w-full max-h-[70vh] object-contain"
+                    className="max-w-full max-h-[65vh] object-contain"
                   />
                 </div>
               </div>
