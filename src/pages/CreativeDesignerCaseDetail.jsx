@@ -2991,6 +2991,115 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile-compact .header-spacer { height: var(--nav-h) !important; }
         }
 
+        /* Screen 1: iPhone SE / iPhone 12 Mini (375px) */
+        @media screen and (min-width: 360px) and (max-width: 389px) {
+          .todoalrojo-mobile { padding-left: 12px !important; padding-right: 12px !important; }
+        }
+
+        /* Screen 2: iPhone 6/7/8/X/11/12/13/14/15 (390-430px) */
+        @media screen and (min-width: 390px) and (max-width: 430px) {
+          .todoalrojo-mobile { padding-left: 16px !important; padding-right: 16px !important; }
+        }
+
+        /* Screen 4: iPad Mini (744px) */
+        @media screen and (min-width: 728px) and (max-width: 834px) {
+          .todoalrojo-mobile { padding-left: 108px !important; padding-right: 108px !important; padding-bottom: 108px !important; }
+          .todoalrojo-mobile h3 { font-size: clamp(32px, 6vw, 40px) !important; }
+          .todoalrojo-mobile p { font-size: clamp(22px, 5vw, 28px) !important; }
+        }
+
+        /* Screen 5: iPad Air (820px) */
+        @media screen and (min-width: 800px) and (max-width: 834px) {
+          .todoalrojo-mobile { padding-left: 90px !important; padding-right: 90px !important; }
+          .todoalrojo-mobile h3 { font-size: clamp(34px, 6.5vw, 42px) !important; }
+          .todoalrojo-mobile p { font-size: clamp(24px, 5.5vw, 30px) !important; }
+        }
+
+        /* Screen 6: Surface Pro / iPad (835-912px) */
+        @media screen and (min-width: 835px) and (max-width: 912px) {
+          .todoalrojo-mobile { padding-left: 100px !important; padding-right: 100px !important; }
+          .todoalrojo-mobile h3 { font-size: clamp(36px, 7vw, 44px) !important; }
+          .todoalrojo-mobile p { font-size: clamp(26px, 6vw, 32px) !important; }
+        }
+
+        /* Screen 7: iPad Pro 11" (834-1024px) */
+        @media screen and (min-width: 913px) and (max-width: 1023px) {
+          .todoalrojo-mobile { padding-left: 110px !important; padding-right: 110px !important; }
+          .todoalrojo-mobile h3 { font-size: clamp(38px, 7.5vw, 46px) !important; }
+          .todoalrojo-mobile p { font-size: clamp(28px, 6.5vw, 34px) !important; }
+        }
+
+        /* Screen 8: iPad Pro 12.9" (1024-1280px) */
+        @media screen and (min-width: 1024px) and (max-width: 1280px) {
+          .todoalrojo-mobile { padding-left: 120px !important; padding-right: 120px !important; }
+          .todoalrojo-mobile h3 { font-size: clamp(40px, 8vw, 48px) !important; }
+          .todoalrojo-mobile p { font-size: clamp(30px, 7vw, 36px) !important; }
+        }
+
+        /* Screen 9: MacBook Air (1280-1366px) */
+        @media screen and (min-width: 1281px) and (max-width: 1366px) {
+          .todoalrojo-mobile { padding-left: 140px !important; padding-right: 140px !important; }
+        }
+
+        /* Screen 10: Standard Laptop (1440px) */
+        @media screen and (min-width: 1367px) and (max-width: 1519px) {
+          .todoalrojo-mobile { padding-left: 160px !important; padding-right: 160px !important; }
+        }
+
+        /* Screen 11: Large Laptop (1600-1920px) */
+        @media screen and (min-width: 1520px) and (max-width: 1920px) {
+          .todoalrojo-mobile { padding-left: 180px !important; padding-right: 180px !important; }
+        }
+
+        /* Screen 12: Desktop Ultrawide (2560px+) */
+        @media screen and (min-width: 1921px) and (max-width: 2559px) {
+          .todoalrojo-mobile { padding-left: 200px !important; padding-right: 200px !important; }
+        }
+
+        @media screen and (min-width: 2560px) {
+          .todoalrojo-mobile { padding-left: 250px !important; padding-right: 250px !important; }
+        }
+
+        /* Screen 13: Google Nest Hub 7" (1024x600px) - Use Desktop Mode */
+        @media (min-width: 1024px) and (max-height: 650px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .todoalrojo-desktop {
+            display: block !important;
+            grid-template-columns: 35% 63% !important;
+            gap: 16px !important;
+            width: 100% !important;
+            height: calc(100dvh - var(--nav-h)) !important;
+          }
+          .todoalrojo-mobile { display: none !important; }
+        }
+
+        /* Screen 14: Google Nest Hub Max 10" (1280x800px) - Use Desktop Mode */
+        @media (min-width: 1280px) and (max-height: 850px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .todoalrojo-desktop {
+            display: block !important;
+            grid-template-columns: 35% 63% !important;
+            gap: 16px !important;
+            width: 100% !important;
+            height: calc(100dvh - var(--nav-h)) !important;
+          }
+          .todoalrojo-mobile { display: none !important; }
+        }
+
+        /* Screen 15: MacBook Air M1 (1440x900px) - Use Desktop Mode */
+        @media screen and (min-width: 1440px) and (max-height: 950px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .todoalrojo-desktop { display: block !important; }
+          .todoalrojo-mobile { display: none !important; }
+        }
+
+        /* Screen 16: MacBook Pro M1 (1728px+) - Use Desktop Mode */
+        @media screen and (min-width: 1728px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .todoalrojo-desktop { display: block !important; }
+          .todoalrojo-mobile { display: none !important; }
+        }
+
         /* Mielo lightbox animations */
         @keyframes mieloLightboxFadeIn {
           0% { opacity: 0; backdrop-filter: blur(0); }
