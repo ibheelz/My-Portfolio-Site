@@ -1047,24 +1047,26 @@ function CreativeDesignerCaseDetail() {
       <div className="header-spacer" />
 
       {/* Content layer: show extra media for specific cases */}
-      <section className="content-layer flex-1 flex flex-col md:flex-row w-full h-full gap-0">
+      <section className="content-layer flex-1 flex flex-col w-full h-full gap-0">
         {/* Miela-specific image visible only on md+ screens */}
         {slug === 'miela' && (
           <>
-            {/* Left column: Centered content container */}
-            <div className="flex-1 flex flex-col items-center justify-center md:w-1/2 h-full">
-              {/* Mobile: dedicated Miela image */}
-              <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
+            {/* Two-column layout for desktop */}
+            <div className="w-full h-full flex flex-col md:flex-row gap-0">
+              {/* Left column: Centered content container */}
+              <div className="flex-1 flex flex-col items-center justify-center md:w-1/2 h-full">
+                {/* Mobile: dedicated Miela image */}
+                <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
+                </div>
+
+                {/* Desktop/Tablet: hero frames (uniform sizing) */}
+                <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
+                </div>
               </div>
 
-              {/* Desktop/Tablet: hero frames (uniform sizing) */}
-              <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
-              </div>
-            </div>
-
-            {/* Right column: Text content */}
-            <div className="flex-1 md:w-1/2 h-full hidden md:flex">
-              <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in`}>
+              {/* Right column: Text content */}
+              <div className="flex-1 md:w-1/2 h-full hidden md:flex">
+                <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in`}>
                 {mielaDesktopContent[0] && (
                   <div className="text-left w-full">
                     <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
@@ -1079,6 +1081,43 @@ function CreativeDesignerCaseDetail() {
                     </p>
                   </div>
                 )}
+              </div>
+            </div>
+            </div>
+
+            {/* Carousel - displayed below two columns */}
+            <div key={`miela-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in w-full">
+              <div className="smooth-marquee" aria-label="Brand strip">
+                <div className="marquee-track" aria-hidden>
+                  {/* group A */}
+                  <div className="marquee-group">
+                    {bImgs.map((src, i) => (
+                      <img
+                        key={`a-${i}`}
+                        src={src}
+                        alt=""
+                        decoding="async"
+                        loading="lazy"
+                        className="marquee-img"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.webp` }}
+                      />
+                    ))}
+                  </div>
+                  {/* group B (duplicate for seamless loop) */}
+                  <div className="marquee-group" aria-hidden>
+                    {bImgs.map((src, i) => (
+                      <img
+                        key={`b-${i}`}
+                        src={src}
+                        alt=""
+                        decoding="async"
+                        loading="lazy"
+                        className="marquee-img"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.webp` }}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </>
