@@ -374,10 +374,10 @@ function AICreatorCaseStudy() {
           {/* Text container: 30% (at bottom) */}
           <div className="order-2 h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
             <div className="ai-desktop-text text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
-              <h3 className="text-[clamp(24px,3vw,31px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
+              <h3 className="text-[clamp(21.6px,2.7vw,27.9px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
               <div className="ai-desc-block w-full">
                 {(aiSlidesContent[aiFrame]?.lines || []).map((ln, i) => (
-                  <p key={i} className="ai-desc-para text-[clamp(18px,2.4vw,24px)] text-white/80 leading-relaxed">{ln}</p>
+                  <p key={i} className="ai-desc-para text-[clamp(16.2px,2.16vw,21.6px)] text-white/80 leading-relaxed">{ln}</p>
                 ))}
               </div>
             </div>
@@ -551,8 +551,12 @@ function AICreatorCaseStudy() {
         .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
         /* Paragraph spacing: add an empty row under each sentence */
-        .ai-desc-block .ai-desc-para, .mobile-paras .ai-desc-para { margin: 0 0 1em 0; }
+        .ai-desc-block .ai-desc-para, .mobile-paras .ai-desc-para { margin: 0 0 0.6em 0; }
         .ai-desc-block .ai-desc-para:last-child, .mobile-paras .ai-desc-para:last-child { margin-bottom: 0; }
+        /* Desktop only: tighter spacing for bottom text section */
+        @media (min-width: 768px) {
+          .ai-desktop-text .ai-desc-para { margin-bottom: 0.5em !important; }
+        }
         /* iPad portrait widths: make image full-width and place dots 15px below image */
         @media screen and (min-width: 744px) and (max-width: 834px) {
           .ai-desktop-container { display: flex !important; }
