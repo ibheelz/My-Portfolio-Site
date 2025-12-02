@@ -1446,13 +1446,13 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 3 && (
                       <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full px-[100px] flex items-center justify-center">
+                        <div className="relative w-full h-full max-w-full max-h-full flex items-center justify-center">
                           <img
                             src="/miela-4.webp"
                             alt="Miela slide 4"
                             decoding="async"
                             loading="eager"
-                            className="max-w-full max-h-full w-auto h-full object-contain"
+                            className="max-h-full w-[80%] h-full object-contain"
                             onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.webp' }}
                           />
                         </div>
