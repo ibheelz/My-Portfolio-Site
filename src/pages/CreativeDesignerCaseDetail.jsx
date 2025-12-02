@@ -2860,6 +2860,12 @@ function CreativeDesignerCaseDetail() {
           .martell-ipad .martell-hero-mobile { margin-top: 120px !important; }
         }
 
+        @media screen and (min-width: 1024px) and (max-width: 1280px) {
+          /* Add padding on iPad Pro when mobile layout is shown */
+          .martell-ipad { padding-left: 120px !important; padding-right: 120px !important; }
+          .martell-ipad .martell-stack { gap: 80px !important; }
+        }
+
         /* Hide navbar while lightbox open */
         .lightbox-open .liquid-glass-header { display: none !important; }
 
