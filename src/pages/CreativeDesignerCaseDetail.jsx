@@ -1965,7 +1965,7 @@ function CreativeDesignerCaseDetail() {
         {slug === 'martell' && (
           <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10 lg:pt-0">
             {/* Large screens (lg+): two columns */}
-            <div className="hidden lg:grid lg:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
+            <div className="hidden xl:grid xl:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
               <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
                 {/* Video layer: 90% of page height (minus navbar) */}
                 <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
@@ -2025,7 +2025,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
             {/* Tablet and smaller (lg-): stacked order */}
-            <div className="lg:hidden w-full px-[clamp(12px,3vw,24px)] mb-[20px] martell-ipad">
+            <div className="xl:hidden w-full px-[clamp(12px,3vw,24px)] mb-[20px] martell-ipad">
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-8 md:gap-12 martell-stack">
                 {/* 1) martell-1-mobile on top */}
                 <div className="w-full mt-[30px] martell-scroll martell-hero-mobile" data-delay="80" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
