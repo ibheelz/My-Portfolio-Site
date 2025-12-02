@@ -399,12 +399,12 @@ function CreativeDesignerCaseDetail() {
     if (typeof window === 'undefined') return undefined
     const html = document.documentElement
     const body = document.body
-    const isMobile = window.innerWidth <= 768
+    const isMobile = window.innerWidth < 1200
     const shouldLock = isMobile && (slug === 'miela' || slug === 'todoalrojo')
 
     // Prevent default touch scroll behavior
     const preventScroll = (e) => {
-      if (window.innerWidth <= 768 && (slug === 'miela' || slug === 'todoalrojo')) {
+      if (window.innerWidth < 1200 && (slug === 'miela' || slug === 'todoalrojo')) {
         e.preventDefault()
       }
     }
@@ -418,7 +418,7 @@ function CreativeDesignerCaseDetail() {
     }
 
     const onResize = () => {
-      const isMobileNow = window.innerWidth <= 768
+      const isMobileNow = window.innerWidth < 1200
       const shouldLockNow = isMobileNow && (slug === 'miela' || slug === 'todoalrojo')
       if (shouldLockNow) {
         html.classList.add('case-detail-mobile-no-scroll')

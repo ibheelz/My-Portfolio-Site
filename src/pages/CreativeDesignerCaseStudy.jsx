@@ -270,6 +270,9 @@ function CreativeDesignerCaseStudy() {
           z-index: 20;
           margin: 0;
         }
+        /* Ensure mobile CTA is visible up to 1199px and hidden at >=1200px */
+        @media (max-width: 1199.98px) { .mobile-sticky-cta { display: flex !important; } }
+        @media (min-width: 1200px) { .mobile-sticky-cta { display: none !important; } }
 
         /* Three rounded columns (desktop only) */
         .columns-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 28px); height: calc(100dvh - var(--nav-h) - 2px); padding: 0 clamp(8px, 1.5vh, 16px) clamp(8px, 1.5vh, 16px); box-sizing: border-box; }
@@ -277,15 +280,15 @@ function CreativeDesignerCaseStudy() {
         .columns-grid { display: none !important; }
         .mobile-stack { display: none !important; }
         .mid-col-mobile { display: none !important; }
-        @media (max-width: 1023.98px) {
+        @media (max-width: 1199.98px) {
           .mobile-stack { display: grid !important; }
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 1200px) {
           .columns-grid { display: grid !important; }
           .mobile-stack { display: none !important; }
         }
-        /* Treat large touch devices (e.g., iPad Pro) as mobile layout */
-        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) {
+        /* Treat large touch devices (e.g., iPad Pro) as mobile layout below 1200px only */
+        @media (min-width: 1024px) and (max-width: 1199.98px) and (hover: none) and (pointer: coarse) {
           .columns-grid { display: none !important; }
           .mobile-stack { display: grid !important; }
         }
@@ -354,7 +357,7 @@ function CreativeDesignerCaseStudy() {
         .mobile-stack .mobile-cell .media { --frame-w: 92%; --frame-h: 92%; }
 
         /* Medium screens (tablets): scale content down so it fits better */
-        @media (min-width: 768px) and (max-width: 1023.98px) {
+        @media (min-width: 768px) and (max-width: 1199.98px) {
           .mobile-stack { row-gap: clamp(12px, 2vh, 18px); padding-left: clamp(8px, 2vw, 16px); padding-right: clamp(8px, 2vw, 16px); --logo-w: 34%; }
           /* Keep a small inner padding so frame sits within parent */
           .mobile-stack .mobile-cell { height: clamp(200px, 28dvh, 360px); padding: clamp(12px, 2.5vw, 22px); }
@@ -365,7 +368,7 @@ function CreativeDesignerCaseStudy() {
         }
 
         /* Ensure frames fit fully within their containers on desktop */
-        @media (min-width: 1024px) {
+        @media (min-width: 1200px) {
           .columns-grid .media { --frame-w: 84%; --frame-h: 78%; --rect-scale: 0.66; }
         }
 
@@ -381,7 +384,7 @@ function CreativeDesignerCaseStudy() {
         /* Mobile middle image at top — fill viewport (below navbar) */
         .mid-fit-mobile { display: flex; align-items: center; justify-content: center; padding: clamp(8px, 4vw, 16px); }
         .mid-fit-mobile-img { height: calc(100dvh - var(--nav-h)); width: auto; max-width: 100%; object-fit: contain; border: 0; display: block; }
-        @media (max-width: 1023.98px) {
+        @media (max-width: 1199.98px) {
           /* On mobile, remove fixed viewport height from the top image */
           .mid-fit-mobile-img { height: auto !important; max-height: 50dvh; width: auto; }
           /* Keep the middle image fully below the navbar (no overlap) and shift up by 25px */
@@ -408,7 +411,7 @@ function CreativeDesignerCaseStudy() {
           .mid-fit-mobile-img { max-height: 56dvh; }
         }
         /* Apply mobile spacing/sizing rules to large touch devices (iPad Pro, etc.) */
-        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) {
+        @media (min-width: 1024px) and (max-width: 1199.98px) and (hover: none) and (pointer: coarse) {
           .mid-fit-mobile-img { height: auto !important; max-height: 50dvh; width: auto; }
           .mid-fit-mobile { transform: none; padding: 0; margin-top: -20px; margin-bottom: clamp(14px, 2.2vh, 28px); }
           .mobile-stack { padding-top: 0; padding-left: clamp(12px, 3vw, 24px); padding-right: clamp(12px, 3vw, 24px); row-gap: clamp(10px, 2vh, 18px); --logo-w: 30%; }
@@ -419,18 +422,18 @@ function CreativeDesignerCaseStudy() {
           .header-spacer { height: var(--nav-h) !important; }
         }
         /* EXCEPTION: Nest Hub / short-height large touch screens should use desktop view */
-        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) and (max-height: 820px) {
+        @media (min-width: 1200px) and (hover: none) and (pointer: coarse) and (max-height: 820px) {
           .columns-grid { display: grid !important; }
           .mobile-stack { display: none !important; }
         }
         /* Large touch devices with short heights (Nest Hub, Nest Hub Max landscape) */
-        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) and (max-height: 800px) {
+        @media (min-width: 1024px) and (max-width: 1199.98px) and (hover: none) and (pointer: coarse) and (max-height: 800px) {
           .mid-fit-mobile-img { max-height: 46dvh; }
           .mobile-stack { row-gap: clamp(8px, 1.6vh, 14px); }
           .mobile-stack .mobile-cell { height: clamp(180px, 26dvh, 340px); }
           .mobile-stack .mobile-cell .media { --frame-w: 90%; --frame-h: 88%; --rect-scale: 0.68; }
         }
-        @media (min-width: 1024px) and (hover: none) and (pointer: coarse) and (max-height: 700px) {
+        @media (min-width: 1024px) and (max-width: 1199.98px) and (hover: none) and (pointer: coarse) and (max-height: 700px) {
           .mid-fit-mobile-img { max-height: 42dvh; }
           .mid-fit-mobile { margin-top: -12px; margin-bottom: clamp(10px, 1.8vh, 20px); }
           .mobile-stack { row-gap: clamp(6px, 1.4vh, 12px); }
@@ -438,17 +441,17 @@ function CreativeDesignerCaseStudy() {
           .mobile-stack .mobile-cell .media { --frame-w: 88%; --frame-h: 86%; --rect-scale: 0.66; }
         }
         /* Extra small heights: cap even smaller for comfort */
-        @media (max-width: 1023.98px) and (max-height: 700px) {
+        @media (max-width: 1199.98px) and (max-height: 700px) {
           .mid-fit-mobile-img { max-height: 44dvh; }
           .mid-fit-mobile { margin-top: 0; }
         }
-        @media (max-width: 1023.98px) and (max-height: 600px) {
+        @media (max-width: 1199.98px) and (max-height: 600px) {
           .mid-fit-mobile-img { max-height: 40dvh; }
           .mobile-stack .mobile-cell { height: clamp(180px, 26dvh, 320px); }
         }
 
-        /* Between 400px and 1024px: add space between top image and first frame */
-        @media (min-width: 400px) and (max-width: 1023.98px) {
+        /* Between 400px and 1200px: add space between top image and first frame */
+        @media (min-width: 400px) and (max-width: 1199.98px) {
           .mid-fit-mobile { margin-bottom: clamp(14px, 2.2vh, 28px); }
           .mobile-stack { row-gap: clamp(8px, 1.2vh, 16px); }
         }
@@ -460,14 +463,14 @@ function CreativeDesignerCaseStudy() {
         }
 
         /* Medium screens: add extra space below top image so first frame isn't tight */
-        @media (min-width: 768px) and (max-width: 1023.98px) {
+        @media (min-width: 768px) and (max-width: 1199.98px) {
           /* Keep a fixed 30px separation below the top image */
           .mid-fit-mobile { margin-bottom: 30px !important; }
           .mobile-stack { row-gap: clamp(16px, 3vh, 28px) !important; }
         }
 
         /* Desktop: move only the frames themselves 30px toward the middle */
-        @media (min-width: 1024px) {
+        @media (min-width: 1200px) {
           .columns-grid > .col-block.split-rows:first-child .media .gold-rect,
           .columns-grid > .col-block.split-rows:first-child .media .frame-img { margin-left: 30px; }
           .columns-grid > .col-block.split-rows:last-child .media .gold-rect,
@@ -475,7 +478,7 @@ function CreativeDesignerCaseStudy() {
         }
 
         /* Desktop: nudge left/right column content toward the middle column */
-        @media (min-width: 1024px) {
+        @media (min-width: 1200px) {
           /* Tighter vertical spacing on desktop */
           .columns-grid { gap: clamp(6px, 1vw, 18px); }
           .split-rows { row-gap: clamp(4px, 0.6vh, 10px); }
