@@ -1232,7 +1232,7 @@ function CreativeDesignerCaseDetail() {
             {/* Miela Slide Container */}
             <div key={`miela-slide-${mielaSlide}`} className="w-full transition-all duration-500">
               {/* Two-column layout for desktop */}
-              <div className="w-full flex flex-col md:flex-row gap-0 md:max-h-[65vh]">
+              <div className="w-full flex flex-col md:flex-row gap-0 md:h-[65vh]">
                 {/* Left column: Centered content container */}
                 <div className="flex-1 flex flex-col items-center justify-center md:w-1/2">
                   {/* Mobile: dedicated Miela content */}
@@ -1494,7 +1494,7 @@ function CreativeDesignerCaseDetail() {
                 </div>
 
                 {/* Right column: Text content */}
-                <div className="flex-1 md:w-1/2 hidden md:flex">
+                <div className="flex-1 md:w-1/2 md:h-[65vh] hidden md:flex">
                   <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                   {mielaDesktopContent[mielaSlide] && (
                     <div className={`text-left w-[97%] ${mielaSlide === 5 ? 'pl-[60px]' : ''}`}>
