@@ -2928,25 +2928,43 @@ function CreativeDesignerCaseDetail() {
         }
 
         /* Screen 13: Google Nest Hub 7" (1024x600px) - Use Desktop Mode */
-        @media screen and (min-width: 1024px) and (max-height: 650px) {
-          .martell-grid { display: grid !important; }
+        @media (min-width: 1024px) and (max-height: 650px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .martell-grid {
+            display: grid !important;
+            grid-template-columns: 35% 63% !important;
+            gap: 16px !important;
+            width: 100% !important;
+            height: calc(100dvh - var(--nav-h)) !important;
+          }
           .martell-ipad { display: none !important; }
+          .martell-grid > div { height: 100% !important; }
         }
 
         /* Screen 14: Google Nest Hub Max 10" (1280x800px) - Use Desktop Mode */
-        @media screen and (min-width: 1280px) and (max-height: 850px) {
-          .martell-grid { display: grid !important; }
+        @media (min-width: 1280px) and (max-height: 850px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .martell-grid {
+            display: grid !important;
+            grid-template-columns: 35% 63% !important;
+            gap: 16px !important;
+            width: 100% !important;
+            height: calc(100dvh - var(--nav-h)) !important;
+          }
           .martell-ipad { display: none !important; }
+          .martell-grid > div { height: 100% !important; }
         }
 
         /* Screen 15: MacBook Air M1 (1440x900px) - Use Desktop Mode */
         @media screen and (min-width: 1440px) and (max-height: 950px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
           .martell-grid { display: grid !important; }
           .martell-ipad { display: none !important; }
         }
 
         /* Screen 16: MacBook Pro M1 (1440x900px or 1728x1117px) - Use Desktop Mode */
         @media screen and (min-width: 1728px) {
+          html, body { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
           .martell-grid { display: grid !important; }
           .martell-ipad { display: none !important; }
         }
