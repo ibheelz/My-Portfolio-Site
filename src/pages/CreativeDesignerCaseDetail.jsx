@@ -3143,6 +3143,15 @@ function CreativeDesignerCaseDetail() {
           .miela-touch { padding-left: 16px !important; padding-right: 16px !important; }
         }
 
+        /* Screen 2.5: Surface Duo (540px) */
+        @media screen and (min-width: 520px) and (max-width: 560px) {
+          /* Slides 5 and 6 - reduce image height to 40% and text by 10% */
+          .miela-touch h3 { font-size: clamp(22px, 4.5vw, 27px) !important; }
+          .miela-touch p { font-size: clamp(16px, 3.6vw, 22px) !important; }
+          /* Image height 40% for slides 5 and 6 - mobile and desktop */
+          img[alt*="Miela 5"], img[alt*="Miela 6"] { height: 40% !important; }
+        }
+
         /* Screen 3.5: 720px-767px Special size - 20% smaller content */
         @media screen and (min-width: 720px) and (max-width: 767px) {
           .miela-touch { padding-left: 64px !important; padding-right: 64px !important; }
