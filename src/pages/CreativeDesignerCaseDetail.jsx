@@ -1239,13 +1239,13 @@ function CreativeDesignerCaseDetail() {
                   <div className="flex flex-col md:hidden w-full h-[calc(100dvh-var(--nav-h))] items-center px-6 miela-hero-in miela-touch justify-start gap-[30px]" style={{ marginTop: 'var(--nav-h)' }} onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
                     {/* Image at top - only show for slide 0 */}
                     {mielaSlide === 0 && (
-                      <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}> 
+                      <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                         <img
                           src="/miela-1.webp"
                           alt="Miela slide 1"
                           decoding="async"
                           loading="eager"
-                          className="max-w-full max-h-full object-contain"
+                          className="max-h-full w-[80%] object-contain"
                         />
                       </div>
                     )}
@@ -1287,7 +1287,7 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 1 && (
                       <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full">
+                        <div className="relative w-full h-full flex items-center justify-center">
                           {['/miela-2.1.webp','/miela-2.2.webp','/miela-2.3.webp','/miela-2.4.webp'].map((src, idx) => (
                             <img
                               key={`miela2-m-${idx}`}
@@ -1295,7 +1295,7 @@ function CreativeDesignerCaseDetail() {
                               alt={`Miela slide 2.${idx+1}`}
                               decoding="async"
                               loading={idx === 0 ? 'eager' : 'lazy'}
-                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
+                              className="absolute max-h-full w-[80%] h-full object-contain"
                               style={{ opacity: miela2Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                             />
@@ -1305,7 +1305,7 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 2 && (
                       <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full">
+                        <div className="relative w-full h-full flex items-center justify-center">
                           {['/miela-3.1.webp','/miela-3.2.webp'].map((src, idx) => (
                             <img
                               key={`miela3-m-${idx}`}
@@ -1313,7 +1313,7 @@ function CreativeDesignerCaseDetail() {
                               alt={`Miela slide 3.${idx+1}`}
                               decoding="async"
                               loading={idx === 0 ? 'eager' : 'lazy'}
-                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
+                              className="absolute max-h-full w-[80%] h-full object-contain"
                               style={{ opacity: miela3Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                             />
@@ -1323,13 +1323,13 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 3 && (
                       <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full">
+                        <div className="relative w-full h-full flex items-center justify-center">
                           <img
                             src="/miela-4.webp"
                             alt="Miela slide 4"
                             decoding="async"
                             loading="eager"
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
+                            className="max-h-full w-[80%] h-full object-contain"
                             onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.webp' }}
                           />
                         </div>
@@ -1404,13 +1404,13 @@ function CreativeDesignerCaseDetail() {
                           alt="Miela slide 1"
                           decoding="async"
                           loading="eager"
-                          className="max-w-full max-h-full object-contain"
+                          className="max-h-full w-[80%] object-contain"
                         />
                       </div>
                     )}
                     {mielaSlide === 1 && (
                       <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full">
+                        <div className="relative w-full h-full flex items-center justify-center">
                           {['/miela-2.1.webp','/miela-2.2.webp','/miela-2.3.webp','/miela-2.4.webp'].map((src, idx) => (
                             <img
                               key={`miela2-d-${idx}`}
@@ -1418,7 +1418,7 @@ function CreativeDesignerCaseDetail() {
                               alt={`Miela slide 2.${idx+1}`}
                               decoding="async"
                               loading={idx === 0 ? 'eager' : 'lazy'}
-                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full w-auto h-full object-contain"
+                              className="absolute max-h-full w-[80%] h-full object-contain"
                               style={{ opacity: miela2Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                             />
@@ -1428,7 +1428,7 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 2 && (
                       <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full">
+                        <div className="relative w-full h-full flex items-center justify-center">
                           {['/miela-3.1.webp','/miela-3.2.webp'].map((src, idx) => (
                             <img
                               key={`miela3-d-${idx}`}
@@ -1436,7 +1436,7 @@ function CreativeDesignerCaseDetail() {
                               alt={`Miela slide 3.${idx+1}`}
                               decoding="async"
                               loading={idx === 0 ? 'eager' : 'lazy'}
-                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full w-auto h-full object-contain"
+                              className="absolute max-h-full w-[80%] h-full object-contain"
                               style={{ opacity: miela3Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                             />
@@ -1460,13 +1460,13 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 5 && (
                       <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full px-[10px] flex items-center justify-center">
+                        <div className="relative w-full h-full flex items-center justify-center">
                           <img
                             src="/miela-6.webp"
                             alt="Miela slide 6"
                             decoding="async"
                             loading="eager"
-                            className="max-w-full max-h-full w-auto h-full object-contain"
+                            className="max-h-full w-[80%] h-full object-contain"
                             onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.webp' }}
                           />
                         </div>
@@ -1474,7 +1474,7 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 4 && (
                       <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="w-full h-full flex items-center justify-center gap-[20px] px-0 md:px-[100px]">
+                        <div className="w-[80%] h-full flex items-center justify-center gap-[20px]">
                           {['/miela-5.1.webp','/miela-5.2.webp','/miela-5.3.webp'].map((src, idx) => (
                             <div key={`miela5d-wrap-${idx}`} className="flex-1 min-w-0 h-full flex items-center justify-center">
                               <img
