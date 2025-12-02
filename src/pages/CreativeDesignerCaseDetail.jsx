@@ -1063,7 +1063,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
             {/* Right column: Text content */}
-            <div className="hidden md:flex md:w-1/2 h-full items-center">
+            <div className="hidden md:flex md:flex-col md:w-1/2 h-full items-center justify-center">
               <div className={`w-full font-['Jost',sans-serif] p-8 miela-hero-in`}>
                 {mielaDesktopContent[0] && (
                   <div className="text-left w-full">
