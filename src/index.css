@@ -49,3 +49,16 @@ img::selection { background: transparent; }
     padding: 14px 20px !important;
   }
 }
+
+/* Surface Duo: make Mielo page text 10% smaller */
+@media (width: 540px) and (height: 720px), (width: 720px) and (height: 540px) {
+  /* Scope to Mielo page container and content area */
+  .mielo-case-mobile-fixed .content-layer h3 {
+    font-size: calc(0.9 * clamp(24px, 5vw, 30px)) !important;
+    line-height: 1.2;
+  }
+  .mielo-case-mobile-fixed .content-layer p {
+    font-size: calc(0.9 * clamp(18px, 4vw, 24px)) !important;
+    line-height: 1.2;
+  }
+}
