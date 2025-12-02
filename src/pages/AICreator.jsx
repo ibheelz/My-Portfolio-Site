@@ -1092,7 +1092,8 @@ function AICreator() {
         }
         .lightbox-rect-inner { width: 100%; max-width: 52ch; margin: 0 auto; }
         .lightbox-rect-title, .lightbox-rect-sub, .lightbox-rect-desc { text-align: left; margin-left: 0; margin-right: 0; }
-        .lightbox-rect-title { font-weight: 600; font-size: clamp(16px, 2.2vw, 24px); line-height: 1.2; color: #ffffff; }
+        /* Match heading size used across other pages and set to gold */
+        .lightbox-rect-title { font-weight: 700; font-size: clamp(20px, 2.5vw, 26px); line-height: 1.2; color: #e4c492; }
         .lightbox-rect-sub {
           margin-top: 6px;
           margin-bottom: clamp(4px, 0.8vw, 10px);
@@ -1106,7 +1107,8 @@ function AICreator() {
         }
         .flag-icon { width: clamp(14px, 1.6vw, 18px); height: auto; display: inline-block; border-radius: 2px; }
         .lightbox-rect-desc-block { margin-top: clamp(4px, 0.8vw, 10px); width: 100%; }
-        .lightbox-rect-desc { font-size: clamp(12px, 1.2vw, 15px); line-height: 1.8; color: #bb9b6e; margin: 0 0 24px; }
+        /* Body text matches case pages: white body, consistent size, thin; 5% smaller */
+        .lightbox-rect-desc { font-size: calc(0.95 * clamp(15px, 2vw, 20px)); line-height: 1.7; color: #ffffff; margin: 0 0 20px; font-weight: 200; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left  { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
