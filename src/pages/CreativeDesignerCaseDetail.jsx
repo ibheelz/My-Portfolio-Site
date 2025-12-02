@@ -1353,8 +1353,8 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
                     {mielaSlide === 4 && (
-                      <div className={`w-full h-[100dvh] flex items-start justify-center overflow-hidden pt-0 mb-[20%] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`} style={{ marginTop: '-80px' }}>
-                        <div className="w-full h-full flex items-start justify-center">
+                      <div className={`w-full h-[100dvh] flex items-end justify-center overflow-hidden pt-0 mb-[20%] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`} style={{ marginTop: '-80px' }}>
+                        <div className="w-full h-full flex items-end justify-center">
                           {/* Dedicated image wrapper hugs the image body */}
                           <div className="inline-grid h-full max-w-full place-items-center">
                             {['/miela-5.1-mobile.webp','/miela-5.2-mobile.webp','/miela-5.3-mobile.webp'].map((src, idx) => (
