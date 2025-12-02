@@ -1269,20 +1269,23 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
                     {mielaSlide === 4 && (
-                      <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full">
-                          {['/miela-5.1-mobile.webp','/miela-5.2-mobile.webp','/miela-5.3-mobile.webp'].map((src, idx) => (
-                            <img
-                              key={`miela5-m-${idx}`}
-                              src={src}
-                              alt={`Miela slide 5 mobile ${idx+1}`}
-                              decoding="async"
-                              loading={idx === 0 ? 'eager' : 'lazy'}
-                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
-                              style={{ opacity: miela5MobileFrame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
-                              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
-                            />
-                          ))}
+                      <div className={`w-full h-[100dvh] flex items-start justify-center overflow-hidden pt-0 mb-[20%] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`} style={{ marginTop: '-80px' }}>
+                        <div className="w-full h-full flex items-start justify-center">
+                          {/* Dedicated image wrapper hugs the image body */}
+                          <div className="inline-grid h-full max-w-full place-items-center">
+                            {['/miela-5.1-mobile.webp','/miela-5.2-mobile.webp','/miela-5.3-mobile.webp'].map((src, idx) => (
+                              <img
+                                key={`miela5-m-${idx}`}
+                                src={src}
+                                alt={`Miela slide 5 mobile ${idx+1}`}
+                                decoding="async"
+                                loading={idx === 0 ? 'eager' : 'lazy'}
+                                className="col-start-1 row-start-1 h-full w-auto object-contain block"
+                                style={{ opacity: miela5MobileFrame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
                     )}
