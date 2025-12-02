@@ -183,7 +183,7 @@ const todoalrojoDesktopContent = {
 const mielaDesktopContent = {
   0: {
     heading: 'Digital Wallpaper Syndrome',
-    body: 'Miela needed social content that stopped scrolling. Agencies churn out generic forgettable assets. Event promotions. Testimonials. Seasonal greetings. Audiences scroll past in milliseconds. The solution? Bold personality-driven design that demands attention. Work that makes you lean in and look twice.'
+    body: 'Agencies churn out generic social content that audiences scroll past in milliseconds. The solution required bold personality-driven design that demands attention and makes you look twice.'
   }
 }
 
