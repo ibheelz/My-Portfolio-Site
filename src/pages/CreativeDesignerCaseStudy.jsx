@@ -253,8 +253,8 @@ function CreativeDesignerCaseStudy() {
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
           position: fixed;
           top: 0;
-          left: clamp(12px, 3vw, 24px);
-          right: clamp(12px, 3vw, 24px);
+          left: clamp(6px, 1.5vw, 12px);
+          right: clamp(6px, 1.5vw, 12px);
           z-index: 10;
         }
 

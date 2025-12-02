@@ -1,18 +1,236 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
 const csBG = `${import.meta.env.BASE_URL}ai-creator-cs-BG.webp`
 
 function AICreatorCaseStudy() {
   const navigate = useNavigate()
+  // Slides: desktop and mobile image sets (auto-govern dot count)
+  const aiSlidesDesktop = Array.from({ length: 13 }, (_, i) => `/aria-${i + 1}.webp`)
+  const aiSlidesMobile = Array.from({ length: 13 }, (_, i) => `/aria-mobile-${i + 1}.webp`)
+  const aiSlidesContent = [
+    {
+      heading: 'Aria Vale',
+      lines: [
+        'I created Aria as an AI influencer project during my time at Miela Digital.',
+        'Building her from zero followers, I managed authentic fitness, travel, gaming, and lifestyle content for US audiences.'
+      ]
+    },
+    {
+      heading: 'Authentic Engagement Style',
+      lines: [
+        "Aria's playful and open personality made her stand out through genuine audience interaction and engagement.",
+        'Unlike typical influencers, she actively engaged with comments and maintained real conversations with her community.'
+      ]
+    },
+    {
+      heading: 'Sun Chasing & Window Photography',
+      lines: [
+        'Her favorite creative approach was capturing natural light through windows in her home daily.',
+        'This simple yet effective aesthetic became her signature style, setting her apart from filtered content.'
+      ]
+    },
+    {
+      heading: 'Minimalist Fashion Philosophy',
+      lines: [
+        'Aria maintained a simple, understated style with neutral tones and timeless pieces instead of expensive.',
+        'Her accessible fashion choices resonated with followers who appreciated an influencer avoiding constant trend chasing.'
+      ]
+    },
+    {
+      heading: 'Spain Adventures & Sagrada Familia',
+      lines: [
+        'She traveled to Barcelona and explored the iconic Sagrada Familia, gaining significant Spanish audience growth.',
+        'Local communities responded warmly to her genuine interest in Spanish culture and architectural heritage.'
+      ]
+    },
+    {
+      heading: 'Chichén Itzá Archaeological Wonder',
+      lines: [
+        "Aria visited Mexico's Chichén Itzá, one of the world's seven wonders, with authentic enthusiasm.",
+        'Standing before this marvel, she shared genuine awe that resonated deeply with travel-focused audiences.'
+      ]
+    },
+    {
+      heading: 'Mexico City Urban Exploration',
+      lines: [
+        'Her Mexico City visit showcased urban culture, local food, and vibrant community interactions authentically.',
+        'She engaged beyond typical tourist attractions, building connections with her growing Latin American audience base.'
+      ]
+    },
+    {
+      heading: 'USA-Based Lifestyle Simplicity',
+      lines: [
+        'Despite growing influence, Aria maintained a grounded American lifestyle that remained refreshingly relatable daily.',
+        'Followers trusted her because she lived authentic normalcy, balancing work, fitness, and genuine personal moments.'
+      ]
+    },
+    {
+      heading: 'Daily Engagement & Active Community Management',
+      lines: [
+        'Aria posted daily content and actively managed direct messages, maintaining consistent audience engagement always.',
+        'Her willingness to engage directly with followers, even handling inappropriate messages, created a loyal community.'
+      ]
+    },
+    {
+      heading: 'World of Warships Campaign Success',
+      lines: [
+        'Through authentic content integration and genuine enthusiasm, Aria generated fifty monthly game downloads consistently.',
+        'This measurable result proved her influence translates to real action and significant brand partnership value.'
+      ]
+    },
+    {
+      heading: 'Community Gaming Sessions & Live Engagement',
+      lines: [
+        'She organized live World of Warships gaming sessions, inviting followers to play and interact.',
+        'These real-time engagement opportunities created memorable shared experiences that transcended typical social media interactions.'
+      ]
+    },
+    {
+      heading: 'Strategic Call-to-Action in Military Cosplay',
+      lines: [
+        'Aria combined authentic gaming interest with strategic messaging in military-inspired cosplay to drive registrations.',
+        'Her natural approach to call-to-actions felt genuine within her content narrative without alienating audiences.'
+      ]
+    },
+    {
+      heading: 'Campaign Impact & Registration Success',
+      lines: [
+        'By promoting the game through multiple content formats, Aria successfully moved her audience to action.',
+        'The campaign delivered measurable registration increases and proved her long-term brand partnership value.'
+      ]
+    }
+  ]
+  // Mobile-specific paraphrased 8-word lines per slide
+  const aiSlidesMobileShort = [
+    { lines: [
+      'Created Aria, an AI influencer, at Miela Digital.',
+      'Built authentic fitness, travel, gaming, lifestyle content daily.'
+    ]},
+    { lines: [
+      'Playful, open personality encouraged genuine audience interaction online.',
+      'She engaged comments, real conversations with community daily.'
+    ]},
+    { lines: [
+      'Preferred natural light through home windows each day.',
+      'Signature aesthetic, apart from heavily filtered content online.'
+    ]},
+    { lines: [
+      'Simple, understated style with neutral timeless pieces always.',
+      'Avoided trends; accessibility resonated with appreciative followers greatly.'
+    ]},
+    { lines: [
+      'Traveled Barcelona, explored Sagrada Familia; Spanish growth surged.',
+      'Communities welcomed genuine cultural interest and appreciation deeply.'
+    ]},
+    { lines: [
+      "Visited Mexico's Chichén Itzá with authentic enthusiasm shown.",
+      'Shared awe, resonating with travel-focused audiences online deeply.'
+    ]},
+    { lines: [
+      'Explored Mexico City’s urban culture and local food.',
+      'Connected beyond tourism, growing Latin American audience base.'
+    ]},
+    { lines: [
+      'Maintained grounded, relatable American lifestyle each day publicly.',
+      'Balanced work, fitness, and genuine personal moments naturally.'
+    ]},
+    { lines: [
+      'Posted daily; actively managed direct messages consistently too.',
+      'Handled inappropriate messages; built loyal engaged community anyway.'
+    ]},
+    { lines: [
+      'World of Warships campaign delivered measurable downloads monthly.',
+      'Authentic integration showed real action and value clearly.'
+    ]},
+    { lines: [
+      'Hosted live gaming sessions with followers participating regularly.',
+      'Created memorable shared experiences beyond social media posts.'
+    ]},
+    { lines: [
+      'Military-inspired cosplay with strategic registration messaging effectively.',
+      'Natural calls-to-action fit her authentic narrative seamlessly too.'
+    ]},
+    { lines: [
+      'Multi-format promotion moved audience towards registrations successfully.',
+      'Campaign proved long-term influence and partnership value strong.'
+    ]},
+  ]
+  const [aiFrame, setAiFrame] = useState(0)
+  const lastStepRef = useRef(0)
+  // Mobile touch swipe state
+  const aiTouchStartXRef = useRef(0)
+  const aiTouchStartYRef = useRef(0)
+  // Slides list (increase items to add more slides and dots auto-update)
+  const aiSlides = ['/mielo-0.webp']
 
   useEffect(() => {
     const cleanup = attachHireMe(document)
     return cleanup
   }, [])
 
+  // Lock page scroll on mobile (prevent page moving/scrolling)
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    const html = document.documentElement
+    const body = document.body
+    const apply = window.innerWidth <= 768
+    if (apply) {
+      html.classList.add('ai-mobile-no-scroll')
+      body.classList.add('ai-mobile-no-scroll')
+    }
+    const onResize = () => {
+      const isMobile = window.innerWidth <= 768
+      if (isMobile) {
+        html.classList.add('ai-mobile-no-scroll')
+        body.classList.add('ai-mobile-no-scroll')
+      } else {
+        html.classList.remove('ai-mobile-no-scroll')
+        body.classList.remove('ai-mobile-no-scroll')
+      }
+    }
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      html.classList.remove('ai-mobile-no-scroll')
+      body.classList.remove('ai-mobile-no-scroll')
+    }
+  }, [])
+
+  // Minimal navigation: arrow keys and wheel to step frames (match Mielo feel)
+  useEffect(() => {
+    const lockMs = 60
+    const onWheel = (e) => {
+      const now = Date.now()
+      if (now - lastStepRef.current < lockMs) return
+      const dy = e.deltaY || 0
+      if (Math.abs(dy) < 1) return
+      if (e && typeof e.preventDefault === 'function') e.preventDefault()
+      setAiFrame((i) => (i + (dy > 0 ? 1 : -1) + aiSlidesDesktop.length) % aiSlidesDesktop.length)
+      lastStepRef.current = now
+    }
+    const onKey = (e) => {
+      const k = e.key
+      const now = Date.now()
+      if (now - lastStepRef.current < lockMs) return
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
+        if (typeof e.preventDefault === 'function') e.preventDefault()
+      }
+      if (k === 'ArrowRight') { setAiFrame((i) => (i + 1) % aiSlidesDesktop.length); lastStepRef.current = now; return }
+      if (k === 'ArrowLeft')  { setAiFrame((i) => (i - 1 + aiSlidesDesktop.length) % aiSlidesDesktop.length); lastStepRef.current = now; return }
+      if (k === 'ArrowDown' || k === 'PageDown') { setAiFrame((i) => (i + 1) % aiSlidesDesktop.length); lastStepRef.current = now; return }
+      if (k === 'ArrowUp'   || k === 'PageUp')   { setAiFrame((i) => (i - 1 + aiSlidesDesktop.length) % aiSlidesDesktop.length); lastStepRef.current = now; return }
+    }
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
+    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -61,79 +279,129 @@ function AICreatorCaseStudy() {
 
       <div className="header-spacer" />
 
-      {/* Duplicate of Mielo slide 1 (desktop and mobile) */}
-      <section className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft flex flex-col items-center justify-start gap-6">
-        {/* Desktop/tablet */}
-        <div className="hidden md:flex w-full flex-col items-center justify-start gap-3">
-          <div className="w-full h-[70vh] max-w-full max-h-full flex items-center justify-center">
-            <img
-              src="/mielo-0.webp"
-              alt="Mielo slide 1 duplicate"
-              decoding="async"
-              loading="eager"
-              className="h-full w-auto max-w-full object-contain rounded-[clamp(10px,1vw,18px)] border border-white/10"
-              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/mielo-0.webp' }}
-            />
-          </div>
-          {/* Dots under image */}
-          <div className="mielo-gap-dots" aria-hidden>
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div key={`dot-d-${i}`} className={`dot ${i === 0 ? 'active' : ''}`} />
+      {/* Duplicate of Mielo slide 1 (desktop and mobile) with the same positioning/layout */}
+      <section className="page-content relative subpad flex-1 px-0 anim-bg-soft">
+        {/* Desktop/tablet: 70/30 split with dots in the gap */}
+        <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col relative miela-hero-in mt-[15px]">
+          {/* Image container: 70% */}
+          <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+            {/* Stack all frames (like Mielo) */}
+            {aiSlidesDesktop.map((src, idx) => (
+              <div
+                key={`desk-${idx}`}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block rounded-[clamp(10px,1vw,18px)] overflow-hidden"
+                style={{
+                  opacity: aiFrame === idx ? 1 : 0,
+                  transition: 'opacity 1600ms ease',
+                  willChange: 'opacity',
+                  border: '1.5px solid rgba(255,255,255,0.1)'
+                }}
+              >
+                <img
+                  src={src}
+                  alt={`AI Creator slide ${idx+1}`}
+                  decoding="async"
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  className="w-auto h-auto max-h-full object-contain"
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                />
+              </div>
             ))}
           </div>
-          {/* Text content */}
-          <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-center">
-            <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
-              The problem
-            </h3>
-            <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line w-[min(960px,90%)]">
-              Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why.
-            </p>
+          {/* Dots in the gap */}
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 28px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+            <div className="mielo-gap-dots flex justify-center gap-2">
+              {Array.from({ length: aiSlidesDesktop.length }).map((_, idx) => (
+                <div key={idx} className={`dot ${aiFrame === idx ? 'active' : ''}`} />
+              ))}
+            </div>
+          </div>
+          {/* Text container: 30% */}
+          <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
+            <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
+              <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
+              <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                {(aiSlidesContent[aiFrame]?.lines || []).join('\n')}
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Mobile */}
-        <div className="md:hidden w-full flex flex-col items-center justify-start gap-3">
-          <div className="w-full h-[70vh] max-w-full max-h-full flex items-center justify-center">
-            <img
-              src="/mielo-0.webp"
-              alt="Mielo slide 1 duplicate mobile"
-              decoding="async"
-              loading="eager"
-              className="h-full w-auto max-w-full object-contain rounded-[clamp(10px,1vw,18px)] border border-white/10"
-              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/mielo-0.webp' }}
-            />
-          </div>
-          {/* Dots under image */}
-          <div className="mielo-gap-dots" aria-hidden>
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div key={`dot-m-${i}`} className={`dot ${i === 0 ? 'active' : ''}`} />
+        {/* Mobile: image (70%), dots, then text (30%) */}
+        <div
+          className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col relative miela-hero-in mt-[15px]"
+          onTouchStart={(e) => {
+            if (!e.touches || e.touches.length === 0) return
+            aiTouchStartXRef.current = e.touches[0].clientX
+            aiTouchStartYRef.current = e.touches[0].clientY
+          }}
+          onTouchMove={(e) => { if (e.cancelable) e.preventDefault() }}
+          onTouchEnd={(e) => {
+            if (!e.changedTouches || e.changedTouches.length === 0) return
+            const now = Date.now()
+            if (now - lastStepRef.current < 60) return
+            const endX = e.changedTouches[0].clientX
+            const endY = e.changedTouches[0].clientY
+            const dx = endX - (aiTouchStartXRef.current || 0)
+            const dy = endY - (aiTouchStartYRef.current || 0)
+            const threshold = 14
+            if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
+            if (Math.abs(dx) >= Math.abs(dy)) {
+              setAiFrame((i) => (i + (dx < 0 ? 1 : -1) + aiSlidesMobile.length) % aiSlidesMobile.length)
+            } else {
+              setAiFrame((i) => (i + (dy < 0 ? 1 : -1) + aiSlidesMobile.length) % aiSlidesMobile.length)
+            }
+            lastStepRef.current = now
+          }}
+        >
+          {/* Image container: 70% */}
+          <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+            {/* Stack mobile frames center (like Mielo) */}
+            {aiSlidesMobile.map((src, idx) => (
+              <div key={`mob-${idx}`} className="w-full h-full absolute flex items-center justify-center">
+                <div
+                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full"
+                  style={{
+                    opacity: aiFrame === idx ? 1 : 0,
+                    transition: 'opacity 1600ms ease',
+                    willChange: 'opacity'
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt={`AI Creator slide mobile ${idx+1}`}
+                    decoding="async"
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    className="w-full h-auto object-contain"
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                  />
+                </div>
+              </div>
             ))}
           </div>
-          {/* Text content */}
-          <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-center">
-            <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
-              The problem
-            </h3>
-            <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
-              Mielo is a discovery management platform for LATAM streamers. AI search returns zero results for all queries.
-            </p>
+          {/* Dots in the gap */}
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+            <div className="mielo-gap-dots flex justify-center gap-2">
+              {Array.from({ length: aiSlidesMobile.length }).map((_, idx) => (
+                <div key={idx} className={`dot ${aiFrame === idx ? 'active' : ''}`} />
+              ))}
+            </div>
           </div>
-          {/* Back button */}
-          <div className="mt-2">
-            <button
-              onClick={() => navigate('/ai-creator', { replace: false })}
-              className="glass-button px-4 py-2 rounded-full text-sm font-['Jost',sans-serif]"
-            >
-              Back to AI Creator
-            </button>
+          {/* Text container: 30% */}
+          <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)]">
+            <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start mobile-paras">
+              <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
+              {(aiSlidesMobileShort[aiFrame]?.lines || []).map((ln, i) => (
+                <p key={i} className="text-[clamp(18px,4vw,24px)] text-white/80">{ln}</p>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <style jsx>{`
-        .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background-size: cover; background-position: center; z-index: 0; }
-        .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background: rgba(0,0,0,0.35); z-index: 1; }
+        .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
+        .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background: rgba(0,0,0,0.35); z-index: 1; }
         .liquid-glass-header {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(20px);
@@ -147,8 +415,19 @@ function AICreatorCaseStudy() {
           right: clamp(12px, 3vw, 24px);
           z-index: 10;
         }
-        .header-spacer { height: clamp(72px, 12vh, 120px); }
+        .header-spacer { height: var(--nav-h); }
         .page-content { position: relative; z-index: 2; }
+        /* Prevent page scroll/bounce on mobile */
+        @media (max-width: 767px) {
+          .ai-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; }
+          /* Ensure the mobile wrapper accounts for bottom margin space */
+          .ai-mobile-wrap { box-sizing: border-box; }
+          /* Very short screens: tighten split to avoid clipping */
+          @media (max-height: 640px) {
+            .ai-mobile-wrap .mobile-paras h3 { margin-bottom: 8px; }
+            .ai-mobile-wrap .mobile-paras p { font-size: clamp(16px,4.2vw,20px); }
+          }
+        }
         /* Decorative SVGs and inline arrow icons */
         img.svg-gold { filter: brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(589%) hue-rotate(349deg) brightness(99%) contrast(91%); }
         svg.svg-gold { color: #e4c492; }
@@ -184,6 +463,11 @@ function AICreatorCaseStudy() {
         .mielo-gap-dots { display: flex; justify-content: center; align-items: center; gap: 8px; }
         .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
         .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        /* Mobile paragraph spacing (slide text) */
+        @media (max-width: 767px) {
+          .mobile-paras p { line-height: 1.2; margin: 0 0 1.2em 0; }
+          .mobile-paras p:last-child { margin-bottom: 0; }
+        }
       `}</style>
     </div>
   )
