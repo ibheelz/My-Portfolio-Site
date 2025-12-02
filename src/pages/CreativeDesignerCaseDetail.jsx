@@ -1067,7 +1067,7 @@ function CreativeDesignerCaseDetail() {
                       alt="Miela slide 1"
                       decoding="async"
                       loading="eager"
-                      className="max-w-full max-h-[65vh] object-contain"
+                      className="max-w-full max-h-full object-contain"
                     />
                   </div>
                 </div>
