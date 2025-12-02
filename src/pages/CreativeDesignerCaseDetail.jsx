@@ -1834,9 +1834,9 @@ function CreativeDesignerCaseDetail() {
             {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
             <div className="md:hidden w-full px-[clamp(12px,3vw,24px)] miela-hero-in miela-touch todoalrojo-mobile" onTouchStart={onTodoMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onTodoMobileTouchEnd}>
               <div className="w-full mx-auto flex flex-col items-center justify-start gap-0 py-0 min-w-0">
-                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
+                <div key={`todo-mob-top-${todoMobileKey}`} className={`w-full h-[33vh] px-[clamp(12px,3vw,24px)] flex items-center justify-center font-['Jost',sans-serif] mb-[30px] todoalrojo-text-section ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
                   {todoalrojoMobileContent[todoalrojoFrame] && (
-                    <div className="text-center w-full h-full flex flex-col items-center justify-center overflow-y-auto">
+                    <div className="text-center w-full h-full flex flex-col items-center justify-center">
                       <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                         {todoalrojoMobileContent[todoalrojoFrame].heading}
                       </h3>
@@ -3006,6 +3006,7 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile { padding-left: 108px !important; padding-right: 108px !important; padding-bottom: 108px !important; }
           .todoalrojo-mobile h3 { font-size: clamp(32px, 6vw, 40px) !important; }
           .todoalrojo-mobile p { font-size: clamp(22px, 5vw, 28px) !important; }
+          .todoalrojo-text-section { overflow: hidden !important; }
         }
 
         /* Screen 5: iPad Air (820px) */
@@ -3013,6 +3014,7 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile { padding-left: 90px !important; padding-right: 90px !important; }
           .todoalrojo-mobile h3 { font-size: clamp(34px, 6.5vw, 42px) !important; }
           .todoalrojo-mobile p { font-size: clamp(24px, 5.5vw, 30px) !important; }
+          .todoalrojo-text-section { overflow: hidden !important; }
         }
 
         /* Screen 6: Surface Pro / iPad (835-912px) */
@@ -3020,6 +3022,7 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile { padding-left: 100px !important; padding-right: 100px !important; }
           .todoalrojo-mobile h3 { font-size: clamp(36px, 7vw, 44px) !important; }
           .todoalrojo-mobile p { font-size: clamp(26px, 6vw, 32px) !important; }
+          .todoalrojo-text-section { overflow: hidden !important; }
         }
 
         /* Screen 7: iPad Pro 11" (834-1024px) */
@@ -3027,6 +3030,7 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile { padding-left: 110px !important; padding-right: 110px !important; }
           .todoalrojo-mobile h3 { font-size: clamp(38px, 7.5vw, 46px) !important; }
           .todoalrojo-mobile p { font-size: clamp(28px, 6.5vw, 34px) !important; }
+          .todoalrojo-text-section { overflow: hidden !important; }
         }
 
         /* Screen 8: iPad Pro 12.9" (1024-1280px) */
@@ -3034,6 +3038,7 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-mobile { padding-left: 120px !important; padding-right: 120px !important; }
           .todoalrojo-mobile h3 { font-size: clamp(40px, 8vw, 48px) !important; }
           .todoalrojo-mobile p { font-size: clamp(30px, 7vw, 36px) !important; }
+          .todoalrojo-text-section { overflow: hidden !important; }
         }
 
         /* Screen 9: MacBook Air (1280-1366px) */
