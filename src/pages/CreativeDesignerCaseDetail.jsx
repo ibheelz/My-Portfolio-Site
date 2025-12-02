@@ -2853,23 +2853,102 @@ function CreativeDesignerCaseDetail() {
         
 
         /* iPad mini tuning (target 744–834px widths) */
-        @media screen and (min-width: 744px) and (max-width: 834px) {
-          /* 3x increased spacing on iPad mini only */
+        /* Screen 1: iPhone SE / iPhone 12 Mini (375px) */
+        @media screen and (min-width: 360px) and (max-width: 389px) {
+          .martell-ipad { padding-left: 12px !important; padding-right: 12px !important; }
+          .martell-ipad .martell-stack { gap: 32px !important; }
+        }
+
+        /* Screen 2: iPhone 6/7/8/X/11/12/13/14/15 (390-430px) */
+        @media screen and (min-width: 390px) and (max-width: 430px) {
+          .martell-ipad { padding-left: 16px !important; padding-right: 16px !important; }
+          .martell-ipad .martell-stack { gap: 40px !important; }
+        }
+
+        /* Screen 3: Samsung Galaxy S series (360-412px) - covered by above */
+
+        /* Screen 4: iPad Mini (744px) */
+        @media screen and (min-width: 728px) and (max-width: 834px) {
           .martell-ipad { padding-left: 108px !important; padding-right: 108px !important; padding-bottom: 108px !important; }
           .martell-ipad .martell-stack { gap: 84px !important; }
           .martell-ipad .martell-hero-mobile { margin-top: 120px !important; }
         }
 
-        @media screen and (min-width: 835px) and (max-width: 1023px) {
-          /* Add padding on Surface Pro when mobile layout is shown */
+        /* Screen 5: iPad Air (820px) */
+        @media screen and (min-width: 800px) and (max-width: 834px) {
+          .martell-ipad { padding-left: 90px !important; padding-right: 90px !important; }
+          .martell-ipad .martell-stack { gap: 72px !important; }
+        }
+
+        /* Screen 6: Surface Pro / iPad (835-912px) */
+        @media screen and (min-width: 835px) and (max-width: 912px) {
           .martell-ipad { padding-left: 100px !important; padding-right: 100px !important; }
           .martell-ipad .martell-stack { gap: 70px !important; }
         }
 
+        /* Screen 7: iPad Pro 11" (834-1024px) */
+        @media screen and (min-width: 913px) and (max-width: 1023px) {
+          .martell-ipad { padding-left: 110px !important; padding-right: 110px !important; }
+          .martell-ipad .martell-stack { gap: 75px !important; }
+        }
+
+        /* Screen 8: iPad Pro 12.9" (1024-1280px) */
         @media screen and (min-width: 1024px) and (max-width: 1280px) {
-          /* Add padding on iPad Pro when mobile layout is shown */
           .martell-ipad { padding-left: 120px !important; padding-right: 120px !important; }
           .martell-ipad .martell-stack { gap: 80px !important; }
+        }
+
+        /* Screen 9: MacBook Air (1280-1366px) */
+        @media screen and (min-width: 1281px) and (max-width: 1366px) {
+          .martell-ipad { padding-left: 140px !important; padding-right: 140px !important; }
+          .martell-ipad .martell-stack { gap: 90px !important; }
+        }
+
+        /* Screen 10: Standard Laptop (1440px) */
+        @media screen and (min-width: 1367px) and (max-width: 1519px) {
+          .martell-ipad { padding-left: 160px !important; padding-right: 160px !important; }
+          .martell-ipad .martell-stack { gap: 100px !important; }
+        }
+
+        /* Screen 11: Large Laptop (1600-1920px) */
+        @media screen and (min-width: 1520px) and (max-width: 1920px) {
+          .martell-ipad { padding-left: 180px !important; padding-right: 180px !important; }
+          .martell-ipad .martell-stack { gap: 110px !important; }
+        }
+
+        /* Screen 12: Desktop Ultrawide (2560px+) */
+        @media screen and (min-width: 1921px) and (max-width: 2559px) {
+          .martell-ipad { padding-left: 200px !important; padding-right: 200px !important; }
+          .martell-ipad .martell-stack { gap: 120px !important; }
+        }
+
+        @media screen and (min-width: 2560px) {
+          .martell-ipad { padding-left: 250px !important; padding-right: 250px !important; }
+          .martell-ipad .martell-stack { gap: 140px !important; }
+        }
+
+        /* Screen 13: Google Nest Hub 7" (1024x600px) - Use Desktop Mode */
+        @media screen and (min-width: 1024px) and (max-height: 650px) {
+          .martell-grid { display: grid !important; }
+          .martell-ipad { display: none !important; }
+        }
+
+        /* Screen 14: Google Nest Hub Max 10" (1280x800px) - Use Desktop Mode */
+        @media screen and (min-width: 1280px) and (max-height: 850px) {
+          .martell-grid { display: grid !important; }
+          .martell-ipad { display: none !important; }
+        }
+
+        /* Screen 15: MacBook Air M1 (1440x900px) - Use Desktop Mode */
+        @media screen and (min-width: 1440px) and (max-height: 950px) {
+          .martell-grid { display: grid !important; }
+          .martell-ipad { display: none !important; }
+        }
+
+        /* Screen 16: MacBook Pro M1 (1440x900px or 1728x1117px) - Use Desktop Mode */
+        @media screen and (min-width: 1728px) {
+          .martell-grid { display: grid !important; }
+          .martell-ipad { display: none !important; }
         }
 
         /* Hide navbar while lightbox open */
