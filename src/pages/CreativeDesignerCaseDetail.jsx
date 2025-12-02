@@ -1040,16 +1040,19 @@ function CreativeDesignerCaseDetail() {
       <div className="header-spacer" />
 
       {/* Content layer: show extra media for specific cases */}
-      <section className="content-layer flex-1">
+      <section className="content-layer flex-1 flex flex-col w-full">
         {/* Miela-specific image visible only on md+ screens */}
         {slug === 'miela' && (
           <>
-            {/* Mobile: dedicated Miela image */}
-            <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
-            </div>
+            {/* Centered content container (minus carousel space) */}
+            <div className="flex-1 flex flex-col items-center justify-center">
+              {/* Mobile: dedicated Miela image */}
+              <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
+              </div>
 
-            {/* Desktop/Tablet: hero frames (uniform sizing) */}
-            <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
+              {/* Desktop/Tablet: hero frames (uniform sizing) */}
+              <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
+              </div>
             </div>
 
         {/* Smooth infinite marquee of b1..b6 images */}
