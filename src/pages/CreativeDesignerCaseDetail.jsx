@@ -3073,7 +3073,14 @@ function CreativeDesignerCaseDetail() {
             grid-template-columns: 35% 63% !important;
             gap: 16px !important;
             width: 100% !important;
-            height: calc(100dvh - var(--nav-h)) !important;
+            height: calc(100dvh - var(--nav-h) - 10vh) !important;
+            padding-bottom: 10px !important;
+            overflow-y: auto !important;
+            position: relative !important;
+          }
+          .todoalrojo-desktop > div {
+            top: 16px !important;
+            height: calc(100% - 16px) !important;
           }
           .todoalrojo-mobile { display: none !important; }
         }
@@ -3086,7 +3093,14 @@ function CreativeDesignerCaseDetail() {
             grid-template-columns: 35% 63% !important;
             gap: 16px !important;
             width: 100% !important;
-            height: calc(100dvh - var(--nav-h)) !important;
+            height: calc(100dvh - var(--nav-h) - 10vh) !important;
+            padding-bottom: 10px !important;
+            overflow-y: auto !important;
+            position: relative !important;
+          }
+          .todoalrojo-desktop > div {
+            top: 16px !important;
+            height: calc(100% - 16px) !important;
           }
           .todoalrojo-mobile { display: none !important; }
         }
