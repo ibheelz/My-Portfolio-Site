@@ -243,7 +243,7 @@ function AICreatorCaseStudy() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col ai-page-container" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col ai-page-container ai-mobile-fixed" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -443,11 +443,15 @@ function AICreatorCaseStudy() {
         }
         /* Additional mobile scroll prevention for main container */
         @media (max-width: 767px) {
-          .ai-mobile-no-scroll.ai-page-container { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
+          .ai-mobile-no-scroll.ai-page-container { height: 100vh !important; overflow: hidden !important; }
           /* Prevent scrolling on the page content */
           .ai-mobile-no-scroll .page-content { overflow: hidden !important; }
           .ai-mobile-no-scroll .miela-hero-in { overflow: hidden !important; }
           .ai-mobile-no-scroll * { -webkit-touch-callout: none; }
+        }
+        /* Lock entire page on mobile for ai-mobile-fixed */
+        @media (max-width: 767px) {
+          .ai-mobile-fixed { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 100vh !important; overflow: hidden !important; }
         }
         /* Decorative SVGs and inline arrow icons */
         img.svg-gold { filter: brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(589%) hue-rotate(349deg) brightness(99%) contrast(91%); }

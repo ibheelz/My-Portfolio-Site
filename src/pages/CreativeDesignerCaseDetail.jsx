@@ -1166,7 +1166,7 @@ function CreativeDesignerCaseDetail() {
   }, [slug])
 
   return (
-    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'mielo' ? 'mielo-case-mobile-fixed' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -2717,6 +2717,11 @@ function CreativeDesignerCaseDetail() {
         /* Prevent scroll on html/body for mobile todoalrojo and miela */
         @media (max-width: 767px) {
           .case-detail-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; }
+        }
+
+        /* Lock entire page for mielo mobile (prevents any movement/flashing) */
+        @media (max-width: 767px) {
+          .mielo-case-mobile-fixed { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 100vh !important; overflow: hidden !important; }
         }
 
         /* Lightbox (same style as Posters & Flyers) */
