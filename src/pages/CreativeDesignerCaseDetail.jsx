@@ -1040,12 +1040,12 @@ function CreativeDesignerCaseDetail() {
       <div className="header-spacer" />
 
       {/* Content layer: show extra media for specific cases */}
-      <section className="content-layer flex-1 flex flex-col w-full gap-0">
+      <section className="content-layer flex-1 flex flex-col md:flex-row w-full gap-0">
         {/* Miela-specific image visible only on md+ screens */}
         {slug === 'miela' && (
           <>
-            {/* Centered content container (minus carousel space) */}
-            <div className="flex-1 flex flex-col items-center justify-center">
+            {/* Left column: Centered content container */}
+            <div className="flex-1 flex flex-col items-center justify-center md:w-1/2">
               {/* Mobile: dedicated Miela image */}
               <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
               </div>
@@ -1055,8 +1055,10 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
 
-        {/* Smooth infinite marquee of b1..b6 images */}
-        <div key={`miela-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in">
+            {/* Right column: Carousel */}
+            {/* Smooth infinite marquee of b1..b6 images */}
+            <div className="hidden md:flex md:w-1/2">
+        <div key={`miela-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in w-full">
               <div className="smooth-marquee" aria-label="Brand strip">
                 <div className="marquee-track" aria-hidden>
                   {/* group A */}
@@ -1089,6 +1091,7 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </>
         )}
