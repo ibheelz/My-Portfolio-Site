@@ -1063,7 +1063,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
             {/* Right column: Text content */}
-            <div className="hidden md:flex md:flex-col md:w-1/2 h-full justify-center" style={{ minHeight: '100%' }}>
+            <div className="hidden md:flex md:flex-col flex-1 md:w-1/2 h-full justify-center">
               <div className={`w-full font-['Jost',sans-serif] miela-hero-in`}>
                 {mielaDesktopContent[0] && (
                   <div className="text-left w-full">
