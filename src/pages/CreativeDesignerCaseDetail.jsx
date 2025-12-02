@@ -180,6 +180,13 @@ const todoalrojoDesktopContent = {
   }
 }
 
+const mielaDesktopContent = {
+  0: {
+    heading: 'Digital Wallpaper Syndrome',
+    body: 'Miela Digital needed social content. The kind agencies churn out on autopilot. Event promotions. Testimonials. Seasonal greetings. Influencer spotlights. The real issue? It was all forgettable. Their audience scrolled past generic, flat assets in 0.3 seconds. Miela needed work that stopped the scroll. Work with personality. Bold choices. The kind of stuff that makes you lean in and look twice. They needed design that demanded attention.'
+  }
+}
+
 // Logo sources (black + white variants) from images/, with public/ fallbacks on error
 const logos = {
   martell: {
@@ -1055,43 +1062,24 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
 
-            {/* Right column: Carousel */}
-            {/* Smooth infinite marquee of b1..b6 images */}
-            <div className="hidden md:flex md:w-1/2">
-        <div key={`miela-carousel-${carouselKey}`} className="content-layer marquee-bleed marquee-dock flex justify-center items-center miela-marquee-in w-full">
-              <div className="smooth-marquee" aria-label="Brand strip">
-                <div className="marquee-track" aria-hidden>
-                  {/* group A */}
-                  <div className="marquee-group">
-                    {bImgs.map((src, i) => (
-                      <img
-                        key={`a-${i}`}
-                        src={src}
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                        className="marquee-img"
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.webp` }}
-                      />
-                    ))}
-                </div>
-                  {/* group B (duplicate for seamless loop) */}
-                  <div className="marquee-group" aria-hidden>
-                    {bImgs.map((src, i) => (
-                      <img
-                        key={`b-${i}`}
-                        src={src}
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                        className="marquee-img"
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/b${(i%6)+1}.webp` }}
-                      />
-                    ))}
+            {/* Right column: Text content */}
+            <div className="hidden md:flex md:w-1/2 h-full items-center justify-center">
+              <div className={`w-full font-['Jost',sans-serif] p-8 miela-hero-in`}>
+                {mielaDesktopContent[0] && (
+                  <div className="text-left">
+                    <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
+                      {mielaDesktopContent[0].heading}
+                    </h3>
+                    <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                      {mielaDesktopContent[0].body.split('. ').map((sentence, idx, arr) => (
+                        <span key={idx}>
+                          {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                        </span>
+                      ))}
+                    </p>
                   </div>
-                </div>
+                )}
               </div>
-            </div>
             </div>
           </>
         )}
