@@ -1656,7 +1656,7 @@ function CreativeDesignerCaseDetail() {
                   <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner martell-enter martell-delay-1" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                     <video
                       src={martellVideo1}
-                      className="block h-full w-auto max-w-full object-contain cursor-pointer martell-enter martell-delay-1"
+                      className="block h-full w-full object-contain cursor-pointer martell-enter martell-delay-1"
                       autoPlay
                       muted
                       loop
@@ -1695,7 +1695,7 @@ function CreativeDesignerCaseDetail() {
                         alt="Martell day visual"
                         decoding="async"
                         loading="lazy"
-                        className="block w-full h-auto object-contain cursor-pointer rounded-[28px] md:rounded-[24px] slow-sway martell-enter martell-delay-2"
+                        className="block w-full h-full object-contain cursor-pointer rounded-[28px] md:rounded-[24px] slow-sway martell-enter martell-delay-2"
                         onClick={() => openLightboxAt(1)}
                         role="button"
                         tabIndex={0}
@@ -1956,7 +1956,7 @@ function CreativeDesignerCaseDetail() {
                       alt={`Mielo design frame ${idx}`}
                       decoding="async"
                       loading={idx === 0 ? 'eager' : 'lazy'}
-                      className={`h-full w-auto object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                      className={`h-full w-full object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
                       onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
                     />
                   </div>
