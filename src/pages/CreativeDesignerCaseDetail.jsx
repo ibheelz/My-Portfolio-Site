@@ -1206,7 +1206,7 @@ function CreativeDesignerCaseDetail() {
 
                     {/* Slide 5: show text above the image on mobile */}
                     {mielaSlide === 4 && mielaDesktopContent[mielaSlide] && (
-                      <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
+                      <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pt-[20px] pb-[clamp(20px,5vh,40px)]">
                         <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {mielaDesktopContent[mielaSlide].heading}
                         </h3>
@@ -1223,7 +1223,7 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
                     {mielaSlide === 5 && mielaDesktopContent[mielaSlide] && (
-                      <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
+                      <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pt-[20px] pb-[clamp(20px,5vh,40px)]">
                         <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {mielaDesktopContent[mielaSlide].heading}
                         </h3>
@@ -1414,7 +1414,7 @@ function CreativeDesignerCaseDetail() {
                     )}
                     {mielaSlide === 5 && (
                       <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
-                        <div className="relative w-full h-full max-w-full max-h-full px-[100px] flex items-center justify-center">
+                        <div className="relative w-full h-full max-w-full max-h-full px-[10px] flex items-center justify-center">
                           <img
                             src="/miela-6.webp"
                             alt="Miela slide 6"
@@ -1451,7 +1451,7 @@ function CreativeDesignerCaseDetail() {
                 <div className="flex-1 md:w-1/2 hidden md:flex">
                   <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                   {mielaDesktopContent[mielaSlide] && (
-                    <div className="text-left w-[70%]">
+                    <div className={`text-left w-[97%] ${mielaSlide === 5 ? 'pl-[60px]' : ''}`}>
                       <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                         {mielaDesktopContent[mielaSlide].heading}
                       </h3>
