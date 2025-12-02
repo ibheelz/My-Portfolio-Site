@@ -330,8 +330,8 @@ function AICreatorCaseStudy() {
             </div>
           </div>
           {/* Text container: 30% */}
-          <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
-            <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
+          <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+            <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
               <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
               <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                 {(aiSlidesContent[aiFrame]?.lines || []).join('\n')}
@@ -348,7 +348,7 @@ function AICreatorCaseStudy() {
             aiTouchStartXRef.current = e.touches[0].clientX
             aiTouchStartYRef.current = e.touches[0].clientY
           }}
-          onTouchMove={(e) => { if (e.cancelable) e.preventDefault() }}
+          onTouchMove={(e) => { e.preventDefault() }}
           onTouchEnd={(e) => {
             if (!e.changedTouches || e.changedTouches.length === 0) return
             const now = Date.now()
@@ -401,8 +401,8 @@ function AICreatorCaseStudy() {
             </div>
           </div>
           {/* Text container: 30% */}
-          <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)]">
-            <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start mobile-paras">
+          <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
+            <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start mobile-paras overflow-hidden">
               <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
               {(aiSlidesMobileShort[aiFrame]?.lines || []).map((ln, i) => (
                 <p key={i} className="text-[clamp(18px,4vw,24px)] text-white/80">{ln}</p>
@@ -432,7 +432,7 @@ function AICreatorCaseStudy() {
         .page-content { position: relative; z-index: 2; }
         /* Prevent page scroll/bounce on mobile */
         @media (max-width: 767px) {
-          .ai-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; touch-action: none !important; }
+          .ai-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; touch-action: none !important; -webkit-touch-callout: none; -webkit-user-select: none; }
           /* Ensure the mobile wrapper accounts for bottom margin space */
           .ai-mobile-wrap { box-sizing: border-box; }
           /* Very short screens: tighten split to avoid clipping */
@@ -443,10 +443,11 @@ function AICreatorCaseStudy() {
         }
         /* Additional mobile scroll prevention for main container */
         @media (max-width: 767px) {
-          .ai-mobile-no-scroll.ai-page-container { height: 100vh !important; overflow: hidden !important; }
+          .ai-mobile-no-scroll.ai-page-container { height: 100vh !important; overflow: hidden !important; position: fixed !important; width: 100% !important; }
           /* Prevent scrolling on the page content */
           .ai-mobile-no-scroll .page-content { overflow: hidden !important; }
           .ai-mobile-no-scroll .miela-hero-in { overflow: hidden !important; }
+          .ai-mobile-no-scroll * { -webkit-touch-callout: none; }
         }
         /* Decorative SVGs and inline arrow icons */
         img.svg-gold { filter: brightness(0) saturate(100%) invert(84%) sepia(18%) saturate(589%) hue-rotate(349deg) brightness(99%) contrast(91%); }

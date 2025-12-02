@@ -2289,9 +2289,9 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Content container: 30% height */}
-              <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center">
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
                 {mieloDesktopContent[mieloFrame] && (
-                  <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-y-auto">
+                  <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
                     <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloDesktopContent[mieloFrame].heading}
                     </h3>
@@ -2308,7 +2308,7 @@ function CreativeDesignerCaseDetail() {
             </div>
 
             {/* Mobile: 9 mobile frames (mielo-0 + mielo-mobile-1 through 8) */}
-            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
+            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px] mielo-mobile-no-scroll" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>{e.preventDefault()}} onTouchEnd={onMieloTouchEnd}>
               {/* Image container: 70% height with 9 frames */}
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
@@ -2362,9 +2362,9 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Content container: 30% height */}
-              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)]">
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
                 {mieloMobileContent[mieloFrame] && (
-                  <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start">
+                  <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start overflow-hidden">
                     <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloMobileContent[mieloFrame].heading}
                     </h3>
@@ -2711,6 +2711,12 @@ function CreativeDesignerCaseDetail() {
           /* Reduce gap: remove spacer and extra top padding under navbar */
           .miela-mobile-no-scroll .header-spacer { height: 0 !important; }
           .miela-mobile-no-scroll .miela-hero-in { padding-top: 0 !important; }
+        }
+
+        /* Lock page scroll on Mielo mobile */
+        @media (max-width: 767px) {
+          .mielo-mobile-no-scroll { height: 100%; overflow: hidden !important; overscroll-behavior: none !important; -webkit-touch-callout: none; }
+          .mielo-mobile-no-scroll * { -webkit-touch-callout: none; }
         }
 
         /* Prevent scroll on html/body for mobile todoalrojo and miela */
