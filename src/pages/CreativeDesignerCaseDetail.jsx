@@ -180,7 +180,7 @@ const todoalrojoDesktopContent = {
   }
 }
 
-const mielaDesktopContent = {
+  const mielaDesktopContent = {
   0: {
     heading: 'Digital Wallpaper Syndrome',
     body: 'Agencies churn out generic social content that audiences scroll past in milliseconds. The solution required bold personality-driven design that demands attention and makes you look twice.'
@@ -200,6 +200,10 @@ const mielaDesktopContent = {
   4: {
     heading: 'Unmissable Results',
     body: 'Seventy percent engagement boost; Pin‑Up and Thunderpick went from invisible to unmissable. Designs became the template by meeting people where they scroll every day.'
+  },
+  5: {
+    heading: 'Site Design & Build',
+    body: 'I designed and developed the site with HTML and Tailwind CSS. It boosted social presence, drove web clicks, and attracted high-value clients who actually wanted to work with them.'
   }
 }
 
@@ -860,13 +864,13 @@ function CreativeDesignerCaseDetail() {
         const dir = dx < 0 ? 1 : -1
         const d = dir > 0 ? 'right' : 'left'
         setEnterDirMiela(d)
-        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 5) % 5)
+        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 6) % 6)
       } else {
         // Vertical swipe: navigate slides (up = next, down = prev)
         const dir = dy < 0 ? 1 : -1
         const d = dir > 0 ? 'right' : 'left'
         setEnterDirMiela(d)
-        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 5) % 5)
+        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 6) % 6)
       }
       return
     }
@@ -1071,7 +1075,7 @@ function CreativeDesignerCaseDetail() {
 
     const stepByDir = (dir) => {
       if (dir === 0) return
-      setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 5) % 5) // 5 slides total
+      setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 6) % 6) // 6 slides total
     }
 
     const lockMs = 60
@@ -1218,6 +1222,23 @@ function CreativeDesignerCaseDetail() {
                         </p>
                       </div>
                     )}
+                    {mielaSlide === 5 && mielaDesktopContent[mielaSlide] && (
+                      <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
+                        <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {mielaDesktopContent[mielaSlide].heading}
+                        </h3>
+                        <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
+                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => {
+                            const trimmed = sentence.trim();
+                            return (
+                              <span key={idx}>
+                                {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
+                              </span>
+                            );
+                          })}
+                        </p>
+                      </div>
+                    )}
                     {mielaSlide === 1 && (
                       <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                         <div className="relative w-full h-full max-w-full max-h-full">
@@ -1268,6 +1289,23 @@ function CreativeDesignerCaseDetail() {
                         </div>
                       </div>
                     )}
+                    {mielaSlide === 5 && (
+                      <div className={`w-full h-[100dvh] flex items-start justify-center overflow-hidden pt-0 mb-[20%] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`} style={{ marginTop: '-80px' }}>
+                        <div className="w-full h-full flex items-start justify-center">
+                          <div className="inline-grid h-full max-w-full place-items-center">
+                            <img
+                              src="/miela-6-mobile.webp"
+                              alt="Miela slide 6"
+                              decoding="async"
+                              loading="eager"
+                              className="col-start-1 row-start-1 h-full w-auto object-contain block transform origin-top"
+                              style={{ transform: 'translateY(-50px) scale(1.25)' }}
+                              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6-mobile.webp' }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     {mielaSlide === 4 && (
                       <div className={`w-full h-[100dvh] flex items-start justify-center overflow-hidden pt-0 mb-[20%] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`} style={{ marginTop: '-80px' }}>
                         <div className="w-full h-full flex items-start justify-center">
@@ -1290,8 +1328,8 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
 
-                    {/* Text below at bottom (all slides except slide 5 where text is above) */}
-                    {mielaSlide !== 4 && mielaDesktopContent[mielaSlide] && (
+                    {/* Text below at bottom (all slides except 5 and 6 where text is above) */}
+                    {mielaSlide !== 4 && mielaSlide !== 5 && mielaDesktopContent[mielaSlide] && (
                       <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
                         <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {mielaDesktopContent[mielaSlide].heading}
@@ -1370,6 +1408,20 @@ function CreativeDesignerCaseDetail() {
                             loading="eager"
                             className="max-w-full max-h-full w-auto h-full object-contain"
                             onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-4.webp' }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    {mielaSlide === 5 && (
+                      <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="relative w-full h-full max-w-full max-h-full px-[100px] flex items-center justify-center">
+                          <img
+                            src="/miela-6.webp"
+                            alt="Miela slide 6"
+                            decoding="async"
+                            loading="eager"
+                            className="max-w-full max-h-full w-auto h-full object-contain"
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/miela-6.webp' }}
                           />
                         </div>
                       </div>
@@ -2374,12 +2426,12 @@ function CreativeDesignerCaseDetail() {
       {slug === 'miela' && (
         <div className="miela-dots-fixed" aria-hidden>
           <div className="hidden md:flex justify-center">
-            {Array.from({ length: 5 }).map((_, idx) => (
+            {Array.from({ length: 6 }).map((_, idx) => (
               <div key={`d-dot-${idx}`} className={`dot ${mielaSlide === idx ? 'active' : ''}`} />
             ))}
           </div>
           <div className="flex md:hidden justify-center">
-            {Array.from({ length: 5 }).map((_, idx) => (
+            {Array.from({ length: 6 }).map((_, idx) => (
               <div key={`m-dot-${idx}`} className={`dot ${mielaSlide === idx ? 'active' : ''}`} />
             ))}
           </div>
