@@ -188,6 +188,10 @@ const mielaDesktopContent = {
   1: {
     heading: 'Shareability First',
     body: 'I built campaigns designed to be shared, from insider event cards to testimonials that sparked genuine conversations. Each piece served one mission: stop the scroll and make people look twice.'
+  },
+  2: {
+    heading: 'Stream‑Native Promos',
+    body: 'Created 50+ designs making betting promos feel native within streams for viewers. Goal was simple: become the brand streamers actually chose to promote daily.'
   }
 }
 
@@ -283,6 +287,8 @@ function CreativeDesignerCaseDetail() {
   const [enterDirMiela, setEnterDirMiela] = useState('') // '' | 'left' | 'right'
   // Miela slide 2 (2.1 -> 2.4) crossfade like Todoalrojo cards
   const [miela2Frame, setMiela2Frame] = useState(0) // 0..3 cycles images 2.1..2.4
+  // Miela slide 3 (3.1 -> 3.2) simple crossfade
+  const [miela3Frame, setMiela3Frame] = useState(0) // 0..1 cycles images 3.1..3.2
 
   // Mielo navigation state
   const [mieloFrame, setMieloFrame] = useState(0) // 0..8 (9 frames)
@@ -378,6 +384,14 @@ function CreativeDesignerCaseDetail() {
     if (slug !== 'miela') return undefined
     if (mielaSlide !== 1) return undefined
     const id = setInterval(() => setMiela2Frame((i) => (i + 1) % 4), 3000)
+    return () => clearInterval(id)
+  }, [slug, mielaSlide])
+
+  // Miela slide 3 crossfade between 2 images
+  useEffect(() => {
+    if (slug !== 'miela') return undefined
+    if (mielaSlide !== 2) return undefined
+    const id = setInterval(() => setMiela3Frame((i) => (i + 1) % 2), 3000)
     return () => clearInterval(id)
   }, [slug, mielaSlide])
 
@@ -824,13 +838,13 @@ function CreativeDesignerCaseDetail() {
         const dir = dx < 0 ? 1 : -1
         const d = dir > 0 ? 'right' : 'left'
         setEnterDirMiela(d)
-        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 2) % 2)
+        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 3) % 3)
       } else {
         // Vertical swipe: navigate slides (up = next, down = prev)
         const dir = dy < 0 ? 1 : -1
         const d = dir > 0 ? 'right' : 'left'
         setEnterDirMiela(d)
-        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 2) % 2)
+        setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 3) % 3)
       }
       return
     }
@@ -1035,7 +1049,7 @@ function CreativeDesignerCaseDetail() {
 
     const stepByDir = (dir) => {
       if (dir === 0) return
-      setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 2) % 2) // 2 slides total
+      setMielaSlide((i) => (i + (dir > 0 ? 1 : -1) + 3) % 3) // 3 slides total
     }
 
     const lockMs = 60
@@ -1181,6 +1195,24 @@ function CreativeDesignerCaseDetail() {
                         </div>
                       </div>
                     )}
+                    {mielaSlide === 2 && (
+                      <div className={`w-full h-[40vh] flex items-center justify-center overflow-hidden pt-[50px] ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="relative w-full h-full max-w-full max-h-full">
+                          {['/miela-3.1.webp','/miela-3.2.webp'].map((src, idx) => (
+                            <img
+                              key={`miela3-m-${idx}`}
+                              src={src}
+                              alt={`Miela slide 3.${idx+1}`}
+                              decoding="async"
+                              loading={idx === 0 ? 'eager' : 'lazy'}
+                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto max-w-full object-contain"
+                              style={{ opacity: miela3Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Text below at bottom */}
                     {mielaDesktopContent[mielaSlide] && (
@@ -1228,6 +1260,24 @@ function CreativeDesignerCaseDetail() {
                               loading={idx === 0 ? 'eager' : 'lazy'}
                               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full w-auto h-full object-contain"
                               style={{ opacity: miela2Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
+                              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {mielaSlide === 2 && (
+                      <div className={`w-full h-[80%] flex items-center justify-center overflow-hidden ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
+                        <div className="relative w-full h-full max-w-full max-h-full">
+                          {['/miela-3.1.webp','/miela-3.2.webp'].map((src, idx) => (
+                            <img
+                              key={`miela3-d-${idx}`}
+                              src={src}
+                              alt={`Miela slide 3.${idx+1}`}
+                              decoding="async"
+                              loading={idx === 0 ? 'eager' : 'lazy'}
+                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full w-auto h-full object-contain"
+                              style={{ opacity: miela3Frame === idx ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                               onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                             />
                           ))}
