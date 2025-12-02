@@ -3071,17 +3071,23 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-desktop {
             display: block !important;
             grid-template-columns: 35% 63% !important;
-            gap: 16px !important;
+            gap: 8px !important;
             width: 100% !important;
             height: calc(100dvh - var(--nav-h) - 10vh) !important;
-            padding-bottom: 10px !important;
+            padding-bottom: 0 !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
             overflow-y: auto !important;
             position: relative !important;
           }
           .todoalrojo-desktop > div {
-            top: 16px !important;
-            height: calc(100% - 16px) !important;
+            top: 12px !important;
+            height: calc(100% - 12px) !important;
           }
+          .todoalrojo-desktop h3 { font-size: 18px !important; margin-bottom: 12px !important; }
+          .todoalrojo-desktop p { font-size: 14px !important; line-height: 1.3 !important; }
+          .todoalrojo-desktop > div:last-child { margin-left: 2px !important; }
+          .todoalrojo-desktop > div:first-child > div:last-child { overflow: visible !important; }
           .todoalrojo-mobile { display: none !important; }
         }
 
@@ -3091,17 +3097,23 @@ function CreativeDesignerCaseDetail() {
           .todoalrojo-desktop {
             display: block !important;
             grid-template-columns: 35% 63% !important;
-            gap: 16px !important;
+            gap: 10px !important;
             width: 100% !important;
             height: calc(100dvh - var(--nav-h) - 10vh) !important;
-            padding-bottom: 10px !important;
+            padding-bottom: 0 !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
             overflow-y: auto !important;
             position: relative !important;
           }
           .todoalrojo-desktop > div {
-            top: 16px !important;
-            height: calc(100% - 16px) !important;
+            top: 12px !important;
+            height: calc(100% - 12px) !important;
           }
+          .todoalrojo-desktop h3 { font-size: 19px !important; margin-bottom: 12px !important; }
+          .todoalrojo-desktop p { font-size: 15px !important; line-height: 1.3 !important; }
+          .todoalrojo-desktop > div:last-child { margin-left: 2px !important; }
+          .todoalrojo-desktop > div:first-child > div:last-child { overflow: visible !important; }
           .todoalrojo-mobile { display: none !important; }
         }
 
