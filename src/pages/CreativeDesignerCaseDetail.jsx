@@ -1062,7 +1062,7 @@ function CreativeDesignerCaseDetail() {
                 {/* Desktop/Tablet: hero frames (uniform sizing) */}
                 <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center p-8 miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
                   <img
-                    src="/miela-1.png"
+                    src="/miela-1.webp"
                     alt="Miela slide 1"
                     decoding="async"
                     loading="eager"
