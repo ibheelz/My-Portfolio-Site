@@ -2249,38 +2249,42 @@ function CreativeDesignerCaseDetail() {
           <>
             {/* Desktop: 9 desktop frames */}
             <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
-              {/* Image container: 70% height with 9 frames */}
-              <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+              {/* Image container: 60% height with top padding to clear navbar visual overlap */}
+              <div className="h-[60%] px-[clamp(12px,3vw,24px)] pt-[clamp(12px,3vh,40px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
                 {mieloImages.map((src, idx) => (
                   <div
                     key={idx}
-                    className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute cursor-pointer ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                    className={`absolute inset-0 flex items-center justify-center cursor-pointer ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
                     style={{
                       opacity: mieloFrame === idx ? 1 : 0,
                       transition: 'opacity 1600ms ease',
-                      willChange: 'opacity',
-                      border: '1.5px solid rgba(255,255,255,0.1)'
+                      willChange: 'opacity'
                     }}
                     onClick={() => openMieloLightboxAt(idx)}
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => { if (e.key === 'Enter') openMieloLightboxAt(idx) }}
                   >
-                    <img
-                      src={src}
-                      alt={`Mielo design frame ${idx}`}
-                      decoding="async"
-                      loading={idx === 0 ? 'eager' : 'lazy'}
-                      className={`h-full w-full object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
-                    />
+                    <div
+                      className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-[70%] h-full"
+                      style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}
+                    >
+                      <img
+                        src={src}
+                        alt={`Mielo design frame ${idx}`}
+                        decoding="async"
+                        loading={idx === 0 ? 'eager' : 'lazy'}
+                        className={`block h-full w-auto object-contain`}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 8px)', transform: 'translateY(-50%)', zIndex: 20, display: mieloLightboxOpen || mieloLightboxClosing ? 'none' : 'flex' }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(60% + 28px)', transform: 'translateY(-50%)', zIndex: 20, display: mieloLightboxOpen || mieloLightboxClosing ? 'none' : 'flex' }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MIELO_FRAMES }).map((_, idx) => (
                     <div key={idx} className={`dot ${mieloFrame === idx ? 'active' : ''}`} />
@@ -2291,17 +2295,25 @@ function CreativeDesignerCaseDetail() {
               {/* Content container: 30% height */}
               <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
                 {mieloDesktopContent[mieloFrame] && (
-                  <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
+                  <div
+                    key={`mielo-d-text-${mieloFrame}`}
+                    className={`text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden`}
+                    style={{ transition: 'opacity 1600ms ease' }}
+                  >
                     <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloDesktopContent[mieloFrame].heading}
                     </h3>
-                    <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
-                      {mieloDesktopContent[mieloFrame].body.split('. ').map((sentence, idx, arr) => (
-                        <span key={idx}>
-                          {sentence.trim()}{idx < arr.length - 1 ? '.\n' : '.'}
-                        </span>
-                      ))}
-                    </p>
+                    <div className="mielo-paragraphs text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed">
+                      {mieloDesktopContent[mieloFrame].body.split('. ').map((sentence, idx) => {
+                        const s = sentence.trim()
+                        if (!s) return null
+                        return (
+                          <p key={idx} className="mielo-para">
+                            {s}{s.endsWith('.') ? '' : '.'}
+                          </p>
+                        )
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
@@ -2315,12 +2327,11 @@ function CreativeDesignerCaseDetail() {
                 {mieloMobileImages.map((src, idx) => (
                   <div
                     key={idx}
-                    className={`${idx === 0 ? 'w-full' : 'w-auto'} ${idx === 0 ? '' : 'h-full'} absolute cursor-pointer`}
+                    className={`absolute inset-0 flex items-center justify-center cursor-pointer`}
                     style={{
                       opacity: mieloFrame === idx ? 1 : 0,
                       transition: 'opacity 1600ms ease',
-                      willChange: 'opacity',
-                      ...(idx === 0 ? { top: '50%', left: 0, right: 0, transform: 'translateY(-50%)' } : {})
+                      willChange: 'opacity'
                     }}
                     onClick={() => openMieloLightboxAt(idx)}
                     role="button"
@@ -2328,13 +2339,16 @@ function CreativeDesignerCaseDetail() {
                     onKeyDown={(e) => { if (e.key === 'Enter') openMieloLightboxAt(idx) }}
                   >
                     {idx === 0 ? (
-                      <div className={`${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`} style={{ width: '100%', height: 'auto', border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 'clamp(10px,1vw,18px)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div
+                        className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden"
+                        style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}
+                      >
                         <img
                           src={src}
                           alt={`Mielo mobile frame ${idx}`}
                           decoding="async"
                           loading="eager"
-                          className={`w-full h-auto object-contain ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                          className={`block h-auto w-auto object-contain`}
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/mielo-0.webp' }}
                         />
                       </div>
@@ -2344,7 +2358,7 @@ function CreativeDesignerCaseDetail() {
                         alt={`Mielo mobile frame ${idx}`}
                         decoding="async"
                         loading="lazy"
-                        className={`h-full w-auto object-contain rounded-[clamp(10px,1vw,18px)] overflow-hidden ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
+                        className={`block h-auto w-auto object-contain rounded-[clamp(10px,1vw,18px)]`}
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-mobile-${idx}.webp` }}
                       />
                     )}
@@ -2364,17 +2378,25 @@ function CreativeDesignerCaseDetail() {
               {/* Content container: 30% height */}
               <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
                 {mieloMobileContent[mieloFrame] && (
-                  <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start overflow-hidden">
+                  <div
+                    key={`mielo-m-text-${mieloFrame}`}
+                    className={`text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start overflow-hidden`}
+                    style={{ transition: 'opacity 1600ms ease' }}
+                  >
                     <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloMobileContent[mieloFrame].heading}
                     </h3>
-                    <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
-                      {mieloMobileContent[mieloFrame].body.split('. ').map((sentence, idx, arr) => (
-                        <span key={idx}>
-                          {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
-                        </span>
-                      ))}
-                    </p>
+                    <div className="mielo-paragraphs text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed" style={{ lineHeight: '1.2' }}>
+                      {mieloMobileContent[mieloFrame].body.split('. ').map((sentence, idx) => {
+                        const s = sentence.trim()
+                        if (!s) return null
+                        return (
+                          <p key={idx} className="mielo-para">
+                            {s}{s.endsWith('.') ? '' : '.'}
+                          </p>
+                        )
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
@@ -2786,6 +2808,11 @@ function CreativeDesignerCaseDetail() {
 
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
         .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: cover; object-position: top center; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
+        /* Paragraph spacing for Mielo text blocks */
+        .mielo-paragraphs .mielo-para { margin: 10px 0 0; }
+        .mielo-paragraphs .mielo-para:first-child { margin-top: 0; }
+        /* Add a blank-line feel between successive sentences */
+        .mielo-paragraphs .mielo-para + .mielo-para { margin-top: 20px; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }

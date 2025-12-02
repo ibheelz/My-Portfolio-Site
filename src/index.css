@@ -62,3 +62,15 @@ img::selection { background: transparent; }
     line-height: 1.2;
   }
 }
+
+/* Surface Pro 7: make Mielo page text 15% bigger */
+@media (width: 1368px) and (height: 912px), (width: 912px) and (height: 1368px) {
+  .mielo-case-mobile-fixed .content-layer h3 {
+    font-size: calc(1.15 * clamp(20px, 2.5vw, 26px)) !important;
+    line-height: 1.25;
+  }
+  .mielo-case-mobile-fixed .content-layer p {
+    font-size: calc(1.15 * clamp(15px, 2vw, 20px)) !important;
+    line-height: 1.5;
+  }
+}
