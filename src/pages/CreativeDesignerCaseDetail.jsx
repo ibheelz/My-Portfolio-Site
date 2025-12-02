@@ -1047,12 +1047,12 @@ function CreativeDesignerCaseDetail() {
       <div className="header-spacer" />
 
       {/* Content layer: show extra media for specific cases */}
-      <section className="content-layer flex-1 flex flex-col md:flex-row w-full gap-0">
+      <section className="content-layer flex-1 flex flex-col md:flex-row w-full h-full gap-0">
         {/* Miela-specific image visible only on md+ screens */}
         {slug === 'miela' && (
           <>
             {/* Left column: Centered content container */}
-            <div className="flex-1 flex flex-col items-center justify-center md:w-1/2">
+            <div className="flex-1 flex flex-col items-center justify-center md:w-1/2 h-full">
               {/* Mobile: dedicated Miela image */}
               <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
               </div>
