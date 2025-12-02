@@ -475,9 +475,9 @@ function AICreatorCaseStudy() {
         }
         .header-spacer { height: var(--nav-h); }
         .page-content { position: relative; z-index: 2; }
-        /* Ensure image always fills container height */
-        .ai-desk-img { height: 100% !important; width: auto !important; object-fit: contain !important; }
-        .ai-desk-img-wrap { height: 100% !important; }
+        /* Image styling */
+        .ai-desk-img { object-fit: contain !important; width: auto !important; }
+        .ai-desk-img-wrap { box-sizing: border-box !important; }
         /* Ensure desktop/tablet layout (image top, text bottom) on md+ screens */
         @media (min-width: 768px) {
           .ai-desktop-container { display: flex !important; }
