@@ -511,6 +511,64 @@ function CreativeDesignerCaseDetail() {
   const isMobileRef = useRef(false)
   const isAnimatingRef = useRef(false)
 
+  // === MIELO IMAGE WRAPPER SIZING (wrapper hugs image) ===
+  const mieloDesktopTopRef = useRef(null)
+  const mieloMobileTopRef = useRef(null)
+  const [mieloNatDims, setMieloNatDims] = useState(Array(TOTAL_MIELO_FRAMES).fill(null))
+  const [mieloMobileNatDims, setMieloMobileNatDims] = useState(Array(TOTAL_MIELO_FRAMES_MOBILE).fill(null))
+  const [mieloRenderSize, setMieloRenderSize] = useState({ w: 0, h: 0 })
+  const [mieloMobileRenderSize, setMieloMobileRenderSize] = useState({ w: 0, h: 0 })
+
+  const updateMieloNatDims = (idx, w, h, isMobile) => {
+    if (!w || !h) return
+    if (isMobile) {
+      setMieloMobileNatDims((arr) => {
+        if (arr[idx] && arr[idx].w === w && arr[idx].h === h) return arr
+        const next = arr.slice()
+        next[idx] = { w, h }
+        return next
+      })
+    } else {
+      setMieloNatDims((arr) => {
+        if (arr[idx] && arr[idx].w === w && arr[idx].h === h) return arr
+        const next = arr.slice()
+        next[idx] = { w, h }
+        return next
+      })
+    }
+  }
+
+  // Compute rendered size so wrapper equals scaled image size (fit within container)
+  useEffect(() => {
+    const recompute = () => {
+      // Desktop
+      if (mieloDesktopTopRef.current && mieloNatDims[mieloFrame]) {
+        const cb = mieloDesktopTopRef.current
+        const nat = mieloNatDims[mieloFrame]
+        const cw = cb.clientWidth
+        const ch = cb.clientHeight
+        if (cw > 0 && ch > 0 && nat.w > 0 && nat.h > 0) {
+          const scale = Math.min(ch / nat.h, cw / nat.w)
+          setMieloRenderSize({ w: Math.floor(nat.w * scale), h: Math.floor(nat.h * scale) })
+        }
+      }
+      // Mobile (top area)
+      if (mieloMobileTopRef.current && mieloMobileNatDims[mieloFrame]) {
+        const cb = mieloMobileTopRef.current
+        const nat = mieloMobileNatDims[mieloFrame]
+        const cw = cb.clientWidth
+        const ch = cb.clientHeight
+        if (cw > 0 && ch > 0 && nat.w > 0 && nat.h > 0) {
+          const scale = Math.min(ch / nat.h, cw / nat.w)
+          setMieloMobileRenderSize({ w: Math.floor(nat.w * scale), h: Math.floor(nat.h * scale) })
+        }
+      }
+    }
+    recompute()
+    window.addEventListener('resize', recompute)
+    return () => window.removeEventListener('resize', recompute)
+  }, [mieloFrame, mieloNatDims, mieloMobileNatDims])
+
   // Initialize mobile carousel animation on mount and when carousel key changes
   useEffect(() => {
     // Detect mobile (max-width 768px)
@@ -2250,7 +2308,7 @@ function CreativeDesignerCaseDetail() {
             {/* Desktop: 9 desktop frames */}
             <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMieloTouchEnd}>
               {/* Image container: 60% height with top padding to clear navbar visual overlap */}
-              <div className="h-[60%] px-[clamp(12px,3vw,24px)] pt-[clamp(12px,3vh,40px)] flex items-center justify-center relative">
+              <div ref={mieloDesktopTopRef} className="h-[60%] px-[clamp(12px,3vw,24px)] pt-[clamp(12px,3vh,40px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
                 {mieloImages.map((src, idx) => (
                   <div
@@ -2267,8 +2325,12 @@ function CreativeDesignerCaseDetail() {
                     onKeyDown={(e) => { if (e.key === 'Enter') openMieloLightboxAt(idx) }}
                   >
                     <div
-                      className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-[70%] h-full"
-                      style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}
+                      className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden"
+                      style={{
+                        border: '1.5px solid rgba(255,255,255,0.1)',
+                        width: mieloRenderSize.w ? `${mieloRenderSize.w}px` : undefined,
+                        height: mieloRenderSize.h ? `${mieloRenderSize.h}px` : undefined
+                      }}
                     >
                       <img
                         src={src}
@@ -2276,6 +2338,7 @@ function CreativeDesignerCaseDetail() {
                         decoding="async"
                         loading={idx === 0 ? 'eager' : 'lazy'}
                         className={`block h-full w-auto object-contain`}
+                        onLoad={(e) => updateMieloNatDims(idx, e.currentTarget.naturalWidth, e.currentTarget.naturalHeight, false)}
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-${idx}.webp` }}
                       />
                     </div>
@@ -2322,7 +2385,7 @@ function CreativeDesignerCaseDetail() {
             {/* Mobile: 9 mobile frames (mielo-0 + mielo-mobile-1 through 8) */}
             <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMieloTouchStart} onTouchMove={(e)=>{e.preventDefault()}} onTouchEnd={onMieloTouchEnd}>
               {/* Image container: 70% height with 9 frames */}
-              <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+              <div ref={mieloMobileTopRef} className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* All 9 image frames stacked */}
                 {mieloMobileImages.map((src, idx) => (
                   <div
@@ -2341,14 +2404,19 @@ function CreativeDesignerCaseDetail() {
                     {idx === 0 ? (
                       <div
                         className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden"
-                        style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}
+                        style={{
+                          border: '1.5px solid rgba(255,255,255,0.1)',
+                          width: mieloMobileRenderSize.w ? `${mieloMobileRenderSize.w}px` : undefined,
+                          height: mieloMobileRenderSize.h ? `${mieloMobileRenderSize.h}px` : undefined
+                        }}
                       >
                         <img
                           src={src}
                           alt={`Mielo mobile frame ${idx}`}
                           decoding="async"
                           loading="eager"
-                          className={`block h-auto w-auto object-contain`}
+                          className={`block h-full w-auto object-contain`}
+                          onLoad={(e) => updateMieloNatDims(idx, e.currentTarget.naturalWidth, e.currentTarget.naturalHeight, true)}
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/mielo-0.webp' }}
                         />
                       </div>
@@ -2358,7 +2426,7 @@ function CreativeDesignerCaseDetail() {
                         alt={`Mielo mobile frame ${idx}`}
                         decoding="async"
                         loading="lazy"
-                        className={`block h-auto w-auto object-contain rounded-[clamp(10px,1vw,18px)]`}
+                        className={`block h-full w-auto object-contain rounded-[clamp(10px,1vw,18px)]`}
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/mielo-mobile-${idx}.webp` }}
                       />
                     )}
