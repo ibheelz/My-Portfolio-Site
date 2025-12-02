@@ -1052,15 +1052,15 @@ function CreativeDesignerCaseDetail() {
         {slug === 'miela' && (
           <>
             {/* Two-column layout for desktop */}
-            <div className="w-full h-full flex flex-col md:flex-row gap-0">
+            <div className="w-full flex flex-col md:flex-row gap-0 md:max-h-[70vh]">
               {/* Left column: Centered content container */}
-              <div className="flex-1 flex flex-col items-center justify-center md:w-1/2 h-full">
+              <div className="flex-1 flex flex-col items-center justify-center md:w-1/2">
                 {/* Mobile: dedicated Miela image */}
                 <div className="flex flex-col md:hidden w-full h-full items-center justify-center px-6 miela-hero-in miela-touch" onTouchStart={onMobileTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMobileTouchEnd}>
                 </div>
 
                 {/* Desktop/Tablet: hero frames (uniform sizing) */}
-                <div className="hidden md:flex md:flex-col w-full h-full items-center justify-center miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
+                <div className="hidden md:flex md:flex-col w-full items-center justify-center miela-hero-in miela-desktop-hero" onPointerDown={onDesktopPointerDown} onPointerUp={onDesktopPointerUp} onMouseDown={onDesktopPointerDown} onMouseUp={onDesktopPointerUp}>
                   <img
                     src="/miela-1.webp"
                     alt="Miela slide 1"
@@ -1072,7 +1072,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Right column: Text content */}
-              <div className="flex-1 md:w-1/2 h-full hidden md:flex">
+              <div className="flex-1 md:w-1/2 hidden md:flex">
                 <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in`}>
                 {mielaDesktopContent[0] && (
                   <div className="text-left w-full">
