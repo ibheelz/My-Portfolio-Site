@@ -345,8 +345,8 @@ function AICreatorCaseStudy() {
                   transition: 'opacity 1600ms ease',
                   willChange: 'opacity',
                   border: '1.5px solid rgba(255,255,255,0.1)',
-                  height: '100%',
-                  ...(vw >= 744 && vw <= 1366 ? { width: '100%' } : {})
+                  height: '70%',
+                  width: '70%'
                 }}
               >
                 <img
@@ -355,7 +355,7 @@ function AICreatorCaseStudy() {
                   decoding="async"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   className="ai-desk-img max-h-full object-contain"
-                  style={{ width: vw >= 744 && vw <= 1366 ? '100%' : 'auto', height: '100%' }}
+                  style={{ width: '100%', height: '100%' }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                 />
               </div>
@@ -477,8 +477,8 @@ function AICreatorCaseStudy() {
         .header-spacer { height: var(--nav-h); }
         .page-content { position: relative; z-index: 2; }
         /* Image styling */
-        .ai-desk-img { object-fit: contain !important; width: auto !important; height: 100% !important; }
-        .ai-desk-img-wrap { box-sizing: border-box !important; height: 100% !important; }
+        .ai-desk-img { object-fit: contain !important; }
+        .ai-desk-img-wrap { box-sizing: border-box !important; }
         /* Ensure desktop/tablet layout (image top, text bottom) on md+ screens */
         @media (min-width: 768px) {
           .ai-desktop-container { display: flex !important; }
