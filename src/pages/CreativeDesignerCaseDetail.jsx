@@ -1679,7 +1679,7 @@ function CreativeDesignerCaseDetail() {
                 {/* Right column container: 90% of page height (minus navbar) */}
                 <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
                   <div className="h-[90%] w-full mx-auto lg:ml-[-30px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
-                    <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top" style={{ border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 'clamp(28px, 4vw, 32px)' }}>
+                    <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top">
                       <img
                         src={martellImage1}
                         alt="Martell artwork"
@@ -1723,7 +1723,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 2) martell video (left column video) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="140" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="140" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
                   <video
                     src={martellVideo1}
                     className="block w-full h-auto object-contain cursor-pointer martell-enter martell-delay-2"
@@ -1754,7 +1754,7 @@ function CreativeDesignerCaseDetail() {
                   />
                 </div>
                 {/* 4) martell day image (click to open lightbox) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="260" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
+                <div className="w-full rounded-[20px] overflow-hidden martell-scroll" data-delay="260" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
                   <img
                     src={martelDayImage}
                     alt="Martell day visual"
@@ -1939,7 +1939,7 @@ function CreativeDesignerCaseDetail() {
                 {mieloImages.map((src, idx) => (
                   <div
                     key={idx}
-                    className="rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute cursor-pointer"
+                    className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-auto h-full absolute cursor-pointer ${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`}
                     style={{
                       opacity: mieloFrame === idx ? 1 : 0,
                       transition: 'opacity 1600ms ease',
@@ -2012,7 +2012,7 @@ function CreativeDesignerCaseDetail() {
                     onKeyDown={(e) => { if (e.key === 'Enter') openMieloLightboxAt(idx) }}
                   >
                     {idx === 0 ? (
-                      <div style={{ width: '100%', height: 'auto', border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 'clamp(10px,1vw,18px)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div className={`${enterDirMielo === 'left' && mieloFrame === idx ? 'miela-enter-left' : ''} ${enterDirMielo === 'right' && mieloFrame === idx ? 'miela-enter-right' : ''}`} style={{ width: '100%', height: 'auto', border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 'clamp(10px,1vw,18px)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <img
                           src={src}
                           alt={`Mielo mobile frame ${idx}`}
