@@ -1498,7 +1498,7 @@ function CreativeDesignerCaseDetail() {
                   <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                   {mielaDesktopContent[mielaSlide] && (
                     <div className={`text-left w-[97%] ${mielaSlide === 5 ? 'pl-[60px]' : ''}`}>
-                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
+                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] capitalize whitespace-pre-line">
                         {mielaDesktopContent[mielaSlide].heading}
                       </h3>
                       <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
@@ -2541,10 +2541,6 @@ function CreativeDesignerCaseDetail() {
         @keyframes slideInFromLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slideInFromRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
         .miela-hero-in { animation: fadeUpIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both; will-change: transform, opacity; }
-        @media (min-width: 768px) {
-          .miela-hero-in h3 { margin-bottom: 0 !important; }
-          .miela-hero-in p { margin-bottom: 0 !important; }
-        }
         .miela-slide-enter-left { animation: slideInFromLeft 500ms cubic-bezier(0.22, 1, 0.36, 1) both; }
         .miela-slide-enter-right { animation: slideInFromRight 500ms cubic-bezier(0.22, 1, 0.36, 1) both; }
         /* BULLETPROOF carousel animation - always visible, never disappears */
