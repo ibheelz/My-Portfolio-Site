@@ -2808,6 +2808,11 @@ function CreativeDesignerCaseDetail() {
         @media (prefers-reduced-motion: reduce) { .img-enter-left, .img-enter-right { animation-duration: 0ms; } }
         }
 
+        /* Make martell-bottom expand to fill parent column width */
+        @media (min-width: 1024px) {
+          .martell-bottom { width: calc(100% + 40px) !important; margin-left: -20px !important; margin-right: -20px !important; }
+        }
+
         /* Ultrawide responsiveness (21:9 and wider) */
         @media (min-aspect-ratio: 21/9), (min-width: 2000px) {
           .martell-grid { grid-template-columns: 33% 65% !important; gap: 24px !important; }
