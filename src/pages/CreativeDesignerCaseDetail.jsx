@@ -1494,7 +1494,7 @@ function CreativeDesignerCaseDetail() {
                 </div>
 
                 {/* Right column: Text content */}
-                <div className="flex-1 md:w-1/2 md:h-[80%] hidden md:flex">
+                <div className="flex-1 md:w-1/2 md:h-[65vh] hidden md:flex">
                   <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                   {mielaDesktopContent[mielaSlide] && (
                     <div className={`text-left w-[97%] ${mielaSlide === 5 ? 'pl-[60px]' : ''}`}>
