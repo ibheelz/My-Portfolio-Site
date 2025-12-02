@@ -374,10 +374,10 @@ function AICreatorCaseStudy() {
           {/* Text container: 30% (at bottom) */}
           <div className="order-2 h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
             <div className="ai-desktop-text text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden">
-              <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
+              <h3 className="text-[clamp(24px,3vw,31px)] font-bold text-[#e4c492] mb-3 capitalize">{aiSlidesContent[aiFrame]?.heading}</h3>
               <div className="ai-desc-block w-full">
                 {(aiSlidesContent[aiFrame]?.lines || []).map((ln, i) => (
-                  <p key={i} className="ai-desc-para text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed">{ln}</p>
+                  <p key={i} className="ai-desc-para text-[clamp(18px,2.4vw,24px)] text-white/80 leading-relaxed">{ln}</p>
                 ))}
               </div>
             </div>
@@ -476,8 +476,8 @@ function AICreatorCaseStudy() {
         .header-spacer { height: var(--nav-h); }
         .page-content { position: relative; z-index: 2; }
         /* Image styling */
-        .ai-desk-img { object-fit: contain !important; width: auto !important; }
-        .ai-desk-img-wrap { box-sizing: border-box !important; }
+        .ai-desk-img { object-fit: contain !important; width: auto !important; height: 100% !important; }
+        .ai-desk-img-wrap { box-sizing: border-box !important; height: 100% !important; }
         /* Ensure desktop/tablet layout (image top, text bottom) on md+ screens */
         @media (min-width: 768px) {
           .ai-desktop-container { display: flex !important; }
