@@ -345,6 +345,7 @@ function AICreatorCaseStudy() {
                   transition: 'opacity 1600ms ease',
                   willChange: 'opacity',
                   border: '1.5px solid rgba(255,255,255,0.1)',
+                  height: '100%',
                   ...(vw >= 744 && vw <= 1366 ? { width: '100%' } : {})
                 }}
               >
@@ -354,7 +355,7 @@ function AICreatorCaseStudy() {
                   decoding="async"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   className="ai-desk-img max-h-full object-contain"
-                  style={{ width: vw >= 744 && vw <= 1366 ? '100%' : 'auto', height: vw >= 744 && vw <= 1366 ? 'auto' : 'auto' }}
+                  style={{ width: vw >= 744 && vw <= 1366 ? '100%' : 'auto', height: '100%' }}
                   onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = src }}
                 />
               </div>
