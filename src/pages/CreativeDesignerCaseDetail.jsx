@@ -2011,7 +2011,7 @@ function CreativeDesignerCaseDetail() {
                         alt="Martell day visual"
                         decoding="async"
                         loading="lazy"
-                        className="block w-full h-full object-contain cursor-pointer rounded-[28px] md:rounded-[24px] slow-sway martell-enter martell-delay-2"
+                        className="block w-full h-full object-cover cursor-pointer rounded-[28px] md:rounded-[24px] slow-sway martell-enter martell-delay-2"
                         onClick={() => openLightboxAt(1)}
                         role="button"
                         tabIndex={0}
@@ -2806,11 +2806,6 @@ function CreativeDesignerCaseDetail() {
           .lightbox-image-wrap { padding: 12px 12px 90px; }
           .lightbox-chevron { display: none; }
         @media (prefers-reduced-motion: reduce) { .img-enter-left, .img-enter-right { animation-duration: 0ms; } }
-        }
-
-        /* Make martell-bottom expand to fill parent column width */
-        @media (min-width: 1024px) {
-          .martell-bottom { width: calc(100% + 40px) !important; margin-left: -20px !important; margin-right: -20px !important; }
         }
 
         /* Ultrawide responsiveness (21:9 and wider) */
