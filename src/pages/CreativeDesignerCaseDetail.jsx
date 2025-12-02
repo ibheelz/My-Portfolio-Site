@@ -3150,6 +3150,8 @@ function CreativeDesignerCaseDetail() {
           .miela-touch p { font-size: clamp(16px, 3.6vw, 22px) !important; }
           /* Image height 40% for slides 5 and 6 - mobile and desktop */
           img[alt*="Miela 5"], img[alt*="Miela 6"] { height: 40% !important; }
+          /* Move slide 5 images up by 20px */
+          img[alt*="Miela 5"] { margin-top: -20px !important; position: relative !important; }
         }
 
         /* Screen 3.5: 720px-767px Special size - 20% smaller content */
