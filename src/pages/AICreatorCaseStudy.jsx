@@ -166,6 +166,20 @@ function AICreatorCaseStudy() {
   // Slides list (increase items to add more slides and dots auto-update)
   const aiSlides = ['/mielo-0.webp']
 
+  // Simple lightbox state
+  const [lbOpen, setLbOpen] = useState(false)
+  const [lbIndex, setLbIndex] = useState(0)
+  const [lbDesktop, setLbDesktop] = useState(true)
+
+  const openLightboxAt = (idx) => {
+    try { setLbDesktop(window.innerWidth >= 768) } catch { setLbDesktop(true) }
+    setLbIndex(idx)
+    setLbOpen(true)
+  }
+  const closeLightbox = () => setLbOpen(false)
+  const nextLightbox = () => setLbIndex((i) => (i + 1) % aiSlidesDesktop.length)
+  const prevLightbox = () => setLbIndex((i) => (i - 1 + aiSlidesDesktop.length) % aiSlidesDesktop.length)
+
   useEffect(() => {
     const cleanup = attachHireMe(document)
     return cleanup
@@ -221,6 +235,18 @@ function AICreatorCaseStudy() {
       body.classList.remove('ai-mobile-no-scroll')
     }
   }, [])
+
+  // Lightbox keyboard controls
+  useEffect(() => {
+    if (!lbOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowRight') nextLightbox()
+      if (e.key === 'ArrowLeft') prevLightbox()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lbOpen])
 
   // Minimal navigation: arrow keys and wheel to step frames (match Mielo feel)
   useEffect(() => {
@@ -339,14 +365,16 @@ function AICreatorCaseStudy() {
             {aiSlidesDesktop.map((src, idx) => (
               <div
                 key={`desk-${idx}`}
-                className="ai-desk-img-wrap absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block rounded-[clamp(10px,1vw,18px)] overflow-hidden"
+                className="ai-desk-img-wrap absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block rounded-[clamp(10px,1vw,18px)] overflow-hidden cursor-pointer"
                 style={{
                   opacity: aiFrame === idx ? 1 : 0,
                   transition: 'opacity 1600ms ease',
                   willChange: 'opacity',
                   border: '1.5px solid rgba(255,255,255,0.1)',
-                  height: '70%'
+                  height: '70%',
+                  pointerEvents: aiFrame === idx ? 'auto' : 'none'
                 }}
+                onClick={() => openLightboxAt(idx)}
               >
                 <img
                   src={src}
@@ -417,12 +445,14 @@ function AICreatorCaseStudy() {
             {aiSlidesMobile.map((src, idx) => (
               <div key={`mob-${idx}`} className="w-full h-full absolute flex items-center justify-center">
                 <div
-                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden h-[80%]"
+                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden h-[80%] cursor-pointer"
                   style={{
                     opacity: aiFrame === idx ? 1 : 0,
                     transition: 'opacity 1600ms ease',
-                    willChange: 'opacity'
+                    willChange: 'opacity',
+                    pointerEvents: aiFrame === idx ? 'auto' : 'none'
                   }}
+                  onClick={() => openLightboxAt(idx)}
                 >
                   <img
                     src={src}
@@ -456,6 +486,31 @@ function AICreatorCaseStudy() {
         </div>
       </section>
 
+      {/* Lightbox overlay */}
+      {lbOpen && (
+        <div className="ai-lightbox-overlay" role="dialog" aria-modal="true" onClick={closeLightbox}>
+          <button className="ai-lightbox-close" aria-label="Close" onClick={(e) => { e.stopPropagation(); closeLightbox() }}>
+            ×
+          </button>
+          <button className="ai-lightbox-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); prevLightbox() }}>
+            ‹
+          </button>
+          <div className="ai-lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={(lbDesktop ? aiSlidesDesktop : aiSlidesMobile)[lbIndex]}
+              alt={`AI Creator slide ${lbIndex + 1}`}
+              className="ai-lightbox-image"
+              decoding="async"
+              loading="eager"
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = (lbDesktop ? aiSlidesDesktop : aiSlidesMobile)[lbIndex] }}
+            />
+          </div>
+          <button className="ai-lightbox-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); nextLightbox() }}>
+            ›
+          </button>
+        </div>
+      )}
+
       <style jsx>{`
         html, body { overflow: hidden !important; height: 100vh !important; }
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: var(--nav-h); background-size: cover; background-position: center; z-index: 0; }
@@ -472,6 +527,19 @@ function AICreatorCaseStudy() {
           left: clamp(12px, 3vw, 24px);
           right: clamp(12px, 3vw, 24px);
           z-index: 10;
+        }
+
+        /* Lightbox styles */
+        .ai-lightbox-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .ai-lightbox-content { max-width: 90vw; max-height: 85vh; display: flex; align-items: center; justify-content: center; }
+        .ai-lightbox-image { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+        .ai-lightbox-close { position: fixed; top: calc(16px + env(safe-area-inset-top)); right: calc(16px + env(safe-area-inset-right)); width: 36px; height: 36px; border-radius: 9999px; background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.3); font-size: 24px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .ai-lightbox-prev, .ai-lightbox-next { position: fixed; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 9999px; background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.3); font-size: 28px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .ai-lightbox-prev { left: calc(16px + env(safe-area-inset-left)); }
+        .ai-lightbox-next { right: calc(16px + env(safe-area-inset-right)); }
+        .ai-lightbox-close:hover, .ai-lightbox-prev:hover, .ai-lightbox-next:hover { background: rgba(122,31,43,0.9); border-color: #7a1f2b; }
+        @media (max-width: 767px) {
+          .ai-lightbox-content { max-width: 96vw; max-height: 80vh; }
         }
         .header-spacer { height: var(--nav-h); }
         .page-content { position: relative; z-index: 2; }
