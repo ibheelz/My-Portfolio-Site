@@ -92,7 +92,7 @@ const mieloMobileContent = {
   },
   8: {
     heading: 'Result',
-    body: 'Streamed data from Twitch and Kick platform profiles. Stream history and titles available for detailed analysis.'
+    body: 'Mielo made streamer discovery effortless and significantly accelerated talent selection. Campaign targeting improved dramatically, producing faster matches and expanding visibility.'
   }
 }
 
