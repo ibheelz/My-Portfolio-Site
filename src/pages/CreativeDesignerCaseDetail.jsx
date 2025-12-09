@@ -195,24 +195,24 @@ const todoalrojoDesktopContent = {
     body: 'Miela Digital\'s visuals suffered from Digital Wallpaper Syndrome because the designs were flat and forgettable.\n\nAffiliates and marketers had nothing strong or shareable to work with and the brand completely lacked a recognizable online identity.'
   },
   1: {
-    heading: 'Shareability First',
+    heading: 'Solution',
     body: 'I built campaigns designed to be shared, from insider event cards to testimonials that sparked genuine conversations. Each piece served one mission: stop the scroll and make people look twice.'
   },
   2: {
-    heading: 'Stream‑Native Promos',
+    heading: '',
     body: 'Created 50+ designs making betting promos feel native within streams for viewers. Goal was simple: become the brand streamers actually chose to promote daily.'
   },
   3: {
-    heading: 'QR & Overlays',
-    body: 'Designed QR system and banner overlays that lived on streamers’ screens daily. Clean, scannable and native; purpose-built to pull attention without interruption during streams.'
+    heading: '',
+    body: 'Designed QR system and banner overlays that lived on streamers\' screens daily. Clean, scannable and native; purpose-built to pull attention without interruption during streams.'
   },
   4: {
-    heading: 'Unmissable Results',
-    body: 'Seventy percent engagement boost; Pin‑Up and Thunderpick went from invisible to unmissable. Designs became the template by meeting people where they scroll every day.'
+    heading: '',
+    body: '70% engagement boost Pin‑Up and Thunderpick went from invisible to unmissable. Designs became the template by meeting people where they scroll every day.'
   },
   5: {
-    heading: 'Site Design & Build',
-    body: 'I designed and developed the site with HTML and Tailwind CSS. It boosted social presence, drove web clicks, and attracted high-value clients who actually wanted to work with them.'
+    heading: 'Result',
+    body: 'Miela Digital\'s new identity made the brand stand out online and attract better clients on its own.\n\nStreamers used the new designs every day, which pushed visibility, clicks, and overall reach way higher than before.'
   }
 }
 
@@ -1320,35 +1320,29 @@ function CreativeDesignerCaseDetail() {
                     {/* Slide 5: show text above the image on mobile */}
                     {mielaSlide === 4 && mielaDesktopContent[mielaSlide] && (
                       <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pt-[20px] pb-[clamp(20px,5vh,40px)]">
-                        <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                           {mielaDesktopContent[mielaSlide].heading}
                         </h3>
-                        <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
-                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => {
-                            const trimmed = sentence.trim();
-                            return (
-                              <span key={idx}>
-                                {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
-                              </span>
-                            );
-                          })}
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim().replace(/\.$/, '')}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                            </span>
+                          ))}
                         </p>
                       </div>
                     )}
                     {mielaSlide === 5 && mielaDesktopContent[mielaSlide] && (
                       <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pt-[20px] pb-[clamp(20px,5vh,40px)]">
-                        <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                           {mielaDesktopContent[mielaSlide].heading}
                         </h3>
-                        <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
-                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => {
-                            const trimmed = sentence.trim();
-                            return (
-                              <span key={idx}>
-                                {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
-                              </span>
-                            );
-                          })}
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim().replace(/\.$/, '')}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                            </span>
+                          ))}
                         </p>
                       </div>
                     )}
@@ -1441,21 +1435,18 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
 
-                    {/* Text below at bottom (all slides except 5 and 6 where text is above) */}
+                    {/* Text below at bottom (all slides except 4 and 5 where text is above) */}
                     {mielaSlide !== 4 && mielaSlide !== 5 && mielaDesktopContent[mielaSlide] && (
                       <div className="text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-end pb-[clamp(20px,5vh,40px)]">
-                        <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                           {mielaDesktopContent[mielaSlide].heading}
                         </h3>
-                        <p className="text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed whitespace-pre-line" style={{ lineHeight: '1.2' }}>
-                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => {
-                            const trimmed = sentence.trim();
-                            return (
-                              <span key={idx}>
-                                {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
-                              </span>
-                            );
-                          })}
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim().replace(/\.$/, '')}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                            </span>
+                          ))}
                         </p>
 
                       </div>
@@ -1565,18 +1556,15 @@ function CreativeDesignerCaseDetail() {
                   <div className={`w-full h-full flex flex-col justify-center font-['Jost',sans-serif] miela-hero-in miela-text-col ${enterDirMiela === 'left' ? 'miela-enter-left' : enterDirMiela === 'right' ? 'miela-enter-right' : ''}`}>
                   {mielaDesktopContent[mielaSlide] && (
                     <div className={`text-left w-[97%] ${mielaSlide === 5 ? 'pl-[60px]' : ''}`}>
-                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] capitalize whitespace-pre-line">
+                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
                         {mielaDesktopContent[mielaSlide].heading}
                       </h3>
                       <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
-                        {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => {
-                          const trimmed = sentence.trim();
-                          return (
-                            <span key={idx}>
-                              {trimmed}{!trimmed.endsWith('.') ? '.' : ''}{idx < arr.length - 1 ? '\n\n' : ''}
-                            </span>
-                          );
-                        })}
+                        {mielaDesktopContent[mielaSlide].body.split('. ').map((sentence, idx, arr) => (
+                          <span key={idx}>
+                            {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                          </span>
+                        ))}
                       </p>
                     </div>
                   )}
