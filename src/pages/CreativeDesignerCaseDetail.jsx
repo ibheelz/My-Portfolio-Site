@@ -191,8 +191,8 @@ const todoalrojoDesktopContent = {
 
   const mielaDesktopContent = {
   0: {
-    heading: 'Digital Wallpaper Syndrome',
-    body: 'Agencies churn out generic social content that audiences scroll past in milliseconds. The solution required bold personality-driven design that demands attention and makes you look twice.'
+    heading: 'The Problem',
+    body: 'Miela Digital\'s visuals suffered from Digital Wallpaper Syndrome because the designs were flat and forgettable.\n\nAffiliates and marketers had nothing strong or shareable to work with and the brand completely lacked a recognizable online identity.'
   },
   1: {
     heading: 'Shareability First',
