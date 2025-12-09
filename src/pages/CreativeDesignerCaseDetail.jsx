@@ -22,6 +22,7 @@ const bImgs = [1,2,3,4,5,6].map(n => `${import.meta.env.BASE_URL}b${n}.webp`)
 const rojoBanners = [1,2].map(n => `${import.meta.env.BASE_URL}rojo-banner-${n}.webp`)
 const rojoBannerSeq = Array.from({ length: 10 }, (_, i) => rojoBanners[i % rojoBanners.length])
 const todoalrojoDashboard = `${import.meta.env.BASE_URL}todoalrojo-dashboard.webp`
+const todoalrojoLogo = `${import.meta.env.BASE_URL}todo-al-rojo.webp`
 const todoalrojoLeaderboard = `${import.meta.env.BASE_URL}todoalrojo-leaderboard.webp`
 const todoalrojoVip = `${import.meta.env.BASE_URL}todoalrojo-vip.webp`
 const todoalrojoTask = `${import.meta.env.BASE_URL}todoalrojo-task.webp`
@@ -136,22 +137,26 @@ const mieloDesktopContent = {
 
 const todoalrojoMobileContent = {
   0: {
+    heading: 'The Problem',
+    body: 'Todo Al Rojo lacked a real way to keep users engaged or motivate meaningful actions like verified deposits.\n\nThere was no reward loop, no progression, and FTD attribution was inconsistent.\n\nThey needed a system that could drive engagement, reward behavior, and reliably track first-time deposits'
+  },
+  1: {
     heading: 'Todo Al Rojo Casino\nGamification Platform',
     body: 'I built a casino with Red Chips currency. Players do tasks and get very addicted'
   },
-  1: {
+  2: {
     heading: 'Task Dashboard',
     body: 'Designed dashboard that turns task obsession systems. Earn Red Chips trade free bets leaderboard'
   },
-  2: {
+  3: {
     heading: 'Shop Dashboard',
     body: 'Built reward shop where Chips become valuable currency. Free bets ten thousand bonus upgrade rewards'
   },
-  3: {
+  4: {
     heading: 'Leaderboard',
     body: 'Leaderboard pure psychological warfare ranking obsession level always. Three-tier VIP card system free bets network'
   },
-  4: {
+  5: {
     heading: 'Other Assets',
     body: 'These banners and stickers my addiction marketing purposes. I wanted simple something makes people click'
   }
@@ -159,22 +164,26 @@ const todoalrojoMobileContent = {
 
 const todoalrojoDesktopContent = {
   0: {
+    heading: 'The Problem',
+    body: 'Todo Al Rojo lacked a real way to keep users engaged or motivate meaningful actions like verified deposits.\n\nThere was no reward loop, no progression, and FTD attribution was inconsistent.\n\nThey needed a system that could drive engagement, reward behavior, and reliably track first-time deposits'
+  },
+  1: {
     heading: 'Todo Al Rojo Casino\nGamification Platform',
     body: 'I built a casino inside a casino with Red Chips currency system. Players complete daily tasks and suddenly they\'re addicted to grinding achievement points'
   },
-  1: {
+  2: {
     heading: 'Task Dashboard',
     body: 'Designed a dashboard that turns task completion into an addictive obsession system. Earn Red Chips, trade for free bets, climb the leaderboard for progression'
   },
-  2: {
+  3: {
     heading: 'Shop Dashboard',
     body: 'Built a reward shop where Red Chips become actual valuable trading currency. Free bets up to ten thousand dollars exclusive bonuses and VIP upgrades'
   },
-  3: {
+  4: {
     heading: 'Leaderboard',
     body: 'The leaderboard is pure psychological warfare ranking people by obsession level always. Three-tier VIP card system with free bets and affiliate network across platforms'
   },
-  4: {
+  5: {
     heading: 'Other Assets',
     body: 'These banners and stickers are basically my fault for addiction marketing purposes. I wanted something simple that makes people stop scrolling and click it'
   }
@@ -267,7 +276,7 @@ function CreativeDesignerCaseDetail() {
   const TOTAL_MIELA_FRAMES = 10
 
   // Todoalrojo navigation state
-  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..4 (5 frames)
+  const [todoalrojoFrame, setTodoalrojoFrame] = useState(0) // 0..6 (7 frames)
   const [enterDirTodoalrojo, setEnterDirTodoalrojo] = useState('')
   const lastYRef = useRef(0)
   const lastStepTimeRef = useRef(0)
@@ -292,7 +301,7 @@ function CreativeDesignerCaseDetail() {
   const todoMobileTimerRef = useRef(null)
   const [todoMobileVertDir, setTodoMobileVertDir] = useState('') // '' | 'up' | 'down'
   const todoMobileVertTimerRef = useRef(null)
-  const TOTAL_TODO_FRAMES = 5
+  const TOTAL_TODO_FRAMES = 6
 
   // Miela navigation state
   const [mielaSlide, setMielaSlide] = useState(0) // 0 or 1 for miela slides
@@ -481,7 +490,7 @@ function CreativeDesignerCaseDetail() {
   // Simple looping slideshow for Todoalrojo slide 5 bottom panel (toggle between -1 and -2)
   useEffect(() => {
     if (slug !== 'todoalrojo') return undefined
-    if (todoalrojoFrame !== 4) return undefined
+    if (todoalrojoFrame !== 5) return undefined
     // Slow, subtle crossfade every ~6.5s
     const id = setInterval(() => setRojoSlide((i) => (i + 1) % 2), 6500)
     return () => clearInterval(id)
@@ -490,7 +499,7 @@ function CreativeDesignerCaseDetail() {
   // Faster 3s interval for right-column cards crossfade
   useEffect(() => {
     if (slug !== 'todoalrojo') return undefined
-    if (todoalrojoFrame !== 4) return undefined
+    if (todoalrojoFrame !== 5) return undefined
     const id = setInterval(() => setRojoCardsSlide((i) => (i + 1) % 2), 3000)
     return () => clearInterval(id)
   }, [slug, todoalrojoFrame])
@@ -1619,63 +1628,35 @@ function CreativeDesignerCaseDetail() {
           <div className="w-full min-h-[calc(100dvh-var(--nav-h)-10vh)] flex items-center justify-center relative">
             {/* Desktop/Tablet (md+): original 2-column carousel */}
             <div className="hidden md:block relative w-full max-w-[1540px] 2xl:max-w-[2000px] todoalrojo-ultrawide-adjust h-[70vh] todoalrojo-desktop">
-              {/* Frame 0: todoalrojo-dashboard + text content */}
+              {/* Frame 0: NEW — Todo Al Rojo logo + problem statement */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(0) }}>
-                    <img
-                      src={todoalrojoDashboard}
-                      alt="Todoalrojo Dashboard"
-                      decoding="async"
-                      loading="eager"
-                      className="max-w-full max-h-[70vh] object-contain"
-                      style={{ pointerEvents: 'none' }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.webp' }}
-                    />
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'none', zIndex: 10 }}>
+                    <img src={todoalrojoLogo} alt="Todo Al Rojo Logo" decoding="async" loading="eager" className="max-w-full max-h-[70vh] object-contain" style={{ transform: 'scale(0.5)', transformOrigin: 'center' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-al-rojo.webp' }} />
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
                   <div className={`w-full font-['Jost',sans-serif] ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
-                    {todoalrojoDesktopContent[0] && (
-                      <div className="text-left">
-                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">
-                          {todoalrojoDesktopContent[0].heading}
-                        </h3>
-                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
-                          {todoalrojoDesktopContent[0].body.split('. ').map((sentence, idx, arr) => (
-                            <span key={idx}>
-                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
-                            </span>
-                          ))}
-                        </p>
-                      </div>
-                    )}
+                    <div className="text-left">
+                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">The Problem</h3>
+                      <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">{`Todo Al Rojo lacked a real way to keep users engaged or motivate meaningful actions like verified deposits.\n\nThere was no reward loop, no progression, and FTD attribution was inconsistent.\n\nThey needed a system that could drive engagement, reward behavior, and reliably track first-time deposits.`}</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Frame 1: todoalrojo-task (left) + text content (right) */}
+              {/* Frame 1: todoalrojo-dashboard + text content (shifted) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(3)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(3) }}>
-                    <img
-                      src={todoalrojoTask}
-                      alt="Todoalrojo Task"
-                      decoding="async"
-                      loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain"
-                      style={{ pointerEvents: 'none' }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.webp' }}
-                    />
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(0) }}>
+                    <img src={todoalrojoDashboard} alt="Todoalrojo Dashboard" decoding="async" loading="eager" className="max-w-full max-h-[70vh] object-contain" style={{ pointerEvents: 'none' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.webp' }} />
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                  <div className={`w-full font-['Jost',sans-serif] ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[1] && (
                       <div className="text-left">
-                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
-                          {todoalrojoDesktopContent[1].heading}
-                        </h3>
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">{todoalrojoDesktopContent[1].heading}</h3>
                         <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
                           {todoalrojoDesktopContent[1].body.split('. ').map((sentence, idx, arr) => (
                             <span key={idx}>
@@ -1689,18 +1670,18 @@ function CreativeDesignerCaseDetail() {
                 </div>
               </div>
 
-              {/* Frame 2: todoalrojo-shop (left) + text content (right) */}
+              {/* Frame 2: todoalrojo-task (left) + text content (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 2 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(4)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(4) }}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 2 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 2 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(3)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(3) }}>
                     <img
-                      src={todoalrojoShop}
-                      alt="Todoalrojo Shop"
+                      src={todoalrojoTask}
+                      alt="Todoalrojo Task"
                       decoding="async"
                       loading="lazy"
                       className="max-w-full max-h-[70vh] object-contain"
                       style={{ pointerEvents: 'none' }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.webp' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-task.webp' }}
                     />
                   </div>
                 </div>
@@ -1724,13 +1705,25 @@ function CreativeDesignerCaseDetail() {
                 </div>
               </div>
 
-              {/* Frame 3: text content + vip (left) + todoalrojo-leaderboard (right) */}
+              {/* Frame 3: todoalrojo-shop (left) + text content (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 3 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
-                <div className="h-full flex flex-col justify-start items-center">
-                  {/* Text content on top with spacing from VIP */}
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(4)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(4) }}>
+                    <img
+                      src={todoalrojoShop}
+                      alt="Todoalrojo Shop"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      style={{ pointerEvents: 'none' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-shop.webp' }}
+                    />
+                  </div>
+                </div>
+                <div className="h-full flex items-center justify-center">
                   <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[3] && (
-                      <div className="text-left mt-[100px]">
+                      <div className="text-left">
                         <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {todoalrojoDesktopContent[3].heading}
                         </h3>
@@ -1744,41 +1737,16 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
                   </div>
-                  {/* VIP image, rounded and constrained - sits at bottom */}
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] mt-auto cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(2) }}>
-                    <img
-                      src={todoalrojoVip}
-                      alt="Todoalrojo VIP"
-                      decoding="async"
-                      loading="lazy"
-                      className="w-full h-auto object-cover"
-                      style={{ pointerEvents: 'none' }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-vip.webp' }}
-                    />
-                  </div>
-                </div>
-                <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 3 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 3 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(1)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(1) }}>
-                    <img
-                      src={todoalrojoLeaderboard}
-                      alt="Todoalrojo Leaderboard"
-                      decoding="async"
-                      loading="lazy"
-                      className="max-w-full max-h-[70vh] object-contain"
-                      style={{ pointerEvents: 'none' }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.webp' }}
-                    />
-                  </div>
                 </div>
               </div>
 
-              {/* Frame 4: text content (top-left) + rojo-3 full-width under; right column 2x2 cards */}
+              {/* Frame 4: text content + vip (left) + todoalrojo-leaderboard (right) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 4 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
-                {/* Left column: split into two rows, fill parent */}
-                <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-start font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                <div className="h-full flex flex-col justify-start items-center">
+                  {/* Text content on top with spacing from VIP */}
+                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[4] && (
-                      <div className="text-left pl-0">
+                      <div className="text-left mt-[100px]">
                         <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                           {todoalrojoDesktopContent[4].heading}
                         </h3>
@@ -1792,7 +1760,55 @@ function CreativeDesignerCaseDetail() {
                       </div>
                     )}
                   </div>
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden relative ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`} style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                  {/* VIP image, rounded and constrained - sits at bottom */}
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden w-full max-w-[90%] mt-auto cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(2) }}>
+                    <img
+                      src={todoalrojoVip}
+                      alt="Todoalrojo VIP"
+                      decoding="async"
+                      loading="lazy"
+                      className="w-full h-auto object-cover"
+                      style={{ pointerEvents: 'none' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-vip.webp' }}
+                    />
+                  </div>
+                </div>
+                <div className="h-full flex items-center justify-center">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(1)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(1) }}>
+                    <img
+                      src={todoalrojoLeaderboard}
+                      alt="Todoalrojo Leaderboard"
+                      decoding="async"
+                      loading="lazy"
+                      className="max-w-full max-h-[70vh] object-contain"
+                      style={{ pointerEvents: 'none' }}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.webp' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Frame 5: text content (top-left) + rojo-3 full-width under; right column 2x2 cards */}
+              <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 5 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
+                {/* Left column: split into two rows, fill parent */}
+                <div className="h-full min-h-0 grid grid-rows-[1fr_1fr] gap-6 md:gap-8">
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden flex items-center justify-start font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 5 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 5 ? 'miela-enter-right' : ''}`}>
+                    {todoalrojoDesktopContent[5] && (
+                      <div className="text-left pl-0">
+                        <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                          {todoalrojoDesktopContent[5].heading}
+                        </h3>
+                        <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                          {todoalrojoDesktopContent[5].body.split('. ').map((sentence, idx, arr) => (
+                            <span key={idx}>
+                              {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                            </span>
+                          ))}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden relative ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 5 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 5 ? 'miela-enter-right' : ''}`} style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                     <img
                       src={todoalrojo1}
                       alt="Todoalrojo slide 1"
@@ -1825,7 +1841,7 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
                 {/* Right column: cards side-by-side, allow overflow at bottom */}
-                <div className={`grid grid-cols-2 gap-x-[20px] items-end ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 4 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 4 ? 'miela-enter-right' : ''}`}>
+                <div className={`grid grid-cols-2 gap-x-[20px] items-end ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 5 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 5 ? 'miela-enter-right' : ''}`}>
                   {/* Left cell: card-1 ⇄ card-3, each image in its own wrapper using 90% height, bottom-aligned (no gap) */}
                   <div className="relative h-full min-h-0 overflow-hidden">
                     <div
@@ -1887,6 +1903,7 @@ function CreativeDesignerCaseDetail() {
                   </div>
                 </div>
               </div>
+
             </div>
 
             {/* Mobile (sm only): stack mobile-specific Todo first, then Todoalrojo-1 beneath */}
@@ -1909,7 +1926,7 @@ function CreativeDesignerCaseDetail() {
                   )}
                 </div>
                 <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] px-[clamp(12px,3vw,24px)] flex items-start justify-center ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
-                  {todoalrojoFrame === 4 ? (
+                  {todoalrojoFrame >= 4 ? (
                     <div className="grid grid-cols-2 w-full h-full gap-x-[20px] items-end">
                       {/* Left card stack: 1 ⇄ 3 */}
                       <div className="relative h-full min-h-0 overflow-hidden rounded-[clamp(16px,2.5vw,28px)]">
@@ -2578,7 +2595,7 @@ function CreativeDesignerCaseDetail() {
       {slug === 'todoalrojo' && (
         <div className="todoalrojo-dots-fixed" aria-hidden style={{ display: todoalrojoLightboxOpen || todoalrojoLightboxClosing ? 'none' : 'flex' }}>
           <div className="flex justify-center">
-            {Array.from({ length: 5 }).map((_, idx) => (
+            {Array.from({ length: 6 }).map((_, idx) => (
               <div key={`todo-dot-${idx}`} className={`dot ${todoalrojoFrame === idx ? 'active' : ''}`} />
             ))}
           </div>
