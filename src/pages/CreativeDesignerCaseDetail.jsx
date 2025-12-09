@@ -1936,17 +1936,29 @@ function CreativeDesignerCaseDetail() {
                     <div className="w-full h-full flex items-end justify-center pb-4">
                       <img src={todoalrojoLogo} alt="Todo Al Rojo Logo" decoding="async" loading="eager" className="max-w-full max-h-full object-contain" style={{ transform: 'scale(0.6)', transformOrigin: 'center' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-al-rojo.webp' }} />
                     </div>
-                  ) : todoalrojoFrame >= 4 ? (
+                  ) : todoalrojoFrame === 4 ? (
+                    <div className="w-full h-full cursor-pointer flex items-start justify-center overflow-hidden" style={{ pointerEvents: 'auto', zIndex: 10 }} onClick={() => openTodoalrojoLightboxAt(1)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(1) }}>
+                      <img
+                        src={todoalrojoLeaderboard}
+                        alt="Todoalrojo Leaderboard"
+                        decoding="async"
+                        loading="lazy"
+                        className="w-auto h-full object-contain rounded-[clamp(20px,4vw,32px)]"
+                        style={{ pointerEvents: 'none', border: '1.5px solid rgba(255,255,255,0.1)' }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-leaderboard.webp' }}
+                      />
+                    </div>
+                  ) : todoalrojoFrame === 5 ? (
                     <div className="grid grid-cols-2 w-full h-full gap-x-[20px] items-end">
-                      {/* Left card stack: 1 ⇄ 3 */}
+                      {/* Left column: card-1 and card-3 swapping */}
                       <div className="relative h-full min-h-0 overflow-hidden rounded-[clamp(16px,2.5vw,28px)]">
                         <img
                           src={todoalrojoCards[0]}
                           alt="Todoalrojo card 1"
                           decoding="async"
                           loading="lazy"
-                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                          style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          className="absolute inset-0 w-full h-full object-contain swap-img"
+                          style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-1.webp' }}
                         />
                         <img
@@ -1954,20 +1966,20 @@ function CreativeDesignerCaseDetail() {
                           alt="Todoalrojo card 3"
                           decoding="async"
                           loading="lazy"
-                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                          style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          className="absolute inset-0 w-full h-full object-contain swap-img"
+                          style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-3.webp' }}
                         />
                       </div>
-                      {/* Right card stack: 2 ⇄ 4 */}
+                      {/* Right column: card-2 and card-4 swapping */}
                       <div className="relative h-full min-h-0 overflow-hidden rounded-[clamp(16px,2.5vw,28px)]">
                         <img
                           src={todoalrojoCards[1]}
                           alt="Todoalrojo card 2"
                           decoding="async"
                           loading="lazy"
-                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                          style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          className="absolute inset-0 w-full h-full object-contain swap-img"
+                          style={{ opacity: rojoCardsSlide === 0 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-2.webp' }}
                         />
                         <img
@@ -1975,8 +1987,8 @@ function CreativeDesignerCaseDetail() {
                           alt="Todoalrojo card 4"
                           decoding="async"
                           loading="lazy"
-                          className={`absolute inset-0 w-full h-full object-contain swap-img ${enterDirTodoalrojo === 'left' ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' ? 'miela-enter-right' : ''}`}
-                          style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out' }}
+                          className="absolute inset-0 w-full h-full object-contain swap-img"
+                          style={{ opacity: rojoCardsSlide === 1 ? 1 : 0, transition: 'opacity 1200ms ease-in-out', willChange: 'opacity' }}
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-card-4.webp' }}
                         />
                       </div>
