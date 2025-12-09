@@ -365,7 +365,7 @@ function Home() {
                 }}
                 onClick={() => setExpandedDesc(expandedDesc === 3 ? null : 3)}
               >
-                “In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.”
+                “I turn AI’s wild possibilities into practical magic through clarity, strategy, and imagination.”
               </div>
             </div>
 
