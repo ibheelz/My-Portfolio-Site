@@ -441,7 +441,7 @@ function Home() {
               className="text-[clamp(0.831rem,2.375vw,1.425rem)] lg:text-[1.2825rem] font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700 anim-hero-sub"
               style={{ opacity: activeChar ? 0 : 1, color: '#d0dadf' }}
             >
-              where art, code, and intelligence converge.
+              Each discipline reveals a different side of how I think. Pick the lens you want to see me through.
             </div>
             {/* Default prompt on homepage (no hover/click) */}
             <button
