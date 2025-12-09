@@ -138,27 +138,27 @@ const mieloDesktopContent = {
 const todoalrojoMobileContent = {
   0: {
     heading: 'The Problem',
-    body: 'Todo Al Rojo lacked a real way to keep users engaged or motivate meaningful actions like verified deposits.\n\nThere was no reward loop, no progression, and FTD attribution was inconsistent.\n\nThey needed a system that could drive engagement, reward behavior, and reliably track first-time deposits'
+    body: 'Todo Al Rojo lacked engagement and FTD tracking. They needed a system to drive behavior and reliably track deposits'
   },
   1: {
-    heading: 'Todo Al Rojo Casino\nGamification Platform',
-    body: 'I built a casino with Red Chips currency. Players do tasks and get very addicted'
+    heading: 'Solution',
+    body: 'I built a gamified dashboard that keeps Todo Al Rojo users engaged through chips, tasks, levels, and rewards.\n\nAlongside it, I developed a reliable FTD tracking system that matches deposits to affiliate clicks with accuracy'
   },
   2: {
-    heading: 'Task Dashboard',
-    body: 'Designed dashboard that turns task obsession systems. Earn Red Chips trade free bets leaderboard'
+    heading: '',
+    body: 'A task system where every completion earns Red Chips. Trade them for free bets, climb rankings, and unlock progressive rewards through consistent play'
   },
   3: {
-    heading: 'Shop Dashboard',
-    body: 'Built reward shop where Chips become valuable currency. Free bets ten thousand bonus upgrade rewards'
+    heading: '',
+    body: 'A reward shop where Red Chips transform into real value. Exchange for free bets, exclusive bonuses reaching thousands of dollars, and premium VIP upgrades'
   },
   4: {
-    heading: 'Leaderboard',
-    body: 'Leaderboard pure psychological warfare ranking obsession level always. Three-tier VIP card system free bets network'
+    heading: '',
+    body: 'A competitive ranking system that taps into achievement hunger. Three VIP tiers unlock escalating rewards, priority bonuses, and access to the affiliate network'
   },
   5: {
-    heading: 'Other Assets',
-    body: 'These banners and stickers my addiction marketing purposes. I wanted simple something makes people click'
+    heading: 'Result',
+    body: 'Todo Al Rojo saw a 40% increase in verified FTDs and a major boost in user engagement.\n\nThe gamified system turned casual users into active, returning participants'
   }
 }
 
@@ -168,24 +168,24 @@ const todoalrojoDesktopContent = {
     body: 'Todo Al Rojo lacked a real way to keep users engaged or motivate meaningful actions like verified deposits.\n\nThere was no reward loop, no progression, and FTD attribution was inconsistent.\n\nThey needed a system that could drive engagement, reward behavior, and reliably track first-time deposits'
   },
   1: {
-    heading: 'Todo Al Rojo Casino\nGamification Platform',
-    body: 'I built a casino inside a casino with Red Chips currency system. Players complete daily tasks and suddenly they\'re addicted to grinding achievement points'
+    heading: 'Solution',
+    body: 'I built a gamified dashboard that keeps Todo Al Rojo users engaged through chips, tasks, levels, and rewards.\n\nAlongside it, I developed a reliable FTD tracking system that matches deposits to affiliate clicks with accuracy'
   },
   2: {
-    heading: 'Task Dashboard',
-    body: 'Designed a dashboard that turns task completion into an addictive obsession system. Earn Red Chips, trade for free bets, climb the leaderboard for progression'
+    heading: '',
+    body: 'A task system where every completion earns Red Chips. Trade them for free bets, climb rankings, and unlock progressive rewards through consistent play'
   },
   3: {
-    heading: 'Shop Dashboard',
-    body: 'Built a reward shop where Red Chips become actual valuable trading currency. Free bets up to ten thousand dollars exclusive bonuses and VIP upgrades'
+    heading: '',
+    body: 'A reward shop where Red Chips transform into real value. Exchange for free bets, exclusive bonuses reaching thousands of dollars, and premium VIP upgrades'
   },
   4: {
-    heading: 'Leaderboard',
-    body: 'The leaderboard is pure psychological warfare ranking people by obsession level always. Three-tier VIP card system with free bets and affiliate network across platforms'
+    heading: '',
+    body: 'A competitive ranking system that taps into achievement hunger. Three VIP tiers unlock escalating rewards, priority bonuses, and access to the affiliate network'
   },
   5: {
-    heading: 'Other Assets',
-    body: 'These banners and stickers are basically my fault for addiction marketing purposes. I wanted something simple that makes people stop scrolling and click it'
+    heading: 'Result',
+    body: 'Todo Al Rojo saw a 40% increase in verified FTDs and a major boost in user engagement.\n\nThe gamified system turned casual users into active, returning participants'
   }
 }
 
@@ -1631,15 +1631,21 @@ function CreativeDesignerCaseDetail() {
               {/* Frame 0: NEW — Todo Al Rojo logo + problem statement */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 0 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'none', zIndex: 10 }}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full miela-hero-in ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'none', zIndex: 10 }}>
                     <img src={todoalrojoLogo} alt="Todo Al Rojo Logo" decoding="async" loading="eager" className="max-w-full max-h-[70vh] object-contain" style={{ transform: 'scale(0.5)', transformOrigin: 'center' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-al-rojo.webp' }} />
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`w-full font-['Jost',sans-serif] ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
+                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 0 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 0 ? 'miela-enter-right' : ''}`}>
                     <div className="text-left">
-                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">The Problem</h3>
-                      <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">{`Todo Al Rojo lacked a real way to keep users engaged or motivate meaningful actions like verified deposits.\n\nThere was no reward loop, no progression, and FTD attribution was inconsistent.\n\nThey needed a system that could drive engagement, reward behavior, and reliably track first-time deposits.`}</p>
+                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">The Problem</h3>
+                      <p className="text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed whitespace-pre-line">
+                        {todoalrojoDesktopContent[0].body.split('. ').map((sentence, idx, arr) => (
+                          <span key={idx}>
+                            {sentence.trim()}{idx < arr.length - 1 ? '.\n\n' : '.'}
+                          </span>
+                        ))}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1648,12 +1654,12 @@ function CreativeDesignerCaseDetail() {
               {/* Frame 1: todoalrojo-dashboard + text content (shifted) */}
               <div className="absolute inset-0 grid grid-cols-2 gap-12 md:gap-16 2xl:gap-24 px-[clamp(12px,3vw,24px)]" style={{ opacity: todoalrojoFrame === 1 ? 1 : 0, transition: 'opacity 1600ms ease' }}>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(0) }}>
+                  <div className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-full max-w-full cursor-pointer ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`} style={{ pointerEvents: 'auto', zIndex: 10, border: '1.5px solid rgba(255,255,255,0.1)' }} onClick={() => openTodoalrojoLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openTodoalrojoLightboxAt(0) }}>
                     <img src={todoalrojoDashboard} alt="Todoalrojo Dashboard" decoding="async" loading="eager" className="max-w-full max-h-[70vh] object-contain" style={{ pointerEvents: 'none' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todoalrojo-dashboard.webp' }} />
                   </div>
                 </div>
                 <div className="h-full flex items-center justify-center">
-                  <div className={`w-full font-['Jost',sans-serif] ${todoEntryAnim ? 'miela-hero-in' : ''} ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
+                  <div className={`w-full font-['Jost',sans-serif] ${enterDirTodoalrojo === 'left' && todoalrojoFrame === 1 ? 'miela-enter-left' : ''} ${enterDirTodoalrojo === 'right' && todoalrojoFrame === 1 ? 'miela-enter-right' : ''}`}>
                     {todoalrojoDesktopContent[1] && (
                       <div className="text-left">
                         <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize whitespace-pre-line">{todoalrojoDesktopContent[1].heading}</h3>
@@ -1926,7 +1932,11 @@ function CreativeDesignerCaseDetail() {
                   )}
                 </div>
                 <div key={`todo-mob-bot-${todoMobileKey}`} className={`w-full h-[25vh] px-[clamp(12px,3vw,24px)] flex items-start justify-center ${todoMobileDir === 'left' ? 'miela-enter-left' : ''} ${todoMobileDir === 'right' ? 'miela-enter-right' : ''} ${todoMobileVertDir === 'up' ? 'miela-enter-up' : ''} ${todoMobileVertDir === 'down' ? 'miela-enter-down' : ''}`}>
-                  {todoalrojoFrame >= 4 ? (
+                  {todoalrojoFrame === 0 ? (
+                    <div className="w-full h-full flex items-end justify-center pb-4">
+                      <img src={todoalrojoLogo} alt="Todo Al Rojo Logo" decoding="async" loading="eager" className="max-w-full max-h-full object-contain" style={{ transform: 'scale(0.6)', transformOrigin: 'center' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/todo-al-rojo.webp' }} />
+                    </div>
+                  ) : todoalrojoFrame >= 4 ? (
                     <div className="grid grid-cols-2 w-full h-full gap-x-[20px] items-end">
                       {/* Left card stack: 1 ⇄ 3 */}
                       <div className="relative h-full min-h-0 overflow-hidden rounded-[clamp(16px,2.5vw,28px)]">
