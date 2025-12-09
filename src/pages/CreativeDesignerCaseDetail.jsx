@@ -131,7 +131,7 @@ const mieloDesktopContent = {
   },
   8: {
     heading: 'Result',
-    body: 'Individual profiles reveal tags social links donation panels information. Complete stream history enables comprehensive evaluation and effective outreach strategy.'
+    body: 'Mielo made streamer discovery effortless and significantly accelerated talent selection. Campaign targeting improved dramatically, producing faster matches and expanding visibility.'
   }
 }
 
@@ -2916,7 +2916,7 @@ function CreativeDesignerCaseDetail() {
         .mielo-paragraphs .mielo-para { margin: 10px 0 0; }
         .mielo-paragraphs .mielo-para:first-child { margin-top: 0; }
         /* Add a blank-line feel between successive sentences */
-        .mielo-paragraphs .mielo-para + .mielo-para { margin-top: 16px; }
+        .mielo-paragraphs .mielo-para + .mielo-para { margin-top: 12px; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
