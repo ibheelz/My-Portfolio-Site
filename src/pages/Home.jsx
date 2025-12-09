@@ -530,7 +530,7 @@ function Home() {
               AI Creator
             </div>
             <div className="text-[clamp(1rem,3vw,1.5rem)] lg:text-2xl font-light font-['Jost',sans-serif] mt-3 lg:mt-2" style={{ color: '#ffffff' }}>
-              “In the AI landscape, it takes a fox's cleverness to transform possibilities into practical magic.”
+              “I turn AI’s wild possibilities into practical magic through clarity, strategy, and imagination.”
             </div>
             <button
               onClick={clickedChar === 3 ? () => navigate('/ai-creator') : undefined}
