@@ -872,8 +872,8 @@ function Branding() {
           transition: color 160ms ease;
         }
         /* Hover/click label color (match Creative) */
-        .branding-image-button:hover .branding-image-button__label { color: #eabe76; }
-        .branding-image-button:active .branding-image-button__label { color: #eabe76; }
+        .branding-image-button:hover .branding-image-button__label { color: #e4c492; }
+        .branding-image-button:active .branding-image-button__label { color: #e4c492; }
 
         /* Lightbox (reuse Creative styles) */
         /* Lightbox (exact same as Creative) */

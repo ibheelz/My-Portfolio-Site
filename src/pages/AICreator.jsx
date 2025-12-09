@@ -983,9 +983,9 @@ function AICreator() {
       @media (max-width: 1023.98px) {
         .ai-mobile-pair { margin-bottom: clamp(36px, 12vw, 72px); }
       }
-      /* Hover/click label color (match Creative/Branding) */
-      .ai-badge:hover .ai-badge__label { color: #eabe76; }
-      .ai-badge:active .ai-badge__label { color: #eabe76; }
+      /* Hover/click label color: use SVG gold */
+      .ai-badge:hover .ai-badge__label { color: #e4c492; }
+      .ai-badge:active .ai-badge__label { color: #e4c492; }
         @media (max-width: 639.98px) {
           /* Add 2x horizontal padding on smaller screens */
           .subpad { padding-left: calc(clamp(18px, 4.5vw, 36px) * 2); padding-right: calc(clamp(18px, 4.5vw, 36px) * 2); }

@@ -958,8 +958,8 @@ function CreativeDesigner() {
           padding: 0 12px;
           pointer-events: none;
         }
-        /* Hover text color */
-        .creative-image-button:hover .creative-image-button__label { color: #eabe76; }
+        /* Hover text color: match global SVG gold */
+        .creative-image-button:hover .creative-image-button__label { color: #e4c492; }
 
         /* Creative hero uses the soft content animation only (match Branding) */
 
