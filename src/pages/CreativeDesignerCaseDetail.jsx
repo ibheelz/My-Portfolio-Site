@@ -60,78 +60,78 @@ const TOTAL_MIELO_FRAMES_MOBILE = 9
 const mieloMobileContent = {
   0: {
     heading: 'The problem',
-    body: 'Mielo is a discovery management platform for LATAM streamers. AI search returns zero results for all queries'
+    body: 'Miela Digital couldn\'t discover LATAM streamers or access platform data. No live tracking storage or region identification blocked campaigns.'
   },
   1: {
     heading: 'Solution',
-    body: 'Dashboard displays streamer statistics and real-time live counts. Seamlessly integrated with Twitch, Kick, YouTube platforms'
+    body: 'Dashboard displays streamer statistics and real time live viewer counts. Seamlessly integrated with Twitch Kick YouTube platforms and analytics.'
   },
   2: {
     heading: '',
-    body: 'Stream categories organized by viewer volume for sourcing. Find top performers and influencers for campaigns'
+    body: 'Stream categories organized by viewer volume for sourcing purposes. Find top performers and influencers for targeted campaigns.'
   },
   3: {
     heading: '',
-    body: 'Minimalist card design presenting accurate streamer data. Timestamps and contact information organized in clean interface'
+    body: 'Card design presents accurate and detailed streamer data clearly. Timestamps and contact information organized in clean interface design.'
   },
   4: {
     heading: '',
-    body: 'Mobile interface designed for staff with accounts. No shared passwords or security risks'
+    body: 'Mobile interface designed for staff with secure accounts safely. No shared passwords or security risks in system.'
   },
   5: {
     heading: '',
-    body: 'AI assistant intelligently matches streamers to campaigns. Smart recommendations tailored to your campaign needs'
+    body: 'AI assistant intelligently matches streamers to campaign needs perfectly. Smart recommendations tailored to your specific campaign needs.'
   },
   6: {
     heading: '',
-    body: 'Detailed streamer profiles show followers, viewership, activity. Connect directly to channels for monitoring'
+    body: 'Detailed streamer profiles show followers and activity data clearly. Connect directly to channels for real time monitoring.'
   },
   7: {
     heading: '',
-    body: 'Complete streamer directory with search and filtering. Performance data matters for partnerships'
+    body: 'Complete streamer directory with search and filtering options available. Performance data matters greatly for partnership building.'
   },
   8: {
     heading: 'Result',
-    body: 'Scraped data from Twitch and Kick profiles. Stream history and titles for analysis'
+    body: 'Streamed data from Twitch and Kick platform profiles. Stream history and titles available for detailed analysis.'
   }
 }
 
 const mieloDesktopContent = {
   0: {
     heading: 'The problem',
-    body: 'Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why'
+    body: 'Miela Digital couldn\'t discover LATAM streamers or access platform data. No live tracking storage or region identification blocked all campaigns.'
   },
   1: {
     heading: 'Solution',
-    body: 'Dashboard displays overall streamer statistics and real-time live viewer counts across platforms. Unified access to Twitch, Kick, YouTube with complete streamer analytics and data'
+    body: 'Dashboard displays streamer statistics and real time live viewer counts. Seamlessly integrated with Twitch Kick YouTube platforms and all analytics.'
   },
   2: {
     heading: '',
-    body: 'Live streamers table showing region, current viewers, peak performance, and channel links. Quick access to streamer information enables rapid talent evaluation and campaign matching'
+    body: 'Live streamer table showing region viewers peak performance and links. Quick access to information enables rapid talent evaluation and matching.'
   },
   3: {
     heading: '',
-    body: 'AI assistant intelligently matches streamers to gaming, casino, and slots campaign types. Smart recommendations eliminate manual scrolling and ensure perfect campaign-streamer matches every time'
+    body: 'AI assistant intelligently matches streamers to gaming and casino campaigns. Smart recommendations eliminate scrolling and ensure perfect matches every time.'
   },
   4: {
     heading: '',
-    body: 'Complete streamer directory organized by region with all counts and live status. Advanced search and performance metrics make finding ideal campaigns effortless and fast'
+    body: 'Complete streamer directory organized by region with status counts. Advanced search and performance metrics make finding campaigns effortless always.'
   },
   5: {
     heading: '',
-    body: 'Platform filtering system lets you browse streamers by Twitch, YouTube, or Kick. Verified channel data ensures accuracy and completeness for all platform-specific streamer information'
+    body: 'Platform filtering system lets you browse streamers by platform. Verified channel data ensures accuracy and completeness for all information.'
   },
   6: {
     heading: '',
-    body: 'YouTube-focused streamer view displaying followers, peak viewers, and complete streaming history data. Detailed channel evaluation and outreach data enable precise campaign planning and decisions'
+    body: 'YouTube focused view displays followers peak viewers and history. Detailed channel evaluation and outreach enables precise campaign planning decisions.'
   },
   7: {
     heading: '',
-    body: 'Kick platform streamers ranked by performance metrics for easy emerging talent identification. Discover emerging talent effortlessly with comprehensive rankings and detailed performance data analysis'
+    body: 'Kick streamers ranked by performance metrics for talent discovery. Discover emerging talent effortlessly with comprehensive rankings and analysis data.'
   },
   8: {
     heading: 'Result',
-    body: 'Individual streamer profiles reveal tags, social links, donation panels, and Discord information. Complete stream history enables comprehensive evaluation and effective streamer outreach strategy planning'
+    body: 'Individual profiles reveal tags social links donation panels information. Complete stream history enables comprehensive evaluation and effective outreach strategy.'
   }
 }
 
@@ -2916,7 +2916,7 @@ function CreativeDesignerCaseDetail() {
         .mielo-paragraphs .mielo-para { margin: 10px 0 0; }
         .mielo-paragraphs .mielo-para:first-child { margin-top: 0; }
         /* Add a blank-line feel between successive sentences */
-        .mielo-paragraphs .mielo-para + .mielo-para { margin-top: 20px; }
+        .mielo-paragraphs .mielo-para + .mielo-para { margin-top: 16px; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px); } 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
         .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
