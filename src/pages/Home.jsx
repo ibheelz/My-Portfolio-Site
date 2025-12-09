@@ -435,7 +435,7 @@ function Home() {
               className="text-[clamp(1.425rem,4.275vw,2.85rem)] lg:text-[2.565rem] font-bold text-[#e7f2f8] font-['Libre_Baskerville',serif] leading-none lg:leading-tight transition-opacity duration-700 anim-hero-heading"
               style={{ opacity: activeChar ? 0 : 1 }}
             >
-              I craft digital<br className="lg:hidden" /> experiences
+              Creation guided by character
             </div>
             <div
               className="text-[clamp(0.831rem,2.375vw,1.425rem)] lg:text-[1.2825rem] font-light font-['Jost',sans-serif] mt-3 lg:mt-2 transition-opacity duration-700 anim-hero-sub"
