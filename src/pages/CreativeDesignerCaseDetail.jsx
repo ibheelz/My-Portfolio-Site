@@ -64,7 +64,7 @@ const mieloMobileContent = {
   },
   1: {
     heading: 'Solution',
-    body: 'Dashboard displays streamer statistics and real time live viewer counts. Seamlessly integrated with Twitch Kick YouTube platforms and analytics.'
+    body: 'Dashboard displays streamer statistics and real time live viewer counts. Seamlessly integrated with Twitch, Kick and YouTube platforms and analytics.'
   },
   2: {
     heading: '',
@@ -103,7 +103,7 @@ const mieloDesktopContent = {
   },
   1: {
     heading: 'Solution',
-    body: 'Dashboard displays streamer statistics and real time live viewer counts. Seamlessly integrated with Twitch Kick YouTube platforms and all analytics.'
+    body: 'Dashboard displays streamer statistics and real time live viewer counts. Seamlessly integrated with Twitch, Kick and YouTube platforms and all analytics.'
   },
   2: {
     heading: '',
