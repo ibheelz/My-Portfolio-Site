@@ -63,35 +63,35 @@ const mieloMobileContent = {
     body: 'Mielo is a discovery management platform for LATAM streamers. AI search returns zero results for all queries'
   },
   1: {
-    heading: 'Dashboard',
+    heading: 'Solution',
     body: 'Dashboard displays streamer statistics and real-time live counts. Seamlessly integrated with Twitch, Kick, YouTube platforms'
   },
   2: {
-    heading: 'Top Categories',
+    heading: '',
     body: 'Stream categories organized by viewer volume for sourcing. Find top performers and influencers for campaigns'
   },
   3: {
-    heading: 'Live Streamers',
+    heading: '',
     body: 'Minimalist card design presenting accurate streamer data. Timestamps and contact information organized in clean interface'
   },
   4: {
-    heading: 'Mobile Navigation',
+    heading: '',
     body: 'Mobile interface designed for staff with accounts. No shared passwords or security risks'
   },
   5: {
-    heading: 'AI Chat',
+    heading: '',
     body: 'AI assistant intelligently matches streamers to campaigns. Smart recommendations tailored to your campaign needs'
   },
   6: {
-    heading: 'Streamer Profile',
+    heading: '',
     body: 'Detailed streamer profiles show followers, viewership, activity. Connect directly to channels for monitoring'
   },
   7: {
-    heading: 'Streamers List',
+    heading: '',
     body: 'Complete streamer directory with search and filtering. Performance data matters for partnerships'
   },
   8: {
-    heading: 'Streamer Details',
+    heading: 'Result',
     body: 'Scraped data from Twitch and Kick profiles. Stream history and titles for analysis'
   }
 }
@@ -102,35 +102,35 @@ const mieloDesktopContent = {
     body: 'Mielo is a discovery and management platform specifically built for LATAM streamers. The AI search returns zero results for queries, leaving users unsure why'
   },
   1: {
-    heading: 'Dashboard',
+    heading: 'Solution',
     body: 'Dashboard displays overall streamer statistics and real-time live viewer counts across platforms. Unified access to Twitch, Kick, YouTube with complete streamer analytics and data'
   },
   2: {
-    heading: 'Live Streamers Table',
+    heading: '',
     body: 'Live streamers table showing region, current viewers, peak performance, and channel links. Quick access to streamer information enables rapid talent evaluation and campaign matching'
   },
   3: {
-    heading: 'AI Chat Interface',
+    heading: '',
     body: 'AI assistant intelligently matches streamers to gaming, casino, and slots campaign types. Smart recommendations eliminate manual scrolling and ensure perfect campaign-streamer matches every time'
   },
   4: {
-    heading: 'Streamers Directory',
+    heading: '',
     body: 'Complete streamer directory organized by region with all counts and live status. Advanced search and performance metrics make finding ideal campaigns effortless and fast'
   },
   5: {
-    heading: 'Filtered by Platform',
+    heading: '',
     body: 'Platform filtering system lets you browse streamers by Twitch, YouTube, or Kick. Verified channel data ensures accuracy and completeness for all platform-specific streamer information'
   },
   6: {
-    heading: 'YouTube-focused View',
+    heading: '',
     body: 'YouTube-focused streamer view displaying followers, peak viewers, and complete streaming history data. Detailed channel evaluation and outreach data enable precise campaign planning and decisions'
   },
   7: {
-    heading: 'Kick Streamers',
+    heading: '',
     body: 'Kick platform streamers ranked by performance metrics for easy emerging talent identification. Discover emerging talent effortlessly with comprehensive rankings and detailed performance data analysis'
   },
   8: {
-    heading: 'Streamer Profile Modal',
+    heading: 'Result',
     body: 'Individual streamer profiles reveal tags, social links, donation panels, and Discord information. Complete stream history enables comprehensive evaluation and effective streamer outreach strategy planning'
   }
 }
@@ -2478,10 +2478,10 @@ function CreativeDesignerCaseDetail() {
                     className={`text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start overflow-hidden`}
                     style={{ transition: 'opacity 1600ms ease' }}
                   >
-                    <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                    <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
                       {mieloMobileContent[mieloFrame].heading}
                     </h3>
-                    <div className="mielo-paragraphs text-[clamp(18px,4vw,24px)] text-white/80 leading-relaxed" style={{ lineHeight: '1.2' }}>
+                    <div className="mielo-paragraphs text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed" style={{ lineHeight: '1.2' }}>
                       {mieloMobileContent[mieloFrame].body.split('. ').map((sentence, idx) => {
                         const s = sentence.trim()
                         if (!s) return null
