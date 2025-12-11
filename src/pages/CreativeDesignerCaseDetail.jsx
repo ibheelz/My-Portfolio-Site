@@ -145,7 +145,7 @@ const martellDesktopContent = {
   },
   1: {
     heading: 'Solution',
-    body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
+    body: 'I collaborated on the creative concept that transformed the roundabout into a bold Martell installation, combining a striking daytime presence with an enchanting nighttime candle field.'
   },
   2: {
     heading: 'Result',
@@ -160,7 +160,7 @@ const martellMobileContent = {
   },
   1: {
     heading: 'Solution',
-    body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
+    body: 'I collaborated on the creative concept that transformed the roundabout into a bold Martell installation, combining a striking daytime presence with an enchanting nighttime candle field.'
   },
   2: {
     heading: 'Result',
@@ -2252,17 +2252,40 @@ function CreativeDesignerCaseDetail() {
                     </div>
                   </div>
                 )}
-                {/* Frames 1-2: empty image containers */}
-                {martellFrame > 0 && (
+                {/* Frame 1: martell day image */}
+                {martellFrame === 1 && (
                   <div
-                    className={`absolute inset-0 flex items-center justify-center ${enterDirMartell === 'left' && martellFrame > 0 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame > 0 ? 'miela-enter-right' : ''}`}
+                    className={`absolute inset-0 flex items-center justify-center ${enterDirMartell === 'left' && martellFrame === 1 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame === 1 ? 'miela-enter-right' : ''}`}
                     style={{
                       opacity: 1,
                       transition: 'opacity 1600ms ease',
                       willChange: 'opacity'
                     }}
                   >
-                    {/* Empty space for slides 2 and 3 */}
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
+                      <img
+                        src={martelDayImage}
+                        alt="Martell day image"
+                        decoding="async"
+                        loading="lazy"
+                        className="block h-auto w-auto object-contain"
+                        style={{ maxHeight: '100%', maxWidth: '100%' }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
+                      />
+                    </div>
+                  </div>
+                )}
+                {/* Frame 2: empty image container */}
+                {martellFrame === 2 && (
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center ${enterDirMartell === 'left' && martellFrame === 2 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame === 2 ? 'miela-enter-right' : ''}`}
+                    style={{
+                      opacity: 1,
+                      transition: 'opacity 1600ms ease',
+                      willChange: 'opacity'
+                    }}
+                  >
+                    {/* Empty space for slide 3 */}
                   </div>
                 )}
               </div>
@@ -2323,8 +2346,24 @@ function CreativeDesignerCaseDetail() {
                     </div>
                   </div>
                 )}
-                {/* Frames 1-2: empty containers */}
-                {martellFrame > 0 && (
+                {/* Frame 1: martell day image */}
+                {martellFrame === 1 && (
+                  <div className="absolute inset-0 flex items-center justify-center" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }}>
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
+                      <img
+                        src={martelDayImage}
+                        alt="Martell mobile day image"
+                        decoding="async"
+                        loading="lazy"
+                        className="block h-auto w-auto object-contain"
+                        style={{ maxHeight: '100%', maxWidth: '100%' }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
+                      />
+                    </div>
+                  </div>
+                )}
+                {/* Frame 2: empty container */}
+                {martellFrame === 2 && (
                   <div className="absolute inset-0" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} />
                 )}
               </div>
