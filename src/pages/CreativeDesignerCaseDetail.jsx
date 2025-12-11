@@ -144,11 +144,11 @@ const martellDesktopContent = {
     body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
   },
   1: {
-    heading: 'The Solution',
+    heading: 'Solution',
     body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
   },
   2: {
-    heading: 'The Result',
+    heading: 'Result',
     body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
   }
 }
@@ -159,11 +159,11 @@ const martellMobileContent = {
     body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
   },
   1: {
-    heading: 'The Solution',
+    heading: 'Solution',
     body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
   },
   2: {
-    heading: 'The Result',
+    heading: 'Result',
     body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
   }
 }
