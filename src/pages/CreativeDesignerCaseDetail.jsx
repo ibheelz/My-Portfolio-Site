@@ -140,30 +140,30 @@ const TOTAL_MARTELL_FRAMES = 3
 
 const martellDesktopContent = {
   0: {
-    heading: 'Problem',
+    heading: 'The Problem',
     body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
   },
   1: {
-    heading: 'Solution',
+    heading: 'The Solution',
     body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
   },
   2: {
-    heading: 'Result',
+    heading: 'The Result',
     body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
   }
 }
 
 const martellMobileContent = {
   0: {
-    heading: 'Problem',
+    heading: 'The Problem',
     body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
   },
   1: {
-    heading: 'Solution',
+    heading: 'The Solution',
     body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
   },
   2: {
-    heading: 'Result',
+    heading: 'The Result',
     body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
   }
 }
@@ -2239,13 +2239,14 @@ function CreativeDesignerCaseDetail() {
                       willChange: 'opacity'
                     }}
                   >
-                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
                       <img
                         src={martellImage}
                         alt="Martell design frame 1"
                         decoding="async"
                         loading="eager"
-                        className="block h-full w-auto object-contain max-h-[70vh]"
+                        className="block h-auto w-auto object-contain"
+                        style={{ maxHeight: '100%', maxWidth: '100%' }}
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-image.webp' }}
                       />
                     </div>
@@ -2280,7 +2281,7 @@ function CreativeDesignerCaseDetail() {
                 {martellDesktopContent[martellFrame] && (
                   <div
                     key={`martell-d-text-${martellFrame}`}
-                    className={`text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden`}
+                    className={`text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden max-w-[70%]`}
                     style={{ transition: 'opacity 1600ms ease' }}
                   >
                     <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
@@ -2309,13 +2310,14 @@ function CreativeDesignerCaseDetail() {
                 {/* Image frame 0: martell-image */}
                 {martellFrame === 0 && (
                   <div className="absolute inset-0 flex items-center justify-center" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }}>
-                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
                       <img
                         src={martellImage}
                         alt="Martell mobile frame 1"
                         decoding="async"
                         loading="eager"
-                        className="block h-full w-auto object-contain max-h-[70vh]"
+                        className="block h-auto w-auto object-contain"
+                        style={{ maxHeight: '100%', maxWidth: '100%' }}
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-image.webp' }}
                       />
                     </div>
