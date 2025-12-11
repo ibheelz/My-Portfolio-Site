@@ -135,6 +135,39 @@ const mieloDesktopContent = {
   }
 }
 
+const martellImage = `${import.meta.env.BASE_URL}martell-image.webp`
+const TOTAL_MARTELL_FRAMES = 3
+
+const martellDesktopContent = {
+  0: {
+    heading: 'Problem',
+    body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
+  },
+  1: {
+    heading: 'Solution',
+    body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
+  },
+  2: {
+    heading: 'Result',
+    body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
+  }
+}
+
+const martellMobileContent = {
+  0: {
+    heading: 'Problem',
+    body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
+  },
+  1: {
+    heading: 'Solution',
+    body: 'Transform the roundabout into a bold Martell installation using a dominant daytime structure and an immersive nighttime candle field, creating a physical and emotional spectacle unlike anything in the city.'
+  },
+  2: {
+    heading: 'Result',
+    body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
+  }
+}
+
 const todoalrojoMobileContent = {
   0: {
     heading: 'The Problem',
@@ -334,6 +367,15 @@ function CreativeDesignerCaseDetail() {
   const [mieloLightboxIndex, setMieloLightboxIndex] = useState(0)
   const mieloLightboxRef = useRef(null)
   const mieloCloseBtnRef = useRef(null)
+
+  // Martell navigation state
+  const [martellFrame, setMartellFrame] = useState(0) // 0..2 (3 frames)
+  const [enterDirMartell, setEnterDirMartell] = useState('')
+  const martellLastYRef = useRef(0)
+  const martellLastStepTimeRef = useRef(0)
+  const martellWheelGestureActiveRef = useRef(false)
+  const martellWheelGestureTimerRef = useRef(null)
+  const martellTouchStartYRef = useRef(0)
 
   // Todoalrojo lightbox state
   const [todoalrojoLightboxOpen, setTodoalrojoLightboxOpen] = useState(false)
@@ -1178,6 +1220,75 @@ function CreativeDesignerCaseDetail() {
     }
   }
 
+  // Martell navigation (same pattern as Mielo and Todoalrojo)
+  useEffect(() => {
+    if (slug !== 'martell') return undefined
+    if (typeof window === 'undefined') return undefined
+
+    const stepByDir = (dir) => {
+      if (dir === 0) return
+      setMartellFrame((i) => (i + (dir > 0 ? 1 : -1) + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
+    }
+
+    const lockMs = 60
+    const onWheel = (e) => {
+      const now = Date.now()
+      const dy = e.deltaY || 0
+      if (Math.abs(dy) < 1) return
+      if (e && typeof e.preventDefault === 'function') e.preventDefault()
+      if (!martellWheelGestureActiveRef.current && now - martellLastStepTimeRef.current >= lockMs) {
+        const dir = dy > 0 ? 1 : -1
+        setEnterDirMartell(dir > 0 ? 'right' : 'left')
+        stepByDir(dir)
+        martellLastStepTimeRef.current = now
+        martellWheelGestureActiveRef.current = true
+      }
+      if (martellWheelGestureTimerRef.current) clearTimeout(martellWheelGestureTimerRef.current)
+      martellWheelGestureTimerRef.current = setTimeout(() => {
+        martellWheelGestureActiveRef.current = false
+        martellWheelGestureTimerRef.current = null
+      }, 60)
+    }
+
+    const onKey = (e) => {
+      const k = e.key
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
+        if (typeof e.preventDefault === 'function') e.preventDefault()
+      }
+      const now = Date.now()
+      if (now - martellLastStepTimeRef.current < 60) return
+      if (k === 'ArrowRight') { setEnterDirMartell('right'); stepByDir(1); martellLastStepTimeRef.current = now; return }
+      if (k === 'ArrowLeft')  { setEnterDirMartell('left'); stepByDir(-1); martellLastStepTimeRef.current = now; return }
+      if (k === 'ArrowDown' || k === 'PageDown') { setEnterDirMartell(''); stepByDir(1); martellLastStepTimeRef.current = now; return }
+      if (k === 'ArrowUp'   || k === 'PageUp')   { setEnterDirMartell(''); stepByDir(-1); martellLastStepTimeRef.current = now; return }
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKey)
+      if (martellWheelGestureTimerRef.current) clearTimeout(martellWheelGestureTimerRef.current)
+    }
+  }, [slug])
+
+  // Martell mobile touch handlers
+  const onMartellTouchStart = (e) => {
+    if (window.innerWidth >= 768) return
+    if (!e.touches || e.touches.length === 0) return
+    martellTouchStartYRef.current = e.touches[0].clientY
+  }
+  const onMartellTouchEnd = (e) => {
+    if (window.innerWidth >= 768) return
+    if (!e.changedTouches || e.changedTouches.length === 0) return
+    const endY = e.changedTouches[0].clientY
+    const dy = endY - martellTouchStartYRef.current
+    const threshold = 14
+    if (Math.abs(dy) < threshold) return
+    const dir = dy < 0 ? 1 : -1
+    setMartellFrame((i) => (i + dir + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
+  }
+
   // Miela slide navigation (keyboard + wheel)
   useEffect(() => {
     if (slug !== 'miela') return undefined
@@ -1233,7 +1344,7 @@ function CreativeDesignerCaseDetail() {
   }, [slug])
 
   return (
-    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'mielo' ? 'mielo-case-mobile-fixed' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''} ${slug === 'martell' ? 'martell-nesthub' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
+    <div className={`min-h-screen bg-[#06080a] px-[clamp(12px,3vw,24px)] relative flex flex-col overflow-x-hidden ${slug === 'miela' ? 'miela-mobile-no-scroll' : ''} ${slug === 'mielo' ? 'mielo-case-mobile-fixed' : ''} ${slug === 'todoalrojo' ? 'todoalrojo-mobile-compact todoalrojo-compact' : ''}`} style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -2046,225 +2157,6 @@ function CreativeDesignerCaseDetail() {
           </div>
         )}
 
-        {/* Martell: split the page into two equal columns under the navbar */}
-        {slug === 'martell' && (
-          <div className="w-full min-h-[calc(100dvh-var(--nav-h))] pb-6 md:pb-10 lg:pt-0">
-            {/* Large screens (lg+): two columns */}
-            <div className="hidden xl:grid xl:grid-cols-[35%_63%] gap-4 md:gap-6 w-full h-full martell-grid">
-              <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
-                {/* Video layer: 90% of page height (minus navbar) */}
-                <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
-                  <div className="h-[90%] w-auto rounded-[28px] md:rounded-[24px] overflow-hidden mx-auto martell-left-inner martell-enter martell-delay-1" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
-                    <video
-                      src={martellVideo1}
-                      className="block h-full w-full object-contain cursor-pointer martell-enter martell-delay-1"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
-                      onPlaying={() => setMartellPlaying(true)}
-                      onCanPlay={() => { /* ensure fade-in if autoplay paused */ setMartellPlaying((p) => p || false) }}
-                      style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
-                      onClick={() => openLightboxAt(0)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="relative rounded-none h-full px-[8px] md:px-[20px] flex items-center justify-center">
-                {/* Right column container: 90% of page height (minus navbar) */}
-                <div className="relative h-[calc(100dvh-var(--nav-h))] w-full flex items-center justify-center compat-dvh">
-                  <div className="h-[90%] w-full lg:ml-[-30px] flex flex-col items-center lg:items-center justify-start gap-[30px] martell-right-inner">
-                    <div className="h-[calc(65%_-_30px)] w-full flex items-center justify-center mb-[30px] martell-top">
-                      <img
-                        src={martellImage1}
-                        alt="Martell artwork"
-                        decoding="async"
-                        loading="eager"
-                        className="block h-full w-full object-contain slow-sway martell-enter martell-delay-1"
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1.webp' }}
-                      />
-                    </div>
-                    <div className="h-[38%] w-full mt-auto flex items-center justify-center rounded-[28px] md:rounded-[24px] overflow-hidden martell-bottom martell-enter martell-delay-2" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
-                      <img
-                        src={martelDayImage}
-                        alt="Martell day visual"
-                        decoding="async"
-                        loading="lazy"
-                        className="block w-full h-full object-cover cursor-pointer rounded-[28px] md:rounded-[24px] slow-sway martell-enter martell-delay-2"
-                        onClick={() => openLightboxAt(1)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(1) }}
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Tablet and smaller (lg-): stacked order */}
-            <div className="xl:hidden w-full px-[clamp(12px,3vw,24px)] mb-[20px] martell-ipad">
-              <div className="w-full mx-auto flex flex-col items-center justify-start gap-8 md:gap-12 martell-stack">
-                {/* 1) martell-1-mobile on top */}
-                <div className="w-full mt-[30px] martell-scroll martell-hero-mobile" data-delay="80" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
-                  <img
-                    src={martellImage1Mobile}
-                    alt="Martell mobile hero"
-                    decoding="async"
-                    loading="eager"
-                    className="block w-full h-auto object-contain slow-sway martell-enter martell-delay-1"
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-1-mobile.webp' }}
-                  />
-                </div>
-                {/* 2) martell video (left column video) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll martell-enter martell-delay-2" data-delay="140" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
-                  <video
-                    src={martellVideo1}
-                    className="block w-full h-auto object-contain cursor-pointer martell-enter martell-delay-2"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
-                    onPlaying={() => setMartellPlaying(true)}
-                    onCanPlay={() => { setMartellPlaying((p) => p || false) }}
-                    style={{ opacity: martellPlaying ? 1 : 0, transition: 'opacity 300ms ease' }}
-                    onClick={() => openLightboxAt(0)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(0) }}
-                  />
-                </div>
-                {/* 3) martell-2-mobile image */}
-                <div className="w-full martell-scroll" data-delay="200" style={{ opacity: 1, transform: 'translateY(0) scale(1)' }}>
-                  <img
-                    src={martellImage2Mobile}
-                    alt="Martell mobile secondary"
-                    decoding="async"
-                    loading="lazy"
-                    className="block w-full h-auto object-contain slow-sway martell-enter martell-delay-3"
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-2-mobile.webp' }}
-                  />
-                </div>
-                {/* 4) martell day image (click to open lightbox) */}
-                <div className="w-full rounded-[20px] overflow-hidden martell-scroll martell-enter martell-delay-4" data-delay="260" style={{ opacity: 1, transform: 'translateY(0) scale(1)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
-                  <img
-                    src={martelDayImage}
-                    alt="Martell day visual"
-                    decoding="async"
-                    loading="lazy"
-                    className="block w-full h-auto object-contain cursor-pointer slow-sway martell-enter martell-delay-4"
-                    onClick={() => openLightboxAt(1)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter') openLightboxAt(1) }}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {(slug === 'martell') && (lightboxOpen || lightboxClosing) && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Martell gallery"
-            className={`fixed inset-0 z-[9998] lightbox-overlay ${lightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
-            onClick={handleCloseLightbox}
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          >
-            <button ref={closeBtnRef} className={`lightbox-close ${lightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseLightbox}>×</button>
-            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); prevImage() }}>
-              <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-              </span>
-            </button>
-            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); nextImage() }}>
-              <span className={`chevron-content ${lightboxEntering ? 'controls-pop-in' : ''}`}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </span>
-            </button>
-            <div
-              ref={lightboxRef}
-              className={`lightbox-modal ${lightboxEntering ? 'modal-pop-in' : (lightboxClosing ? 'scale-out' : 'scale-in')}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="lightbox-image-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-                {martellGallery[currentIndex].type === 'video' ? (
-                  <video
-                    key={`v-${currentIndex}`}
-                    src={martellGallery[currentIndex].src}
-                    className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
-                    controls
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    onLoadedMetadata={(e) => { try { e.currentTarget.play() } catch (_) {} }}
-                    onAnimationEnd={() => setEnterDir(null)}
-                  />
-                ) : (
-                  <img
-                    key={`i-${currentIndex}`}
-                    src={martellGallery[currentIndex].src}
-                    alt="Martell gallery item"
-                    decoding="async"
-                    fetchpriority="high"
-                    loading="eager"
-                    className={`lightbox-image ${enterDir === 'left' ? 'img-enter-left' : enterDir === 'right' ? 'img-enter-right' : ''}`}
-                    onAnimationEnd={() => setEnterDir(null)}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martel-day.webp' }}
-                  />
-                )}
-              </div>
-            </div>
-            <div className={`lightbox-thumbs ${lightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
-              <div className="lightbox-thumbs-scroll" ref={thumbsScrollRef}>
-                <div className="thumbs-inner" ref={thumbsInnerRef}>
-                  {martellGallery.map((it, i) => (
-                    <button
-                      key={i}
-                      role="option"
-                      aria-selected={i === currentIndex}
-                      className={`thumb ${i === currentIndex ? 'thumb-active' : ''} ${it.type === 'video' ? 'video-thumb' : ''}`}
-                      onClick={() => setCurrentIndex(i)}
-                      title={`View ${it.type}`}
-                    >
-                      {it.type === 'video' ? (
-                        <video
-                          src={it.src}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          preload="metadata"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      ) : (
-                        <img src={it.thumb || it.src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {(slug === 'todoalrojo') && (lightboxOpen || lightboxClosing) && (
           <div
             role="dialog"
@@ -2327,6 +2219,150 @@ function CreativeDesignerCaseDetail() {
               </div>
             </div>
           </div>
+        )}
+
+        {/* Martell: single column with 60/30 split and navigation */}
+        {slug === 'martell' && (
+          <>
+            {/* Desktop: 3 desktop frames */}
+            <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}>
+              {/* Image container: 60% height */}
+              <div className="h-[60%] px-[clamp(12px,3vw,24px)] pt-[clamp(12px,3vh,40px)] flex items-center justify-center relative">
+                {/* Image frame 0: martell-image */}
+                {martellFrame === 0 && (
+                  <div
+                    key={0}
+                    className={`absolute inset-0 flex items-center justify-center ${enterDirMartell === 'left' && martellFrame === 0 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame === 0 ? 'miela-enter-right' : ''}`}
+                    style={{
+                      opacity: 1,
+                      transition: 'opacity 1600ms ease',
+                      willChange: 'opacity'
+                    }}
+                  >
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                      <img
+                        src={martellImage}
+                        alt="Martell design frame 1"
+                        decoding="async"
+                        loading="eager"
+                        className="block h-full w-auto object-contain max-h-[70vh]"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-image.webp' }}
+                      />
+                    </div>
+                  </div>
+                )}
+                {/* Frames 1-2: empty image containers */}
+                {martellFrame > 0 && (
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center ${enterDirMartell === 'left' && martellFrame > 0 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame > 0 ? 'miela-enter-right' : ''}`}
+                    style={{
+                      opacity: 1,
+                      transition: 'opacity 1600ms ease',
+                      willChange: 'opacity'
+                    }}
+                  >
+                    {/* Empty space for slides 2 and 3 */}
+                  </div>
+                )}
+              </div>
+
+              {/* Navigation dots in the gap */}
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(60% + 28px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+                <div className="mielo-gap-dots flex justify-center gap-2">
+                  {Array.from({ length: TOTAL_MARTELL_FRAMES }).map((_, idx) => (
+                    <div key={idx} className={`dot ${martellFrame === idx ? 'active' : ''}`} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Content container: 30% height */}
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+                {martellDesktopContent[martellFrame] && (
+                  <div
+                    key={`martell-d-text-${martellFrame}`}
+                    className={`text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden`}
+                    style={{ transition: 'opacity 1600ms ease' }}
+                  >
+                    <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                      {martellDesktopContent[martellFrame].heading}
+                    </h3>
+                    <div className="mielo-paragraphs text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed">
+                      {martellDesktopContent[martellFrame].body.split('. ').map((sentence, idx) => {
+                        const s = sentence.trim()
+                        if (!s) return null
+                        return (
+                          <p key={idx} className="mielo-para">
+                            {s}{s.endsWith('.') ? '' : '.'}
+                          </p>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Mobile: 3 mobile frames */}
+            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>{e.preventDefault()}} onTouchEnd={onMartellTouchEnd}>
+              {/* Image container: 70% height */}
+              <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+                {/* Image frame 0: martell-image */}
+                {martellFrame === 0 && (
+                  <div className="absolute inset-0 flex items-center justify-center" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }}>
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                      <img
+                        src={martellImage}
+                        alt="Martell mobile frame 1"
+                        decoding="async"
+                        loading="eager"
+                        className="block h-full w-auto object-contain max-h-[70vh]"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-image.webp' }}
+                      />
+                    </div>
+                  </div>
+                )}
+                {/* Frames 1-2: empty containers */}
+                {martellFrame > 0 && (
+                  <div className="absolute inset-0" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} />
+                )}
+              </div>
+
+              {/* Navigation dots in the gap */}
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+                <div className="mielo-gap-dots flex justify-center gap-2">
+                  {Array.from({ length: TOTAL_MARTELL_FRAMES }).map((_, idx) => (
+                    <div key={idx} className={`dot ${martellFrame === idx ? 'active' : ''}`} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Content container: 30% height */}
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
+                {martellMobileContent[martellFrame] && (
+                  <div
+                    key={`martell-m-text-${martellFrame}`}
+                    className={`text-center font-['Jost',sans-serif] w-full flex flex-col items-center justify-start overflow-hidden`}
+                    style={{ transition: 'opacity 1600ms ease' }}
+                  >
+                    <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                      {martellMobileContent[martellFrame].heading}
+                    </h3>
+                    <div className="mielo-paragraphs text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed" style={{ lineHeight: '1.2' }}>
+                      {martellMobileContent[martellFrame].body.split('. ').map((sentence, idx) => {
+                        const s = sentence.trim()
+                        if (!s) return null
+                        return (
+                          <p key={idx} className="mielo-para">
+                            {s}{s.endsWith('.') ? '' : '.'}
+                          </p>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
         )}
 
         {/* Mielo: single column with 70/30 split and navigation */}
