@@ -2271,11 +2271,16 @@ function CreativeDesignerCaseDetail() {
         {slug === 'martell' && (
           <>
             {/* Desktop: 3 desktop frames */}
-            <div className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}>
-              {/* Image container: 60% height */}
-              <div className="h-[60%] px-[clamp(12px,3vw,24px)] pt-[clamp(12px,3vh,40px)] flex items-center justify-center relative">
-                {/* Image frame 0: martell-image */}
-                {martellFrame === 0 && (
+            {martellFrame !== 2 && (
+            <div
+              className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]"
+              onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}
+            >
+              {/* Image container: 60% height (hidden for slide 3) */}
+              {martellFrame !== 2 && (
+                <div className="h-[60%] px-[clamp(12px,3vw,24px)] pt-[clamp(12px,3vh,40px)] flex items-center justify-center relative">
+                  {/* Image frame 0: martell-image */}
+                  {martellFrame === 0 && (
                   <div
                     key={0}
                     className={`absolute inset-0 flex items-center justify-center cursor-pointer ${enterDirMartell === 'left' && martellFrame === 0 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame === 0 ? 'miela-enter-right' : ''}`}
@@ -2329,43 +2334,33 @@ function CreativeDesignerCaseDetail() {
                     </div>
                   </div>
                 )}
-                {/* Frame 2: empty image container */}
-                {martellFrame === 2 && (
-                  <div
-                    className={`absolute inset-0 flex items-center justify-center ${enterDirMartell === 'left' && martellFrame === 2 ? 'miela-enter-left' : ''} ${enterDirMartell === 'right' && martellFrame === 2 ? 'miela-enter-right' : ''}`}
-                    style={{
-                      opacity: 1,
-                      transition: 'opacity 1600ms ease',
-                      willChange: 'opacity'
-                    }}
-                  >
-                    {/* Empty space for slide 3 */}
-                  </div>
-                )}
-              </div>
-
-              {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(60% + 28px)', transform: 'translateY(-50%)', zIndex: 20, display: martellLightboxOpen || martellLightboxClosing ? 'none' : 'flex' }}>
-                <div className="mielo-gap-dots flex justify-center gap-2">
-                  {Array.from({ length: TOTAL_MARTELL_FRAMES }).map((_, idx) => (
-                    <div key={idx} className={`dot ${martellFrame === idx ? 'active' : ''}`} />
-                  ))}
                 </div>
-              </div>
+              )}
 
-              {/* Content container: 30% height */}
-              <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
-                {martellDesktopContent[martellFrame] && (
-                  <div
-                    key={`martell-d-text-${martellFrame}`}
-                    className={`text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden max-w-[70%]`}
-                    style={{ transition: 'opacity 1600ms ease' }}
-                  >
-                    <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
-                      {martellDesktopContent[martellFrame].heading}
+              {/* Slide 3: Full-height 2-column layout (only for desktop) */}
+              {martellFrame === 2 && (
+                <>
+                  {/* Left: Video */}
+                  <div className="flex items-center justify-center overflow-hidden px-[clamp(12px,3vw,24px)] py-5">
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden h-full" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                      <video
+                        src={martellVideo1}
+                        autoPlay
+                        loop
+                        muted
+                        className="h-full w-auto"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                  {/* Right: Result text */}
+                  <div className="flex flex-col items-start justify-center text-left overflow-y-auto px-[clamp(12px,3vw,24px)]">
+                    <h3 className="text-[clamp(18px,2.5vw,24px)] font-bold text-[#e4c492] mb-3 capitalize font-['Jost',sans-serif]">
+                      {martellDesktopContent[2].heading}
                     </h3>
-                    <div className="mielo-paragraphs text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed">
-                      {martellDesktopContent[martellFrame].body.split('. ').map((sentence, idx) => {
+                    <div className="text-[clamp(13px,1.8vw,18px)] text-white/80 leading-relaxed space-y-2 font-['Jost',sans-serif]">
+                      {martellDesktopContent[2].body.split('. ').map((sentence, idx) => {
                         const s = sentence.trim()
                         if (!s) return null
                         return (
@@ -2376,9 +2371,86 @@ function CreativeDesignerCaseDetail() {
                       })}
                     </div>
                   </div>
-                )}
-              </div>
+                </>
+              )}
+
+              {/* Navigation dots in the gap (hidden for slide 3) */}
+              {martellFrame !== 2 && (
+                <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(60% + 28px)', transform: 'translateY(-50%)', zIndex: 20, display: martellLightboxOpen || martellLightboxClosing ? 'none' : 'flex' }}>
+                  <div className="mielo-gap-dots flex justify-center gap-2">
+                    {Array.from({ length: TOTAL_MARTELL_FRAMES }).map((_, idx) => (
+                      <div key={idx} className={`dot ${martellFrame === idx ? 'active' : ''}`} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Content container: 30% height (hidden for slide 3) */}
+              {martellFrame !== 2 && (
+                <div className="h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+                  {martellDesktopContent[martellFrame] && (
+                    <div
+                      key={`martell-d-text-${martellFrame}`}
+                      className={`text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden max-w-[70%]`}
+                      style={{ transition: 'opacity 1600ms ease' }}
+                    >
+                      <h3 className="text-[clamp(20px,2.5vw,26px)] font-bold text-[#e4c492] mb-3 capitalize">
+                        {martellDesktopContent[martellFrame].heading}
+                      </h3>
+                      <div className="mielo-paragraphs text-[clamp(15px,2vw,20px)] text-white/80 leading-relaxed">
+                        {martellDesktopContent[martellFrame].body.split('. ').map((sentence, idx) => {
+                          const s = sentence.trim()
+                          if (!s) return null
+                          return (
+                            <p key={idx} className="mielo-para">
+                              {s}{s.endsWith('.') ? '' : '.'}
+                            </p>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
+            )}
+
+            {/* Desktop: Slide 3 grid layout */}
+            {martellFrame === 2 && (
+              <div className="hidden md:grid w-full h-[calc(100dvh-var(--nav-h)-15px)] grid-cols-2 gap-4 relative miela-hero-in mt-[15px] px-[clamp(12px,3vw,24px)]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}>
+                {/* Left: Video */}
+                <div className="flex items-center justify-center overflow-hidden py-5">
+                  <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden h-full" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                    <video
+                      src={martellVideo1}
+                      autoPlay
+                      loop
+                      muted
+                      className="h-full w-auto"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+                {/* Right: Result text */}
+                <div className="flex flex-col items-start justify-center text-left overflow-y-auto px-[clamp(12px,3vw,24px)]">
+                  <h3 className="text-[clamp(18px,2.5vw,24px)] font-bold text-[#e4c492] mb-3 capitalize font-['Jost',sans-serif]">
+                    {martellDesktopContent[2].heading}
+                  </h3>
+                  <div className="text-[clamp(13px,1.8vw,18px)] text-white/80 leading-relaxed space-y-2 font-['Jost',sans-serif]">
+                    {martellDesktopContent[2].body.split('. ').map((sentence, idx) => {
+                      const s = sentence.trim()
+                      if (!s) return null
+                      return (
+                        <p key={idx} className="mielo-para">
+                          {s}{s.endsWith('.') ? '' : '.'}
+                        </p>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Mobile: 3 mobile frames */}
             <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>{e.preventDefault()}} onTouchEnd={onMartellTouchEnd}>
@@ -2416,9 +2488,21 @@ function CreativeDesignerCaseDetail() {
                     </div>
                   </div>
                 )}
-                {/* Frame 2: empty container */}
+                {/* Frame 2: Video (mobile) */}
                 {martellFrame === 2 && (
-                  <div className="absolute inset-0" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} />
+                  <div className="absolute inset-0 flex items-center justify-center" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }}>
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-[90%]" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                      <video
+                        src={martellVideo1}
+                        autoPlay
+                        loop
+                        muted
+                        className="h-full w-auto"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
                 )}
               </div>
 
@@ -2432,7 +2516,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Content container: 30% height */}
-              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
+              <div className="h-[30%] px-[clamp(12px,3vw,24px)] mb-[clamp(12px,3vw,24px)] pb-[30px] flex items-start justify-center pt-[clamp(8px,2vw,16px)] overflow-hidden">
                 {martellMobileContent[martellFrame] && (
                   <div
                     key={`martell-m-text-${martellFrame}`}
