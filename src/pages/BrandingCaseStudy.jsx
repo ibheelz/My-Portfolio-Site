@@ -1,15 +1,105 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { attachHireMe } from '../utils/attachHireMe'
 const csBG = `${import.meta.env.BASE_URL}brand%20designer-cs-BG.webp`
 
+// Lumea case study images
+const lumeaImages = {
+  0: '/lumea-1.webp',
+  1: null,
+  2: null,
+  3: null,
+  4: null
+}
+
+// Branding case study content for 5 slides
+const brandingContent = {
+  0: {
+    heading: 'The Problem',
+    body: 'Luméa had multiple products but no real brand.\nThe packaging looked weak and confusing to customers.'
+  },
+  1: {
+    heading: 'Development Difficulties',
+    body: 'I had to organize five different product lines.\nThe ingredients were hard to explain on packaging.'
+  },
+  2: {
+    heading: 'The Solution',
+    body: 'I designed one clear visual style for all.\nThe soft colors and fonts made it premium.'
+  },
+  3: {
+    heading: 'Results',
+    body: 'Customers recognized the brand much better afterward.\nThe store shelves and online looked much stronger.'
+  },
+  4: {
+    heading: 'Key Takeaway',
+    body: 'Good design turned scattered products into one brand.\nConsistency made customers trust Luméa much more.'
+  }
+}
+
+const TOTAL_BRANDING_FRAMES = 5
+
 function BrandingCaseStudy() {
   const navigate = useNavigate()
+  const [brandingFrame, setBrandingFrame] = useState(0)
+  const [enterDir, setEnterDir] = useState('')
+  const brandingLastYRef = useRef(0)
+  const brandingLastStepTimeRef = useRef(0)
+  const wheelGestureActiveRef = useRef(false)
+  const wheelGestureTimerRef = useRef(null)
+  const touchStartYRef = useRef(0)
 
   useEffect(() => {
     const cleanup = attachHireMe(document)
     return cleanup
   }, [])
+
+  // Navigation functions
+  const nextFrame = () => {
+    setEnterDir('left')
+    setBrandingFrame((f) => (f + 1) % TOTAL_BRANDING_FRAMES)
+  }
+  const prevFrame = () => {
+    setEnterDir('right')
+    setBrandingFrame((f) => (f - 1 + TOTAL_BRANDING_FRAMES) % TOTAL_BRANDING_FRAMES)
+  }
+
+  // Wheel navigation
+  const handleWheel = (e) => {
+    if (wheelGestureActiveRef.current) return
+    const now = Date.now()
+    const deltaY = e.deltaY
+    if (Math.abs(deltaY) < 40) return
+    if (now - brandingLastStepTimeRef.current < 140) return
+    wheelGestureActiveRef.current = true
+    wheelGestureTimerRef.current = setTimeout(() => { wheelGestureActiveRef.current = false }, 140)
+    brandingLastStepTimeRef.current = now
+    if (deltaY > 0) nextFrame()
+    else prevFrame()
+  }
+
+  // Touch navigation
+  const handleTouchStart = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    touchStartYRef.current = t.clientY
+    brandingLastYRef.current = t.clientY
+  }
+  const handleTouchMove = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    const dy = t.clientY - brandingLastYRef.current
+    brandingLastYRef.current = t.clientY
+    if (Math.abs(dy) < 40) return
+    const now = Date.now()
+    if (now - brandingLastStepTimeRef.current < 140) return
+    brandingLastStepTimeRef.current = now
+    if (dy > 0) prevFrame()
+    else nextFrame()
+  }
+  const handleTouchEnd = () => {
+    touchStartYRef.current = 0
+    brandingLastYRef.current = 0
+  }
 
   return (
     <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
@@ -61,8 +151,58 @@ function BrandingCaseStudy() {
 
       <div className="header-spacer" />
 
-      {/* Content intentionally empty */}
-      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft" />
+      {/* Content: Slide carousel */}
+      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft overflow-hidden" onWheel={handleWheel} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+        <div className="w-full h-full flex flex-col relative">
+          {/* Image area - grows to fill space */}
+          <div className="flex-1 w-full flex items-center justify-center overflow-hidden">
+            {lumeaImages[brandingFrame] && (
+              <img
+                key={`lumea-${brandingFrame}`}
+                src={lumeaImages[brandingFrame]}
+                alt={`Lumea slide ${brandingFrame + 1}`}
+                className="w-auto h-auto max-w-full max-h-full object-contain"
+                decoding="async"
+              />
+            )}
+          </div>
+
+          {/* Text section - fixed at bottom */}
+          <div className="w-full max-w-2xl mx-auto px-[clamp(12px,2vw,24px)] pb-[clamp(20px,4vh,40px)] pt-[clamp(16px,3vh,32px)]">
+            {brandingContent[brandingFrame] && (
+              <div
+                key={`branding-slide-${brandingFrame}`}
+                className={`text-center space-y-3 ${enterDir === 'left' ? 'slide-enter-left' : enterDir === 'right' ? 'slide-enter-right' : ''}`}
+                style={{ transition: 'opacity 600ms ease' }}
+              >
+                <h2 className="text-[clamp(22px,3.5vw,36px)] font-bold text-[#e4c492] capitalize font-['Jost',sans-serif]">
+                  {brandingContent[brandingFrame].heading}
+                </h2>
+                <p className="text-[clamp(13px,1.8vw,16px)] text-white/80 leading-relaxed font-['Jost',sans-serif] whitespace-pre-line">
+                  {brandingContent[brandingFrame].body}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Navigation dots */}
+          <div className="w-full flex justify-center gap-3 pb-[clamp(16px,3vh,28px)]">
+            {Array.from({ length: TOTAL_BRANDING_FRAMES }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setEnterDir(idx > brandingFrame ? 'left' : 'right')
+                  setBrandingFrame(idx)
+                }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === brandingFrame ? 'bg-[#e4c492] w-6' : 'bg-white/30 hover:bg-white/50'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
 
       <style jsx>{`
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background-size: cover; background-position: center; z-index: 0; }
@@ -136,6 +276,11 @@ function BrandingCaseStudy() {
         .animate-slideDownNav { animation: slideDownNav 1.5s ease-out forwards; }
         .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        /* Slide animations */
+        @keyframes slideEnterL { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideEnterR { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        .slide-enter-left { animation: slideEnterL 600ms cubic-bezier(0.22, 1, 0.36, 1); }
+        .slide-enter-right { animation: slideEnterR 600ms cubic-bezier(0.22, 1, 0.36, 1); }
         /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
         @media (max-width: 767px) {
           .liquid-glass-header .glass-button svg { stroke: #e4c492; }
