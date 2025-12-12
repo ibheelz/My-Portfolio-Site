@@ -428,9 +428,11 @@ function BrandingCaseStudy() {
                   <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                     {brandingContent[brandingFrame].heading}
                   </h3>
-                  <p className="text-[clamp(18px,4vw,24px)] text-white/80 whitespace-pre-line">
-                    {brandingContent[brandingFrame].body}
-                  </p>
+                  {brandingContent[brandingFrame].body.split('\n').map((sentence, idx) => (
+                    <p key={idx} className="text-[clamp(18px,4vw,24px)] text-white/80 mb-4">
+                      {sentence}
+                    </p>
+                  ))}
                 </>
               )}
             </div>
