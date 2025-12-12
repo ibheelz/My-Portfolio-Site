@@ -1385,14 +1385,16 @@ function CreativeDesignerCaseDetail() {
   const onMartellTouchEnd = (e) => {
     if (window.innerWidth >= 768) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
-    e.preventDefault()
+    if (martellTouchStartYRef.current === null) return
     const endY = e.changedTouches[0].clientY
     const dy = endY - martellTouchStartYRef.current
-    const threshold = 14
+    const threshold = 40
     if (Math.abs(dy) < threshold) return
+    e.preventDefault()
     const dir = dy < 0 ? 1 : -1
     setEnterDirMartell(dir > 0 ? 'right' : 'left')
     setMartellFrame((i) => (i + dir + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
+    martellTouchStartYRef.current = null
   }
 
   // Miela slide navigation (keyboard + wheel)
@@ -2565,7 +2567,6 @@ function CreativeDesignerCaseDetail() {
                     <div className="flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxWidth: '100%', maxHeight: '100%' }}>
                       <video
                         src={martellVideo1}
-                        autoPlay
                         loop
                         muted
                         className="h-full w-auto"
