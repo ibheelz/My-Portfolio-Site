@@ -6,11 +6,14 @@ const csBG = `${import.meta.env.BASE_URL}brand%20designer-cs-BG.webp`
 // Lumea case study images
 const lumeaImages = {
   0: '/lumea-1.webp',
-  1: null,
-  2: null,
-  3: null,
-  4: null
+  1: '/lumea-2.webp',
+  2: '/lumea-6.webp',
+  3: '/lumea-9.webp',
+  4: '/lumea-8.webp'
 }
+
+// All lumea images for lightbox
+const lumeaLightboxImages = ['/lumea-1.webp', '/lumea-2.webp', '/lumea-3.webp', '/lumea-4.webp', '/lumea-6.webp', '/lumea-7.webp', '/lumea-8.webp', '/lumea-9.webp']
 
 // Branding case study content for 5 slides
 const brandingContent = {
@@ -48,10 +51,65 @@ function BrandingCaseStudy() {
   const wheelGestureTimerRef = useRef(null)
   const touchStartYRef = useRef(0)
 
+  // Lumea lightbox state
+  const [lumeaLightboxOpen, setLumeaLightboxOpen] = useState(false)
+  const [lumeaLightboxClosing, setLumeaLightboxClosing] = useState(false)
+  const [lumeaCurrentIndex, setLumeaCurrentIndex] = useState(0)
+  const [lumeaEnterDir, setLumeaEnterDir] = useState(null)
+  const lumeaLightboxRef = useRef(null)
+  const lumeaCloseBtnRef = useRef(null)
+  const lumeaThumbsScrollRef = useRef(null)
+  const lumeaTouchStartXRef = useRef(null)
+  const lumeaTouchStartYRef = useRef(null)
+  const lumeaPreloadedRef = useRef(new Set())
+  const [lumeaLightboxEntering, setLumeaLightboxEntering] = useState(false)
+  const lumeaEnterTimerRef = useRef(null)
+
   useEffect(() => {
     const cleanup = attachHireMe(document)
     return cleanup
   }, [])
+
+  // Lumea lightbox entering animation
+  useEffect(() => {
+    if (lumeaLightboxOpen && !lumeaLightboxEntering) {
+      lumeaEnterTimerRef.current = setTimeout(() => {
+        setLumeaLightboxEntering(true)
+      }, 50)
+    }
+    return () => {
+      if (lumeaEnterTimerRef.current) clearTimeout(lumeaEnterTimerRef.current)
+    }
+  }, [lumeaLightboxOpen, lumeaLightboxEntering])
+
+  // Keyboard navigation
+  useEffect(() => {
+    const lockMs = 60
+    const onKey = (e) => {
+      const k = e.key
+      const now = Date.now()
+      if (now - brandingLastStepTimeRef.current < lockMs) return
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown"].includes(k)) {
+        if (typeof e.preventDefault === 'function') e.preventDefault()
+      }
+
+      // Lightbox navigation takes priority
+      if (lumeaLightboxOpen) {
+        if (k === 'ArrowRight') { nextLumeaImage(); brandingLastStepTimeRef.current = now; return }
+        if (k === 'ArrowLeft')  { prevLumeaImage(); brandingLastStepTimeRef.current = now; return }
+        if (k === 'Escape') { closeLumeaLightbox(); brandingLastStepTimeRef.current = now; return }
+        return
+      }
+
+      // Slide navigation
+      if (k === 'ArrowRight') { setBrandingFrame((i) => (i + 1) % TOTAL_BRANDING_FRAMES); setEnterDir('left'); brandingLastStepTimeRef.current = now; return }
+      if (k === 'ArrowLeft')  { setBrandingFrame((i) => (i - 1 + TOTAL_BRANDING_FRAMES) % TOTAL_BRANDING_FRAMES); setEnterDir('right'); brandingLastStepTimeRef.current = now; return }
+      if (k === 'ArrowDown' || k === 'PageDown') { setBrandingFrame((i) => (i + 1) % TOTAL_BRANDING_FRAMES); setEnterDir('left'); brandingLastStepTimeRef.current = now; return }
+      if (k === 'ArrowUp'   || k === 'PageUp')   { setBrandingFrame((i) => (i - 1 + TOTAL_BRANDING_FRAMES) % TOTAL_BRANDING_FRAMES); setEnterDir('right'); brandingLastStepTimeRef.current = now; return }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lumeaLightboxOpen])
 
   // Navigation functions
   const nextFrame = () => {
@@ -101,8 +159,51 @@ function BrandingCaseStudy() {
     brandingLastYRef.current = 0
   }
 
+  // Lumea lightbox handlers
+  const closeLumeaLightbox = () => {
+    setLumeaLightboxClosing(true)
+    setTimeout(() => {
+      setLumeaLightboxOpen(false)
+      setLumeaLightboxClosing(false)
+      setLumeaLightboxEntering(false)
+    }, 300)
+  }
+
+  const prevLumeaImage = () => {
+    setLumeaEnterDir('right')
+    setLumeaCurrentIndex((i) => (i - 1 + lumeaLightboxImages.length) % lumeaLightboxImages.length)
+  }
+
+  const nextLumeaImage = () => {
+    setLumeaEnterDir('left')
+    setLumeaCurrentIndex((i) => (i + 1) % lumeaLightboxImages.length)
+  }
+
+  const handleLumeaTouchStart = (e) => {
+    lumeaTouchStartXRef.current = e.touches?.[0]?.clientX
+    lumeaTouchStartYRef.current = e.touches?.[0]?.clientY
+  }
+
+  const handleLumeaTouchMove = (e) => {
+    if (!lumeaTouchStartXRef.current || !lumeaTouchStartYRef.current) return
+    const dx = e.touches?.[0]?.clientX - lumeaTouchStartXRef.current
+    const dy = e.touches?.[0]?.clientY - lumeaTouchStartYRef.current
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      e.preventDefault()
+      if (dx > 0) prevLumeaImage()
+      else nextLumeaImage()
+      lumeaTouchStartXRef.current = null
+      lumeaTouchStartYRef.current = null
+    }
+  }
+
+  const handleLumeaTouchEnd = () => {
+    lumeaTouchStartXRef.current = null
+    lumeaTouchStartYRef.current = null
+  }
+
   return (
-    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col">
+    <div className="min-h-screen bg-[#06080a] p-[clamp(12px,3vw,24px)] lg:p-[clamp(6px,1.5vw,12px)] animate-fadeIn relative flex flex-col branding-page-container branding-mobile-fixed" style={{ ['--nav-h']: 'clamp(72px, 12vh, 120px)' }}>
       {/* Fixed background */}
       <div className="page-fixed-bg" aria-hidden style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${csBG})` }} />
       <div className="page-fixed-overlay" aria-hidden />
@@ -152,59 +253,213 @@ function BrandingCaseStudy() {
       <div className="header-spacer" />
 
       {/* Content: Slide carousel */}
-      <div className="page-content relative subpad flex-1 px-[clamp(18px,4.5vw,36px)] md:px-0 anim-bg-soft overflow-hidden" onWheel={handleWheel} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
-        <div className="w-full h-full flex flex-col relative">
-          {/* Image area - grows to fill space */}
-          <div className="flex-1 w-full flex items-center justify-center overflow-hidden">
+      <section className="page-content relative subpad flex-1 px-0 anim-bg-soft">
+        {/* Desktop/tablet: 70/30 split with dots in the gap */}
+        <div
+          className="branding-desktop-container hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col relative miela-hero-in mt-[15px]"
+          onWheel={handleWheel}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Image container: 70% (at top) */}
+          <div className="order-1 h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
             {lumeaImages[brandingFrame] && (
-              <img
-                key={`lumea-${brandingFrame}`}
-                src={lumeaImages[brandingFrame]}
-                alt={`Lumea slide ${brandingFrame + 1}`}
-                className="w-auto h-auto max-w-full max-h-full object-contain"
-                decoding="async"
-              />
-            )}
-          </div>
-
-          {/* Text section - fixed at bottom */}
-          <div className="w-full max-w-2xl mx-auto px-[clamp(12px,2vw,24px)] pb-[clamp(20px,4vh,40px)] pt-[clamp(16px,3vh,32px)]">
-            {brandingContent[brandingFrame] && (
               <div
-                key={`branding-slide-${brandingFrame}`}
-                className={`text-center space-y-3 ${enterDir === 'left' ? 'slide-enter-left' : enterDir === 'right' ? 'slide-enter-right' : ''}`}
-                style={{ transition: 'opacity 600ms ease' }}
+                className="branding-desk-img-wrap absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block rounded-[clamp(10px,1vw,18px)] overflow-hidden cursor-pointer"
+                onClick={() => {
+                  setLumeaLightboxOpen(true)
+                  setLumeaCurrentIndex(lumeaLightboxImages.indexOf(lumeaImages[brandingFrame]))
+                }}
+                style={{
+                  opacity: 1,
+                  transition: 'opacity 1600ms ease',
+                  willChange: 'opacity',
+                  border: '1.5px solid rgba(255,255,255,0.1)',
+                  pointerEvents: 'auto'
+                }}
               >
-                <h2 className="text-[clamp(22px,3.5vw,36px)] font-bold text-[#e4c492] capitalize font-['Jost',sans-serif]">
-                  {brandingContent[brandingFrame].heading}
-                </h2>
-                <p className="text-[clamp(13px,1.8vw,16px)] text-white/80 leading-relaxed font-['Jost',sans-serif] whitespace-pre-line">
-                  {brandingContent[brandingFrame].body}
-                </p>
+                <img
+                  key={`lumea-${brandingFrame}`}
+                  src={lumeaImages[brandingFrame]}
+                  alt={`Lumea slide ${brandingFrame + 1}`}
+                  decoding="async"
+                  className="branding-desk-img max-h-[70vh] object-contain"
+                  style={{ width: 'auto', height: 'auto' }}
+                />
               </div>
             )}
           </div>
-
-          {/* Navigation dots */}
-          <div className="w-full flex justify-center gap-3 pb-[clamp(16px,3vh,28px)]">
-            {Array.from({ length: TOTAL_BRANDING_FRAMES }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setEnterDir(idx > brandingFrame ? 'left' : 'right')
-                  setBrandingFrame(idx)
-                }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === brandingFrame ? 'bg-[#e4c492] w-6' : 'bg-white/30 hover:bg-white/50'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+          {/* Dots 25px below image (at 70% + 25px) */}
+          <div
+            className="branding-desktop-dots absolute left-0 right-0 flex justify-center"
+            style={{ top: 'calc(70% + 25px)', zIndex: 30 }}
+          >
+            <div className="mielo-gap-dots flex justify-center gap-2">
+              {Array.from({ length: TOTAL_BRANDING_FRAMES }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setEnterDir(idx > brandingFrame ? 'left' : 'right')
+                    setBrandingFrame(idx)
+                  }}
+                  className={`dot ${brandingFrame === idx ? 'active' : ''}`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+          {/* Text container: 30% (at bottom) */}
+          <div className="order-2 h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+            <div className="branding-desktop-text text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center overflow-hidden max-h-full px-4">
+              {brandingContent[brandingFrame] && (
+                <>
+                  <h3 className="text-[clamp(21.6px,2.7vw,27.9px)] font-bold text-[#e4c492] mb-3 capitalize">
+                    {brandingContent[brandingFrame].heading}
+                  </h3>
+                  <p className="text-[clamp(16.2px,2.16vw,21.6px)] text-white/80 leading-relaxed whitespace-pre-line">
+                    {brandingContent[brandingFrame].body}
+                  </p>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+
+        {/* Mobile: text (30%), dots, then image (70%) */}
+        <div
+          className="branding-mobile-container md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col relative miela-hero-in mt-[15px]"
+          onWheel={handleWheel}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Image container: 70% (shown first, at top) */}
+          <div className="order-1 h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+            {lumeaImages[brandingFrame] && (
+              <div className="w-full h-full absolute flex items-center justify-center">
+                <div
+                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden inline-block cursor-pointer"
+                  onClick={() => {
+                    setLumeaLightboxOpen(true)
+                    setLumeaCurrentIndex(lumeaLightboxImages.indexOf(lumeaImages[brandingFrame]))
+                  }}
+                  style={{
+                    opacity: 1,
+                    transition: 'opacity 1600ms ease',
+                    willChange: 'opacity',
+                    border: '1.5px solid rgba(255,255,255,0.1)',
+                    pointerEvents: 'auto'
+                  }}
+                >
+                  <img
+                    key={`lumea-mobile-${brandingFrame}`}
+                    src={lumeaImages[brandingFrame]}
+                    alt={`Lumea slide ${brandingFrame + 1}`}
+                    decoding="async"
+                    className="w-auto object-contain"
+                    style={{ maxHeight: '70vh', height: 'auto' }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Dots sit 25px below image block */}
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 25px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+            <div className="mielo-gap-dots flex justify-center gap-2">
+              {Array.from({ length: TOTAL_BRANDING_FRAMES }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setEnterDir(idx > brandingFrame ? 'left' : 'right')
+                    setBrandingFrame(idx)
+                  }}
+                  className={`dot ${brandingFrame === idx ? 'active' : ''}`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+          {/* Text container: 30% (shown second, at bottom) */}
+          <div className="order-2 h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+            <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center mobile-paras overflow-hidden max-h-full px-4">
+              {brandingContent[brandingFrame] && (
+                <>
+                  <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
+                    {brandingContent[brandingFrame].heading}
+                  </h3>
+                  <p className="text-[clamp(18px,4vw,24px)] text-white/80 whitespace-pre-line">
+                    {brandingContent[brandingFrame].body}
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Lumea lightbox */}
+        {lumeaLightboxOpen && (
+          <div
+            aria-label="Lumea images gallery"
+            className={`fixed inset-0 z-[9998] lightbox-overlay ${lumeaLightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+            onClick={closeLumeaLightbox}
+          >
+            <button ref={lumeaCloseBtnRef} className={`lightbox-close ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={closeLumeaLightbox}>×</button>
+            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevLumeaImage}>
+              <span className={`chevron-content ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            </button>
+            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextLumeaImage}>
+              <span className={`chevron-content ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+            <div className={`lightbox-modal ${lumeaLightboxEntering ? 'modal-pop-in' : (lumeaLightboxClosing ? 'scale-out' : 'scale-in')}`} ref={lumeaLightboxRef} onClick={(e) => e.stopPropagation()}>
+              <div className="lightbox-image-wrap" onTouchStart={handleLumeaTouchStart} onTouchMove={handleLumeaTouchMove} onTouchEnd={handleLumeaTouchEnd}>
+                <img
+                  key={lumeaCurrentIndex}
+                  src={lumeaLightboxImages[lumeaCurrentIndex]}
+                  alt={`Lumea image ${lumeaCurrentIndex + 1}`}
+                  className={`lightbox-image ${lumeaEnterDir === 'left' ? 'img-enter-left' : lumeaEnterDir === 'right' ? 'img-enter-right' : ''}`}
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <div className={`lightbox-thumbs ${lumeaLightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+              <div className="lightbox-thumbs-scroll" ref={lumeaThumbsScrollRef}>
+                <div className="thumbs-inner">
+                  {lumeaLightboxImages.map((src, i) => (
+                    <button key={i} className={`thumb ${i === lumeaCurrentIndex ? 'thumb-active' : ''}`} aria-label={`Go to image ${i + 1}`} onClick={() => setLumeaCurrentIndex(i)}>
+                      <img src={src} alt={``} decoding="async" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
 
       <style jsx>{`
+        .dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.3);
+          cursor: pointer;
+          transition: all 300ms ease;
+          border: none;
+          padding: 0;
+        }
+        .dot.active {
+          width: 24px;
+          background: #e4c492;
+          border-radius: 4px;
+        }
+        .dot:hover:not(.active) {
+          background: rgba(255, 255, 255, 0.5);
+        }
         .page-fixed-bg { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background-size: cover; background-position: center; z-index: 0; }
         .page-fixed-overlay { position: fixed; left: 0; right: 0; bottom: 0; top: clamp(72px, 12vh, 120px); background: rgba(0,0,0,0.35); z-index: 1; }
         .liquid-glass-header {
@@ -258,9 +513,9 @@ function BrandingCaseStudy() {
         /* SVG icons gold by default */
         .glass-button svg { stroke: #e4c492; fill: none; }
         /* Branding theme hover */
-        .glass-button:hover { background: #aa90db; color: #ffffff; border-color: transparent; }
-        /* SVG icons turn white on hover */
-        .glass-button:hover svg { stroke: #ffffff; fill: none; }
+        .glass-button:hover { background: #e4c492; color: #10171d; border-color: transparent; }
+        /* SVG icons turn dark on hover */
+        .glass-button:hover svg { stroke: #10171d; fill: none; }
         .glass-card { background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         @keyframes contentSoftIn { 0% { opacity: 0; transform: translateY(12px) } 100% { opacity: 1; transform: translateY(0) } }
         .anim-content-soft { animation: contentSoftIn 900ms ease-out both; }
@@ -287,6 +542,61 @@ function BrandingCaseStudy() {
           .liquid-glass-header .glass-button:hover svg,
           .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
         }
+        /* Image styling */
+        .branding-desk-img { object-fit: contain !important; }
+        .branding-desk-img-wrap { box-sizing: border-box !important; }
+        /* Ensure desktop/tablet layout (image top, text bottom) on md+ screens */
+        @media (min-width: 768px) {
+          .branding-desktop-container { display: flex !important; }
+          .branding-mobile-container { display: none !important; }
+        }
+        /* Prevent page scroll/bounce on mobile */
+        @media (max-width: 767px) {
+          .branding-mobile-no-scroll { height: 100vh !important; overflow: hidden !important; overscroll-behavior: none !important; touch-action: none !important; -webkit-touch-callout: none; -webkit-user-select: none; }
+        }
+        /* Lock entire page on mobile */
+        @media (max-width: 767px) {
+          .branding-mobile-fixed { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 100vh !important; overflow: hidden !important; }
+        }
+        .miela-hero-in { animation: bgSoftIn 800ms ease-out both; }
+
+        /* Lightbox styles */
+        .lightbox-overlay { background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG}); background-size: cover; background-position: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 120ms ease; overflow: hidden; overscroll-behavior: contain; }
+        .lightbox-fade-in { opacity: 1; }
+        .lightbox-fade-out { opacity: 0; }
+        .lightbox-modal { position: relative; width: min(70vw, 1200px); max-height: 80vh; background: rgba(20,20,22,0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #e7f2f8; transform: scale(0.98); transform-origin: center center; transition: transform 120ms ease; opacity: 0; }
+        .scale-in { transform: scale(1); opacity: 1; }
+        .scale-out { transform: scale(0.98); }
+        @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(12px) scale(0.94);} 100% { opacity: 1; transform: translateY(0) scale(1);} }
+        .modal-pop-in { animation: modalPopIn 900ms cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+        @keyframes controlsPopIn { 0% { opacity: 0; transform: translateY(12px);} 100% { opacity: 1; transform: translateY(0);} }
+        .controls-pop-in { animation: controlsPopIn 1200ms ease-out both 220ms; }
+        .thumbs-pop-in { animation: controlsPopIn 1300ms ease-out both 260ms; }
+        .chevron-content { display: inline-flex; align-items: center; justify-content: center; }
+        .lightbox-close { position: fixed; top: calc(20px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 10001; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; color: #ffffff; border: none; font-size: 24px; line-height: 1; font-weight: 600; border-radius: 8px; }
+        .lightbox-close:hover { background: #aa90db; color: #ffffff; }
+        .lightbox-close:active { background: #aa90db; color: #ffffff; }
+        .lightbox-chevron { position: fixed; top: 50%; transform: translateY(-50%); z-index: 10001; width: 42px; height: 42px; border-radius: 9999px; border: 2px solid #ffffff; background: rgba(0,0,0,0.45); color: #fff; display: inline-flex; align-items: center; justify-content: center; transition: background 160ms ease, border-color 160ms ease, color 160ms ease; }
+        .lightbox-prev { left: calc(20px + env(safe-area-inset-left)); }
+        .lightbox-next { right: calc(20px + env(safe-area-inset-right)); }
+        .lightbox-chevron:hover { background: #aa90db; border-color: #aa90db; color: #ffffff; }
+        .lightbox-chevron:active { background: #aa90db; border-color: #aa90db; color: #ffffff; }
+        .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
+        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: cover; object-position: top center; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
+        @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
+        @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
+        .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-enter-right { animation: imgEnterR 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .lightbox-thumbs { position: fixed; left: 0; right: 0; bottom: 0; height: 86px; background: rgba(10,10,12,0.35); border-top: none; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
+        .lightbox-thumbs-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+        .lightbox-thumbs-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
+        .thumbs-inner { display: inline-flex; white-space: nowrap; justify-content: center; gap: 8px; }
+        .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
+        .thumb:hover { transform: translateY(-1px); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+        .thumb-active { border-color: #aa90db; }
+        @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
       `}</style>
     </div>
   )
