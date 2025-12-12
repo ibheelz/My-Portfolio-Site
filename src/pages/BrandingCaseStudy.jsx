@@ -54,7 +54,8 @@ function BrandingCaseStudy() {
   const brandingLastStepTimeRef = useRef(0)
   const wheelGestureActiveRef = useRef(false)
   const wheelGestureTimerRef = useRef(null)
-  const touchStartYRef = useRef(0)
+  const touchStartXRef = useRef(null)
+  const touchStartYRef = useRef(null)
 
   // Lumea lightbox state
   const [lumeaLightboxOpen, setLumeaLightboxOpen] = useState(false)
@@ -164,24 +165,26 @@ function BrandingCaseStudy() {
   const handleTouchStart = (e) => {
     const t = e.touches && e.touches[0]
     if (!t) return
+    touchStartXRef.current = t.clientX
     touchStartYRef.current = t.clientY
-    brandingLastYRef.current = t.clientY
   }
   const handleTouchMove = (e) => {
     const t = e.touches && e.touches[0]
     if (!t) return
-    const dy = t.clientY - brandingLastYRef.current
-    brandingLastYRef.current = t.clientY
-    if (Math.abs(dy) < 40) return
-    const now = Date.now()
-    if (now - brandingLastStepTimeRef.current < 140) return
-    brandingLastStepTimeRef.current = now
-    if (dy > 0) prevFrame()
-    else nextFrame()
+    const dx = t.clientX - (touchStartXRef.current ?? t.clientX)
+    const dy = t.clientY - (touchStartYRef.current ?? t.clientY)
+    const absDx = Math.abs(dx)
+    const absDy = Math.abs(dy)
+    if (window.innerWidth <= 768 && absDx > 40 && absDx > absDy * 1.2) {
+      if (dx < 0) nextFrame(); else prevFrame()
+      // Reset so it doesn't fire repeatedly during the same gesture
+      touchStartXRef.current = t.clientX
+      touchStartYRef.current = t.clientY
+    }
   }
   const handleTouchEnd = () => {
-    touchStartYRef.current = 0
-    brandingLastYRef.current = 0
+    touchStartXRef.current = null
+    touchStartYRef.current = null
   }
 
   // Lumea lightbox handlers
