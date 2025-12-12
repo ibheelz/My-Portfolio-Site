@@ -3112,7 +3112,7 @@ function CreativeDesignerCaseDetail() {
         }
 
         /* Indicator row hooked to marquee top (inside marquee-dock) */
-        .miela-dots-over { position: absolute; left: 0; right: 0; top: -10px; z-index: 6; justify-content: center; gap: 28px; pointer-events: none; }
+        .miela-dots-over { position: absolute; left: 0; right: 0; top: -10px; z-index: 6; justify-content: center; gap: 8px; pointer-events: none; }
         .miela-dots-over .dot {
           width: 8px; height: 8px; border-radius: 50%;
           background: rgba(255,255,255,0.3);
@@ -3147,11 +3147,11 @@ function CreativeDesignerCaseDetail() {
         .miela-enter-up   { animation: mielaEnterU 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
         .miela-enter-down { animation: mielaEnterD 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
 
-        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; gap: 28px; }
+        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; gap: 8px; }
         .miela-dots-fixed .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: all 300ms ease; }
         .miela-dots-fixed .dot.active { width: 24px; background: #e4c492; border-radius: 4px; }
 
-        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; gap: 28px; }
+        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; gap: 8px; }
 
         /* Mobile: adjust dots position for reduced carousel height */
         @media (max-width: 767px) {
