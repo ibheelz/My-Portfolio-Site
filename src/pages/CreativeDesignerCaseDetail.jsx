@@ -2579,13 +2579,13 @@ function CreativeDesignerCaseDetail() {
                   <div className={`absolute inset-0 flex items-center justify-center cursor-pointer overflow-hidden ${enterDirMartell === 'left' ? 'miela-enter-left' : enterDirMartell === 'right' ? 'miela-enter-right' : ''}`} style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
                     <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
                       <img
-                        src={martellImage}
+                        src={martellImage2}
                         alt="Martell mobile night image"
                         decoding="async"
                         loading="lazy"
                         className="block h-auto w-auto object-contain"
                         style={{ maxHeight: '100%', maxWidth: '100%' }}
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-image.webp' }}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-2.webp' }}
                       />
                     </div>
                   </div>
