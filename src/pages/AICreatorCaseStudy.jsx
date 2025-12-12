@@ -614,10 +614,10 @@ function AICreatorCaseStudy() {
           .liquid-glass-header .glass-button:active svg { stroke: #e4c492; }
         }
 
-        /* Mielo gap dots (same style) */
+        /* Navigation dots (matching BrandingCaseStudy style) */
         .mielo-gap-dots { display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
-        .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .mielo-gap-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); cursor: pointer; transition: all 300ms ease; border: none; padding: 0; }
+        .mielo-gap-dots .dot.active { width: 24px; background: #e4c492; border-radius: 4px; }
         /* Paragraph spacing: add an empty row under each sentence */
         .ai-desc-block .ai-desc-para, .mobile-paras .ai-desc-para { margin: 0 0 0.6em 0; }
         .ai-desc-block .ai-desc-para:last-child, .mobile-paras .ai-desc-para:last-child { margin-bottom: 0; }
