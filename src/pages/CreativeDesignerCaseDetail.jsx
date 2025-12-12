@@ -2336,7 +2336,7 @@ function CreativeDesignerCaseDetail() {
             {martellFrame !== 2 && (
             <div
               className="hidden md:flex w-full h-[calc(100dvh-var(--nav-h)-15px)] flex-col gap-4 relative miela-hero-in mt-[15px]"
-              onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}
+              onTouchStart={onMartellTouchStart} onTouchEnd={onMartellTouchEnd}
             >
               {/* Image container: 60% height (hidden for slide 3) */}
               {martellFrame !== 2 && (
@@ -2479,7 +2479,7 @@ function CreativeDesignerCaseDetail() {
 
             {/* Desktop: Slide 3 grid layout */}
             {martellFrame === 2 && (
-              <div className="hidden md:grid w-full h-[calc(100dvh-var(--nav-h)-15px)] grid-cols-2 gap-4 relative miela-hero-in mt-[15px] px-[clamp(12px,3vw,24px)]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}>
+              <div className="hidden md:grid w-full h-[calc(100dvh-var(--nav-h)-15px)] grid-cols-2 gap-4 relative miela-hero-in mt-[15px] px-[clamp(12px,3vw,24px)]" onTouchStart={onMartellTouchStart} onTouchEnd={onMartellTouchEnd}>
                 {/* Left: Video */}
                 <div className="flex items-center justify-center overflow-hidden py-5 cursor-pointer" onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
                   <div className="hidden lg:inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden h-full" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
@@ -2526,7 +2526,7 @@ function CreativeDesignerCaseDetail() {
             )}
 
             {/* Mobile: 3 mobile frames */}
-            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>{e.preventDefault()}} onTouchEnd={onMartellTouchEnd}>
+            <div className="md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col gap-4 relative miela-hero-in mt-[15px]" onTouchStart={onMartellTouchStart} onTouchEnd={onMartellTouchEnd}>
               {/* Image container: 70% height */}
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* Image frame 0: martell-image */}
