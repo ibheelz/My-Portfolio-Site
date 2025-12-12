@@ -175,11 +175,22 @@ function BrandingCaseStudy() {
     const dy = t.clientY - (touchStartYRef.current ?? t.clientY)
     const absDx = Math.abs(dx)
     const absDy = Math.abs(dy)
-    if (window.innerWidth <= 768 && absDx > 40 && absDx > absDy * 1.2) {
-      if (dx < 0) nextFrame(); else prevFrame()
-      // Reset so it doesn't fire repeatedly during the same gesture
-      touchStartXRef.current = t.clientX
-      touchStartYRef.current = t.clientY
+
+    if (window.innerWidth <= 768) {
+      // Horizontal swipe (left/right)
+      if (absDx > 40 && absDx > absDy * 1.2) {
+        if (dx < 0) nextFrame(); else prevFrame()
+        // Reset so it doesn't fire repeatedly during the same gesture
+        touchStartXRef.current = t.clientX
+        touchStartYRef.current = t.clientY
+      }
+      // Vertical swipe (up/down)
+      else if (absDy > 40 && absDy > absDx * 1.2) {
+        if (dy < 0) nextFrame(); else prevFrame()
+        // Reset so it doesn't fire repeatedly during the same gesture
+        touchStartXRef.current = t.clientX
+        touchStartYRef.current = t.clientY
+      }
     }
   }
   const handleTouchEnd = () => {
