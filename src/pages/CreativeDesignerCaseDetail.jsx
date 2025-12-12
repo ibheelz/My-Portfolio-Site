@@ -3114,15 +3114,14 @@ function CreativeDesignerCaseDetail() {
         /* Indicator row hooked to marquee top (inside marquee-dock) */
         .miela-dots-over { position: absolute; left: 0; right: 0; top: -10px; z-index: 6; justify-content: center; gap: 8px; pointer-events: none; }
         .miela-dots-over .dot {
-          width: 6px; height: 6px; border-radius: 50%;
+          width: 8px; height: 8px; border-radius: 50%;
           background: rgba(255,255,255,0.3);
-          box-shadow: none;
-          transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease;
+          cursor: pointer; border: none; padding: 0;
+          transition: all 300ms ease;
         }
         .miela-dots-over .dot.active {
-          width: 8px; height: 8px;
-          background: rgba(255,255,255,0.9);
-          box-shadow: 0 0 8px rgba(255,255,255,0.5);
+          width: 24px; background: #e4c492;
+          border-radius: 4px;
         }
 
         /* Miela hero horizontal enter (margin-left to preserve absolute centering) */
@@ -3148,24 +3147,24 @@ function CreativeDesignerCaseDetail() {
         .miela-enter-up   { animation: mielaEnterU 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
         .miela-enter-down { animation: mielaEnterD 750ms cubic-bezier(0.2, 0.85, 0.2, 1); }
 
-        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; }
-        .miela-dots-fixed .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
-        .miela-dots-fixed .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .miela-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(25vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; gap: 8px; }
+        .miela-dots-fixed .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: all 300ms ease; }
+        .miela-dots-fixed .dot.active { width: 24px; background: #e4c492; border-radius: 4px; }
 
-        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; }
+        .todoalrojo-dots-fixed { position: fixed; left: 0; right: 0; bottom: calc(10vh + 5px + env(safe-area-inset-bottom)); z-index: 6; pointer-events: none; display: flex; justify-content: center; gap: 8px; }
 
         /* Mobile: adjust dots position for reduced carousel height */
         @media (max-width: 767px) {
           .miela-dots-fixed { bottom: calc(15vh + 5px + env(safe-area-inset-bottom)); }
           .todoalrojo-dots-fixed { bottom: calc(8vh + 5px + env(safe-area-inset-bottom)); }
         }
-        .todoalrojo-dots-fixed .dot { width: 5.7px; height: 5.7px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; margin: 0 4px; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
-        .todoalrojo-dots-fixed .dot.active { width: 7.6px; height: 7.6px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .todoalrojo-dots-fixed .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: all 300ms ease; }
+        .todoalrojo-dots-fixed .dot.active { width: 24px; background: #e4c492; border-radius: 4px; }
 
         /* Mielo gap dots - positioned in the margin between image and content sections */
         .mielo-gap-dots { display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .mielo-gap-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.36); box-shadow: none; transition: width 180ms ease, height 180ms ease, background 180ms ease, box-shadow 180ms ease; }
-        .mielo-gap-dots .dot.active { width: 8px; height: 8px; background: rgba(255,255,255,0.95); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .mielo-gap-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: all 300ms ease; }
+        .mielo-gap-dots .dot.active { width: 24px; background: #e4c492; border-radius: 4px; }
 
         /* Nudge hero images down on short-height screens */
         @media (max-height: 800px) {
