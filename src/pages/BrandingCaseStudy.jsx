@@ -19,23 +19,28 @@ const lumeaLightboxImages = ['/lumea-1.webp', '/lumea-2.webp', '/lumea-3.webp', 
 const brandingContent = {
   0: {
     heading: 'The Problem',
-    body: 'Luméa had multiple products but no real brand.\nThe packaging looked weak and confusing to customers.'
+    body: 'Luméa had multiple products but no real brand.\nThe packaging looked weak and confusing to customers.',
+    mobileSummary: 'Luméa had multiple products with no cohesive brand.'
   },
   1: {
     heading: 'Development Difficulties',
-    body: 'I had to organize five different product lines.\nThe ingredients were hard to explain on packaging.'
+    body: 'I had to organize five different product lines.\nThe ingredients were hard to explain on packaging.',
+    mobileSummary: 'Organizing five different product lines with complex ingredients.'
   },
   2: {
     heading: 'The Solution',
-    body: 'I designed one clear visual style for all.\nThe soft colors and fonts made it premium.'
+    body: 'I designed one clear visual style for all.\nThe soft colors and fonts made it premium.',
+    mobileSummary: 'I created unified visual style with soft colors.'
   },
   3: {
     heading: 'Results',
-    body: 'Customers recognized the brand much better afterward.\nThe store shelves and online looked much stronger.'
+    body: 'Customers recognized the brand much better afterward.\nThe store shelves and online looked much stronger.',
+    mobileSummary: 'Brand recognition improved significantly across all retail channels.'
   },
   4: {
     heading: 'Key Takeaway',
-    body: 'Good design turned scattered products into one brand.\nConsistency made customers trust Luméa much more.'
+    body: 'Good design turned scattered products into one brand.\nConsistency made customers trust Luméa much more.',
+    mobileSummary: 'Consistency transformed scattered products into a trusted brand.'
   }
 }
 
@@ -347,7 +352,7 @@ function BrandingCaseStudy() {
           </div>
         </div>
 
-        {/* Mobile: text (30%), dots, then image (70%) */}
+        {/* Mobile: text (50%), dots, then image (50%) */}
         <div
           className="branding-mobile-container md:hidden w-full h-[calc(100dvh-var(--nav-h)-15px)] flex flex-col relative miela-hero-in mt-[15px]"
           onWheel={handleWheel}
@@ -355,8 +360,8 @@ function BrandingCaseStudy() {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Image container: 70% (shown first, at top) */}
-          <div className="order-1 h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
+          {/* Image container: 50% (shown first, at top) */}
+          <div className="order-1 h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
             {lumeaImages[brandingFrame] && (
               <div className="w-full h-full absolute flex items-center justify-center">
                 <div
@@ -379,14 +384,14 @@ function BrandingCaseStudy() {
                     alt={`Lumea slide ${brandingFrame + 1}`}
                     decoding="async"
                     className="w-auto object-contain"
-                    style={{ maxHeight: '70vh', height: 'auto' }}
+                    style={{ maxHeight: '50vh', height: 'auto' }}
                   />
                 </div>
               </div>
             )}
           </div>
           {/* Dots sit 25px below image block */}
-          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% + 25px)', transform: 'translateY(-50%)', zIndex: 20 }}>
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(50% + 25px)', transform: 'translateY(-50%)', zIndex: 20 }}>
             <div className="mielo-gap-dots flex justify-center gap-2">
               {Array.from({ length: TOTAL_BRANDING_FRAMES }).map((_, idx) => (
                 <button
@@ -401,16 +406,16 @@ function BrandingCaseStudy() {
               ))}
             </div>
           </div>
-          {/* Text container: 30% (shown second, at bottom) */}
-          <div className="order-2 h-[30%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+          {/* Text container: 50% (shown second, at bottom) */}
+          <div className="order-2 h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
             <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center mobile-paras overflow-hidden max-h-full px-4">
               {brandingContent[brandingFrame] && (
                 <>
                   <h3 className="text-[clamp(24px,5vw,30px)] font-bold text-[#e4c492] mb-3 capitalize">
                     {brandingContent[brandingFrame].heading}
                   </h3>
-                  <p className="text-[clamp(18px,4vw,24px)] text-white/80 whitespace-pre-line">
-                    {brandingContent[brandingFrame].body}
+                  <p className="text-[clamp(18px,4vw,24px)] text-white/80">
+                    {brandingContent[brandingFrame].mobileSummary}
                   </p>
                 </>
               )}
