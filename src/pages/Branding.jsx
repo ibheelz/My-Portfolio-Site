@@ -12,7 +12,8 @@ const identityImages = [
   '/identity-1.webp',
   '/identity-2.webp',
   '/identity-3.webp',
-  '/identity-4.webp'
+  '/identity-4.webp',
+  '/identity-6.webp'
 ]
 
 function Branding() {
