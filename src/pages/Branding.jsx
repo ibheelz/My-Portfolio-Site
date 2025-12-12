@@ -13,6 +13,7 @@ const identityImages = [
   '/identity-2.webp',
   '/identity-3.webp',
   '/identity-4.webp',
+  '/identity-5.webp',
   '/identity-6.webp'
 ]
 
@@ -1051,7 +1052,7 @@ function Branding() {
         .lightbox-thumbs-scroll { height: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; -webkit-overflow-scrolling: touch; touch-action: pan-x; text-align: center; white-space: nowrap; }
         .lightbox-thumbs-scroll { scrollbar-width: none; -ms-overflow-style: none; }
         .lightbox-thumbs-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
-        .thumbs-inner { display: inline-block; white-space: nowrap; }
+        .thumbs-inner { display: inline-flex; white-space: nowrap; justify-content: center; gap: 8px; }
         .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
         .thumb:hover { transform: translateY(-1px); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
