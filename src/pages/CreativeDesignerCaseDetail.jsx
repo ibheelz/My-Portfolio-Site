@@ -376,6 +376,7 @@ function CreativeDesignerCaseDetail() {
   const martellWheelGestureActiveRef = useRef(false)
   const martellWheelGestureTimerRef = useRef(null)
   const martellTouchStartYRef = useRef(0)
+  const martellTouchStartXRef = useRef(0)
 
   // Martell lightbox state
   const [martellLightboxOpen, setMartellLightboxOpen] = useState(false)
@@ -1381,20 +1382,32 @@ function CreativeDesignerCaseDetail() {
     if (window.innerWidth >= 768) return
     if (!e.touches || e.touches.length === 0) return
     martellTouchStartYRef.current = e.touches[0].clientY
+    martellTouchStartXRef.current = e.touches[0].clientX
   }
   const onMartellTouchEnd = (e) => {
     if (window.innerWidth >= 768) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
     if (martellTouchStartYRef.current === null) return
     const endY = e.changedTouches[0].clientY
+    const endX = e.changedTouches[0].clientX
     const dy = endY - martellTouchStartYRef.current
+    const dx = endX - martellTouchStartXRef.current
     const threshold = 40
-    if (Math.abs(dy) < threshold) return
+    if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
     e.preventDefault()
-    const dir = dy < 0 ? 1 : -1
-    setEnterDirMartell(dir > 0 ? 'right' : 'left')
-    setMartellFrame((i) => (i + dir + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
+    // Horizontal swipe: left/right navigation
+    if (Math.abs(dx) > Math.abs(dy)) {
+      const dir = dx < 0 ? 1 : -1
+      setEnterDirMartell(dir > 0 ? 'right' : 'left')
+      setMartellFrame((i) => (i + dir + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
+    } else {
+      // Vertical swipe: up/down navigation
+      const dir = dy < 0 ? 1 : -1
+      setEnterDirMartell(dir > 0 ? 'right' : 'left')
+      setMartellFrame((i) => (i + dir + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
+    }
     martellTouchStartYRef.current = null
+    martellTouchStartXRef.current = null
   }
 
   // Miela slide navigation (keyboard + wheel)
