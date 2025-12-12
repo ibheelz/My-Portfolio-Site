@@ -2936,12 +2936,12 @@ function CreativeDesignerCaseDetail() {
       {/* Fixed indicators 10px above carousel (all screens) — only for Miela */}
       {slug === 'miela' && (
         <div className="miela-dots-fixed" aria-hidden>
-          <div className="hidden md:flex justify-center">
+          <div className="hidden md:flex justify-center gap-2">
             {Array.from({ length: 6 }).map((_, idx) => (
               <div key={`d-dot-${idx}`} className={`dot ${mielaSlide === idx ? 'active' : ''}`} />
             ))}
           </div>
-          <div className="flex md:hidden justify-center">
+          <div className="flex md:hidden justify-center gap-2">
             {Array.from({ length: 6 }).map((_, idx) => (
               <div key={`m-dot-${idx}`} className={`dot ${mielaSlide === idx ? 'active' : ''}`} />
             ))}
@@ -2952,7 +2952,7 @@ function CreativeDesignerCaseDetail() {
       {/* Fixed indicators 50px above carousel — for Todoalrojo */}
       {slug === 'todoalrojo' && (
         <div className="todoalrojo-dots-fixed" aria-hidden style={{ display: todoalrojoLightboxOpen || todoalrojoLightboxClosing ? 'none' : 'flex' }}>
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-2">
             {Array.from({ length: 6 }).map((_, idx) => (
               <div key={`todo-dot-${idx}`} className={`dot ${todoalrojoFrame === idx ? 'active' : ''}`} />
             ))}
