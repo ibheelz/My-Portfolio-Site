@@ -2842,6 +2842,7 @@ function CreativeDesignerCaseDetail() {
                     src={martellLightboxGallery[martellLightboxIndex].src}
                     controls
                     autoPlay
+                    muted
                     className={`lightbox-image ${enterDirMartellLightbox === 'left' ? 'img-enter-left' : enterDirMartellLightbox === 'right' ? 'img-enter-right' : ''}`}
                     onAnimationEnd={() => setEnterDirMartellLightbox(null)}
                     style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain' }}
@@ -2861,7 +2862,15 @@ function CreativeDesignerCaseDetail() {
                       onClick={() => setMartellLightboxIndex(i)}
                       title={`View item ${i+1}`}
                     >
-                      <img src={it.thumb || it.src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" />
+                      {it.type === 'image' ? (
+                        <img src={it.thumb || it.src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#222', position: 'relative' }}>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#e4c492' }}>
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                        </div>
+                      )}
                     </button>
                   ))}
                 </div>
