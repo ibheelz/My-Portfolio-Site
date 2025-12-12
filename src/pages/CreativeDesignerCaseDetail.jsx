@@ -156,15 +156,15 @@ const martellDesktopContent = {
 const martellMobileContent = {
   0: {
     heading: 'The Problem',
-    body: 'Lagos roundabouts blended into the city\'s chaos, offering zero standout presence for any brand and giving Martell no meaningful way to command attention.'
+    body: 'Lagos roundabouts offered zero presence for brands, giving Martell no meaningful command.'
   },
   1: {
     heading: 'Solution',
-    body: 'I collaborated on the creative concept that transformed the roundabout into a bold Martell installation, combining a striking daytime presence with an enchanting nighttime candle field.'
+    body: 'I created a bold installation combining striking daytime with enchanting nighttime visuals.'
   },
   2: {
     heading: 'Result',
-    body: 'The site became an instant landmark, social conversations surged, and Martell shifted from a brand people noticed occasionally to a destination they actively visited and shared.'
+    body: 'Site became instant landmark. Martell shifted from noticed occasionally to actively visited.'
   }
 }
 
@@ -385,10 +385,14 @@ function CreativeDesignerCaseDetail() {
   const martellLightboxRef = useRef(null)
   const martellCloseBtnRef = useRef(null)
 
-  // Martell lightbox gallery (images only)
+  // Martell lightbox gallery (all images and videos)
   const martellLightboxGallery = [
     { type: 'image', src: martellImage, thumb: martellImage },
     { type: 'image', src: martelDayImage, thumb: martelDayImage },
+    { type: 'image', src: martellImage2, thumb: martellImage2 },
+    { type: 'image', src: martellImage3, thumb: martellImage3 },
+    { type: 'video', src: martellVideo1 },
+    { type: 'video', src: martellVideo2 },
   ]
 
   // Todoalrojo lightbox state
@@ -846,8 +850,13 @@ function CreativeDesignerCaseDetail() {
     setTimeout(() => { setMieloLightboxOpen(false); setMieloLightboxClosing(false) }, 140)
   }
 
-  const openMartellLightboxAt = (index) => {
-    setMartellLightboxIndex(martellFrame)
+  const openMartellLightboxAt = (slideIndex) => {
+    // Map slide frames to gallery indices
+    // Frame 0 (martellImage) -> gallery index 0
+    // Frame 1 (martelDayImage) -> gallery index 1
+    // Frame 2 (video1) -> gallery index 4
+    const frameToGalleryIndex = { 0: 0, 1: 1, 2: 4 }
+    setMartellLightboxIndex(frameToGalleryIndex[slideIndex] || 0)
     setMartellLightboxOpen(true)
   }
   const handleCloseMartellLightbox = () => {
@@ -2419,7 +2428,7 @@ function CreativeDesignerCaseDetail() {
             {martellFrame === 2 && (
               <div className="hidden md:grid w-full h-[calc(100dvh-var(--nav-h)-15px)] grid-cols-2 gap-4 relative miela-hero-in mt-[15px] px-[clamp(12px,3vw,24px)]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}>
                 {/* Left: Video */}
-                <div className="flex items-center justify-center overflow-hidden py-5">
+                <div className="flex items-center justify-center overflow-hidden py-5 cursor-pointer" onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
                   <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden h-full" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                     <video
                       src={martellVideo1}
@@ -2490,7 +2499,7 @@ function CreativeDesignerCaseDetail() {
                 )}
                 {/* Frame 2: Video (mobile) */}
                 {martellFrame === 2 && (
-                  <div className="absolute inset-0 flex items-center justify-center" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }}>
+                  <div className="absolute inset-0 flex items-center justify-center cursor-pointer" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
                     <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-[90%]" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                       <video
                         src={martellVideo1}
