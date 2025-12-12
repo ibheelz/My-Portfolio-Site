@@ -2536,14 +2536,15 @@ function CreativeDesignerCaseDetail() {
                 )}
                 {/* Frame 2: Video (mobile) */}
                 {martellFrame === 2 && (
-                  <div className="absolute inset-0 flex items-center justify-center cursor-pointer" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
-                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                  <div className="absolute inset-0 flex items-center justify-center cursor-pointer overflow-hidden" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
+                    <div className="flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxWidth: '100%', maxHeight: '100%' }}>
                       <video
                         src={martellVideo1}
                         autoPlay
                         loop
                         muted
                         className="h-full w-auto"
+                        style={{ maxWidth: '100%', maxHeight: '100%' }}
                       >
                         Your browser does not support the video tag.
                       </video>
@@ -2553,7 +2554,7 @@ function CreativeDesignerCaseDetail() {
               </div>
 
               {/* Navigation dots in the gap */}
-              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 20px)', transform: 'translateY(-50%)', zIndex: 20, display: martellLightboxOpen || martellLightboxClosing ? 'none' : 'flex' }}>
+              <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: 'calc(70% - 5px)', transform: 'translateY(-50%)', zIndex: 20, display: martellLightboxOpen || martellLightboxClosing ? 'none' : 'flex' }}>
                 <div className="mielo-gap-dots flex justify-center gap-2">
                   {Array.from({ length: TOTAL_MARTELL_FRAMES }).map((_, idx) => (
                     <div key={idx} className={`dot ${martellFrame === idx ? 'active' : ''}`} />
