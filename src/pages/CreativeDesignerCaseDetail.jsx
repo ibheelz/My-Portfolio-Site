@@ -225,27 +225,27 @@ const todoalrojoDesktopContent = {
   const mielaDesktopContent = {
   0: {
     heading: 'The Problem',
-    body: 'Miela Digital\'s visuals suffered from Digital Wallpaper Syndrome because the designs were flat and forgettable.\n\nAffiliates and marketers had nothing strong or shareable to work with and the brand completely lacked a recognizable online identity.'
+    body: 'Designs were flat and forgettable. Affiliates had nothing shareable and brand lacked online identity.'
   },
   1: {
     heading: 'Solution',
-    body: 'I built campaigns designed to be shared, from insider event cards to testimonials that sparked genuine conversations. Each piece served one mission: stop the scroll and make people look twice.'
+    body: 'Built shareable campaigns across events and testimonials designed to stop the scroll.'
   },
   2: {
     heading: '',
-    body: 'Created 50+ designs making betting promos feel native within streams for viewers. Goal was simple: become the brand streamers actually chose to promote daily.'
+    body: 'Created 50+ native betting promo designs for streamers to promote daily.'
   },
   3: {
     heading: '',
-    body: 'Designed QR system and banner overlays that lived on streamers\' screens daily. Clean, scannable and native; purpose-built to pull attention without interruption during streams.'
+    body: 'Designed QR systems and overlays for streamers\' screens—clean, scannable, and non-intrusive.'
   },
   4: {
     heading: '',
-    body: '70% engagement boost Pin‑Up and Thunderpick went from invisible to unmissable. Designs became the template by meeting people where they scroll every day.'
+    body: '70% engagement boost. Pin‑Up and Thunderpick went from invisible to unmissable.'
   },
   5: {
     heading: 'Result',
-    body: 'Miela Digital\'s new identity made the brand stand out online and attract better clients on its own.\n\nStreamers used the new designs every day, which pushed visibility, clicks, and overall reach way higher than before.'
+    body: 'New identity made brand stand out and attract better clients. Streamers used designs daily, boosting visibility and reach.'
   }
 }
 
