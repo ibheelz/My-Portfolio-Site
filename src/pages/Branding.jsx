@@ -1056,7 +1056,7 @@ function Branding() {
         .thumb { width: 100px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.05); display: inline-block; vertical-align: middle; transition: transform 150ms ease, border-color 150ms ease; }
         .thumb:hover { transform: translateY(-1px); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-        .thumb-active { border-color: #ed6d6d; }
+        .thumb-active { border-color: #aa90db; }
         @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
         /* Mobile navbar SVGs (small screens only) - use gold when SVG is alone in button */
         @media (max-width: 767px) {
