@@ -382,8 +382,12 @@ function CreativeDesignerCaseDetail() {
   const [martellLightboxClosing, setMartellLightboxClosing] = useState(false)
   const [martellLightboxEntering, setMartellLightboxEntering] = useState(false)
   const [martellLightboxIndex, setMartellLightboxIndex] = useState(0)
+  const [enterDirMartellLightbox, setEnterDirMartellLightbox] = useState('')
   const martellLightboxRef = useRef(null)
   const martellCloseBtnRef = useRef(null)
+  const martellLightboxThumbsScrollRef = useRef(null)
+  const martellLightboxThumbsInnerRef = useRef(null)
+  const martellLightboxTouchStartXRef = useRef(0)
 
   // Martell lightbox gallery (all images and videos)
   const martellLightboxGallery = [
@@ -830,15 +834,23 @@ function CreativeDesignerCaseDetail() {
     return () => { if (martellLightboxEnterTimerRef.current) clearTimeout(martellLightboxEnterTimerRef.current) }
   }, [martellLightboxOpen])
 
-  // Martell lightbox ESC key handler
+  // Martell lightbox keyboard handler (ESC, arrows)
   useEffect(() => {
     if (!martellLightboxOpen) return undefined
     const onKey = (e) => {
       if (e.key === 'Escape') handleCloseMartellLightbox()
+      else if (e.key === 'ArrowLeft') {
+        setEnterDirMartellLightbox('right')
+        setMartellLightboxIndex((i) => (i - 1 + martellLightboxGallery.length) % martellLightboxGallery.length)
+      }
+      else if (e.key === 'ArrowRight') {
+        setEnterDirMartellLightbox('left')
+        setMartellLightboxIndex((i) => (i + 1) % martellLightboxGallery.length)
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [martellLightboxOpen])
+  }, [martellLightboxOpen, martellLightboxGallery.length])
 
   const openMieloLightboxAt = (index) => {
     // Always use the current frame index to ensure correct image is shown
@@ -862,6 +874,20 @@ function CreativeDesignerCaseDetail() {
   const handleCloseMartellLightbox = () => {
     setMartellLightboxClosing(true)
     setTimeout(() => { setMartellLightboxOpen(false); setMartellLightboxClosing(false) }, 140)
+  }
+
+  // Martell lightbox navigation
+  const onMartellLightboxTouchStart = (e) => {
+    martellLightboxTouchStartXRef.current = e.touches[0].clientX
+  }
+  const onMartellLightboxTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX
+    const dx = martellLightboxTouchStartXRef.current - endX
+    if (Math.abs(dx) > 30) {
+      const dir = dx > 0 ? 1 : -1
+      setEnterDirMartellLightbox(dir > 0 ? 'left' : 'right')
+      setMartellLightboxIndex((i) => (i + dir + martellLightboxGallery.length) % martellLightboxGallery.length)
+    }
   }
 
   const openTodoalrojoLightboxAt = (index) => {
@@ -2772,8 +2798,8 @@ function CreativeDesignerCaseDetail() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Martell image lightbox"
-            className={`fixed inset-0 z-[9998] mielo-lightbox-bg flex items-center justify-center ${martellLightboxClosing ? 'mielo-lightbox-fade-out' : 'mielo-lightbox-fade-in'}`}
+            aria-label="Martell gallery lightbox"
+            className={`fixed inset-0 z-[9998] lightbox-overlay ${martellLightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
             onClick={handleCloseMartellLightbox}
             style={{
               backgroundImage: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG})`,
@@ -2782,27 +2808,64 @@ function CreativeDesignerCaseDetail() {
             }}
           >
             <button ref={martellCloseBtnRef} className={`lightbox-close ${martellLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseMartellLightbox}>×</button>
+            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setEnterDirMartellLightbox('right'); setMartellLightboxIndex((i)=> (i - 1 + martellLightboxGallery.length) % martellLightboxGallery.length) }}>
+              <span className={`chevron-content ${martellLightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            </button>
+            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); setEnterDirMartellLightbox('left'); setMartellLightboxIndex((i)=> (i + 1) % martellLightboxGallery.length) }}>
+              <span className={`chevron-content ${martellLightboxEntering ? 'controls-pop-in' : ''}`}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
             <div
               ref={martellLightboxRef}
-              className={`mielo-lightbox-modal ${martellLightboxClosing ? 'mielo-modal-scale-out' : 'mielo-modal-pop-in'}`}
-              style={{ width: '95vw', height: '95vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              onClick={handleCloseMartellLightbox}
+              className={`lightbox-modal ${martellLightboxEntering ? 'modal-pop-in' : (martellLightboxClosing ? 'scale-out' : 'scale-in')}`}
+              onClick={(e) => e.stopPropagation()}
             >
-              <img
-                key={`martell-${martellLightboxIndex}`}
-                src={martellLightboxGallery[martellLightboxIndex]?.src}
-                alt={`Martell image ${martellLightboxIndex}`}
-                decoding="async"
-                fetchpriority="high"
-                loading="eager"
-                className="mielo-lightbox-image"
-                style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain', margin: '0 auto' }}
-                onClick={(e) => e.stopPropagation()}
-                onError={(e) => {
-                  e.currentTarget.onerror = null
-                  e.currentTarget.src = martellLightboxIndex === 0 ? '/martell-image.webp' : '/martel-day.webp'
-                }}
-              />
+              <div className="lightbox-image-wrap" onTouchStart={onMartellLightboxTouchStart} onTouchEnd={onMartellLightboxTouchEnd}>
+                {martellLightboxGallery[martellLightboxIndex]?.type === 'image' ? (
+                  <img
+                    key={`martell-${martellLightboxIndex}`}
+                    src={martellLightboxGallery[martellLightboxIndex].src}
+                    alt={`Martell gallery item ${martellLightboxIndex}`}
+                    decoding="async"
+                    fetchpriority="high"
+                    loading="eager"
+                    className={`lightbox-image ${enterDirMartellLightbox === 'left' ? 'img-enter-left' : enterDirMartellLightbox === 'right' ? 'img-enter-right' : ''}`}
+                    onAnimationEnd={() => setEnterDirMartellLightbox(null)}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/martell-image.webp' }}
+                  />
+                ) : (
+                  <video
+                    key={`martell-vid-${martellLightboxIndex}`}
+                    src={martellLightboxGallery[martellLightboxIndex].src}
+                    controls
+                    autoPlay
+                    className={`lightbox-image ${enterDirMartellLightbox === 'left' ? 'img-enter-left' : enterDirMartellLightbox === 'right' ? 'img-enter-right' : ''}`}
+                    onAnimationEnd={() => setEnterDirMartellLightbox(null)}
+                    style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain' }}
+                  />
+                )}
+              </div>
+            </div>
+            <div className={`lightbox-thumbs ${martellLightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+              <div className="lightbox-thumbs-scroll" ref={martellLightboxThumbsScrollRef}>
+                <div className="thumbs-inner" ref={martellLightboxThumbsInnerRef}>
+                  {martellLightboxGallery.map((it, i) => (
+                    <button
+                      key={`martell-t-${i}`}
+                      role="option"
+                      aria-selected={i === martellLightboxIndex}
+                      className={`thumb ${i === martellLightboxIndex ? 'thumb-active' : ''}`}
+                      onClick={() => setMartellLightboxIndex(i)}
+                      title={`View item ${i+1}`}
+                    >
+                      <img src={it.thumb || it.src} alt={`Thumbnail ${i + 1}`} loading="lazy" decoding="async" />
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
