@@ -2845,7 +2845,7 @@ function CreativeDesignerCaseDetail() {
                     muted
                     className={`lightbox-image ${enterDirMartellLightbox === 'left' ? 'img-enter-left' : enterDirMartellLightbox === 'right' ? 'img-enter-right' : ''}`}
                     onAnimationEnd={() => setEnterDirMartellLightbox(null)}
-                    style={{ maxWidth: '95vw', maxHeight: '95vh', objectFit: 'contain' }}
+                    style={{ height: '100%', width: 'auto', maxWidth: '95vw' }}
                   />
                 )}
               </div>
