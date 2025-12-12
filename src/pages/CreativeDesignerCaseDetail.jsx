@@ -2455,7 +2455,18 @@ function CreativeDesignerCaseDetail() {
               <div className="hidden md:grid w-full h-[calc(100dvh-var(--nav-h)-15px)] grid-cols-2 gap-4 relative miela-hero-in mt-[15px] px-[clamp(12px,3vw,24px)]" onTouchStart={onMartellTouchStart} onTouchMove={(e)=>e.preventDefault()} onTouchEnd={onMartellTouchEnd}>
                 {/* Left: Video */}
                 <div className="flex items-center justify-center overflow-hidden py-5 cursor-pointer" onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
-                  <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden h-full" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                  <div className="hidden lg:inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden h-full" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                    <video
+                      src={martellVideo1}
+                      autoPlay
+                      loop
+                      muted
+                      className="h-full w-auto"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  <div className="hidden md:flex lg:hidden w-full h-full items-center justify-center">
                     <video
                       src={martellVideo1}
                       autoPlay
@@ -2526,7 +2537,7 @@ function CreativeDesignerCaseDetail() {
                 {/* Frame 2: Video (mobile) */}
                 {martellFrame === 2 && (
                   <div className="absolute inset-0 flex items-center justify-center cursor-pointer" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
-                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden max-h-[90%]" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                    <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)' }}>
                       <video
                         src={martellVideo1}
                         autoPlay
