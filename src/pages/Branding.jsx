@@ -7,6 +7,14 @@ import brandingHero from '../assets/branding-hero.webp'
 const merchImports = import.meta.glob('../assets/merchandise/*.{webp,png,jpg,jpeg}', { eager: true, query: '?url', import: 'default' })
 const merchImages = Object.values(merchImports).sort()
 
+// Load all identity images from public folder
+const identityImages = [
+  '/identity-1.webp',
+  '/identity-2.webp',
+  '/identity-3.webp',
+  '/identity-4.webp'
+]
+
 function Branding() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -26,6 +34,20 @@ function Branding() {
   const preloadedRef = useRef(new Set())
   const [lightboxEntering, setLightboxEntering] = useState(false)
   const enterTimerRef = useRef(null)
+
+  // Identity lightbox state (separate from merch)
+  const [identityLightboxOpen, setIdentityLightboxOpen] = useState(false)
+  const [identityLightboxClosing, setIdentityLightboxClosing] = useState(false)
+  const [identityCurrentIndex, setIdentityCurrentIndex] = useState(0)
+  const [identityEnterDir, setIdentityEnterDir] = useState(null)
+  const identityLightboxRef = useRef(null)
+  const identityCloseBtnRef = useRef(null)
+  const identityThumbsScrollRef = useRef(null)
+  const identityTouchStartXRef = useRef(null)
+  const identityTouchStartYRef = useRef(null)
+  const identityPreloadedRef = useRef(new Set())
+  const [identityLightboxEntering, setIdentityLightboxEntering] = useState(false)
+  const identityEnterTimerRef = useRef(null)
   useEffect(() => {
     if (location.state && location.state.animateHero) {
       setHeroKey((k) => k + 1)
@@ -66,10 +88,10 @@ function Branding() {
     const body = document.body
     const prevHtmlOverflow = html.style.overflow
     const prevBodyOverflow = body.style.overflow
-    if (modalOpen || lightboxOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
+    if (modalOpen || lightboxOpen || identityLightboxOpen) { html.style.overflow = 'hidden'; body.style.overflow = 'hidden' }
     else { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
     return () => { html.style.overflow = prevHtmlOverflow || ''; body.style.overflow = prevBodyOverflow || '' }
-  }, [modalOpen, lightboxOpen])
+  }, [modalOpen, lightboxOpen, identityLightboxOpen])
 
   // Decode helper
   const ensureDecoded = (src) => new Promise((resolve) => {
@@ -103,6 +125,31 @@ function Branding() {
     }
     return () => { if (enterTimerRef.current) { clearTimeout(enterTimerRef.current); enterTimerRef.current = null } }
   }, [lightboxOpen])
+
+  // Identity lightbox keyboard controls
+  useEffect(() => {
+    if (!identityLightboxOpen) return
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); nextIdentityImage() }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prevIdentityImage() }
+    }
+    window.addEventListener('keydown', onKey)
+    setTimeout(() => identityCloseBtnRef.current?.focus(), 0)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [identityLightboxOpen])
+
+  // Identity lightbox entrance animation flag
+  useEffect(() => {
+    if (identityLightboxOpen) {
+      setIdentityLightboxEntering(true)
+      if (identityEnterTimerRef.current) clearTimeout(identityEnterTimerRef.current)
+      identityEnterTimerRef.current = setTimeout(() => setIdentityLightboxEntering(false), 1600)
+    } else {
+      setIdentityLightboxEntering(false)
+      if (identityEnterTimerRef.current) { clearTimeout(identityEnterTimerRef.current); identityEnterTimerRef.current = null }
+    }
+    return () => { if (identityEnterTimerRef.current) { clearTimeout(identityEnterTimerRef.current); identityEnterTimerRef.current = null } }
+  }, [identityLightboxOpen])
 
   const openMerch = async (startIndex = 0) => {
     const list = merchImages.length
@@ -155,6 +202,53 @@ function Branding() {
   const handleTouchEnd = () => {
     touchStartXRef.current = null
     touchStartYRef.current = null
+  }
+
+  // Identity lightbox functions
+  const openIdentity = async (startIndex = 0) => {
+    try {
+      if (window.preloadGate) {
+        window.preloadGate(identityImages, { minMs: 0, maxMs: 0, silent: true })
+      } else {
+        const first = identityImages[startIndex] || identityImages[0]
+        if (first) ensureDecoded(first)
+      }
+    } catch (_) {}
+    setIdentityCurrentIndex(startIndex)
+    setIdentityLightboxEntering(true)
+    setIdentityLightboxOpen(true)
+  }
+  const handleCloseIdentityLightbox = () => {
+    setIdentityLightboxClosing(true)
+    setTimeout(() => { setIdentityLightboxOpen(false); setIdentityLightboxClosing(false) }, 140)
+  }
+  const identityTotal = identityImages.length
+  const prevIdentityImage = () => { setIdentityEnterDir('right'); setIdentityCurrentIndex((i) => (i - 1 + identityTotal) % identityTotal) }
+  const nextIdentityImage = () => { setIdentityEnterDir('left'); setIdentityCurrentIndex((i) => (i + 1) % identityTotal) }
+
+  // Identity mobile swipe
+  const handleIdentityTouchStart = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    identityTouchStartXRef.current = t.clientX
+    identityTouchStartYRef.current = t.clientY
+  }
+  const handleIdentityTouchMove = (e) => {
+    const t = e.touches && e.touches[0]
+    if (!t) return
+    const dx = t.clientX - (identityTouchStartXRef.current ?? t.clientX)
+    const dy = t.clientY - (identityTouchStartYRef.current ?? t.clientY)
+    const absDx = Math.abs(dx)
+    const absDy = Math.abs(dy)
+    if (window.innerWidth <= 768 && absDx > 40 && absDx > absDy * 1.2) {
+      if (dx < 0) nextIdentityImage(); else prevIdentityImage()
+      identityTouchStartXRef.current = t.clientX
+      identityTouchStartYRef.current = t.clientY
+    }
+  }
+  const handleIdentityTouchEnd = () => {
+    identityTouchStartXRef.current = null
+    identityTouchStartYRef.current = null
   }
 
   return (
@@ -234,6 +328,7 @@ function Branding() {
             <button
               className="branding-image-button anim-btn-soft font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(11px,1vw,16px)]"
               style={{ minWidth: 'clamp(280px, 24vw, 480px)', height: 'clamp(64px,6vw,96px)' }}
+              onClick={() => openIdentity(0)}
             >
               <span className="branding-image-button__label">Brand Identity</span>
             </button>
@@ -283,7 +378,7 @@ function Branding() {
                 key={i}
                 className="branding-image-button anim-btn-soft w-full font-['Jost',sans-serif] font-medium capitalize transition-all duration-300 flex items-center justify-center text-[clamp(13px,3.5vw,16px)]"
                 style={{ height: 'clamp(64px,10vw,86px)' }}
-                onClick={() => { if (label === 'Merchandise') openMerch(0) }}
+                onClick={() => { if (label === 'Brand Identity') openIdentity(0); else if (label === 'Merchandise') openMerch(0) }}
               >
                 <span className="branding-image-button__label">{label}</span>
               </button>
@@ -370,6 +465,50 @@ function Branding() {
               <div className="thumbs-inner">
                 {(merchImages.length ? merchImages : Array.from({ length: fallbackCount }, (_, i) => `${import.meta.env.BASE_URL}merchandise/${i + 1}.webp`)).map((src, i) => (
                   <button key={i} className={`thumb ${i === (currentIndex % total) ? 'thumb-active' : ''}`} aria-label={`Go to image ${i + 1}`} onClick={() => setCurrentIndex(i)}>
+                    <img src={src} alt={``} decoding="async" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Lightbox for Brand Identity */}
+      {(identityLightboxOpen || identityLightboxClosing) && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Brand Identity gallery"
+          className={`fixed inset-0 z-[9998] lightbox-overlay ${identityLightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
+        >
+          <button ref={identityCloseBtnRef} className={`lightbox-close ${identityLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={handleCloseIdentityLightbox}>×</button>
+          <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevIdentityImage}>
+            <span className={`chevron-content ${identityLightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+          </button>
+          <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextIdentityImage}>
+            <span className={`chevron-content ${identityLightboxEntering ? 'controls-pop-in' : ''}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </button>
+          <div className={`lightbox-modal ${identityLightboxEntering ? 'modal-pop-in' : (identityLightboxClosing ? 'scale-out' : 'scale-in')}`} ref={identityLightboxRef} onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-image-wrap" onTouchStart={handleIdentityTouchStart} onTouchMove={handleIdentityTouchMove} onTouchEnd={handleIdentityTouchEnd}>
+              <img
+                key={identityCurrentIndex}
+                src={identityImages[identityCurrentIndex % identityImages.length]}
+                alt={`Brand Identity ${identityCurrentIndex + 1}`}
+                className={`lightbox-image ${identityEnterDir === 'left' ? 'img-enter-left' : identityEnterDir === 'right' ? 'img-enter-right' : ''}`}
+                decoding="async"
+              />
+            </div>
+          </div>
+          <div className={`lightbox-thumbs ${identityLightboxEntering ? 'thumbs-pop-in' : ''}`} role="listbox" aria-label="Thumbnails" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-thumbs-scroll" ref={identityThumbsScrollRef}>
+              <div className="thumbs-inner">
+                {identityImages.map((src, i) => (
+                  <button key={i} className={`thumb ${i === (identityCurrentIndex % identityTotal) ? 'thumb-active' : ''}`} aria-label={`Go to image ${i + 1}`} onClick={() => setIdentityCurrentIndex(i)}>
                     <img src={src} alt={``} decoding="async" />
                   </button>
                 ))}
