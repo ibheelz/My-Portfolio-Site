@@ -379,7 +379,7 @@ function BrandingCaseStudy() {
             {lumeaImages[brandingFrame] && (
               <div className="w-full h-full absolute flex items-center justify-center">
                 <div
-                  className="rounded-[clamp(10px,1vw,18px)] overflow-hidden inline-block cursor-pointer"
+                  className={`rounded-[clamp(10px,1vw,18px)] overflow-hidden inline-block cursor-pointer ${enterDir === 'left' ? 'slide-enter-left' : enterDir === 'right' ? 'slide-enter-right' : ''}`}
                   onClick={() => {
                     setLumeaLightboxOpen(true)
                     setLumeaCurrentIndex(lumeaLightboxImages.indexOf(lumeaImages[brandingFrame]))
@@ -421,7 +421,7 @@ function BrandingCaseStudy() {
             </div>
           </div>
           {/* Text container: 50% (shown second, at bottom) */}
-          <div className="order-2 h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden">
+          <div className={`order-2 h-[50%] px-[clamp(12px,3vw,24px)] flex items-center justify-center overflow-hidden ${enterDir === 'left' ? 'slide-enter-left' : enterDir === 'right' ? 'slide-enter-right' : ''}`}>
             <div className="text-center font-['Jost',sans-serif] w-full h-full flex flex-col items-center justify-center mobile-paras overflow-hidden max-h-full px-4">
               {brandingContent[brandingFrame] && (
                 <>

@@ -452,6 +452,29 @@ function CreativeDesignerCaseDetail() {
     }
   }, [lightboxOpen])
 
+  // Lock scroll and prevent page movement on Martell page
+  useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    if (slug === 'martell') {
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      html.style.height = '100vh';
+      body.style.height = '100vh';
+    } else {
+      html.style.overflow = '';
+      body.style.overflow = '';
+      html.style.height = '';
+      body.style.height = '';
+    }
+    return () => {
+      html.style.overflow = '';
+      body.style.overflow = '';
+      html.style.height = '';
+      body.style.height = '';
+    }
+  }, [slug])
+
   // Keyboard: Escape/Arrows inside lightbox
   useEffect(() => {
     // Trigger a one-time entry animation for Todoalrojo columns on page load
@@ -1362,11 +1385,13 @@ function CreativeDesignerCaseDetail() {
   const onMartellTouchEnd = (e) => {
     if (window.innerWidth >= 768) return
     if (!e.changedTouches || e.changedTouches.length === 0) return
+    e.preventDefault()
     const endY = e.changedTouches[0].clientY
     const dy = endY - martellTouchStartYRef.current
     const threshold = 14
     if (Math.abs(dy) < threshold) return
     const dir = dy < 0 ? 1 : -1
+    setEnterDirMartell(dir > 0 ? 'right' : 'left')
     setMartellFrame((i) => (i + dir + TOTAL_MARTELL_FRAMES) % TOTAL_MARTELL_FRAMES)
   }
 
@@ -2504,7 +2529,7 @@ function CreativeDesignerCaseDetail() {
               <div className="h-[70%] px-[clamp(12px,3vw,24px)] flex items-center justify-center relative">
                 {/* Image frame 0: martell-image */}
                 {martellFrame === 0 && (
-                  <div className="absolute inset-0 flex items-center justify-center cursor-pointer" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(0) }}>
+                  <div className={`absolute inset-0 flex items-center justify-center cursor-pointer ${enterDirMartell === 'left' ? 'miela-enter-left' : enterDirMartell === 'right' ? 'miela-enter-right' : ''}`} style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(0)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(0) }}>
                     <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
                       <img
                         src={martellImage}
@@ -2520,7 +2545,7 @@ function CreativeDesignerCaseDetail() {
                 )}
                 {/* Frame 1: martell day image */}
                 {martellFrame === 1 && (
-                  <div className="absolute inset-0 flex items-center justify-center cursor-pointer" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(1)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(1) }}>
+                  <div className={`absolute inset-0 flex items-center justify-center cursor-pointer ${enterDirMartell === 'left' ? 'miela-enter-left' : enterDirMartell === 'right' ? 'miela-enter-right' : ''}`} style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(1)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(1) }}>
                     <div className="inline-flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxHeight: '100%', maxWidth: '100%' }}>
                       <img
                         src={martelDayImage}
@@ -2536,7 +2561,7 @@ function CreativeDesignerCaseDetail() {
                 )}
                 {/* Frame 2: Video (mobile) */}
                 {martellFrame === 2 && (
-                  <div className="absolute inset-0 flex items-center justify-center cursor-pointer overflow-hidden" style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
+                  <div className={`absolute inset-0 flex items-center justify-center cursor-pointer overflow-hidden ${enterDirMartell === 'left' ? 'miela-enter-left' : enterDirMartell === 'right' ? 'miela-enter-right' : ''}`} style={{ opacity: 1, transition: 'opacity 1600ms ease', willChange: 'opacity' }} onClick={() => openMartellLightboxAt(2)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') openMartellLightboxAt(2) }}>
                     <div className="flex items-center justify-center rounded-[clamp(10px,1vw,18px)] overflow-hidden" style={{ border: '1.5px solid rgba(255,255,255,0.1)', maxWidth: '100%', maxHeight: '100%' }}>
                       <video
                         src={martellVideo1}
