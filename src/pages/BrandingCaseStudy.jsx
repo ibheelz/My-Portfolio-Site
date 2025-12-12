@@ -82,6 +82,26 @@ function BrandingCaseStudy() {
     }
   }, [lumeaLightboxOpen, lumeaLightboxEntering])
 
+  // Lock background scroll when lightbox open
+  useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    const prevHtmlOverflow = html.style.overflow
+    const prevBodyOverflow = body.style.overflow
+    if (lumeaLightboxOpen) {
+      html.style.overflow = 'hidden'
+      body.style.overflow = 'hidden'
+    }
+    else {
+      html.style.overflow = prevHtmlOverflow || ''
+      body.style.overflow = prevBodyOverflow || ''
+    }
+    return () => {
+      html.style.overflow = prevHtmlOverflow || ''
+      body.style.overflow = prevBodyOverflow || ''
+    }
+  }, [lumeaLightboxOpen])
+
   // Keyboard navigation
   useEffect(() => {
     const lockMs = 60
@@ -251,7 +271,7 @@ function BrandingCaseStudy() {
       </div>
       )}
 
-      <div className="header-spacer" />
+      {!lumeaLightboxOpen && <div className="header-spacer" />}
 
       {/* Content: Slide carousel */}
       <section className="page-content relative subpad flex-1 px-0 anim-bg-soft">
