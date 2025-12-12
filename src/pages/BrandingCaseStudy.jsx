@@ -567,7 +567,7 @@ function BrandingCaseStudy() {
         .lightbox-overlay { background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG}); background-size: cover; background-position: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 120ms ease; overflow: hidden; overscroll-behavior: contain; }
         .lightbox-fade-in { opacity: 1; }
         .lightbox-fade-out { opacity: 0; }
-        .lightbox-modal { position: relative; width: min(70vw, 1200px); max-height: 80vh; background: rgba(20,20,22,0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #e7f2f8; transform: scale(0.98); transform-origin: center center; transition: transform 120ms ease; opacity: 0; }
+        .lightbox-modal { position: relative; width: min(90vw, 1400px); max-height: 90vh; background: rgba(20,20,22,0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #e7f2f8; transform: scale(0.98); transform-origin: center center; transition: transform 120ms ease; opacity: 0; }
         .scale-in { transform: scale(1); opacity: 1; }
         .scale-out { transform: scale(0.98); }
         @keyframes modalPopIn { 0% { opacity: 0; transform: translateY(12px) scale(0.94);} 100% { opacity: 1; transform: translateY(0) scale(1);} }
@@ -585,7 +585,7 @@ function BrandingCaseStudy() {
         .lightbox-chevron:hover { background: #aa90db; border-color: #aa90db; color: #ffffff; }
         .lightbox-chevron:active { background: #aa90db; border-color: #aa90db; color: #ffffff; }
         .lightbox-image-wrap { display: flex; align-items: center; justify-content: center; padding: 20px 20px 90px; touch-action: none; }
-        .lightbox-image { max-width: 100%; max-height: calc(80vh - 110px); object-fit: cover; object-position: top center; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
+        .lightbox-image { max-width: 100%; max-height: calc(90vh - 110px); object-fit: cover; object-position: top center; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); will-change: transform, opacity, filter; }
         @keyframes imgEnterL { 0% { opacity: 0; transform: translateX(36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
         @keyframes imgEnterR { 0% { opacity: 0; transform: translateX(-36px) scale(0.985); filter: blur(6px);} 100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0);} }
         .img-enter-left { animation: imgEnterL 900ms cubic-bezier(0.16, 1, 0.3, 1); }
@@ -599,7 +599,7 @@ function BrandingCaseStudy() {
         .thumb:hover { transform: translateY(-1px); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
         .thumb-active { border-color: #aa90db; }
-        @media (max-width: 768px) { .lightbox-modal { width: min(92vw, 900px); max-height: 80vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
+        @media (max-width: 768px) { .lightbox-modal { width: min(96vw, 1000px); max-height: 90vh; } .lightbox-image-wrap { padding: 12px 12px 90px; } .lightbox-chevron { display: none; } }
       `}</style>
     </div>
   )
