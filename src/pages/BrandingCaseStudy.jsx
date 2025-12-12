@@ -165,8 +165,7 @@ function BrandingCaseStudy() {
     setTimeout(() => {
       setLumeaLightboxOpen(false)
       setLumeaLightboxClosing(false)
-      setLumeaLightboxEntering(false)
-    }, 300)
+    }, 140)
   }
 
   const prevLumeaImage = () => {
@@ -400,19 +399,21 @@ function BrandingCaseStudy() {
         </div>
 
         {/* Lumea lightbox */}
-        {lumeaLightboxOpen && (
+        {(lumeaLightboxOpen || lumeaLightboxClosing) && (
           <div
+            role="dialog"
+            aria-modal="true"
             aria-label="Lumea images gallery"
             className={`fixed inset-0 z-[9998] lightbox-overlay ${lumeaLightboxClosing ? 'lightbox-fade-out' : 'lightbox-fade-in'}`}
             onClick={closeLumeaLightbox}
           >
-            <button ref={lumeaCloseBtnRef} className={`lightbox-close ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={closeLumeaLightbox}>×</button>
-            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={prevLumeaImage}>
+            <button ref={lumeaCloseBtnRef} className={`lightbox-close ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`} aria-label="Close" onClick={(e) => { e.stopPropagation(); closeLumeaLightbox() }}>×</button>
+            <button className="lightbox-chevron lightbox-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); prevLumeaImage() }}>
               <span className={`chevron-content ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
               </span>
             </button>
-            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={nextLumeaImage}>
+            <button className="lightbox-chevron lightbox-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); nextLumeaImage() }}>
               <span className={`chevron-content ${lumeaLightboxEntering ? 'controls-pop-in' : ''}`}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </span>
