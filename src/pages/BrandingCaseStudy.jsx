@@ -605,7 +605,7 @@ function BrandingCaseStudy() {
         .miela-hero-in { animation: bgSoftIn 800ms ease-out both; }
 
         /* Lightbox styles */
-        .lightbox-overlay { background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG}); background-size: cover; background-position: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 120ms ease; overflow: hidden; overscroll-behavior: contain; }
+        .lightbox-overlay { background-color: rgba(0,0,0,0.8); background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(${csBG}); background-size: cover; background-position: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 120ms ease; overflow: hidden; overscroll-behavior: contain; }
         .lightbox-fade-in { opacity: 1; }
         .lightbox-fade-out { opacity: 0; }
         .lightbox-modal { position: relative; width: min(70vw, 1200px); max-height: 80vh; background: rgba(20,20,22,0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #e7f2f8; transform: scale(0.98); transform-origin: center center; transition: transform 120ms ease; opacity: 0; }
