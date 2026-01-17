@@ -106,5 +106,287 @@
         }
       });
     </script>
+
+    <!-- Discord Visitor Tracking Integration -->
+    <script>
+        console.log('=== Visitor Tracking Started ===');
+
+        // Your Discord webhook URL
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1462169105007378610/UroqW4r2tI5asgQRo6P26qpxlUdtxjEud0qxClybyzyuNKxlsdZ-YJHXjKGX1AguXFzI';
+        console.log('Discord Webhook Configured:', !!DISCORD_WEBHOOK_URL);
+
+        // Detect traffic source (where visitor came from)
+        function getReferrerSource(referrer) {
+            if (!referrer || referrer === 'Direct Visit') return 'Direct Visit';
+            const referrerLower = referrer.toLowerCase();
+
+            if (referrerLower.includes('t.co')) return 'Twitter';
+            if (referrerLower.includes('twitter.com')) return 'Twitter';
+            if (referrerLower.includes('x.com')) return 'X (Twitter)';
+            if (referrerLower.includes('instagram.com')) return 'Instagram';
+            if (referrerLower.includes('facebook.com') || referrerLower.includes('fb.com')) return 'Facebook';
+            if (referrerLower.includes('linkedin.com')) return 'LinkedIn';
+            if (referrerLower.includes('tiktok.com')) return 'TikTok';
+            if (referrerLower.includes('youtube.com') || referrerLower.includes('youtu.be')) return 'YouTube';
+            if (referrerLower.includes('reddit.com')) return 'Reddit';
+            if (referrerLower.includes('github.com')) return 'GitHub';
+            if (referrerLower.includes('google')) return 'Google';
+            if (referrerLower.includes('bing')) return 'Bing';
+            if (referrerLower.includes('duckduckgo')) return 'DuckDuckGo';
+            if (referrerLower.includes('discord')) return 'Discord';
+            if (referrerLower.includes('t.me')) return 'Telegram';
+            if (referrerLower.includes('whatsapp')) return 'WhatsApp';
+
+            return 'Direct Visit';
+        }
+
+        // Main tracking function
+        async function sendDiscordNotification() {
+            // Prevent duplicate notifications in same session
+            if (sessionStorage.getItem('notificationSent')) {
+                console.log('Notification already sent in this session, skipping...');
+                return;
+            }
+            console.log('Setting notification flag...');
+            sessionStorage.setItem('notificationSent', 'true');
+
+            const timestamp = new Date().toLocaleString();
+            const userAgent = navigator.userAgent;
+            const referrerUrl = document.referrer || 'Direct Visit';
+            const referrerSource = getReferrerSource(referrerUrl);
+
+            // Track visit count and last visit using browser storage
+            let visitCount = 1;
+            let lastVisit = 'First visit';
+
+            try {
+                const visitData = JSON.parse(localStorage.getItem('portfolioVisits') || '{"count": 0, "lastVisit": null}');
+                lastVisit = visitData.lastVisit ? `${visitData.lastVisit}` : 'First visit';
+                visitCount = visitData.count + 1;
+                localStorage.setItem('portfolioVisits', JSON.stringify({
+                    count: visitCount,
+                    lastVisit: timestamp
+                }));
+            } catch (err) {
+                localStorage.setItem('portfolioVisits', JSON.stringify({
+                    count: 1,
+                    lastVisit: timestamp
+                }));
+            }
+
+            // Get visitor's geolocation (tries 4 APIs with fallback)
+            let geoInfo = {
+                city: 'Unknown',
+                country: 'Unknown',
+                ip: 'Unknown',
+                isp: 'N/A',
+                org: 'N/A',
+                timezone: 'N/A',
+                region: 'N/A',
+                coordinates: 'N/A'
+            };
+
+            async function fetchGeoInfo() {
+                const apis = [
+                    // API 1: ip-api.com (most detailed)
+                    async () => {
+                        const response = await fetch('https://ip-api.com/json/?fields=city,country,regionName,isp,org,timezone,ip,lat,lon', {
+                            signal: AbortSignal.timeout(3000)
+                        });
+                        if (!response.ok) throw new Error(`Status ${response.status}`);
+                        const data = await response.json();
+                        if (data.status !== 'success') throw new Error('API returned non-success status');
+                        return {
+                            city: data.city || 'Unknown',
+                            country: data.country || 'Unknown',
+                            region: data.regionName || 'Unknown',
+                            ip: data.ip || 'Unknown',
+                            isp: data.isp || 'Unknown',
+                            org: data.org || 'Unknown',
+                            timezone: data.timezone || 'Unknown',
+                            coordinates: (data.lat && data.lon) ? `${data.lat}, ${data.lon}` : 'Unknown'
+                        };
+                    },
+                    // API 2: ipapi.co (good CORS)
+                    async () => {
+                        const response = await fetch('https://ipapi.co/json/', {
+                            signal: AbortSignal.timeout(3000)
+                        });
+                        if (!response.ok) throw new Error(`Status ${response.status}`);
+                        const data = await response.json();
+                        return {
+                            city: data.city || 'Unknown',
+                            country: data.country_name || 'Unknown',
+                            region: data.region || 'Unknown',
+                            ip: data.ip || 'Unknown',
+                            isp: data.org || 'Unknown',
+                            org: data.org || 'Unknown',
+                            timezone: data.timezone || 'Unknown',
+                            coordinates: (data.latitude && data.longitude) ? `${data.latitude}, ${data.longitude}` : 'Unknown'
+                        };
+                    },
+                    // API 3: geojs.io (lightweight)
+                    async () => {
+                        const response = await fetch('https://get.geojs.io/v1/ip/geo.json', {
+                            signal: AbortSignal.timeout(3000)
+                        });
+                        if (!response.ok) throw new Error(`Status ${response.status}`);
+                        const data = await response.json();
+                        return {
+                            city: data.city || 'Unknown',
+                            country: data.country || 'Unknown',
+                            region: data.region || 'Unknown',
+                            ip: data.ip || 'Unknown',
+                            isp: data.isp || 'Unknown',
+                            org: 'Unknown',
+                            timezone: 'Unknown',
+                            coordinates: (data.latitude && data.longitude) ? `${data.latitude}, ${data.longitude}` : 'Unknown'
+                        };
+                    },
+                    // API 4: geolocation-db.com (fallback)
+                    async () => {
+                        const response = await fetch('https://geolocation-db.com/json/geoip/me', {
+                            signal: AbortSignal.timeout(3000)
+                        });
+                        if (!response.ok) throw new Error(`Status ${response.status}`);
+                        const data = await response.json();
+                        return {
+                            city: data.city || 'Unknown',
+                            country: data.country_name || 'Unknown',
+                            region: data.state || 'Unknown',
+                            ip: data.IPv4 || 'Unknown',
+                            isp: 'Unknown',
+                            org: 'Unknown',
+                            timezone: 'Unknown',
+                            coordinates: (data.latitude && data.longitude) ? `${data.latitude}, ${data.longitude}` : 'Unknown'
+                        };
+                    }
+                ];
+
+                // Try each API until one succeeds
+                for (let i = 0; i < apis.length; i++) {
+                    try {
+                        console.log(`Trying geolocation API ${i + 1}/${apis.length}...`);
+                        const result = await apis[i]();
+                        console.log(`✅ Geolocation API ${i + 1} succeeded:`, result);
+                        return result;
+                    } catch (err) {
+                        console.log(`❌ Geolocation API ${i + 1} failed:`, err.message);
+                    }
+                }
+
+                return geoInfo;
+            }
+
+            try {
+                geoInfo = await fetchGeoInfo();
+            } catch (err) {
+                console.log('Critical geolocation error:', err.message);
+            }
+
+            // Build Discord message payload
+            const payload = {
+                content: '🔔 New visitor to Abiola\'s Portfolio',
+                embeds: [
+                    {
+                        color: 0x06080a,
+                        fields: [
+                            {
+                                name: '⏰ Time',
+                                value: timestamp,
+                                inline: false
+                            },
+                            {
+                                name: '📊 Visit Count',
+                                value: `${visitCount} visit${visitCount > 1 ? 's' : ''}`,
+                                inline: true
+                            },
+                            {
+                                name: '🕐 Last Visit',
+                                value: lastVisit,
+                                inline: true
+                            },
+                            {
+                                name: '🌍 Location',
+                                value: `${geoInfo.city || 'Unknown'}, ${geoInfo.region || 'N/A'}, ${geoInfo.country || 'Unknown'}`,
+                                inline: false
+                            },
+                            {
+                                name: '📍 Coordinates',
+                                value: geoInfo.coordinates || 'N/A',
+                                inline: false
+                            },
+                            {
+                                name: '🔗 Source',
+                                value: referrerSource,
+                                inline: false
+                            },
+                            {
+                                name: '🌐 IP Address',
+                                value: geoInfo.ip || 'Unknown',
+                                inline: false
+                            },
+                            {
+                                name: '🏢 ISP',
+                                value: geoInfo.isp || 'N/A',
+                                inline: false
+                            },
+                            {
+                                name: '🏭 Organization',
+                                value: geoInfo.org || 'N/A',
+                                inline: false
+                            },
+                            {
+                                name: '⏱️ Timezone',
+                                value: geoInfo.timezone || 'N/A',
+                                inline: false
+                            },
+                            {
+                                name: '📱 Browser',
+                                value: userAgent.substring(0, 150),
+                                inline: false
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            // Send to Discord
+            if (DISCORD_WEBHOOK_URL) {
+                console.log('Sending Discord notification...');
+
+                fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    console.log('Discord response status:', response.status);
+                    if (response.status === 204) {
+                        console.log('✅ Discord notification sent successfully!');
+                    } else {
+                        console.error('❌ Discord returned status:', response.status);
+                        return response.text().then(text => {
+                            console.error('Discord error response:', text);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.error('❌ Discord notification error:', err.message);
+                });
+            } else {
+                console.warn('Discord webhook not configured');
+            }
+        }
+
+        // Trigger the tracking
+        console.log('Visitor tracking script loaded');
+        setTimeout(() => {
+            console.log('Attempting to send notification...');
+            sendDiscordNotification();
+        }, 500);
+    </script>
   </body>
 </html>
