@@ -1,3 +1,5 @@
+'use client'
+
 import { blogPosts } from '@/src/data/content'
 import BlogCard from '@/src/components/BlogCard'
 

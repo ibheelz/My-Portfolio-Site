@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Label from '@/src/components/Label'
 import { Envelope, Phone, MapPin } from '@phosphor-icons/react'

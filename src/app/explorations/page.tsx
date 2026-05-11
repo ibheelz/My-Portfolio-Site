@@ -1,3 +1,5 @@
+'use client'
+
 import { explorations } from '@/src/data/content'
 import ExplorationCard from '@/src/components/ExplorationCard'
 

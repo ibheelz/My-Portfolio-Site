@@ -1,3 +1,5 @@
+'use client'
+
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import Label from '@/src/components/Label'
