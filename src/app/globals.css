@@ -609,11 +609,15 @@ nav {
   }
 
   .project-card {
-    height: 160px !important;
+    height: 140px !important;
   }
 
   .exploration-card {
-    height: 160px !important;
+    height: 140px !important;
+  }
+
+  .project-card-image {
+    aspect-ratio: 16 / 9 !important;
   }
 
   .projects-rows-stack {

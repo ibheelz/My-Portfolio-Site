@@ -14,7 +14,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     <Link href={`/projects/${project.slug}`}>
         <div style={{ width: '100%', height: '520px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '12px', textDecoration: 'none', color: 'inherit', borderRadius: '16px', backgroundColor: 'var(--grey-bg)', cursor: 'pointer' }} className="group">
           {/* Image Container */}
-          <div style={{ width: '100%', aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
+          <div className="project-card-image" style={{ width: '100%', aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
             <Image
               src={project.cardImage}
               alt={project.title}
