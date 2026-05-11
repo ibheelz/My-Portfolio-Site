@@ -90,7 +90,7 @@ export default function SideNav() {
       </div>
 
       {/* Social Navigation */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" style={{ marginTop: '20px' }}>
         <p className="uppercase-headline">Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
