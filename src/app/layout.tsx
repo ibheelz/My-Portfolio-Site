@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import SideNav from '@/src/components/SideNav'
+import RootLayoutClient from './RootLayoutClient'
 
 export const metadata: Metadata = {
   title: 'Abiola Adeyeye — Brand & Visual Designer',
@@ -16,12 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="page-wrapper">
-          <SideNav />
-          <main className="page-content">
-            {children}
-          </main>
-        </div>
+        <RootLayoutClient>
+          {children}
+        </RootLayoutClient>
       </body>
     </html>
   )
