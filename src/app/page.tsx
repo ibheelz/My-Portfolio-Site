@@ -35,35 +35,13 @@ export default function Home() {
             {/* Headline + What I do */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px' }}>
               {/* Headline */}
-              <h1
-                style={{
-                  fontFamily: 'Mortend',
-                  fontSize: '38px',
-                  fontWeight: 400,
-                  lineHeight: '1.4em',
-                  letterSpacing: '-0.2px',
-                  color: 'var(--white)',
-                  maxWidth: '876px',
-                  margin: 0,
-                }}
-              >
+              <h1 className="heading-m" style={{ maxWidth: '876px' }}>
                 Building value into brands through design.
               </h1>
 
               {/* What I do block */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <label
-                  style={{
-                    fontFamily: 'Gucina',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    lineHeight: '1.4em',
-                    letterSpacing: '0.14em',
-                    textTransform: 'uppercase',
-                    color: 'var(--grey-text-main)',
-                    margin: 0,
-                  }}
-                >
+                <label className="uppercase-headline">
                   What I do
                 </label>
 
@@ -97,18 +75,7 @@ export default function Home() {
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Section header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '28px', overflow: 'hidden' }}>
-              <h2
-                style={{
-                  fontFamily: 'Mortend',
-                  fontSize: '15px',
-                  lineHeight: '28px',
-                  letterSpacing: '0.07em',
-                  textTransform: 'uppercase',
-                  color: 'var(--white)',
-                  margin: 0,
-                  fontWeight: 400,
-                }}
-              >
+              <h2 className="heading-2">
                 Recent projects
               </h2>
               <Link
@@ -163,23 +130,13 @@ export default function Home() {
                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', height: '60px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                        <h3
-                          style={{
-                            fontFamily: 'Gucina',
-                            fontSize: '16px',
-                            fontWeight: 500,
-                            lineHeight: '28px',
-                            letterSpacing: '0.2px',
-                            color: 'var(--white)',
-                            margin: 0,
-                          }}
-                        >
+                        <h3 className="heading-3">
                           {project.title}
                         </h3>
                       </div>
 
                       <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                        <span style={{ fontSize: '12px', color: 'var(--grey-text-main)', fontFamily: 'Gucina' }}>{project.label1}</span>
+                        <span className="body-s">{project.label1}</span>
                         <div
                           style={{
                             width: '4px',
@@ -188,7 +145,7 @@ export default function Home() {
                             borderRadius: '8px',
                           }}
                         />
-                        <span style={{ fontSize: '12px', color: 'var(--grey-text-main)', fontFamily: 'Gucina' }}>{project.label2}</span>
+                        <span className="body-s">{project.label2}</span>
                       </div>
                     </div>
                   </div>
@@ -201,18 +158,7 @@ export default function Home() {
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Section header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '28px', overflow: 'hidden' }}>
-              <h2
-                style={{
-                  fontFamily: 'Mortend',
-                  fontSize: '15px',
-                  lineHeight: '28px',
-                  letterSpacing: '0.07em',
-                  textTransform: 'uppercase',
-                  color: 'var(--white)',
-                  margin: 0,
-                  fontWeight: 400,
-                }}
-              >
+              <h2 className="heading-2">
                 Writing
               </h2>
               <Link
@@ -304,18 +250,7 @@ export default function Home() {
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '984px' }}>
             {/* Section header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '28px', overflow: 'hidden' }}>
-              <h2
-                style={{
-                  fontFamily: 'Mortend',
-                  fontSize: '15px',
-                  lineHeight: '28px',
-                  letterSpacing: '0.07em',
-                  textTransform: 'uppercase',
-                  color: 'var(--white)',
-                  margin: 0,
-                  fontWeight: 400,
-                }}
-              >
+              <h2 className="heading-2">
                 Personal creations
               </h2>
               <Link
@@ -369,16 +304,7 @@ export default function Home() {
 
                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', height: '50px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <h3
-                        style={{
-                          fontFamily: 'Gucina',
-                          fontSize: '16px',
-                          fontWeight: 500,
-                          lineHeight: '28px',
-                          color: 'var(--white)',
-                          margin: 0,
-                        }}
-                      >
+                      <h3 className="heading-3">
                         {exploration.title}
                       </h3>
                     </div>

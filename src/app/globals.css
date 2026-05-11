@@ -87,6 +87,158 @@ a {
   text-decoration: none;
 }
 
+/* Typography System */
+
+/* Headings — Mortend font */
+.heading-l {
+  font-family: 'Mortend';
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 106px;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading-m {
+  font-family: 'Mortend';
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.4em;
+  letter-spacing: -0.2px;
+  color: var(--white);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading-s {
+  font-family: 'Mortend';
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: -0.7px;
+  color: var(--white);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading-2 {
+  font-family: 'Mortend';
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.07em;
+  color: var(--white);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading-3 {
+  font-family: 'Gucina';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0.2px;
+  color: var(--white);
+  margin: 0;
+}
+
+/* Body — Gucina font */
+.body-xl {
+  font-family: 'Gucina';
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.3em;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.body-m-leading {
+  font-family: 'Gucina';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.01em;
+  color: var(--grey-text-main);
+}
+
+.body-m {
+  font-family: 'Gucina';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  color: var(--white);
+}
+
+.body-m-bold {
+  font-family: 'Gucina';
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0.2px;
+  color: rgb(129, 195, 215);
+}
+
+.body-m-medium {
+  font-family: 'Gucina';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0.2px;
+  color: var(--white);
+}
+
+.body-s {
+  font-family: 'Gucina';
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  color: var(--grey-text-main);
+}
+
+.body-s-leading {
+  font-family: 'Gucina';
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: var(--grey-text-main);
+}
+
+.body-s-bold {
+  font-family: 'Gucina';
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  color: rgb(129, 195, 215);
+}
+
+/* Labels / Badges */
+.uppercase-headline {
+  font-family: 'Gucina';
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4em;
+  letter-spacing: 0.14em;
+  color: rgb(97, 97, 97);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.uppercase-badge {
+  font-family: 'Gucina';
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4em;
+  letter-spacing: 0.04em;
+  color: rgb(0, 150, 214);
+  text-transform: uppercase;
+}
+
 /* Responsive styles */
 .page-wrapper {
   display: flex;

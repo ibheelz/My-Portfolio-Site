@@ -53,11 +53,10 @@ export default function SideNav() {
           priority
         />
         <div>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>Abiola Adeyeye</h3>
+          <h3 className="heading-3">Abiola Adeyeye</h3>
           <a
             href="mailto:abioladeyeye@gmail.com"
-            style={{ fontSize: '14px', color: 'var(--grey-text-main)' }}
-            className="hover:underline"
+            className="body-s hover:underline"
           >
             abioladeyeye@gmail.com
           </a>
@@ -66,7 +65,7 @@ export default function SideNav() {
 
       {/* Main Navigation */}
       <div className="flex flex-col gap-3">
-        <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', fontWeight: 600, textTransform: 'uppercase' }}>Main</p>
+        <p className="uppercase-headline">Main</p>
         {navItems.map((item) => {
           const Icon = item.icon
           const active = isActive(item.href)
@@ -74,7 +73,7 @@ export default function SideNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 rounded-full transition-colors"
+              className="flex items-center gap-3 rounded-full transition-colors body-m-leading"
               style={{
                 padding: '10px 24px 10px 10px',
                 backgroundColor: 'var(--grey-bg)',
@@ -82,7 +81,7 @@ export default function SideNav() {
               }}
             >
               <Icon size={24} weight="fill" color={active ? 'var(--white)' : 'rgb(143, 134, 152)'} />
-              <span style={{ fontSize: '16px' }}>{item.label}</span>
+              <span>{item.label}</span>
             </Link>
           )
         })}
@@ -90,7 +89,7 @@ export default function SideNav() {
 
       {/* Social Navigation */}
       <div className="flex flex-col gap-3">
-        <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', fontWeight: 600, textTransform: 'uppercase' }}>Social</p>
+        <p className="uppercase-headline">Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
           return (
@@ -99,7 +98,7 @@ export default function SideNav() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-full transition-colors hover:text-white"
+              className="flex items-center gap-3 rounded-full transition-colors hover:text-white body-m-leading"
               style={{
                 padding: '10px 24px 10px 10px',
                 backgroundColor: 'var(--grey-bg)',
@@ -107,7 +106,7 @@ export default function SideNav() {
               }}
             >
               <Icon size={24} weight="fill" color="rgb(143, 134, 152)" />
-              <span style={{ fontSize: '16px' }}>{item.label}</span>
+              <span>{item.label}</span>
             </a>
           )
         })}
