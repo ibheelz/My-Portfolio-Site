@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { Project } from '@/src/data/content'
 import Label from './Label'
 
@@ -12,11 +11,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.2 }}
-    >
-      <Link href={`/projects/${project.slug}`}>
+    <Link href={`/projects/${project.slug}`}>
         <div style={{ width: '100%', height: '520px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '12px', textDecoration: 'none', color: 'inherit', borderRadius: '16px', backgroundColor: 'var(--grey-bg)', cursor: 'pointer' }} className="group">
           {/* Image Container */}
           <div style={{ width: '100%', aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
@@ -39,6 +34,5 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       </Link>
-    </motion.div>
   )
 }
