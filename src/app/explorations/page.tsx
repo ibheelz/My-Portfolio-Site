@@ -13,7 +13,7 @@ export default function ExplorationsPage() {
       </div>
 
       {/* Explorations Grid */}
-      <div className="grid grid-cols-4 gap-6" style={{ gap: '24px' }}>
+      <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
         {explorations.map((exploration) => (
           <ExplorationCard key={exploration.slug} exploration={exploration} />
         ))}

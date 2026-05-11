@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Exploration } from '@/src/data/content'
-import Label from './Label'
 
 interface ExplorationCardProps {
   exploration: Exploration
@@ -16,29 +15,22 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}
     >
-      <Link href={`/explorations/${exploration.slug}`}>
-        <div className="overflow-hidden rounded-2xl bg-grey-background flex flex-col cursor-pointer group">
-          {/* Image Container */}
-          <div className="relative w-full h-64 overflow-hidden rounded-2xl">
-            <Image
-              src={exploration.cardImage}
-              alt={exploration.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
+      <Link href={`/explorations/${exploration.slug}`} className="exploration-card group" style={{ display: 'flex', flexDirection: 'column', gap: '12px', height: '520px', overflow: 'hidden', textDecoration: 'none', color: 'inherit' }}>
+        {/* Image Container */}
+        <div className="relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: '1', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
+          <Image
+            src={exploration.cardImage}
+            alt={exploration.title}
+            fill
+            className="object-cover group-hover:scale-[1.03] transition-transform duration-[400ms]"
+          />
+        </div>
 
-          {/* Text Area */}
-          <div className="p-4" style={{ gap: '4px' }}>
-            <h3 className="text-heading-3 font-semibold mb-3">{exploration.title}</h3>
-            <div className="flex flex-wrap gap-2">
-              {exploration.tools.map((tool) => (
-                <Label key={tool} variant="BadgeNoIcon">
-                  {tool}
-                </Label>
-              ))}
-            </div>
-          </div>
+        {/* Text Area */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', height: '60px', justifyContent: 'flex-start' }}>
+          <h3 className="heading-3">
+            {exploration.title}
+          </h3>
         </div>
       </Link>
     </motion.div>
