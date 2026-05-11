@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --grey-bg: #F5F5F5;
-  --grey-border: #E0E0E0;
-  --grey-border-darker: #CCCCCC;
-  --grey-text-main: #666666;
-  --primary-600: #2563EB;
+  /* Dark mode colors */
   --black: #000000;
   --white: #FFFFFF;
+  --grey-bg: #1a1a1a;
+  --grey-border: #333333;
+  --grey-border-darker: #444444;
+  --grey-text-main: #999999;
+  --primary-600: #2563EB;
   --font-body: 'Gucina', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   --font-heading: 'Mortend', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
@@ -69,8 +70,8 @@ html, body {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--black);
+  color: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
