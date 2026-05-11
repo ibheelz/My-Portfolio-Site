@@ -53,20 +53,6 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             </button>
           </div>
 
-          {/* Mobile Menu Dropdown */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="bg-[rgb(14,14,18)] border-b border-[rgb(31,31,31)] z-40"
-              >
-                <SideNav />
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
         {/* Page Content */}
@@ -74,6 +60,59 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
           {children}
         </main>
       </div>
+
+      {/* Mobile Menu Modal Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMobileMenuOpen(false)}
+            className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Menu Modal */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="lg:hidden fixed top-0 left-0 right-0 bg-[rgb(14,14,18)] z-50 max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex items-center justify-between bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
+              <div className="flex gap-3 items-start">
+                <Image
+                  src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
+                  alt="Abiola Adeyeye"
+                  width={40}
+                  height={40}
+                  style={{ borderRadius: '32px', flexShrink: 0 }}
+                  priority
+                />
+                <div className="flex flex-col gap-0">
+                  <h3 className="heading-3 text-sm">Abiola Adeyeye</h3>
+                  <a href="mailto:abioladeyeye@gmail.com" className="body-s text-xs hover:underline">
+                    abioladeyeye@gmail.com
+                  </a>
+                </div>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-10 h-10 flex items-center justify-center"
+                aria-label="Close navigation"
+              >
+                <X size={24} color="rgb(250,250,250)" weight="regular" />
+              </button>
+            </div>
+            <SideNav />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
