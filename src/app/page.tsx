@@ -127,13 +127,10 @@ export default function Home() {
                     <Image src={project.cardImage} alt={project.title} fill className="object-cover" />
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', height: '60px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                        <h3 className="heading-3">
-                          {project.title}
-                        </h3>
-                      </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <h3 className="heading-3">
+                        {project.title}
+                      </h3>
 
                       <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                         <span className="body-s">{project.label1}</span>
@@ -147,7 +144,6 @@ export default function Home() {
                         />
                         <span className="body-s">{project.label2}</span>
                       </div>
-                    </div>
                   </div>
                 </Link>
               ))}
@@ -302,12 +298,10 @@ export default function Home() {
                     <Image src={exploration.cardImage} alt={exploration.title} fill className="object-cover" />
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', height: '50px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <h3 className="heading-3">
-                        {exploration.title}
-                      </h3>
-                    </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <h3 className="heading-3">
+                      {exploration.title}
+                    </h3>
                   </div>
                 </Link>
               ))}

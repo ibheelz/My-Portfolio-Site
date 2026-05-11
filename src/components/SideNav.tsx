@@ -36,23 +36,21 @@ export default function SideNav() {
       className="sticky top-0 w-[296px] text-white flex flex-col gap-10"
       style={{
         backgroundColor: 'var(--grey-bg)',
-        borderRadius: '16px',
         padding: '32px 24px 24px 24px',
-        height: 'calc(100vh - 16px)',
         overflowY: 'auto',
       }}
     >
       {/* Profile Section */}
-      <div className="flex flex-col gap-4">
+      <div className="flex gap-3 items-start">
         <Image
           src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
           alt="Abiola Adeyeye"
           width={48}
           height={48}
-          style={{ borderRadius: '36px' }}
+          style={{ borderRadius: '36px', flexShrink: 0 }}
           priority
         />
-        <div>
+        <div className="flex flex-col gap-1">
           <h3 className="heading-3">Abiola Adeyeye</h3>
           <a
             href="mailto:abioladeyeye@gmail.com"

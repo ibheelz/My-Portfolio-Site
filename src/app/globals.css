@@ -245,6 +245,7 @@ a {
   height: calc(100vh - 16px);
   gap: 16px;
   background-color: transparent;
+  align-items: stretch;
 }
 
 .page-content {
@@ -254,6 +255,7 @@ a {
   background-color: var(--grey-bg);
   border-radius: 16px;
   overflow: hidden;
+  height: 100%;
 }
 
 .content-container {
@@ -287,7 +289,10 @@ a {
 /* Sidebar responsive */
 nav {
   width: 296px;
+  height: 100%;
+  border-radius: 16px;
   z-index: 100;
+  flex-shrink: 0;
 }
 
 /* Tablet (810px) */
