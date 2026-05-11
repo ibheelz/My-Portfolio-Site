@@ -20,19 +20,22 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
         {/* Mobile/Tablet Top Navbar */}
         <div className="lg:hidden w-full">
-          <div className="flex items-center justify-between h-16 bg-[rgb(14,14,18)] px-4 border-b border-[rgb(31,31,31)]">
+          <div className="flex items-center justify-between bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
             {/* Left: Abiola Profile */}
-            <div className="flex items-center gap-3">
+            <div className="flex gap-3 items-start">
               <Image
                 src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
                 alt="Abiola Adeyeye"
                 width={40}
                 height={40}
-                style={{ borderRadius: '32px' }}
+                style={{ borderRadius: '32px', flexShrink: 0 }}
                 priority
               />
               <div className="flex flex-col gap-0">
-                <h3 className="text-sm font-semibold text-white">Abiola</h3>
+                <h3 className="heading-3 text-sm">Abiola Adeyeye</h3>
+                <a href="mailto:abioladeyeye@gmail.com" className="body-s text-xs hover:underline">
+                  abioladeyeye@gmail.com
+                </a>
               </div>
             </div>
 
