@@ -10,7 +10,7 @@ export default function Home() {
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
 
   const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 3)
-  const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 4)
+  const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 3)
 
   return (
     <>
@@ -281,7 +281,7 @@ export default function Home() {
             </div>
 
             {/* Explorations grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
               {featuredExplorations.map((exploration) => (
                 <Link
                   key={exploration.slug}
@@ -289,7 +289,7 @@ export default function Home() {
                   className="group"
                   style={{
                     width: '100%',
-                    height: '348px',
+                    height: '520px',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
