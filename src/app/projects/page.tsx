@@ -43,7 +43,7 @@ export default function ProjectsPage() {
           </h2>
         </div>
 
-        <div className="projects-rows-stack" style={{ display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden', marginTop: '60px' }}>
+        <div className="projects-rows-stack" style={{ display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden', marginTop: '32px' }}>
           {otherProjects.map((project) => (
             <a
               key={project.name}
