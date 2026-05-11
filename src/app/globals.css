@@ -523,6 +523,11 @@ nav {
     padding: 12px !important;
   }
 
+  .project-card > div:first-child,
+  .exploration-card > div:first-child {
+    aspect-ratio: unset !important;
+  }
+
   .hero-responsive-heading {
     font-size: 28px !important;
     line-height: 1.3em !important;
@@ -596,6 +601,11 @@ nav {
     display: none !important;
   }
 
+  .project-card > div:first-child,
+  .exploration-card > div:first-child {
+    aspect-ratio: unset !important;
+  }
+
   .projects-rows-stack {
     margin-top: 60px !important;
   }
@@ -622,6 +632,11 @@ nav {
 
   .exploration-card {
     height: 160px !important;
+  }
+
+  .project-card > div:first-child,
+  .exploration-card > div:first-child {
+    aspect-ratio: unset !important;
   }
 
   .projects-rows-stack {
