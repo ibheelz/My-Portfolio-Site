@@ -245,7 +245,7 @@ a {
 }
 
 /* Responsive styles */
-/* DESKTOP (≥1024px / lg) */
+/* DESKTOP (≥1240px / lg) */
 .page-wrapper {
   display: flex;
   flex-direction: row;
@@ -254,6 +254,71 @@ a {
   background-color: rgb(2, 1, 10);
   align-items: stretch;
   padding: 16px;
+}
+
+/* ULTRA-WIDE (≥1920px / 2xl) */
+@media (min-width: 1920px) {
+  .page-wrapper {
+    padding: 24px;
+    gap: 24px;
+    max-width: 2560px;
+    margin: 0 auto;
+  }
+
+  nav {
+    width: 320px;
+    height: calc(100vh - 48px);
+    top: 24px;
+  }
+
+  .page-content {
+    height: calc(100vh - 48px);
+    max-height: calc(100vh - 48px);
+  }
+
+  .content-container {
+    padding: 48px 80px 80px 80px;
+    gap: 80px;
+  }
+
+  .heading-m {
+    font-size: 48px !important;
+    line-height: 1.4em !important;
+  }
+
+  .heading-2 {
+    font-size: 18px !important;
+  }
+
+  .body-m-leading {
+    font-size: 18px !important;
+  }
+
+  .body-s {
+    font-size: 14px !important;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(4, minmax(50px, 1fr)) !important;
+    gap: 32px !important;
+  }
+
+  .explorations-grid {
+    grid-template-columns: repeat(4, minmax(50px, 1fr)) !important;
+    gap: 32px !important;
+  }
+
+  .project-card {
+    height: 580px !important;
+  }
+
+  .exploration-card {
+    height: 580px !important;
+  }
+
+  .hero-responsive-heading {
+    font-size: 48px !important;
+  }
 }
 
 .page-content {
