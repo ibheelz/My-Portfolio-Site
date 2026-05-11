@@ -33,13 +33,14 @@ export default function SideNav() {
 
   return (
     <nav
-      className="sticky w-[296px] text-white flex flex-col gap-10"
+      className="sticky w-[296px] text-white flex flex-col"
       style={{
         top: '8px',
         backgroundColor: 'var(--grey-bg)',
         padding: '32px 24px 24px 24px',
         overflowY: 'auto',
         height: 'calc(100vh - 16px)',
+        gap: '32px',
       }}
     >
       {/* Profile Section */}
@@ -64,7 +65,7 @@ export default function SideNav() {
       </div>
 
       {/* Main Navigation */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <p className="uppercase-headline">Main</p>
         {navItems.map((item) => {
           const Icon = item.icon
@@ -80,7 +81,7 @@ export default function SideNav() {
                 color: active ? 'rgb(129, 195, 215)' : 'rgb(138, 138, 138)',
               }}
             >
-              <Icon size={24} weight="regular" color={active ? 'rgb(129, 195, 215)' : 'rgb(143, 134, 152)'} />
+              <Icon size={24} weight="light" color={active ? 'rgb(129, 195, 215)' : 'rgb(143, 134, 152)'} />
               <span>{item.label}</span>
             </Link>
           )
@@ -88,7 +89,7 @@ export default function SideNav() {
       </div>
 
       {/* Social Navigation */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <p className="uppercase-headline">Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
