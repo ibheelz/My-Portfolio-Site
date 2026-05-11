@@ -84,23 +84,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="lg:hidden fixed top-0 left-0 right-0 bg-[rgb(14,14,18)] z-50 max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex items-center justify-between bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
-              <div className="flex gap-3 items-start">
-                <Image
-                  src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
-                  alt="Abiola Adeyeye"
-                  width={40}
-                  height={40}
-                  style={{ borderRadius: '32px', flexShrink: 0 }}
-                  priority
-                />
-                <div className="flex flex-col gap-0">
-                  <h3 className="heading-3 text-sm">Abiola Adeyeye</h3>
-                  <a href="mailto:abioladeyeye@gmail.com" className="body-s text-xs hover:underline">
-                    abioladeyeye@gmail.com
-                  </a>
-                </div>
-              </div>
+            <div className="flex items-center justify-end bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-10 h-10 flex items-center justify-center"
