@@ -38,8 +38,7 @@ export default function SideNav() {
         backgroundColor: 'var(--grey-bg)',
         borderRadius: '16px',
         padding: '32px 24px 24px 24px',
-        height: 'fit-content',
-        maxHeight: 'calc(100vh - 16px)',
+        height: 'calc(100vh - 16px)',
         overflowY: 'auto',
       }}
     >
@@ -79,7 +78,6 @@ export default function SideNav() {
               style={{
                 padding: '10px 24px 10px 10px',
                 backgroundColor: 'var(--grey-bg)',
-                border: '1px solid var(--grey-border)',
                 color: active ? 'var(--white)' : 'var(--grey-text-main)',
               }}
             >
@@ -105,7 +103,6 @@ export default function SideNav() {
               style={{
                 padding: '10px 24px 10px 10px',
                 backgroundColor: 'var(--grey-bg)',
-                border: '1px solid var(--grey-border)',
                 color: 'var(--grey-text-main)',
               }}
             >

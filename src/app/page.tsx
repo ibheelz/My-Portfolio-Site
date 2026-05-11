@@ -150,7 +150,7 @@ export default function Home() {
                   <div
                     style={{
                       width: '100%',
-                      flex: 1,
+                      aspectRatio: '1',
                       borderRadius: '16px',
                       overflow: 'hidden',
                       backgroundColor: 'var(--grey-bg)',
@@ -357,7 +357,7 @@ export default function Home() {
                   <div
                     style={{
                       width: '100%',
-                      flex: 1,
+                      aspectRatio: '1',
                       borderRadius: '16px',
                       overflow: 'hidden',
                       backgroundColor: 'var(--grey-bg)',
