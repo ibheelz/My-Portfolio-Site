@@ -39,8 +39,9 @@ export default function SideNav() {
         backgroundColor: 'var(--grey-bg)',
         padding: '32px 24px 24px 24px',
         overflowY: 'auto',
-        height: 'calc(100vh - 16px)',
+        height: '100%',
         gap: '32px',
+        maxHeight: 'calc(100vh - 16px)',
       }}
     >
       {/* Profile Section */}
@@ -106,7 +107,7 @@ export default function SideNav() {
                 color: 'rgb(138, 138, 138)',
               }}
             >
-              <Icon size={24} weight="regular" color="rgb(143, 134, 152)" />
+              <Icon size={24} weight="light" color="rgb(143, 134, 152)" />
               <span>{item.label}</span>
             </a>
           )
