@@ -5,7 +5,7 @@ import BlogCard from '@/src/components/BlogCard'
 
 export default function BlogPage() {
   return (
-    <div className="ml-[296px] px-16 py-12 max-w-4xl" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+    <div className="px-16 py-12" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
       {/* Header */}
       <div className="mb-12">
         <h1 className="text-heading-m font-semibold mb-2">Latest writing</h1>

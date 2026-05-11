@@ -10,48 +10,13 @@ export default function Home() {
   const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 4)
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--black)' }}>
-      {/* Fixed decorative top margin */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: '312px',
-          right: '15px',
-          height: '16px',
-          backgroundColor: 'var(--black)',
-          zIndex: 10,
-        }}
-      />
+    <>
+      {/* Fixed decorative margins */}
+      <div className="fixed-top-margin" />
+      <div className="fixed-bottom-margin" />
 
-      {/* Fixed decorative bottom margin */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: '312px',
-          right: '15px',
-          height: '16px',
-          backgroundColor: 'var(--black)',
-          zIndex: 10,
-        }}
-      />
-
-      {/* Main wrapper */}
-      <div style={{ flex: 1, padding: '16px 16px 0px 16px' }}>
-        {/* Content container */}
-        <div
-          style={{
-            width: '100%',
-            backgroundColor: 'var(--grey-bg)',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            padding: '36px 64px 120px 64px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '64px',
-          }}
-        >
+      {/* Content container */}
+      <div className="content-container">
           {/* SECTION 1 - Hero */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '12px 0px 0px 0px' }}>
             {/* Top row with dot */}
@@ -422,8 +387,7 @@ export default function Home() {
               ))}
             </div>
           </section>
-        </div>
       </div>
-    </div>
+    </>
   )
 }

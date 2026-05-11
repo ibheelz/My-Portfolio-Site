@@ -5,7 +5,7 @@ import ExplorationCard from '@/src/components/ExplorationCard'
 
 export default function ExplorationsPage() {
   return (
-    <div className="ml-[296px] bg-grey-background p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+    <div className="p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
       {/* Header */}
       <div className="mb-16" style={{ gap: '2px', marginBottom: '64px' }}>
         <p className="text-heading-s font-semibold mb-2">Explorations</p>

@@ -40,7 +40,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="ml-[296px] px-16 py-12" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+    <div className="px-16 py-12" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
       {/* Bio Section */}
       <section className="mb-16 max-w-3xl" style={{ marginBottom: '64px' }}>
         <h1 className="text-heading-m font-semibold mb-8">About me</h1>
@@ -92,7 +92,7 @@ export default function AboutPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-grey-background border-t-2 border-black p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+      <section className="border-t-2 border-black p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
         <h2 className="text-uppercase text-grey-text-main text-xs font-semibold mb-8">Get in touch</h2>
         <h3 className="text-heading-m font-semibold mb-8">Let's work together</h3>
 

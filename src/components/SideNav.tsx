@@ -33,10 +33,14 @@ export default function SideNav() {
 
   return (
     <nav
-      className="fixed left-0 top-0 h-screen w-[296px] text-white overflow-y-auto flex flex-col gap-10"
+      className="sticky top-0 w-[296px] text-white flex flex-col gap-10"
       style={{
-        backgroundColor: 'var(--black)',
+        backgroundColor: 'var(--grey-bg)',
+        borderRadius: '16px',
         padding: '32px 24px 24px 24px',
+        height: 'fit-content',
+        maxHeight: 'calc(100vh - 16px)',
+        overflowY: 'auto',
       }}
     >
       {/* Profile Section */}
@@ -63,7 +67,7 @@ export default function SideNav() {
 
       {/* Main Navigation */}
       <div className="flex flex-col gap-3">
-        <p style={{ fontSize: '12px', color: 'var(--grey-text-main)', fontWeight: 600, textTransform: 'uppercase' }}>Main</p>
+        <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', fontWeight: 600, textTransform: 'uppercase' }}>Main</p>
         {navItems.map((item) => {
           const Icon = item.icon
           const active = isActive(item.href)
@@ -75,10 +79,11 @@ export default function SideNav() {
               style={{
                 padding: '10px 24px 10px 10px',
                 backgroundColor: 'var(--grey-bg)',
+                border: '1px solid var(--grey-border)',
                 color: active ? 'var(--white)' : 'var(--grey-text-main)',
               }}
             >
-              <Icon size={24} weight="fill" />
+              <Icon size={24} weight="fill" color={active ? 'var(--white)' : 'rgb(143, 134, 152)'} />
               <span style={{ fontSize: '16px' }}>{item.label}</span>
             </Link>
           )
@@ -87,7 +92,7 @@ export default function SideNav() {
 
       {/* Social Navigation */}
       <div className="flex flex-col gap-3">
-        <p style={{ fontSize: '12px', color: 'var(--grey-text-main)', fontWeight: 600, textTransform: 'uppercase' }}>Social</p>
+        <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', fontWeight: 600, textTransform: 'uppercase' }}>Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
           return (
@@ -100,10 +105,11 @@ export default function SideNav() {
               style={{
                 padding: '10px 24px 10px 10px',
                 backgroundColor: 'var(--grey-bg)',
+                border: '1px solid var(--grey-border)',
                 color: 'var(--grey-text-main)',
               }}
             >
-              <Icon size={24} weight="fill" />
+              <Icon size={24} weight="fill" color="rgb(143, 134, 152)" />
               <span style={{ fontSize: '16px' }}>{item.label}</span>
             </a>
           )
