@@ -191,3 +191,229 @@ Include: project structure, how to add content to data/content.ts, how to add fo
 3. Build the full project
 4. Run npm run build to confirm zero errors
 5. Run npm run dev so I can preview at localhost:3000
+
+
+
+## EXPLORE PAGE (/) — Full Pixel-Accurate Spec
+
+### Overall page structure
+- Full page: horizontal stack, bg: rgb(2,1,10) [/black]
+- Side nav: 296px fixed left (see side nav spec)
+- Wrapper: flex-1, padding: 16px 16px 0px 16px
+- Content container: 
+    width: 1fr
+    bg: rgb(14,14,18) [/grey background]
+    border-radius: 16px
+    overflow: hidden
+    padding: 36px 64px 120px 64px
+    gap: 64px (between all sections)
+    layout: vertical stack
+
+---
+
+### SECTION 1 — Hero
+layout: vertical stack
+gap: 7px
+padding: 12px 0px 0px 0px
+width: 1fr
+
+  #### Top row
+  layout: horizontal, space-between, align-end
+  - Right side: a 4×4px dot, bg: rgb(31,31,31) [/grey border], border-radius: 4px
+
+  #### Headline + What I do
+  layout: vertical stack
+  gap: 25px
+  padding: 0px
+
+    ##### Headline
+    text: "Building value into brands through design."
+    style: /Heading M — Mortend Regular, 38px, line-height: 1.4em, letter-spacing: -0.2px, uppercase
+    color: rgb(250,250,250) [/white]
+    width: 1fr, max-width: 876px
+
+    ##### What I do block
+    layout: vertical stack
+    gap: 16px
+
+      Label "WHAT I DO"
+      style: /Uppercase headlines — Gucina Bold, 12px, line-height: 1.4em, letter-spacing: 0.14em, uppercase
+      color: rgb(138,138,138) [/grey text main]
+
+      Labels row
+      layout: horizontal, flex-wrap
+      gap: 8px
+      max-width: 736px
+      
+      Label component (BadgeNoIcon variant):
+        border-radius: 40px
+        border: 1px solid rgb(51,51,51) [/grey border darker]
+        padding: 8px 12px
+        text style: /Body S — Gucina Regular, 12px, line-height: 18px
+        color: rgb(138,138,138)
+        bg: transparent
+
+      Labels: Branding · 3D Modelling · Visual Design · Generative AI Design · E-commerce Design · Marketing Design
+
+---
+
+### SECTION 2 — Recent Projects
+layout: vertical stack
+gap: 32px
+width: 1fr
+
+  #### Section header
+  Component: NavInteractiveHeadlineForSections (NoChevron variant)
+  height: 28px, overflow: hidden
+  layout: horizontal, gap: 2px, align-center
+    - "Recent projects" text — /Heading 2: Mortend Regular, 15px, line-height: 28px, letter-spacing: 0.07em, uppercase, color: rgb(250,250,250)
+    - "View all →" link — opacity 0, fades to 1 on hover, links to /projects
+
+  #### Projects grid
+  layout: CSS grid
+  columns: 3 (minmax(50px, 1fr))
+  gap: 24px
+  row-height: auto
+
+  #### Project Card (CardProjectMainLarge variant)
+  width: 1fr
+  height: 396px (projects page) / 520px (homepage large)
+  overflow: hidden
+  layout: vertical stack
+  gap: 12px
+
+    Image container:
+      width: 1fr, height: 1fr (fills most of card)
+      border-radius: 16px
+      overflow: hidden
+      bg: /grey background
+      Image fills absolutely (top/right/bottom/left: 0)
+
+    Text area (bottom):
+      position: from top: 363px (for 396px card)
+      layout: horizontal, center-center
+      gap: 10px
+
+      Text block:
+        layout: vertical, gap: 4px
+        
+        Top row (title + badge):
+          layout: horizontal, gap: 12px, align-center
+          Title — /Heading 3: Gucina Medium, 16px, line-height: 28px, letter-spacing: 0.2px, color: rgb(250,250,250)
+          Badge (if available): border-radius: 4px, small pill
+        
+        Labels row (below title):
+          layout: horizontal, gap: 4px, align-center
+          Label 1 — /Body S: color: rgb(138,138,138)
+          Separator dot: 4×4px, bg: rgb(51,51,51), border-radius: 8px
+          Label 2 — /Body S: color: rgb(138,138,138)
+
+---
+
+### SECTION 3 — Blog (No image variant)
+layout: vertical stack
+gap: 32px
+width: 1fr
+
+  #### Section header
+  Same as projects header — "Writing" or blog section title + "View all →" to /blog
+
+  #### Blog rows (BlogCard)
+  Each row:
+    width: 1fr
+    border-bottom: 1px solid rgb(31,31,31) [/grey border]
+    padding: 12px
+    layout: horizontal, space-between, align-center
+    gap: 40px
+    hover: bg fades to rgb(2,1,10) [/black], border-radius: 4px
+
+    Left stack (gap: 12px, horizontal):
+      Title — /Body M leading: Gucina Regular, 16px, line-height: 28px, color: rgb(250,250,250)
+
+    Middle stack (width: 400px, horizontal, gap: 12px):
+      Label 1 + Label 2 (BadgeNoIcon pills)
+
+    Right:
+      Arrow icon — 24px, opacity: 0 → 1 on hover
+
+---
+
+### SECTION 4 — Explorations (Personal creations)
+layout: vertical stack
+gap: 32px
+width: 1fr (max rendered width: 984px)
+
+  #### Section header
+  "Personal creations" — same /Heading 2 style + "View all →" to /explorations
+
+  #### Explorations row
+  layout: horizontal stack
+  gap: 24px
+  align-start
+
+  #### Exploration Card (Variant1)
+  width: 1fr
+  height: 348px (on homepage) / 550px (full page)
+  overflow: hidden
+  layout: vertical stack
+  gap: 12px
+
+    Image container:
+      width: 1fr, height: 1fr
+      border-radius: 16px
+      overflow: hidden
+      Image fills absolutely
+
+    Text area:
+      position: from top: 363px
+      layout: horizontal, center-center, gap: 10px
+
+      Text block:
+        layout: vertical, gap: 4px
+        Title — /Heading 3: Gucina Medium, 16px, line-height: 28px, color: rgb(250,250,250)
+        (no label row, just title)
+
+---
+
+### RESPONSIVENESS
+
+#### Desktop (1440px) — default spec above
+- Side nav: 296px fixed
+- Content: calc(100% - 296px), padding: 16px
+- Grid: 3 columns
+
+#### Tablet (810px)
+- Side nav: hidden or collapses to top bar
+- Content: full width, padding: 16px
+- Grid: 2 columns
+- Content container padding: reduced (16px all sides)
+- Exploration section: horizontal stack becomes 2-col grid
+
+#### Mobile (390px)
+- Side nav: hidden, replaced with hamburger/top nav
+- Content: full width, padding: 16px
+- Grid: 1 column
+- All sections stack vertically
+- Content container padding: 16px
+- Exploration section: padding: 0px 0px 64px 0px, 1 column
+- Blog rows: vertical stack, gap: 12px, padding: 12px 0px
+
+---
+
+### Fixed UI elements (decorative margins)
+Two fixed bars that create the illusion of the content container floating:
+
+TopMargins:
+  position: fixed
+  top: 0px, left: 312px, right: 15px
+  height: 16px
+  bg: rgb(2,1,10) [/black]
+  z-index: 10
+  (masks the top as user scrolls — keeps gap visible)
+
+BottomMargins:
+  position: fixed
+  bottom: 0px, left: 312px, right: 15px
+  height: 16px
+  bg: rgb(2,1,10) [/black]
+  z-index: 10
