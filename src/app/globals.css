@@ -414,7 +414,15 @@ nav {
   height: 352px !important;
 }
 
+.project-card-home {
+  height: 520px !important;
+}
+
 .exploration-card {
+  height: 520px !important;
+}
+
+.exploration-card-home {
   height: 520px !important;
 }
 

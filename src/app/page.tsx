@@ -107,7 +107,7 @@ export default function Home() {
                 <Link
                   key={project.slug}
                   href={`/projects/${project.slug}`}
-                  className="project-card group"
+                  className="project-card project-card-home group"
                   style={{
                     width: '100%',
                     height: '520px',
@@ -188,7 +188,7 @@ export default function Home() {
                 <Link
                   key={exploration.slug}
                   href={`/explorations/${exploration.slug}`}
-                  className="exploration-card group"
+                  className="exploration-card exploration-card-home group"
                   style={{
                     width: '100%',
                     height: '520px',
