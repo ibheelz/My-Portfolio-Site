@@ -24,7 +24,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
 
           {/* Text Area */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '12px', paddingRight: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '0px', paddingRight: '0px' }}>
             <h3 className="heading-3">{project.title}</h3>
             <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
               <span className="body-s">{project.label1}</span>
