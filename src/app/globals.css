@@ -378,13 +378,13 @@ nav {
     height: 320px !important;
   }
 
+  .exploration-card {
+    height: 320px !important;
+  }
+
   .explorations-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
-  }
-
-  .exploration-card {
-    height: 280px !important;
   }
 
   .section-header {

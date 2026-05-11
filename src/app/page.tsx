@@ -216,7 +216,7 @@ export default function Home() {
                     <Image src={exploration.cardImage} alt={exploration.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-[400ms]" />
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minHeight: '50px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', height: '60px', justifyContent: 'flex-start' }}>
                     <h3 className="heading-3">
                       {exploration.title}
                     </h3>
