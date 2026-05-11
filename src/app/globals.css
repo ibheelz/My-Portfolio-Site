@@ -297,6 +297,18 @@ nav {
   }
 }
 
+.mobile-navbar {
+  display: none !important;
+}
+
+@media (max-width: 1239px) {
+  .mobile-navbar {
+    display: block !important;
+    order: -1;
+    width: 100%;
+  }
+}
+
 .fixed-top-margin {
   position: fixed;
   top: 0;
@@ -391,7 +403,7 @@ nav {
   .page-wrapper {
     flex-direction: column;
     min-height: 100vh;
-    padding: 0;
+    padding: 16px;
     gap: 0;
   }
 
@@ -404,7 +416,7 @@ nav {
     height: auto;
     flex: 1;
     overflow-y: auto;
-    border-radius: 0;
+    border-radius: 16px;
   }
 
   .content-container {

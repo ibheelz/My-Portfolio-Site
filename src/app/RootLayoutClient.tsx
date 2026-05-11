@@ -19,7 +19,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Mobile/Tablet Top Navbar */}
-        <div className="lg:hidden w-full">
+        <div className="lg:hidden w-full mobile-navbar">
           <div className="flex items-center justify-between bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
             {/* Left: Abiola Profile */}
             <div className="flex gap-3 items-start">
