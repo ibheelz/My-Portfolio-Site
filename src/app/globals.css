@@ -79,7 +79,6 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  text-transform: uppercase;
 }
 
 a {
@@ -142,6 +141,7 @@ a {
   letter-spacing: 0.2px;
   color: var(--white);
   margin: 0;
+  text-transform: none;
 }
 
 /* Body — Gucina font */
