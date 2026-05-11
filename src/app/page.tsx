@@ -104,11 +104,12 @@ export default function Home() {
             </div>
 
             {/* Projects grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
               {featuredProjects.map((project) => (
                 <Link
                   key={project.slug}
                   href={`/projects/${project.slug}`}
+                  className="project-card"
                   style={{
                     width: '100%',
                     height: '520px',
@@ -186,12 +187,12 @@ export default function Home() {
             </div>
 
             {/* Explorations grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+            <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
               {featuredExplorations.map((exploration) => (
                 <Link
                   key={exploration.slug}
                   href={`/explorations/${exploration.slug}`}
-                  className="group"
+                  className="exploration-card group"
                   style={{
                     width: '100%',
                     height: '520px',
