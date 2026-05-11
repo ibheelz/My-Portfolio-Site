@@ -79,7 +79,7 @@ body {
   color: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 16px;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -264,8 +264,8 @@ a {
   border-radius: 16px;
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 16px);
-  max-height: calc(100vh - 16px);
+  height: calc(100vh - 32px);
+  max-height: calc(100vh - 32px);
 }
 
 .content-container {
@@ -278,9 +278,9 @@ a {
 
 nav {
   width: 280px;
-  height: calc(100vh - 16px);
+  height: calc(100vh - 32px);
   position: sticky;
-  top: 8px;
+  top: 16px;
   border-radius: 16px;
   background-color: rgb(14, 14, 18);
   z-index: 100;
