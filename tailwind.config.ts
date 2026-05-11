@@ -24,6 +24,9 @@ const config: Config = {
         'heading-s': ['24px', { lineHeight: '32px', fontWeight: '600' }],
         'uppercase': ['12px', { lineHeight: '16px', fontWeight: '600' }],
       },
+      screens: {
+        lg: '1240px',
+      },
     },
   },
   plugins: [],
