@@ -158,7 +158,7 @@ export default function Home() {
           </section>
 
           {/* SECTION 3 - Explorations */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '984px' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Section header */}
             <div
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
