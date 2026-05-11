@@ -555,20 +555,20 @@ nav {
 
   .projects-grid {
     grid-template-columns: 1fr !important;
-    gap: 20px !important;
+    gap: 16px !important;
   }
 
   .explorations-grid {
     grid-template-columns: 1fr !important;
-    gap: 20px !important;
+    gap: 16px !important;
   }
 
   .project-card {
-    height: 280px !important;
+    height: 200px !important;
   }
 
   .exploration-card {
-    height: 280px !important;
+    height: 200px !important;
   }
 
   .hero-responsive-heading {
