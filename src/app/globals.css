@@ -593,3 +593,31 @@ nav {
   }
 }
 
+/* ULTRA-NARROW SCREENS (≤600px / Z Fold, etc) */
+@media (max-width: 600px) {
+  .content-container {
+    padding: 20px 12px 20px 12px !important;
+    gap: 16px !important;
+  }
+
+  .projects-grid {
+    gap: 12px !important;
+  }
+
+  .explorations-grid {
+    gap: 12px !important;
+  }
+
+  .project-card {
+    height: 160px !important;
+  }
+
+  .exploration-card {
+    height: 160px !important;
+  }
+
+  .projects-rows-stack {
+    margin-top: 40px !important;
+  }
+}
+
