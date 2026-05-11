@@ -75,7 +75,7 @@ export default function Home() {
           </section>
 
           {/* SECTION 2 - Recent Projects */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginTop: '30px' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginTop: '50px' }}>
             {/* Section header */}
             <div
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
