@@ -74,7 +74,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         )}
       </AnimatePresence>
 
-      {/* Mobile Menu Modal - Blurred background only */}
+      {/* Mobile Menu Modal - Plain gray background */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -82,11 +82,19 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden fixed inset-0 backdrop-blur-md z-50 overflow-y-auto"
+            className="lg:hidden fixed inset-0 z-50 overflow-y-auto"
+            style={{ backgroundColor: 'var(--grey-bg)' }}
             onClick={() => setMobileMenuOpen(false)}
           >
-            <div onClick={(e) => e.stopPropagation()}>
-              <SideNav />
+            <div onClick={(e) => e.stopPropagation()} className="relative w-full h-full">
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center z-50"
+                aria-label="Close navigation"
+              >
+                <X size={24} color="rgb(250,250,250)" weight="regular" />
+              </button>
+              <SideNav hideProfile={true} />
             </div>
           </motion.div>
         )}

@@ -13,7 +13,11 @@ import {
   TwitterLogo,
 } from '@phosphor-icons/react'
 
-export default function SideNav() {
+interface SideNavProps {
+  hideProfile?: boolean
+}
+
+export default function SideNav({ hideProfile = false }: SideNavProps) {
   const pathname = usePathname()
 
   const isActive = (path: string) => pathname === path
@@ -45,25 +49,27 @@ export default function SideNav() {
       }}
     >
       {/* Profile Section */}
-      <div className="flex gap-3 items-start">
-        <Image
-          src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
-          alt="Abiola Adeyeye"
-          width={48}
-          height={48}
-          style={{ borderRadius: '36px', flexShrink: 0 }}
-          priority
-        />
-        <div className="flex flex-col gap-0">
-          <h3 className="heading-3">Abiola Adeyeye</h3>
-          <a
-            href="mailto:abioladeyeye@gmail.com"
-            className="body-s hover:underline"
-          >
-            abioladeyeye@gmail.com
-          </a>
+      {!hideProfile && (
+        <div className="flex gap-3 items-start">
+          <Image
+            src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
+            alt="Abiola Adeyeye"
+            width={48}
+            height={48}
+            style={{ borderRadius: '36px', flexShrink: 0 }}
+            priority
+          />
+          <div className="flex flex-col gap-0">
+            <h3 className="heading-3">Abiola Adeyeye</h3>
+            <a
+              href="mailto:abioladeyeye@gmail.com"
+              className="body-s hover:underline"
+            >
+              abioladeyeye@gmail.com
+            </a>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Navigation */}
       <div className="flex flex-col gap-2">

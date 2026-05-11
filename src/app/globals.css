@@ -252,7 +252,7 @@ a {
   min-height: 100vh;
   gap: 16px;
   background-color: rgb(2, 1, 10);
-  align-items: flex-start;
+  align-items: stretch;
   padding: 8px;
 }
 
