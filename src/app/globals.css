@@ -268,7 +268,7 @@ a {
 }
 
 .content-container {
-  padding: 36px 64px 25px 64px;
+  padding: 36px 64px 0px 64px;
   display: flex;
   flex-direction: column;
   gap: 64px;
@@ -321,7 +321,7 @@ nav {
   }
 
   .content-container {
-    padding: 24px 32px 25px 32px;
+    padding: 24px 32px 0px 32px;
     gap: 48px;
   }
 
