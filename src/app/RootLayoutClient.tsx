@@ -74,6 +74,20 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         )}
       </AnimatePresence>
 
+      {/* Mobile Menu Modal Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMobileMenuOpen(false)}
+            className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
+            style={{ top: '64px' }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Mobile Menu Modal */}
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -82,17 +96,9 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden fixed inset-0 bg-[rgb(14,14,18)]/70 backdrop-blur-sm z-50 overflow-y-auto"
+            className="lg:hidden fixed left-0 right-0 bg-[rgb(14,14,18)] z-50 overflow-y-auto"
+            style={{ top: '64px', bottom: 0, height: 'calc(100vh - 64px)' }}
           >
-            <div className="flex items-center justify-end bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-10 h-10 flex items-center justify-center"
-                aria-label="Close navigation"
-              >
-                <X size={24} color="rgb(250,250,250)" weight="regular" />
-              </button>
-            </div>
             <SideNav />
           </motion.div>
         )}
