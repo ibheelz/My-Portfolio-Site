@@ -82,8 +82,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden fixed left-0 right-0 backdrop-blur-md z-50 overflow-y-auto"
-            style={{ top: '64px', bottom: 0, height: 'calc(100vh - 64px)' }}
+            className="lg:hidden fixed inset-0 backdrop-blur-md z-50 overflow-y-auto"
             onClick={() => setMobileMenuOpen(false)}
           >
             <div onClick={(e) => e.stopPropagation()}>
