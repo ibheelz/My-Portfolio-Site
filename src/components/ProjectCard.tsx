@@ -12,7 +12,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`}>
-        <div style={{ width: '100%', height: '520px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '12px', textDecoration: 'none', color: 'inherit', borderRadius: '16px', backgroundColor: 'var(--grey-bg)', cursor: 'pointer' }} className="group">
+        <div style={{ width: '100%', height: '520px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '12px', textDecoration: 'none', color: 'inherit', borderRadius: '16px', backgroundColor: 'var(--grey-bg)', cursor: 'pointer' }} className="project-card group">
           {/* Image Container */}
           <div style={{ width: '100%', aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
             <Image
