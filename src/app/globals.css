@@ -314,6 +314,14 @@ a {
     height: 580px !important;
   }
 
+  /* Ensure image containers remain square on ultra-wide */
+  .project-card > div:first-child,
+  .exploration-card > div:first-child {
+    aspect-ratio: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
   .hero-responsive-heading {
     font-size: 48px !important;
   }
