@@ -74,7 +74,7 @@ body {
   color: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 8px;
+  padding: 16px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -242,8 +242,8 @@ a {
 /* Responsive styles */
 .page-wrapper {
   display: flex;
-  height: calc(100vh - 16px);
-  gap: 8px;
+  height: calc(100vh - 32px);
+  gap: 16px;
   background-color: transparent;
   align-items: stretch;
 }
@@ -256,6 +256,7 @@ a {
   border-radius: 16px;
   overflow: hidden;
   height: 100%;
+  min-height: 100%;
 }
 
 .content-container {
@@ -269,8 +270,8 @@ a {
 .fixed-top-margin {
   position: fixed;
   top: 0;
-  left: 312px;
-  right: 15px;
+  left: 328px;
+  right: 16px;
   height: 16px;
   background-color: var(--black);
   z-index: 10;
@@ -279,8 +280,8 @@ a {
 .fixed-bottom-margin {
   position: fixed;
   bottom: 0;
-  left: 312px;
-  right: 15px;
+  left: 328px;
+  right: 16px;
   height: 16px;
   background-color: var(--black);
   z-index: 10;
