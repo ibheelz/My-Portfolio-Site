@@ -74,21 +74,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         )}
       </AnimatePresence>
 
-      {/* Mobile Menu Modal Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setMobileMenuOpen(false)}
-            className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
-            style={{ top: '64px' }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Mobile Menu Modal */}
+      {/* Mobile Menu Modal - Blurred background only */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -96,10 +82,13 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden fixed left-0 right-0 bg-[rgb(14,14,18)] z-50 overflow-y-auto"
+            className="lg:hidden fixed left-0 right-0 backdrop-blur-md z-50 overflow-y-auto"
             style={{ top: '64px', bottom: 0, height: 'calc(100vh - 64px)' }}
+            onClick={() => setMobileMenuOpen(false)}
           >
-            <SideNav />
+            <div onClick={(e) => e.stopPropagation()}>
+              <SideNav />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
