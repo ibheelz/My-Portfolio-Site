@@ -253,7 +253,7 @@ a {
   gap: 16px;
   background-color: rgb(2, 1, 10);
   align-items: stretch;
-  padding: 8px;
+  padding: 16px;
 }
 
 .page-content {
@@ -285,6 +285,16 @@ nav {
   background-color: rgb(14, 14, 18);
   z-index: 100;
   flex-shrink: 0;
+}
+
+.sidebar-nav {
+  display: none !important;
+}
+
+@media (min-width: 1240px) {
+  .sidebar-nav {
+    display: flex !important;
+  }
 }
 
 .fixed-top-margin {
@@ -330,7 +340,7 @@ nav {
   .page-wrapper {
     flex-direction: column;
     min-height: 100vh;
-    padding: 0;
+    padding: 16px;
     gap: 0;
   }
 
@@ -343,7 +353,7 @@ nav {
     height: auto;
     flex: 1;
     overflow-y: auto;
-    border-radius: 0;
+    border-radius: 16px;
   }
 
   .content-container {

@@ -14,7 +14,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
       {/* Main Layout */}
       <div className="page-wrapper">
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex sidebar-nav">
           <SideNav />
         </div>
 
