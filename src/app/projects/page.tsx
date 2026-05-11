@@ -1,57 +1,120 @@
 'use client'
 
+import Link from 'next/link'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
-import Label from '@/src/components/Label'
+import { ArrowDownRight } from '@phosphor-icons/react'
 
 const otherProjects = [
-  { name: 'Lucia Davis', label1: 'AI Influencer', label2: 'Personal Project' },
-  { name: 'Riley Mobolaji', label1: 'AI Influencer', label2: 'Personal Project' },
-  { name: 'Aria Vale', label1: 'AI Influencer', label2: 'Personal Project' },
+  { name: 'Lucia Davis', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/luciaqxxn/' },
+  { name: 'Riley Mobolaji', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/rileyqxxn/' },
+  { name: 'Aria Vale', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/_ariavale/' },
 ]
 
 export default function ProjectsPage() {
   const featuredProjects = projects.filter((p) => p.isFeatured)
 
   return (
-    <div className="ml-[296px] bg-grey-background p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
-      {/* Header */}
-      <div className="mb-16" style={{ gap: '2px', marginBottom: '64px' }}>
-        <p className="text-heading-s font-semibold mb-2">Recent projects</p>
-        <p className="text-body-m text-grey-text-main">(2025 - 2026)</p>
-      </div>
+    <div className="content-container">
+      {/* SECTION 1 - Page Headline */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+        <h1 className="heading-s" style={{ textTransform: 'uppercase' }}>
+          Recent projects
+        </h1>
+        <p className="body-m-leading" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content' }}>
+          (2025 - 2026)
+        </p>
+      </section>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-3 gap-6 mb-16" style={{ gap: '24px', marginBottom: '64px' }}>
-        {featuredProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </div>
-
-      {/* Other Projects */}
-      <div>
-        <h2 className="text-heading-2 font-semibold mb-8">Other projects</h2>
-        <div className="space-y-0">
-          {otherProjects.map((project) => (
-            <div
-              key={project.name}
-              className="border-b-2 border-black py-6 px-0 flex items-center justify-between hover:opacity-70 transition-opacity"
-            >
-              <div className="flex-1">
-                <h3 className="text-heading-3 font-semibold mb-2">{project.name}</h3>
-                <div className="flex items-center gap-1 text-body-s">
-                  <span>{project.label1}</span>
-                  <div className="w-1 h-1 bg-grey-border-darker rounded-full"></div>
-                  <span>{project.label2}</span>
-                </div>
-              </div>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7m0 0l-7 7m7-7H5" />
-              </svg>
-            </div>
+      {/* SECTION 2 - Projects Grid */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
-      </div>
+      </section>
+
+      {/* SECTION 3 - Other Projects */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '12px', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', height: '28px', overflow: 'hidden', gap: '2px' }}>
+          <h2 className="heading-2" style={{ textTransform: 'uppercase' }}>
+            Other projects
+          </h2>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden', marginTop: '60px' }}>
+          {otherProjects.map((project) => (
+            <a
+              key={project.name}
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="projects-row"
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '40px',
+                borderBottom: '1px solid rgb(31, 31, 31)',
+                padding: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              {/* Title */}
+              <div style={{ flex: 1, zIndex: 2, position: 'relative' }}>
+                <p className="body-m-leading projects-row-title" style={{ color: 'rgb(138, 138, 138)' }}>
+                  {project.name}
+                </p>
+              </div>
+
+              {/* Labels */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 2, position: 'relative' }}>
+                <div
+                  style={{
+                    borderRadius: '40px',
+                    border: '1px solid rgb(51, 51, 51)',
+                    padding: '8px 12px',
+                    fontSize: '12px',
+                    lineHeight: '18px',
+                    color: 'rgb(138, 138, 138)',
+                    fontFamily: 'Gucina',
+                  }}
+                >
+                  {project.label1}
+                </div>
+                <div
+                  style={{
+                    borderRadius: '40px',
+                    border: '1px solid rgb(51, 51, 51)',
+                    padding: '8px 12px',
+                    fontSize: '12px',
+                    lineHeight: '18px',
+                    color: 'rgb(138, 138, 138)',
+                    fontFamily: 'Gucina',
+                  }}
+                >
+                  {project.label2}
+                </div>
+              </div>
+
+              {/* Arrow Icon */}
+              <div className="projects-row-arrow" style={{ width: '36px', height: '36px', zIndex: 2, position: 'relative' }}>
+                <ArrowDownRight
+                  size={20}
+                  weight="bold"
+                  color="rgb(143, 134, 152)"
+                  style={{ transform: 'rotate(-90deg)' }}
+                />
+              </div>
+
+              {/* Hover Overlay */}
+              <div className="projects-row-overlay" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgb(2, 1, 10)', zIndex: 1, pointerEvents: 'none' }} />
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
