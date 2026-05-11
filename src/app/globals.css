@@ -526,6 +526,7 @@ nav {
   .project-card > div:first-child,
   .exploration-card > div:first-child {
     aspect-ratio: unset !important;
+    height: 260px !important;
   }
 
   .hero-responsive-heading {
@@ -604,6 +605,7 @@ nav {
   .project-card > div:first-child,
   .exploration-card > div:first-child {
     aspect-ratio: unset !important;
+    height: 180px !important;
   }
 
   .projects-rows-stack {
@@ -637,6 +639,7 @@ nav {
   .project-card > div:first-child,
   .exploration-card > div:first-child {
     aspect-ratio: unset !important;
+    height: 120px !important;
   }
 
   .projects-rows-stack {
