@@ -5,19 +5,32 @@ import ExplorationCard from '@/src/components/ExplorationCard'
 
 export default function ExplorationsPage() {
   return (
-    <div className="p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
-      {/* Header */}
-      <div className="mb-16" style={{ gap: '2px', marginBottom: '64px' }}>
-        <p className="text-heading-s font-semibold mb-2">Explorations</p>
-        <p className="text-body-m text-grey-text-main">Creative experiments and visual explorations</p>
-      </div>
+    <>
+      {/* Fixed decorative margins */}
+      <div className="fixed-top-margin" />
+      <div className="fixed-bottom-margin" />
 
-      {/* Explorations Grid */}
-      <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
-        {explorations.map((exploration) => (
-          <ExplorationCard key={exploration.slug} exploration={exploration} />
-        ))}
+      {/* Content container */}
+      <div className="explorations-content">
+        {/* SECTION 1 - Page Headline */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+          <h1 className="heading-s" style={{ textTransform: 'uppercase' }}>
+            Latest creations
+          </h1>
+          <p className="body-m-leading" style={{ color: 'rgb(138, 138, 138)', maxWidth: '340px' }}>
+            Created with Nano Banana and other tools
+          </p>
+        </section>
+
+        {/* SECTION 2 - Explorations Grid */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+          <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+            {explorations.map((exploration) => (
+              <ExplorationCard key={exploration.slug} exploration={exploration} />
+            ))}
+          </div>
+        </section>
       </div>
-    </div>
+    </>
   )
 }

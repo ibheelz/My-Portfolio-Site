@@ -347,6 +347,14 @@ a {
   flex: 1;
 }
 
+.explorations-content {
+  padding: 64px 64px 64px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  flex: 1;
+}
+
 nav {
   width: 280px;
   height: calc(100vh - 32px);
@@ -419,7 +427,8 @@ nav {
 }
 
 .exploration-card {
-  height: 520px !important;
+  height: 550px !important;
+  aspect-ratio: 0.889 !important;
 }
 
 .exploration-card-home {
@@ -494,6 +503,11 @@ nav {
     gap: 32px;
   }
 
+  .explorations-content {
+    padding: 64px 16px 64px 16px;
+    gap: 32px;
+  }
+
   .fixed-top-margin,
   .fixed-bottom-margin {
     left: 0;
@@ -507,7 +521,7 @@ nav {
 
   .explorations-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
+    gap: 24px !important;
   }
 
   .project-card {
@@ -515,7 +529,8 @@ nav {
   }
 
   .exploration-card {
-    height: auto !important;
+    height: 400px !important;
+    aspect-ratio: 0.889 !important;
   }
 
   .projects-row {
@@ -560,6 +575,11 @@ nav {
     gap: 24px;
   }
 
+  .explorations-content {
+    padding: 16px 16px 16px 16px;
+    gap: 32px;
+  }
+
   .fixed-top-margin,
   .fixed-bottom-margin {
     left: 0;
@@ -573,7 +593,7 @@ nav {
 
   .explorations-grid {
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 24px !important;
   }
 
   .project-card {
@@ -581,7 +601,8 @@ nav {
   }
 
   .exploration-card {
-    height: auto !important;
+    height: 350px !important;
+    aspect-ratio: 0.889 !important;
   }
 
   .hero-responsive-heading {
