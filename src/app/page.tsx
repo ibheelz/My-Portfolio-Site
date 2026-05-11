@@ -83,7 +83,7 @@ export default function Home() {
               onMouseLeave={() => setHoveredSection(null)}
             >
               <h2 className="heading-2">
-                Recent projects
+                Featured
               </h2>
               <Link
                 href="/projects"
