@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { projects, explorations, blogPosts } from '@/src/data/content'
+import { projects, explorations } from '@/src/data/content'
 import { ArrowRight } from '@phosphor-icons/react'
 
 export default function Home() {
@@ -156,102 +156,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 3 - Blog */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            {/* Section header */}
-            <div
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
-              onMouseEnter={() => setHoveredSection('blog')}
-              onMouseLeave={() => setHoveredSection(null)}
-            >
-              <h2 className="heading-2">
-                Writing
-              </h2>
-              <Link
-                href="/blog"
-                style={{
-                  opacity: hoveredSection === 'blog' ? 1 : 0,
-                  transition: 'opacity 0.2s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '2px',
-                  color: 'rgb(138, 138, 138)',
-                  fontSize: '12px',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                View all
-                <ArrowRight size={16} weight="bold" />
-              </Link>
-            </div>
-
-            {/* Blog rows */}
-            <div>
-              {blogPosts.map((post, index) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  style={{
-                    width: '100%',
-                    borderBottom: `1px solid var(--grey-border)`,
-                    padding: '12px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '40px',
-                    textDecoration: 'none',
-                    color: 'inherit',
-                    transition: 'background-color 0.2s, border-radius 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--black)';
-                    e.currentTarget.style.borderRadius = '4px';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.borderRadius = '0px';
-                  }}
-                >
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        fontFamily: 'Gucina',
-                        fontSize: '16px',
-                        lineHeight: '28px',
-                        color: 'var(--white)',
-                      }}
-                    >
-                      {post.title}
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '12px', width: '400px' }}>
-                    {post.labels.slice(0, 2).map((label) => (
-                      <div
-                        key={label}
-                        style={{
-                          borderRadius: '40px',
-                          border: '1px solid var(--grey-border-darker)',
-                          padding: '8px 12px',
-                          fontSize: '12px',
-                          color: 'var(--grey-text-main)',
-                          backgroundColor: 'transparent',
-                          fontFamily: 'Gucina',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {label}
-                      </div>
-                    ))}
-                  </div>
-
-                  <ArrowRight size={24} style={{ opacity: 0, transition: 'opacity 0.2s' }} />
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* SECTION 4 - Explorations */}
+          {/* SECTION 3 - Explorations */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '984px' }}>
             {/* Section header */}
             <div
