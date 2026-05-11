@@ -591,11 +591,12 @@ nav {
 /* VERY SMALL SCREENS (< 480px) */
 @media (max-width: 479px) {
   .content-container {
-    gap: 20px !important;
+    padding: 16px 12px 40px 12px !important;
+    gap: 16px !important;
   }
 
   .projects-rows-stack {
-    margin-top: 32px !important;
+    margin-top: 20px !important;
   }
 
   .hero-headline {
