@@ -588,15 +588,15 @@ nav {
   }
 }
 
-/* VERY SMALL SCREENS (< 480px) */
-@media (max-width: 479px) {
+/* VERY SMALL SCREENS (< 640px) */
+@media (max-width: 639px) {
   .content-container {
-    padding: 12px 12px 32px 12px !important;
-    gap: 12px !important;
+    padding: 8px 8px 24px 8px !important;
+    gap: 8px !important;
   }
 
   .projects-rows-stack {
-    margin-top: 16px !important;
+    margin-top: 12px !important;
   }
 
   .hero-headline {
