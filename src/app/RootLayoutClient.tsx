@@ -82,7 +82,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden fixed top-0 left-0 right-0 bg-[rgb(14,14,18)] z-50 max-h-[90vh] overflow-y-auto"
+            className="lg:hidden fixed inset-0 bg-[rgb(14,14,18)] z-50 overflow-y-auto"
           >
             <div className="flex items-center justify-end bg-[rgb(14,14,18)] px-4 py-3 border-b border-[rgb(31,31,31)]">
               <button
