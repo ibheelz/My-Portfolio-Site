@@ -109,7 +109,7 @@ export default function Home() {
                 <Link
                   key={project.slug}
                   href={`/projects/${project.slug}`}
-                  className="project-card"
+                  className="project-card group"
                   style={{
                     width: '100%',
                     height: '520px',
@@ -131,7 +131,7 @@ export default function Home() {
                       position: 'relative',
                     }}
                   >
-                    <Image src={project.cardImage} alt={project.title} fill className="object-cover" />
+                    <Image src={project.cardImage} alt={project.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-[400ms]" />
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
