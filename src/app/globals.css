@@ -586,6 +586,17 @@ nav {
   .projects-row-arrow {
     display: none !important;
   }
+}
+
+/* VERY SMALL SCREENS (< 480px) */
+@media (max-width: 479px) {
+  .content-container {
+    gap: 20px !important;
+  }
+
+  .projects-rows-stack {
+    margin-top: 32px !important;
+  }
 
   .hero-headline {
     font-size: 38px !important;
