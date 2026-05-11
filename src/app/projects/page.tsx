@@ -19,7 +19,7 @@ export default function ProjectsPage() {
       {/* SECTION 1 - Page Headline */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
         <h1 className="heading-s" style={{ textTransform: 'uppercase' }}>
-          Recent projects
+          Projects
         </h1>
         <p className="body-m-leading" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content' }}>
           (2025 - 2026)
