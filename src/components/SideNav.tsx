@@ -54,7 +54,7 @@ export default function SideNav() {
           style={{ borderRadius: '36px', flexShrink: 0 }}
           priority
         />
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0">
           <h3 className="heading-3">Abiola Adeyeye</h3>
           <a
             href="mailto:abioladeyeye@gmail.com"
