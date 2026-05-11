@@ -268,7 +268,7 @@ a {
 }
 
 .content-container {
-  padding: 36px 64px 120px 64px;
+  padding: 36px 64px 80px 64px;
   display: flex;
   flex-direction: column;
   gap: 64px;
