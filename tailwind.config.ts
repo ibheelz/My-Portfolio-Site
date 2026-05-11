@@ -9,15 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'grey': {
-          background: '#F5F5F5',
-          'border': '#E0E0E0',
-          'border-darker': '#CCCCCC',
-          'text-main': '#666666',
-        },
-        'primary': {
-          '600': '#2563EB',
-        },
         black: '#000000',
         white: '#FFFFFF',
       },
@@ -31,7 +22,7 @@ const config: Config = {
         'heading-m': ['28px', { lineHeight: '36px', fontWeight: '600' }],
         'heading-l': ['48px', { lineHeight: '56px', fontWeight: '600' }],
         'heading-s': ['24px', { lineHeight: '32px', fontWeight: '600' }],
-        'uppercase': ['12px', { lineHeight: '16px', fontWeight: '600', textTransform: 'uppercase' }],
+        'uppercase': ['12px', { lineHeight: '16px', fontWeight: '600' }],
       },
     },
   },

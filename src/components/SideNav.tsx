@@ -32,7 +32,13 @@ export default function SideNav() {
   ]
 
   return (
-    <nav className="fixed left-0 top-0 h-screen w-[296px] bg-black text-white p-6 overflow-y-auto flex flex-col gap-10" style={{ padding: '32px 24px 24px 24px' }}>
+    <nav
+      className="fixed left-0 top-0 h-screen w-[296px] text-white overflow-y-auto flex flex-col gap-10"
+      style={{
+        backgroundColor: 'var(--black)',
+        padding: '32px 24px 24px 24px',
+      }}
+    >
       {/* Profile Section */}
       <div className="flex flex-col gap-4">
         <Image
@@ -40,14 +46,15 @@ export default function SideNav() {
           alt="Abiola Adeyeye"
           width={48}
           height={48}
-          className="rounded-full"
           style={{ borderRadius: '36px' }}
+          priority
         />
         <div>
-          <h3 className="text-heading-3 font-semibold">Abiola Adeyeye</h3>
+          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>Abiola Adeyeye</h3>
           <a
             href="mailto:abioladeyeye@gmail.com"
-            className="text-body-s text-grey-text-main hover:underline"
+            style={{ fontSize: '14px', color: 'var(--grey-text-main)' }}
+            className="hover:underline"
           >
             abioladeyeye@gmail.com
           </a>
@@ -56,7 +63,7 @@ export default function SideNav() {
 
       {/* Main Navigation */}
       <div className="flex flex-col gap-3">
-        <p className="text-uppercase text-grey-text-main text-xs">Main</p>
+        <p style={{ fontSize: '12px', color: 'var(--grey-text-main)', fontWeight: 600, textTransform: 'uppercase' }}>Main</p>
         {navItems.map((item) => {
           const Icon = item.icon
           const active = isActive(item.href)
@@ -64,15 +71,15 @@ export default function SideNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-6 py-2.5 rounded-full transition-colors ${
-                active
-                  ? 'bg-grey-background text-white'
-                  : 'bg-grey-background text-grey-text-main hover:bg-opacity-80'
-              }`}
-              style={{ padding: '10px 24px 10px 10px' }}
+              className="flex items-center gap-3 rounded-full transition-colors"
+              style={{
+                padding: '10px 24px 10px 10px',
+                backgroundColor: 'var(--grey-bg)',
+                color: active ? 'var(--white)' : 'var(--grey-text-main)',
+              }}
             >
               <Icon size={24} weight="fill" />
-              <span className="text-body-m">{item.label}</span>
+              <span style={{ fontSize: '16px' }}>{item.label}</span>
             </Link>
           )
         })}
@@ -80,7 +87,7 @@ export default function SideNav() {
 
       {/* Social Navigation */}
       <div className="flex flex-col gap-3">
-        <p className="text-uppercase text-grey-text-main text-xs">Social</p>
+        <p style={{ fontSize: '12px', color: 'var(--grey-text-main)', fontWeight: 600, textTransform: 'uppercase' }}>Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
           return (
@@ -89,11 +96,15 @@ export default function SideNav() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-grey-background text-grey-text-main hover:text-white transition-colors"
-              style={{ padding: '10px 24px 10px 10px' }}
+              className="flex items-center gap-3 rounded-full transition-colors hover:text-white"
+              style={{
+                padding: '10px 24px 10px 10px',
+                backgroundColor: 'var(--grey-bg)',
+                color: 'var(--grey-text-main)',
+              }}
             >
               <Icon size={24} weight="fill" />
-              <span className="text-body-m">{item.label}</span>
+              <span style={{ fontSize: '16px' }}>{item.label}</span>
             </a>
           )
         })}

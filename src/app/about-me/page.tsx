@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Label from '@/src/components/Label'
-import { Mail, Phone, MapPin } from '@phosphor-icons/react'
+import { Envelope, Phone, MapPin } from '@phosphor-icons/react'
 
 export default function AboutPage() {
   const skills = [
@@ -97,7 +97,7 @@ export default function AboutPage() {
         <div className="space-y-6 max-w-2xl">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 border border-grey-border-darker rounded flex items-center justify-center">
-              <Mail size={20} />
+              <Envelope size={20} />
             </div>
             <div>
               <p className="text-body-s text-grey-text-main mb-1">Email</p>

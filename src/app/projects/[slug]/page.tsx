@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { projects } from '@/src/data/content'
 import Label from '@/src/components/Label'
-import { Mail, Phone, MapPin } from '@phosphor-icons/react'
+import { Envelope, Phone, MapPin } from '@phosphor-icons/react'
 
 interface ProjectDetailPageProps {
   params: { slug: string }
@@ -108,7 +108,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 border border-grey-border-darker rounded flex items-center justify-center">
-                  <Mail size={20} />
+                  <Envelope size={20} />
                 </div>
                 <div>
                   <p className="text-body-s text-grey-text-main">Email</p>
