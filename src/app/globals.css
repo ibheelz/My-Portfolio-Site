@@ -343,7 +343,7 @@ a {
   padding: 64px 64px 64px 64px;
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: 34px;
   flex: 1;
 }
 
