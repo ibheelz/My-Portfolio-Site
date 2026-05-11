@@ -243,7 +243,7 @@ a {
 .page-wrapper {
   display: flex;
   height: calc(100vh - 16px);
-  gap: 16px;
+  gap: 8px;
   background-color: transparent;
   align-items: stretch;
 }
