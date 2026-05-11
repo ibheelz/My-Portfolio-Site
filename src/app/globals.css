@@ -318,11 +318,11 @@ nav {
 }
 
 .project-card {
-  height: 396px !important;
+  height: 520px !important;
 }
 
 .exploration-card {
-  height: 348px !important;
+  height: 520px !important;
 }
 
 /* TABLET (768px-1023px / md) */
@@ -368,11 +368,11 @@ nav {
   }
 
   .project-card {
-    height: 352px !important;
+    height: 400px !important;
   }
 
   .exploration-card {
-    height: 352px !important;
+    height: 400px !important;
   }
 }
 
@@ -419,11 +419,11 @@ nav {
   }
 
   .project-card {
-    height: 310px !important;
+    height: 350px !important;
   }
 
   .exploration-card {
-    height: 310px !important;
+    height: 350px !important;
   }
 
   .hero-headline {

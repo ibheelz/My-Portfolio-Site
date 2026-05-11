@@ -17,24 +17,24 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       transition={{ duration: 0.2 }}
     >
       <Link href={`/projects/${project.slug}`}>
-        <div className="overflow-hidden rounded-2xl bg-grey-background h-96 flex flex-col cursor-pointer group">
+        <div style={{ width: '100%', height: '520px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '12px', textDecoration: 'none', color: 'inherit', borderRadius: '16px', backgroundColor: 'var(--grey-bg)', cursor: 'pointer' }} className="group">
           {/* Image Container */}
-          <div className="relative flex-1 overflow-hidden rounded-2xl">
+          <div style={{ width: '100%', aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
             <Image
               src={project.cardImage}
               alt={project.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="object-cover group-hover:scale-[1.03] transition-transform duration-[400ms]"
             />
           </div>
 
           {/* Text Area */}
-          <div className="p-6" style={{ gap: '4px' }}>
-            <h3 className="text-heading-3 font-semibold mb-2">{project.title}</h3>
-            <div className="flex items-center gap-1 text-body-s">
-              <span>{project.label1}</span>
-              <div className="w-1 h-1 bg-grey-border-darker rounded-full"></div>
-              <span>{project.label2}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '0px', paddingRight: '0px' }}>
+            <h3 className="heading-3">{project.title}</h3>
+            <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+              <span className="body-s">{project.label1}</span>
+              <div style={{ width: '4px', height: '4px', backgroundColor: 'var(--grey-border-darker)', borderRadius: '8px' }} />
+              <span className="body-s">{project.label2}</span>
             </div>
           </div>
         </div>
