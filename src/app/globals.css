@@ -347,6 +347,11 @@ nav {
   height: 520px !important;
 }
 
+.hero-responsive-heading {
+  font-size: 38px !important;
+  line-height: 1.4em !important;
+}
+
 /* TABLET (768px-1239px / below lg) */
 @media (max-width: 1239px) {
   .page-wrapper {
@@ -395,6 +400,11 @@ nav {
 
   .exploration-card {
     height: 400px !important;
+  }
+
+  .hero-responsive-heading {
+    font-size: 28px !important;
+    line-height: 1.3em !important;
   }
 }
 
@@ -446,6 +456,11 @@ nav {
 
   .exploration-card {
     height: 350px !important;
+  }
+
+  .hero-responsive-heading {
+    font-size: 24px !important;
+    line-height: 1.3em !important;
   }
 
   .hero-headline {

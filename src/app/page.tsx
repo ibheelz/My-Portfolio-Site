@@ -38,7 +38,7 @@ export default function Home() {
             {/* Headline + What I do */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px' }}>
               {/* Headline */}
-              <h1 className="heading-m" style={{ maxWidth: '876px' }}>
+              <h1 className="heading-m hero-responsive-heading" style={{ maxWidth: '876px' }}>
                 Building value into brands through design.
               </h1>
 
