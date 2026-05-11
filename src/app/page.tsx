@@ -88,12 +88,10 @@ export default function Home() {
               <Link
                 href="/projects"
                 style={{
-                  opacity: hoveredSection === 'projects' ? 1 : 0,
-                  transition: 'opacity 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '2px',
-                  color: 'rgb(138, 138, 138)',
+                  color: 'rgb(129, 195, 215)',
                   fontSize: '12px',
                   whiteSpace: 'nowrap',
                 }}
@@ -171,12 +169,10 @@ export default function Home() {
               <Link
                 href="/explorations"
                 style={{
-                  opacity: hoveredSection === 'explorations' ? 1 : 0,
-                  transition: 'opacity 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '2px',
-                  color: 'rgb(138, 138, 138)',
+                  color: 'rgb(129, 195, 215)',
                   fontSize: '12px',
                   whiteSpace: 'nowrap',
                 }}
