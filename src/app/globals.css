@@ -555,12 +555,12 @@ nav {
 
   .projects-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 24px !important;
   }
 
   .explorations-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 24px !important;
   }
 
   .project-card {
