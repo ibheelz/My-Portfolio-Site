@@ -261,8 +261,6 @@ a {
   .page-wrapper {
     padding: 24px;
     gap: 24px;
-    max-width: 2560px;
-    margin: 0 auto;
   }
 
   nav {
