@@ -69,7 +69,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setMobileMenuOpen(false)}
-            className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
           />
         )}
       </AnimatePresence>
@@ -82,7 +82,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden fixed inset-0 z-50 overflow-y-auto"
+            className="fixed inset-0 z-50 overflow-y-auto"
             style={{ backgroundColor: 'var(--grey-bg)' }}
             onClick={() => setMobileMenuOpen(false)}
           >
