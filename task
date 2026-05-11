@@ -1,0 +1,193 @@
+Fonts live in /public/fonts/ — include @font-face declarations for woff2 + ttf fallback.
+
+## Side Nav — exact structure
+Width: 296px, bg: /black, padding: 32px 24px 24px 24px, gap: 40px between sections
+
+### Profile section (top)
+- Avatar image: 48x48px, border-radius: 36px, image: https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png
+- Name: "Abiola Adeyeye" — /Heading 3 style
+- Email: "abioladeyeye@gmail.com" — /Body S style, links to mailto
+
+### Main nav
+- Section label "Main" — /Uppercase headlines style
+- Nav buttons — each: bg: /grey background (inactive) or /grey background active, border-radius: 24px, padding: 10px 24px 10px 10px, gap: 12px
+- Each button has: Phosphor icon (24px, color: grey text main) + label text (/Body M leading)
+- Active state: same bg but text is white
+- Links: Explore → /, Projects → /projects, Explorations → /explorations, About → /about-me
+- Icons: compass (Explore), briefcase (Projects), path (Explorations), user (About)
+
+### Social nav
+- Section label "Social" — /Uppercase headlines style
+- Same button style as main nav
+- Links: LinkedIn → https://www.linkedin.com/in/ibheelz, Behance → https://www.behance.net/ibheelz, Twitter → twitter.com/abioladeyeye
+- Icons: linkedin, behance, twitter
+
+## Label component — exact from Framer
+Variant "BadgeNoIcon": border-radius: 40px, border: 1px solid /grey border darker, padding: 8px 12px, gap: 8px, /Body S text style
+
+## Section headline component
+Inline: /Heading 2 text style + optional "View all →" link that appears on hover, opacity 0 → 1
+
+## Homepage (/)
+Full layout: side nav + content container (padding: 36px 64px 120px 64px, gap: 64px)
+
+### Hero section
+- Gap: 7px vertical, padding: 12px 0px 0px 0px
+- Top row: space-between, has a small 4x4px dot (bg: /grey border, border-radius: 4px)
+- Headline: "Building value into brands through design." — /Heading M style, max-width: 876px
+- "What I do" sublabel — /Uppercase headlines
+- Labels row: flex-wrap, gap: 8px, labels: Branding, 3D Modelling, Visual Design, Generative AI Design, E-commerce Design, Marketing Design
+
+### Recent Projects section
+- Section header: "Recent projects" — /Heading 2 style with "View all →" link to /projects
+- Grid: 3 columns, gap: 24px, gridColumnWidthType: minmax, min: 50px
+- Project cards (see card spec below)
+
+### Blog section (no image)
+- Section header + list of blog posts as rows
+
+### Explorations section
+- Section header + grid of exploration cards
+
+## Projects page (/projects)
+- Content container: bg: /grey background, padding: 64px, gap: 64px
+- Headline section: gap: 2px vertical
+  - "Recent projects" — /Heading S
+  - "(2025 - 2026)" — /Body M leading
+- Projects grid: 3 col, gap: 24px, same as homepage
+- "Other projects" section: /Heading 2 label + list rows
+  - Row component: full width, border-bottom: 2px solid /black, padding: vertical
+  - Each row: project name + label1 + label2 + arrow icon
+  - Example rows: Lucia Davis (AI Influencer · Personal Project), Riley Mobolaji (AI Influencer · Personal Project), Aria Vale (AI Influencer · Personal Project)
+
+## Project card — exact dimensions from Framer
+- Width: 1fr, height: 396px (on projects page) / 520px (large variant on homepage)
+- Image container: border-radius: 16px, overflow: hidden, fills top portion
+- Text area at bottom: gap: 4px vertical
+  - Title: /Heading 3 style
+  - Labels row: gap: 4px horizontal, /Body S style, separator dot (4x4px, bg: /grey border darker, border-radius: 8px)
+- Hover: scale image slightly
+
+## Project detail page (/projects/:slug)
+Layout: side nav + top nav bar (fixed, 48px tall, top: 16px, left: 312px, right: 16px) + content
+
+### Fixed hero image
+- Position: fixed, height: 664px, top: 16px, left: 312px, right: 16px
+- bg: /grey background, overflow: hidden
+- Image inside: absolute, inset: -36px, border-radius: 12px 12px 0 0
+
+### Main content (scrolls over fixed image)
+- HeroText: height: 680px, padding: 0px 64px 24px 64px, flex-end alignment — shows project title (/Heading L) at bottom
+- ContentContainer: horizontal stack
+  - Left content area (1fr): padding: 96px 64px 64px 64px, gap: 64px
+    - Section 1: rich text + image (680px tall, border-radius: 12px)
+    - Section 2, 3, 4: same pattern
+  - Right sidebar (24% width, min: 296px): border-left: 2px solid /black, padding: 96px 24px 64px 24px, gap: 24px, sticky
+    - "Contents" label — /Uppercase headlines
+    - Chapter links (up to 4) — nav item style
+    - Divider line: 1px solid /grey border
+    - "Role" — /Uppercase headlines + label pills
+    - "Team" — /Uppercase headlines + avatar stack
+    - "Duration and date" — /Uppercase headlines + /Body S text
+
+### Let's connect section (at bottom of project page)
+- bg: /grey background, border-top: 2px solid /black, padding: 96px 64px, gap: 32px horizontal
+- Left: image 1fr x 440px, border-radius: 16px, bg image: https://framerusercontent.com/images/5ylj0gysRWJbYU3eEdJqMvks02w.png
+- Right: text section
+  - "Let's connect" — /Uppercase headlines
+  - "I'm not just here to design products; I'm here to connect with people." — /Body XL
+  - "As a creative designer..." — /Body M leading
+  - Contact rows (Phone, Email, Location) each: 40x40 icon box (border: 1px solid /grey border darker, border-radius: 8px) + label + value
+
+## Explorations page (/explorations) — build similarly to projects page
+
+## Exploration detail (/explorations/:slug)
+- Side nav + full content
+- Title /Heading S + tools as label pills
+- Description text
+- Image gallery: stacked full-width images, each 680px tall, border-radius: 12px
+
+## Blog page (/blog)
+- Row list style (BlogCard rows)
+- Each row: border-bottom: 2px solid /black
+- Contains: labels + title (/Heading 3) + date + reading time + arrow
+
+## Blog post (/blog/:slug)
+- Similar content area to project page but no sidebar
+- Labels + title (/Heading L) + date + reading time
+- Pull quote: border-left: 2px solid /Primary 600, padding-left: 24px, /Body XL italic
+- Sections: each has /Heading 2 headline + /Body M leading body text
+
+## About page (/about-me)
+- Bio in /Body M leading
+- Skills as Label pills (flex-wrap)
+- Experience rows: border-bottom: 2px solid /black
+- Contact section matching Let's connect style from project page
+
+## CMS Data — src/data/content.ts (TypeScript local JSON)
+type: "project" | "blog" | "exploration"
+
+### Projects:
+1. slug: "verdant", title: "Verdant", label1: "Cafe", label2: "Food", duration: "4 Weeks", readingTime: "4 min read", isFeatured: true
+   cardImage: https://framerusercontent.com/imatheges/Gjv37JbUfzuixRwc4G6wKaGqehc.png
+   heroImage: https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png
+   roleLabel1: "Visual Identity", roleLabel2: "Brand Identity", roleLabel3: "Branding", roleLabel4: "Cafe"
+   4 sections with full text + GIF images (see previous conversation for full text)
+
+2. slug: "duskline", title: "Duskline", label1: "Listening Bar", label2: "Entertainment", duration: "4 Weeks"
+   cardImage: https://framerusercontent.com/images/qXkwFSNeDhLPMrgjgIowdfMR1E.png
+   heroImage: https://framerusercontent.com/images/xcKqdi3zJ4mgzPoQhSL5zV6LaM.png
+   roleLabel1: "Brand Design", roleLabel2: "Branding", roleLabel3: "Listening Bar", roleLabel4: "Entertainment"
+   4 sections with full text + GIF images
+
+3. slug: "again-again", title: "Again & Again", label1: "Skincare", label2: "Beauty", duration: "2 Months" — draft, no images yet
+
+### Blog:
+1. slug: "designing-for-the-music-business", title: "Designing for the music business"
+   date: "2022-04-08", readingTime: "7 min read", isNew: true
+   labels: Music Business, Personal Connections, Web Design, Spotify
+   quote + 4 sections with headlines + rich text
+
+### Explorations:
+1. slug: "slots", title: "Casino & Slots", tool1: "Photoshop", tool2: "Nano Banana Pro"
+   cardImage: https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png
+   + 4 gallery images
+
+2. slug: "ecommerce-posters", title: "E-Commerce Posters", tool1: "Photoshop", tool2: "Illustrator", isFeatured: true
+   cardImage: https://framerusercontent.com/images/FpnS05Dyr8VS33BysFtyZYsoxo.webp
+   + 4 gallery images
+
+3. slug: "miela-posters", title: "Digital Agency Designs", tool1: "Photoshop", tool2: "Illustrator", isFeatured: true
+   cardImage: https://framerusercontent.com/images/9Nfy7lTjOXpn6pplcPO0DocHILw.png
+   + 3 gallery images
+
+4. slug: "igaming-posters", title: "iGaming Posters", tool1: "Photoshop", tool2: "Illustrator", isFeatured: true
+   cardImage: https://framerusercontent.com/images/0OoFz5p9hNvRgCJLvy669DQzbG4.png
+   + 4 gallery images
+
+## next.config.ts
+Allow images from framerusercontent.com
+
+## Animations (Framer Motion)
+- Page transitions: fade + y: 8 → 0 on every page
+- Project cards: whileHover y: -4, duration: 0.2
+- Side nav: no animation, always visible
+- Hero image on project page: parallax scroll effect (image moves slower than scroll)
+- Top nav bar on project page: fades in after scrolling past 628px (NavTrigger)
+- Content sections on project page: staggered fade-in on scroll
+
+## Metadata
+- title: "Abiola Adeyeye — Brand & Visual Designer"
+- description: "Brand and visual designer with 5+ years of experience in brand identity, AI-augmented workflows, and iGaming design."
+- metadataBase: https://abioladeyeye.com
+
+## README.md
+Include: project structure, how to add content to data/content.ts, how to add font files to /public/fonts/, how to deploy to Vercel with custom domain abioladeyeye.com
+
+## Build instructions
+1. Create the project folder at ~/Desktop/Dev/My-Portfolio-Site
+   Note: npm requires lowercase for package names but the folder itself can be capitalized — use --yes flag and set the package name as "my-portfolio-site" in package.json
+2. Install all dependencies
+3. Build the full project
+4. Run npm run build to confirm zero errors
+5. Run npm run dev so I can preview at localhost:3000
