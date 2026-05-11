@@ -33,11 +33,13 @@ export default function SideNav() {
 
   return (
     <nav
-      className="sticky top-0 w-[296px] text-white flex flex-col gap-10"
+      className="sticky w-[296px] text-white flex flex-col gap-10"
       style={{
+        top: '8px',
         backgroundColor: 'var(--grey-bg)',
         padding: '32px 24px 24px 24px',
         overflowY: 'auto',
+        height: 'calc(100vh - 16px)',
       }}
     >
       {/* Profile Section */}
@@ -74,11 +76,11 @@ export default function SideNav() {
               className="flex items-center gap-3 rounded-full transition-colors body-m-leading"
               style={{
                 padding: '10px 24px 10px 10px',
-                backgroundColor: 'var(--grey-bg)',
-                color: active ? 'var(--white)' : 'var(--grey-text-main)',
+                backgroundColor: 'transparent',
+                color: active ? 'rgb(129, 195, 215)' : 'rgb(138, 138, 138)',
               }}
             >
-              <Icon size={24} weight="fill" color={active ? 'var(--white)' : 'rgb(143, 134, 152)'} />
+              <Icon size={24} weight="regular" color={active ? 'rgb(129, 195, 215)' : 'rgb(143, 134, 152)'} />
               <span>{item.label}</span>
             </Link>
           )
@@ -99,11 +101,11 @@ export default function SideNav() {
               className="flex items-center gap-3 rounded-full transition-colors hover:text-white body-m-leading"
               style={{
                 padding: '10px 24px 10px 10px',
-                backgroundColor: 'var(--grey-bg)',
-                color: 'var(--grey-text-main)',
+                backgroundColor: 'transparent',
+                color: 'rgb(138, 138, 138)',
               }}
             >
-              <Icon size={24} weight="fill" color="rgb(143, 134, 152)" />
+              <Icon size={24} weight="regular" color="rgb(143, 134, 152)" />
               <span>{item.label}</span>
             </a>
           )

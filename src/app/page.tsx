@@ -1,11 +1,14 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { projects, explorations, blogPosts } from '@/src/data/content'
 import { ArrowRight } from '@phosphor-icons/react'
 
 export default function Home() {
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null)
+
   const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 3)
   const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 4)
 
@@ -74,26 +77,29 @@ export default function Home() {
           {/* SECTION 2 - Recent Projects */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Section header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '28px', overflow: 'hidden' }}>
+            <div
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
+              onMouseEnter={() => setHoveredSection('projects')}
+              onMouseLeave={() => setHoveredSection(null)}
+            >
               <h2 className="heading-2">
                 Recent projects
               </h2>
               <Link
                 href="/projects"
                 style={{
-                  opacity: 0,
+                  opacity: hoveredSection === 'projects' ? 1 : 0,
                   transition: 'opacity 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '2px',
-                  color: 'var(--white)',
-                  fontSize: '15px',
+                  color: 'rgb(138, 138, 138)',
+                  fontSize: '12px',
+                  whiteSpace: 'nowrap',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
               >
                 View all
-                <ArrowRight size={20} weight="bold" />
+                <ArrowRight size={16} weight="bold" />
               </Link>
             </div>
 
@@ -153,26 +159,29 @@ export default function Home() {
           {/* SECTION 3 - Blog */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Section header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '28px', overflow: 'hidden' }}>
+            <div
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
+              onMouseEnter={() => setHoveredSection('blog')}
+              onMouseLeave={() => setHoveredSection(null)}
+            >
               <h2 className="heading-2">
                 Writing
               </h2>
               <Link
                 href="/blog"
                 style={{
-                  opacity: 0,
+                  opacity: hoveredSection === 'blog' ? 1 : 0,
                   transition: 'opacity 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '2px',
-                  color: 'var(--white)',
-                  fontSize: '15px',
+                  color: 'rgb(138, 138, 138)',
+                  fontSize: '12px',
+                  whiteSpace: 'nowrap',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
               >
                 View all
-                <ArrowRight size={20} weight="bold" />
+                <ArrowRight size={16} weight="bold" />
               </Link>
             </div>
 
@@ -245,26 +254,29 @@ export default function Home() {
           {/* SECTION 4 - Explorations */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '984px' }}>
             {/* Section header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '28px', overflow: 'hidden' }}>
+            <div
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
+              onMouseEnter={() => setHoveredSection('explorations')}
+              onMouseLeave={() => setHoveredSection(null)}
+            >
               <h2 className="heading-2">
                 Personal creations
               </h2>
               <Link
                 href="/explorations"
                 style={{
-                  opacity: 0,
+                  opacity: hoveredSection === 'explorations' ? 1 : 0,
                   transition: 'opacity 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '2px',
-                  color: 'var(--white)',
-                  fontSize: '15px',
+                  color: 'rgb(138, 138, 138)',
+                  fontSize: '12px',
+                  whiteSpace: 'nowrap',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
               >
                 View all
-                <ArrowRight size={20} weight="bold" />
+                <ArrowRight size={16} weight="bold" />
               </Link>
             </div>
 
@@ -274,6 +286,7 @@ export default function Home() {
                 <Link
                   key={exploration.slug}
                   href={`/explorations/${exploration.slug}`}
+                  className="group"
                   style={{
                     width: '100%',
                     height: '348px',
@@ -295,7 +308,7 @@ export default function Home() {
                       position: 'relative',
                     }}
                   >
-                    <Image src={exploration.cardImage} alt={exploration.title} fill className="object-cover" />
+                    <Image src={exploration.cardImage} alt={exploration.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-[400ms]" />
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
