@@ -511,11 +511,11 @@ nav {
   }
 
   .project-card {
-    height: 310px !important;
+    height: auto !important;
   }
 
   .exploration-card {
-    height: 310px !important;
+    height: auto !important;
   }
 
   .projects-row {
@@ -525,8 +525,7 @@ nav {
 
   .project-card > div:first-child,
   .exploration-card > div:first-child {
-    aspect-ratio: unset !important;
-    height: 260px !important;
+    aspect-ratio: 1 !important;
   }
 
   .hero-responsive-heading {
@@ -578,11 +577,11 @@ nav {
   }
 
   .project-card {
-    height: 200px !important;
+    height: auto !important;
   }
 
   .exploration-card {
-    height: 200px !important;
+    height: auto !important;
   }
 
   .hero-responsive-heading {
@@ -604,8 +603,7 @@ nav {
 
   .project-card > div:first-child,
   .exploration-card > div:first-child {
-    aspect-ratio: unset !important;
-    height: 180px !important;
+    aspect-ratio: 1 !important;
   }
 
   .projects-rows-stack {
@@ -629,17 +627,16 @@ nav {
   }
 
   .project-card {
-    height: 160px !important;
+    height: auto !important;
   }
 
   .exploration-card {
-    height: 160px !important;
+    height: auto !important;
   }
 
   .project-card > div:first-child,
   .exploration-card > div:first-child {
-    aspect-ratio: unset !important;
-    height: 120px !important;
+    aspect-ratio: 1 !important;
   }
 
   .projects-rows-stack {
