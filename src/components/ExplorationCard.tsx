@@ -17,7 +17,7 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
     >
       <Link href={`/explorations/${exploration.slug}`} className="exploration-card group" style={{ display: 'flex', flexDirection: 'column', gap: '12px', height: '520px', overflow: 'hidden', textDecoration: 'none', color: 'inherit' }}>
         {/* Image Container */}
-        <div className="relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: '1', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: '1', borderRadius: '16px', backgroundColor: 'var(--grey-bg)', position: 'relative' }}>
           <Image
             src={exploration.cardImage}
             alt={exploration.title}
