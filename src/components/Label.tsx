@@ -10,12 +10,13 @@ export default function Label({ children, variant = 'default', icon }: LabelProp
   if (variant === 'BadgeWithIcon' && icon) {
     return (
       <div className="flex items-center gap-2">
-        <div className="w-6 h-6 rounded relative flex-shrink-0" style={{ width: '24px', height: '24px', borderRadius: '4px', overflow: 'hidden' }}>
+        <div className="flex-shrink-0" style={{ width: '24px', height: '24px', borderRadius: '4px', overflow: 'hidden' }}>
           <Image
             src={icon}
             alt={String(children)}
-            fill
-            className="object-cover"
+            width={24}
+            height={24}
+            className="w-full h-full object-cover"
           />
         </div>
         <span className="font-gucina text-[12px] leading-[18px] tracking-[0.01em] text-[rgb(138,138,138)]">
