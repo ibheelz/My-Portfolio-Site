@@ -12,7 +12,7 @@ const pageVariants = {
   enter: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' }
+    transition: { duration: 0.6, ease: 'easeOut' }
   },
   exit: {
     opacity: 0,
@@ -33,7 +33,14 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
     <>
       <AnimatePresence mode="wait">
       {/* Main Layout */}
-      <div className="page-wrapper" key={pathname}>
+      <motion.div
+        className="page-wrapper"
+        key={pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
         <div className="hidden lg:flex sidebar-nav">
           <SideNav />
@@ -77,16 +84,9 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Page Content */}
-        <motion.main
-          className="page-content"
-          initial="initial"
-          animate="enter"
-          exit="exit"
-          variants={pageVariants}
-          key={pathname}
-        >
+        <main className="page-content">
           {children}
-        </motion.main>
+        </main>
       </div>
 
       {/* Mobile Menu Modal Overlay */}
@@ -127,6 +127,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
           </motion.div>
         )}
       </AnimatePresence>
+      </motion.div>
       </AnimatePresence>
     </>
   )
