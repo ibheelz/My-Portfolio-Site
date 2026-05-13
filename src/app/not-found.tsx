@@ -3,14 +3,9 @@
 import Link from 'next/link'
 import { ArrowUp } from '@phosphor-icons/react'
 import { Particles } from '@tsparticles/react'
-import type { Engine } from '@tsparticles/engine'
-import { loadSlim } from '@tsparticles/slim'
+import type { ISourceOptions } from '@tsparticles/engine'
 
 export default function NotFound() {
-
-  const particlesInit = async (engine: Engine) => {
-    await loadSlim(engine)
-  }
 
   const particlesOptions1 = {
     particles: {
@@ -49,7 +44,7 @@ export default function NotFound() {
       {/* First Particle Layer */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <Particles
-          init={particlesInit}
+          id="particles1"
           options={particlesOptions1}
         />
       </div>
@@ -57,7 +52,7 @@ export default function NotFound() {
       {/* Second Particle Layer */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <Particles
-          init={particlesInit}
+          id="particles2"
           options={particlesOptions2}
         />
       </div>

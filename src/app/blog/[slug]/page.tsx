@@ -5,6 +5,12 @@ interface BlogPostPageProps {
   params: { slug: string }
 }
 
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = blogPosts.find((p) => p.slug === params.slug)
 
