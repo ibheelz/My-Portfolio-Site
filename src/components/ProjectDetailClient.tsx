@@ -106,16 +106,13 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           className="project-detail-nav hidden lg:block"
           style={{
             position: 'sticky',
-            top: '16px',
+            top: 0,
             height: '48px',
             width: '100%',
             backgroundColor: 'rgb(14,14,18)',
             borderRadius: '12px 12px 0 0',
             borderBottom: '2px solid rgb(2,1,10)',
             overflow: 'hidden',
-            transition: 'opacity 300ms ease',
-            opacity: navVisible ? 1 : 0,
-            pointerEvents: navVisible ? 'auto' : 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-start',
