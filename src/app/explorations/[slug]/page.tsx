@@ -132,7 +132,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Right Side - Info (35%) */}
           <div className="flex-1 flex flex-col justify-between p-8">
             {/* Top Content */}
-            <div className="flex flex-col gap-8" style={{ marginTop: '50px' }}>
+            <div className="flex flex-col gap-8" style={{ marginTop: '100px' }}>
               <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
                 {exploration.title}
               </h1>
