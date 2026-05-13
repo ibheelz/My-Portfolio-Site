@@ -59,9 +59,11 @@ export default function AboutPage() {
     <>
       {/* Hero Section */}
       <div
-        className="relative w-full overflow-hidden flex flex-col justify-end px-16 md:px-8 sm:px-4"
+        className="relative w-full overflow-hidden flex flex-col justify-end"
         style={{
           height: '664px',
+          paddingLeft: '64px',
+          paddingRight: '64px',
           paddingBottom: '24px',
         }}
       >
