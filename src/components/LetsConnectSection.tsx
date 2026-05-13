@@ -20,6 +20,7 @@ export default function LetsConnectSection() {
               fill
               className="object-cover"
               style={{ borderRadius: '16px' }}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               priority
             />
           </div>
