@@ -425,6 +425,16 @@ nav.project-detail-nav {
   z-index: 20;
 }
 
+.fixed-top-margin {
+  display: none;
+}
+
+@media (min-width: 1240px) {
+  .fixed-top-margin {
+    display: block;
+  }
+}
+
 .fixed-bottom-margin {
   position: fixed;
   bottom: 0;
@@ -433,6 +443,16 @@ nav.project-detail-nav {
   height: 16px;
   background-color: rgb(2, 1, 10);
   z-index: 20;
+}
+
+.fixed-bottom-margin {
+  display: none;
+}
+
+@media (min-width: 1240px) {
+  .fixed-bottom-margin {
+    display: block;
+  }
 }
 
 .projects-grid {
