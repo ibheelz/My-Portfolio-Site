@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Label from '@/src/components/Label'
+import ToolIcon from '@/src/components/ToolIcon'
 import { DownloadSimple } from '@phosphor-icons/react'
 
 export default function AboutPage() {
@@ -160,12 +161,10 @@ export default function AboutPage() {
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
                 Current Stack
               </label>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-4">
                 {currentStack.map((item) => (
-                  <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
-                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                      {item}
-                    </span>
+                  <div key={item}>
+                    <ToolIcon name={item} />
                   </div>
                 ))}
               </div>
@@ -225,7 +224,17 @@ export default function AboutPage() {
           style={{ padding: '96px 64px' }}
         >
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-            {/* Left Content */}
+            {/* Left Photo */}
+            <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative" style={{ height: '400px', minHeight: '300px' }}>
+              <Image
+                src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
+                alt="Abiola"
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Right Content */}
             <div className="flex-1 flex flex-col justify-between">
               <div>
                 <h2
@@ -276,16 +285,6 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-            </div>
-
-            {/* Right Photo */}
-            <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative" style={{ height: '400px', minHeight: '300px' }}>
-              <Image
-                src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
-                alt="Abiola"
-                fill
-                className="object-cover"
-              />
             </div>
           </div>
         </section>
