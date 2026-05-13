@@ -120,9 +120,9 @@ export default function AboutPage() {
             {/* Work Experiences Section */}
             <div style={{ marginBottom: '64px' }}>
               {/* Work Experiences Header */}
-              <div className="flex items-center justify-between mb-8" style={{ marginBottom: '20px' }}>
+              <div className="flex items-center justify-between gap-4 mb-8" style={{ marginBottom: '20px', gap: '16px' }}>
                 <h2
-                  className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+                  className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase flex-1"
                   style={{ fontFamily: 'Mortend' }}
                 >
                   Work Experiences
@@ -131,8 +131,8 @@ export default function AboutPage() {
                   href="https://drive.google.com/file/d/1HG_51ItrZI4yQOi1qifwe9L5_q_E2lyG/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center border border-[rgb(51,51,51)] rounded-full overflow-hidden transition-colors"
-                  style={{ padding: '12px 12px 12px 16px', gap: '4px' }}
+                  className="relative inline-flex items-center flex-shrink-0 border border-[rgb(51,51,51)] rounded-full overflow-hidden transition-colors"
+                  style={{ padding: '12px 12px 12px 16px' }}
                 >
                   {/* Hover background fill */}
                   <span
@@ -148,7 +148,7 @@ export default function AboutPage() {
                   />
 
                   {/* Text and Icon */}
-                  <span className="relative z-[2] flex items-center gap-1" style={{ gap: '4px' }}>
+                  <span className="relative z-[2] flex items-center" style={{ gap: '4px' }}>
                     <span className="font-gucina font-semibold text-[12px] leading-[18px] tracking-[0.01em] text-[rgb(129,195,215)]">
                       Full resume
                     </span>
