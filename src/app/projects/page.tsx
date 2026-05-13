@@ -17,11 +17,11 @@ export default function ProjectsPage() {
   return (
     <div className="content-container">
       {/* SECTION 1 - Page Headline */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden', marginBottom: '64px' }}>
-        <h1 className="heading-s" style={{ textTransform: 'uppercase' }}>
+      <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', overflow: 'hidden', marginBottom: '64px' }}>
+        <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
           Projects
         </h1>
-        <p className="body-m-leading" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content' }}>
+        <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content', margin: 0 }}>
           (2025 - 2026)
         </p>
       </section>
