@@ -161,12 +161,13 @@ export const explorations: Exploration[] = [
     date: 'Mar 13, 2025',
     tools: ['Photoshop', 'Nano Banana Pro'],
     isFeatured: false,
-    cardImage: 'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png',
+    cardImage: 'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png?width=2000&height=2000',
     images: [
-      'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png',
-      'https://framerusercontent.com/images/slots-2.png',
-      'https://framerusercontent.com/images/slots-3.png',
-      'https://framerusercontent.com/images/slots-4.png',
+      'https://framerusercontent.com/images/nUnmXrvePnrnIGceHLamqYFmk.png?width=2000&height=2000',
+      'https://framerusercontent.com/images/wdEJoaqd9g8MrW29f2upk7QFJzQ.png?width=2000&height=2000',
+      'https://framerusercontent.com/images/Wwcfxo4n5XI2kTqU5uK0PSeVIMI.png?width=2000&height=2000',
+      'https://framerusercontent.com/images/sQqAQcXD2cNGfrBfxn8XJPQ4HE.png?width=2000&height=2000',
+      'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png?width=2000&height=2000',
     ],
   },
   {
