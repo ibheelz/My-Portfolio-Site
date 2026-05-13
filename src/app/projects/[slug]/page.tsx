@@ -92,7 +92,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           {/* Main Content Area */}
           <div
             className="flex-1 overflow-hidden flex flex-col gap-16 px-16 pt-24 pb-16 md:px-4 sm:px-4 bg-[rgb(14,14,18)] z-[40]"
-            style={{ paddingLeft: '64px', paddingRight: '64px', paddingTop: '96px' }}
+            style={{ paddingLeft: '64px', paddingRight: '64px' }}
           >
             {project.sections.map((section, index) => (
               <section key={index} id={`section${index + 1}`} className="flex flex-col gap-8 w-full">
@@ -123,7 +123,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           {/* Sticky Sidebar */}
           <aside
             className="w-[24%] min-w-[296px] h-screen sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col gap-6 overflow-y-auto hidden lg:flex bg-[rgb(14,14,18)] z-50"
-            style={{ paddingLeft: '24px', paddingRight: '24px', paddingTop: '96px' }}
+            style={{ paddingLeft: '24px', paddingRight: '24px' }}
           >
             {/* Chapters Navigation */}
             <nav className="flex flex-col gap-3 w-full">
