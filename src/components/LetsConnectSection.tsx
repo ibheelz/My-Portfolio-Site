@@ -22,16 +22,6 @@ export default function LetsConnectSection() {
               style={{ borderRadius: '16px' }}
             />
 
-            {/* Watermark Logo - bottom right corner */}
-            <div className="absolute flex items-center justify-center overflow-visible" style={{ bottom: '12px', right: '12px', width: '108px', height: '42.5px' }}>
-              <Image
-                src="https://framerusercontent.com/images/dCtHDieyJay9H91GpY1lWIzFAI.svg"
-                alt="Logo"
-                width={108}
-                height={42.5}
-                style={{ width: '108px', height: '42.5px' }}
-              />
-            </div>
           </div>
         </div>
 
