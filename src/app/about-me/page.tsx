@@ -2,15 +2,26 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import Label from '@/src/components/Label'
 import ToolIcon from '@/src/components/ToolIcon'
 import LetsConnectSection from '@/src/components/LetsConnectSection'
 import { DownloadSimple } from '@phosphor-icons/react'
+import { useState, useEffect } from 'react'
 
 export default function AboutPage() {
-  const aboutText = `I'm a designer focused on creating experiences that actually matter. I care about how people interact with technology and work to make those moments simple and meaningful. I love solving complex problems and believe great design starts with understanding people. Every project I take on is about finding thoughtful solutions that work for both users and businesses. I push boundaries but keep things practical. I thrive in collaboration and I'm always learning.`
+  const [scrollY, setScrollY] = useState(0)
 
-  const whatIDo = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const aboutText1 = `I'm a designer focused on creating experiences that actually matter. I care about how people interact with technology and work to make those moments simple and meaningful. I love solving complex problems and believe great design starts with understanding people.`
+
+  const aboutText2 = `Every project I take on is about finding thoughtful solutions that work for both users and businesses. I push boundaries but keep things practical. I thrive in collaboration and I'm always learning.`
+
   const currentStack = [
     'Adobe Creative Suite',
     'Nano Banana Pro',
@@ -21,13 +32,15 @@ export default function AboutPage() {
     'Blender',
     'Claude',
   ]
+
+  const whatIDo = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
   const iKnow = ['Python', 'Photo Manipulation', 'Html and CSS', 'Typography', 'Logo Design', 'Brand Design']
 
   const experience = [
-    { company: 'Miela', role: 'Brand Designer and IT Lead', duration: 'Jun 2023 to Oct 2025' },
-    { company: 'Eyekontact Limited', role: 'Senior Creative Executive', duration: '2022 to 2023' },
-    { company: 'Kunyo.co', role: 'Creative Specialist', duration: 'May 2021 to Sep 2022' },
-    { company: 'EaglesTracker', role: 'Graphic Designer', duration: 'Jan 2019 to Dec 2021' },
+    { company: 'Miela', role: 'Brand Designer & IT Lead', duration: 'Jun 2023 - Oct 2025' },
+    { company: 'Eyekontact Limited', role: 'Senior Creative Executive', duration: '2022 - 2023' },
+    { company: 'Kunyo.co', role: 'Creative Specialist', duration: 'May 2021 - Sep 2022' },
+    { company: 'EaglesTracker', role: 'Graphic Designer', duration: 'Jan 2019 - Dec 2021' },
   ]
 
   const testimonials = [
@@ -50,12 +63,43 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* Content Area */}
+      {/* Hero Section with Fixed Background */}
+      <div
+        className="relative w-full flex flex-col justify-end px-16 pb-6 md:px-4 bg-fixed"
+        style={{ height: '70vh', paddingLeft: '64px', paddingRight: '64px' }}
+      >
+        <Image
+          src="https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png"
+          alt="About Me Hero"
+          fill
+          className="absolute inset-0 object-cover"
+        />
+
+        {/* Gradient overlay */}
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
+          style={{
+            height: '200px',
+            background: 'linear-gradient(to top, rgb(14, 14, 18) 0%, rgba(14, 14, 18, 0.6) 50%, transparent 100%)'
+          }}
+        />
+
+        {/* Name at bottom */}
+        <h1
+          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
+          style={{ fontFamily: 'Mortend' }}
+        >
+          Abiola Adeyeye
+        </h1>
+      </div>
+
+      {/* Solid Content Area - Two Column Layout */}
       <div className="relative w-full bg-[rgb(14,14,18)] z-10">
-        {/* Left Column + Right Sidebar */}
-        <div className="flex flex-col lg:flex-row gap-2 px-16 md:px-4" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+        <div className="flex flex-col lg:flex-row gap-2 px-4" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
+
           {/* Left Column */}
           <div className="flex-1" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
+
             {/* About Me Section */}
             <div className="mb-16" style={{ marginBottom: '64px', maxWidth: '612px' }}>
               <h2
@@ -64,10 +108,13 @@ export default function AboutPage() {
               >
                 About me
               </h2>
-              <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
-                {aboutText}
+              <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)] mb-4">
+                {aboutText1}
               </p>
-              <div className="w-full h-px bg-[rgb(31,31,31)] mt-12" style={{ marginTop: '64px' }} />
+              <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
+                {aboutText2}
+              </p>
+              <div className="w-full h-px bg-[rgb(31,31,31)] mt-16" style={{ marginTop: '64px' }} />
             </div>
 
             {/* Resume Section */}
@@ -113,19 +160,19 @@ export default function AboutPage() {
               {/* Experience Rows */}
               <div className="flex flex-col gap-6">
                 {experience.map((exp, index) => (
-                  <div key={index} className="flex justify-between gap-8">
+                  <div key={index} className="flex justify-between gap-8 pb-6" style={{ borderBottom: `1px solid rgb(31, 31, 31)`, paddingBottom: '24px' }}>
                     <div className="flex-1">
-                      <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
                         {exp.company}
                       </p>
                     </div>
                     <div className="flex-1">
-                      <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
                         {exp.role}
                       </p>
                     </div>
                     <div className="flex-1">
-                      <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
                         {exp.duration}
                       </p>
                     </div>
@@ -162,7 +209,7 @@ export default function AboutPage() {
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
                 Current Stack
               </label>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 {currentStack.map((item) => (
                   <div key={item}>
                     <ToolIcon name={item} />
@@ -193,11 +240,17 @@ export default function AboutPage() {
         {/* Testimonials Section */}
         <section
           className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-hidden"
-          style={{ padding: '64px', gap: '20px' }}
+          style={{ padding: '64px' }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" style={{ gap: '32px' }}>
+          <h2
+            className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase mb-5"
+            style={{ fontFamily: 'Mortend', marginBottom: '20px' }}
+          >
+            Testimonials
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative" style={{ gap: '32px' }}>
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex flex-col gap-4 relative" style={{}}>
+              <div key={index} className="flex flex-col gap-4 relative" style={{ height: '200px' }}>
                 {/* Vertical Divider */}
                 {index < testimonials.length - 1 && (
                   <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
@@ -240,10 +293,10 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
-
-        {/* Let's Connect Section */}
-        <LetsConnectSection />
       </div>
+
+      {/* Let's Connect Section */}
+      <LetsConnectSection />
     </>
   )
 }
