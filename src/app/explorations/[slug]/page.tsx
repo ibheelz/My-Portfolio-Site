@@ -89,7 +89,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
                     src={image}
                     alt={`${exploration.title} - Image ${index + 1}`}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     priority={index === 0}
                   />
                 </div>
@@ -216,7 +216,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
                     src={image}
                     alt={`${exploration.title} - Image ${index + 1}`}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     priority={index === 0}
                   />
                 </div>
