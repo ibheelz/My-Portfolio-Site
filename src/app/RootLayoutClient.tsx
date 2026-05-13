@@ -29,13 +29,13 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         <div className="lg:hidden w-full mobile-navbar">
           <div className="flex items-center justify-between bg-[rgb(14,14,18)] px-4 py-3">
             {/* Left: Abiola Profile */}
-            <div className="flex gap-3 items-start">
+            <div className="flex gap-3 items-center">
               <Image
                 src="/profile-photo.jpg"
                 alt="Abiola Adeyeye"
-                width={40}
-                height={40}
-                style={{ borderRadius: '32px', flexShrink: 0, objectFit: 'cover' }}
+                width={56}
+                height={56}
+                style={{ borderRadius: '40px', flexShrink: 0, objectFit: 'cover' }}
                 priority
               />
               <div className="flex flex-col gap-0">

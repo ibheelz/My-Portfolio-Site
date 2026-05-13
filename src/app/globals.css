@@ -408,6 +408,8 @@ nav.project-detail-nav {
     height: auto !important;
     min-height: 80px !important;
     overflow: visible !important;
+    background-color: rgb(14, 14, 18);
+    border-bottom: 2px solid rgb(2, 1, 10);
   }
 }
 
@@ -612,6 +614,8 @@ nav.project-detail-nav {
     overflow-x: hidden;
     border-radius: 0;
     min-height: 0;
+    height: auto;
+    max-height: none;
   }
 
   .content-container {
