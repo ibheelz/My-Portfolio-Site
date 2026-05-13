@@ -7,6 +7,20 @@ import { List, X } from '@phosphor-icons/react'
 import Image from 'next/image'
 import SideNav from '@/src/components/SideNav'
 
+const pageVariants = {
+  initial: { opacity: 0, y: 10 },
+  enter: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: 'easeOut' }
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: { duration: 0.3, ease: 'easeIn' }
+  }
+}
+
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
@@ -17,8 +31,9 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
   return (
     <>
+      <AnimatePresence mode="wait">
       {/* Main Layout */}
-      <div className="page-wrapper">
+      <div className="page-wrapper" key={pathname}>
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
         <div className="hidden lg:flex sidebar-nav">
           <SideNav />
@@ -62,9 +77,16 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Page Content */}
-        <main className="page-content">
+        <motion.main
+          className="page-content"
+          initial="initial"
+          animate="enter"
+          exit="exit"
+          variants={pageVariants}
+          key={pathname}
+        >
           {children}
-        </main>
+        </motion.main>
       </div>
 
       {/* Mobile Menu Modal Overlay */}
@@ -104,6 +126,8 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             </div>
           </motion.div>
         )}
+      </AnimatePresence>
+      </div>
       </AnimatePresence>
     </>
   )
