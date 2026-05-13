@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  basePath: '/My-Portfolio-Site',
   images: {
     remotePatterns: [
       {
@@ -7,6 +9,7 @@ const nextConfig = {
         hostname: 'framerusercontent.com',
       },
     ],
+    unoptimized: true,
   },
 }
 
