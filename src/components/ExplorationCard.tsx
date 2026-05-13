@@ -19,7 +19,7 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'clamp(8px, 2vw, 16px)',
+        gap: 'clamp(16px, 4vw, 32px)',
         textDecoration: 'none',
         color: 'inherit',
         cursor: 'pointer'
@@ -46,7 +46,7 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
       {/* Text Area */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(4px, 1vw, 8px)' }}>
         <h3
-          className="font-body text-[clamp(12px,2vw,16px)] leading-[1.5]"
+          className="font-body text-[clamp(12px,2.5vw,16px)] leading-[1.5]"
           style={{ color: 'rgb(250, 250, 250)', fontFamily: "'Gucina'", fontWeight: 600 }}
         >
           {exploration.title}
