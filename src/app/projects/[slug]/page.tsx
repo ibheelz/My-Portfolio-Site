@@ -151,6 +151,22 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             {/* Divider */}
             <div className="w-full h-px bg-[rgb(31,31,31)]" />
 
+            {/* Duration and Date Info */}
+            <div className="flex flex-col gap-4 w-full">
+              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                Duration and date
+              </label>
+              <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                {project.duration}
+              </p>
+              <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                | January - February 2026
+              </p>
+            </div>
+
+            {/* Divider */}
+            <div className="w-full h-px bg-[rgb(31,31,31)]" />
+
             {/* Technical Details */}
             <div className="flex flex-col gap-10 w-full">
               {/* Role */}
@@ -173,15 +189,6 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </div>
 
 
-              {/* Duration and Date */}
-              <div className="flex flex-col gap-4">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                  Duration and date
-                </label>
-                <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                  {project.duration}
-                </p>
-              </div>
             </div>
           </aside>
         </div>
