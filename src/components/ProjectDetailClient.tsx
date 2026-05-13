@@ -34,14 +34,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const sidebarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const pageContent = document.querySelector('.page-content')
-    if (pageContent) {
-      pageContent.scrollTop = 0
-    }
-    window.scrollY = 0
-  }, [slug])
-
-  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
@@ -113,15 +105,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         <nav
           className="project-detail-nav hidden lg:block"
           style={{
-            position: 'fixed',
+            position: 'sticky',
             top: 0,
-            left: '312px',
-            right: '16px',
             height: '48px',
+            width: '100%',
             backgroundColor: 'rgb(14,14,18)',
             borderRadius: '12px 12px 0 0',
             borderBottom: '2px solid rgb(2,1,10)',
-            overflow: 'hidden',
+            overflow: 'visible',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-start',
