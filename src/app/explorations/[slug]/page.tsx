@@ -91,8 +91,8 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             {/* Previous Button */}
             <button
               onClick={handlePrevious}
-              className="absolute top-8 left-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-              style={{ opacity: currentImageIndex === 0 ? 0.65 : 1 }}
+              className="absolute left-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+              style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === 0 ? 0.65 : 1 }}
               disabled={currentImageIndex === 0}
             >
               <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
@@ -101,8 +101,8 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             {/* Next Button */}
             <button
               onClick={handleNext}
-              className="absolute top-8 right-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-              style={{ opacity: currentImageIndex === exploration.images.length - 1 ? 0.65 : 1 }}
+              className="absolute right-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+              style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === exploration.images.length - 1 ? 0.65 : 1 }}
               disabled={currentImageIndex === exploration.images.length - 1}
             >
               <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
@@ -180,7 +180,8 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             {/* Navigation Buttons */}
             <button
               onClick={handlePrevious}
-              className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
+              className="absolute left-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
+              style={{ top: '50%', transform: 'translateY(-50%)' }}
               disabled={currentImageIndex === 0}
             >
               <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
@@ -188,7 +189,8 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
 
             <button
               onClick={handleNext}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
+              className="absolute right-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
+              style={{ top: '50%', transform: 'translateY(-50%)' }}
               disabled={currentImageIndex === exploration.images.length - 1}
             >
               <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
