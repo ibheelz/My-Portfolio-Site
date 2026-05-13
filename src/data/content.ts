@@ -39,6 +39,8 @@ export interface Exploration {
   type: 'exploration'
   slug: string
   title: string
+  description?: string
+  date?: string
   tools: string[]
   isFeatured?: boolean
   cardImage: string
@@ -155,6 +157,8 @@ export const explorations: Exploration[] = [
     type: 'exploration',
     slug: 'slots',
     title: 'Casino & Slots',
+    description: 'A set of iGaming and slots promotional posters designed in Adobe Photoshop and Nano Banana Pro for todoalrojo, driving engagement across competitive betting and slots markets.',
+    date: 'Mar 13, 2025',
     tools: ['Photoshop', 'Nano Banana Pro'],
     isFeatured: false,
     cardImage: 'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png',

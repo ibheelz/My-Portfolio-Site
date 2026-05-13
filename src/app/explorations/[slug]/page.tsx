@@ -136,6 +136,11 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
               <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
                 {exploration.title}
               </h1>
+              {exploration.description && (
+                <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)]">
+                  {exploration.description}
+                </p>
+              )}
             </div>
 
             {/* Bottom Content */}
@@ -160,14 +165,16 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
               </div>
 
               {/* Date */}
-              <div className="flex flex-col gap-3">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                  Date
-                </label>
-                <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                  2026
-                </p>
-              </div>
+              {exploration.date && (
+                <div className="flex flex-col gap-3">
+                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                    Date
+                  </label>
+                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                    {exploration.date}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -243,6 +250,12 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
               {exploration.title}
             </h1>
 
+            {exploration.description && (
+              <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)] mb-8">
+                {exploration.description}
+              </p>
+            )}
+
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-2.5">
                 <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
@@ -259,14 +272,16 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                  Date
-                </label>
-                <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                  2026
-                </p>
-              </div>
+              {exploration.date && (
+                <div className="flex flex-col gap-3">
+                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                    Date
+                  </label>
+                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                    {exploration.date}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
