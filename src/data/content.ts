@@ -95,18 +95,22 @@ export const projects: Project[] = [
       {
         title: 'Project Overview',
         content: 'Duskline is a vinyl record shop that transforms into a listening bar at night. It\'s built for people who take music seriously but want somewhere warm and welcoming to enjoy it.\n\nThe brand identity captures that dual nature, dark, atmospheric, and confident by night, but always approachable. Every design decision was guided by one idea: sound first.',
+        image: 'https://framerusercontent.com/images/jdAWGQ79Ef5Oq9ifYlVLjaQ4E.gif?width=800&height=600',
       },
       {
         title: 'The Challenge',
         content: 'Duskline operates as two things at once, a record shop by day and a listening bar by night. The challenge was building a single brand identity that could hold both without feeling split or inconsistent.\n\nThe design had to feel warm and browsable in the daytime while shifting into something moodier and more atmospheric after dark. One visual language, two very different experiences.',
+        image: 'https://framerusercontent.com/images/fsgAmyTmClybagSHaZB6UZFQ4T8.gif?width=1408&height=958',
       },
       {
         title: 'Brand Strategy',
         content: 'The strategy was to lead with the listening experience rather than the products. Whether you are flipping through crates or sitting with a drink, the common thread is sound. That became the anchor for every brand decision.\n\nFrom the color palette to the typography, everything was built to feel intentional and unhurried. The brand does not shout for attention. It draws you in quietly, the same way good music does.',
+        image: 'https://framerusercontent.com/images/iFsYnxNfati1W0exANnih8B9Qc.gif?width=1920&height=1440',
       },
       {
         title: 'Visual Identity',
         content: 'The identity is built around a rich, considered color system. Deep burgundy anchors the palette with weight and warmth, balanced by a soft cream and a warm off white that keep the brand from feeling heavy or closed off.\n\nTogether the three colors reflect the atmosphere of the space itself. Dark and intimate at its core, but always with enough warmth to feel welcoming. The palette works across everything from signage to packaging without losing its character.',
+        image: 'https://framerusercontent.com/images/lU8OrmyNlhSmf7qWsr4BoaWjCWk.png?width=1408&height=957',
       },
     ],
   },
