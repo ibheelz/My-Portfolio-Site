@@ -174,7 +174,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
           </div>
         </div>
 
-        <div className="flex flex-col lg:hidden overflow-hidden w-full" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}>
+        <div className="flex flex-col lg:hidden overflow-hidden w-full mobile-navbar-spacing" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}>
           <FadeIn>
             <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 16px)' }}>
               <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>

@@ -446,6 +446,16 @@ nav.project-detail-nav {
   }
 }
 
+.mobile-navbar-spacing {
+  padding-top: 20px;
+}
+
+@media (min-width: 1240px) {
+  .mobile-navbar-spacing {
+    padding-top: clamp(32px, 8vw, 64px);
+  }
+}
+
 .projects-grid {
   grid-template-columns: repeat(3, minmax(50px, 1fr)) !important;
   column-gap: clamp(16px, 4vw, 32px) !important;
