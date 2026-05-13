@@ -34,6 +34,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const sidebarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const pageContent = document.querySelector('.page-content')
+    if (pageContent) {
+      pageContent.scrollTop = 0
+    }
+    window.scrollY = 0
+  }, [slug])
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
