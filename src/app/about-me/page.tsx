@@ -101,7 +101,7 @@ export default function AboutPage() {
           <div className="flex-1" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
 
             {/* About Me Section */}
-            <div className="mb-16" style={{ marginBottom: '64px', maxWidth: '612px' }}>
+            <div className="mb-16" style={{ marginBottom: '64px' }}>
               <h2
                 className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase mb-5"
                 style={{ fontFamily: 'Mortend', marginBottom: '20px' }}
