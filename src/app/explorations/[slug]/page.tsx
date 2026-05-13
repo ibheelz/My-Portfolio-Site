@@ -70,7 +70,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           <div
             ref={slideShowRef}
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
-            style={{ flex: '1 1 50%', height: '100%' }}
+            style={{ flex: '1 1 40%', height: '100%' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
