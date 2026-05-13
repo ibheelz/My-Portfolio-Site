@@ -148,9 +148,12 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </ul>
             </nav>
 
+            {/* Divider */}
+            <div className="w-full h-px bg-[rgb(31,31,31)]" style={{ marginTop: '40px', marginBottom: '40px' }} />
+
             {/* Duration and Date Info */}
             {(project.duration || project.date) && (
-              <div className="flex flex-col w-full mt-5">
+              <div className="flex flex-col w-full">
                 <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-2">
                   Duration and date
                 </label>
