@@ -8,8 +8,8 @@ import type { Engine } from '@tsparticles/engine'
 import { loadSlim } from '@tsparticles/slim'
 
 export default function NotFound() {
-  const particlesRef1 = useRef<Particles>(null)
-  const particlesRef2 = useRef<Particles>(null)
+  const particlesRef1 = useRef<typeof Particles>(null)
+  const particlesRef2 = useRef<typeof Particles>(null)
 
   const particlesInit = async (engine: Engine) => {
     await loadSlim(engine)
