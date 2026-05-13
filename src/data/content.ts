@@ -7,6 +7,7 @@ export interface Project {
   label1: string
   label2: string
   duration: string
+  date?: string
   readingTime?: string
   isFeatured?: boolean
   cardImage: string
@@ -52,6 +53,7 @@ export const projects: Project[] = [
     label1: 'Cafe',
     label2: 'Food',
     duration: '4 Weeks',
+    date: 'January – February 2026',
     readingTime: '4 min read',
     isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/Gjv37JbUfzuixRwc4G6wKaGqehc.png',
@@ -87,6 +89,7 @@ export const projects: Project[] = [
     label1: 'Listening Bar',
     label2: 'Entertainment',
     duration: '4 Weeks',
+    date: 'January – February 2026',
     isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/qXkwFSNeDhLPMrgjgIowdfMR1E.png',
     heroImage: 'https://framerusercontent.com/images/xcKqdi3zJ4mgzPoQhSL5zV6LaM.png',

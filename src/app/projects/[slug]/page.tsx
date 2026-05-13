@@ -151,44 +151,45 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             {/* Divider */}
             <div className="w-full h-px bg-[rgb(31,31,31)]" />
 
-            {/* Duration and Date Info */}
-            <div className="flex flex-col gap-4 w-full">
+            {/* Role */}
+            <div className="flex flex-col gap-5">
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                Duration and date
+                Role
               </label>
-              <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                {project.duration}
-              </p>
-              <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                | January - February 2026
-              </p>
+              <div className="flex flex-wrap gap-3">
+                {project.roleLabels.map((label) => (
+                  <div
+                    key={label}
+                    className="rounded-full border border-[rgb(51,51,51)] px-3 py-2"
+                  >
+                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Divider */}
             <div className="w-full h-px bg-[rgb(31,31,31)]" />
 
-            {/* Technical Details */}
-            <div className="flex flex-col gap-10 w-full">
-              {/* Role */}
-              <div className="flex flex-col gap-5">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                  Role
-                </label>
-                <div className="flex flex-wrap gap-3">
-                  {project.roleLabels.map((label) => (
-                    <div
-                      key={label}
-                      className="rounded-full border border-[rgb(51,51,51)] px-3 py-2"
-                    >
-                      <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                        {label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            {/* Duration and Date Info */}
+            <div className="flex flex-col w-full">
+              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-4">
+                Duration and date
+              </label>
+              <div className="flex flex-col gap-2">
+                {project.duration && (
+                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                    {project.duration}
+                  </p>
+                )}
+                {project.date && (
+                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                    {project.date}
+                  </p>
+                )}
               </div>
-
-
             </div>
           </aside>
         </div>
