@@ -18,7 +18,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const [modalImage, setModalImage] = useState<string | null>(null)
+  const [sidebarFixed, setSidebarFixed] = useState(true)
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
+  const sidebarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Intersection Observer for hero title visibility
@@ -34,11 +36,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       observer.observe(heroTitleRef.current)
     }
 
-    // Scroll listener for active section tracking
+    // Scroll listener for active section tracking and sidebar positioning
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      setScrollY(currentScrollY)
-
       // Update active section based on scroll position
       const sections = project?.sections || []
       let activeIndex = 0
@@ -47,17 +46,41 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         const element = document.getElementById(`section${i + 1}`)
         if (element) {
           const rect = element.getBoundingClientRect()
-          if (rect.top <= 300) {
+          // Section becomes active when it reaches near the top
+          if (rect.top <= 100) {
             activeIndex = i
           }
         }
       }
       setActiveSection(activeIndex)
+
+      // Check if "More Projects" section is at halfway point
+      const headings = document.querySelectorAll('h2')
+      let moreProjectsSection = null
+      for (const heading of headings) {
+        if (heading.textContent?.includes('More projects')) {
+          moreProjectsSection = heading.closest('section')
+          break
+        }
+      }
+
+      if (moreProjectsSection) {
+        const rect = moreProjectsSection.getBoundingClientRect()
+        // When More Projects section reaches halfway into the screen, make sidebar scrollable
+        if (rect.top <= window.innerHeight / 2) {
+          setSidebarFixed(false)
+        } else {
+          setSidebarFixed(true)
+        }
+      }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    // Find the scrolling container (usually the page-content div)
+    const scrollContainer = document.querySelector('.page-content') || window
+    scrollContainer.addEventListener('scroll', handleScroll)
+
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      scrollContainer.removeEventListener('scroll', handleScroll)
       observer.disconnect()
     }
   }, [project])
@@ -74,16 +97,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <div className="fixed top-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
       <div className="fixed bottom-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
 
-      {/* Fixed Top Nav Bar - Desktop only */}
-      <div className="hidden lg:block">
+      {/* Main Scrolling Content */}
+      <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
+
+        {/* Fixed Top Nav Bar - Desktop only */}
         <nav
+          className="project-detail-nav hidden lg:block"
           style={{
-            position: 'fixed',
-            top: '16px',
-            left: '312px',
-            right: '16px',
+            position: 'sticky',
+            top: 0,
             height: '48px',
-            zIndex: 10,
+            width: '100%',
             backgroundColor: 'rgb(14,14,18)',
             borderRadius: '12px 12px 0 0',
             borderBottom: '2px solid rgb(2,1,10)',
@@ -92,25 +116,22 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             opacity: navVisible ? 1 : 0,
             pointerEvents: navVisible ? 'auto' : 'none',
             display: 'flex',
-            alignItems: 'flex-end',
-            paddingLeft: '64px',
-            paddingRight: '64px',
+            alignItems: 'center',
+            flexWrap: 'nowrap',
+            paddingLeft: 'clamp(16px, 5vw, 64px)',
+            paddingRight: 'clamp(16px, 5vw, 64px)',
             paddingBottom: '8px',
-            gap: '10px',
+            gap: '0px',
+            zIndex: 50,
           }}
         >
-          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0 }}>
+          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0, whiteSpace: 'nowrap', marginRight: '20px', flexShrink: 0, textTransform: 'none' }}>
             {project.title}
           </h3>
-          <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', marginLeft: 'auto' }}>
+          <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', whiteSpace: 'nowrap', flexShrink: 0 }}>
             {project.readingTime || '5'} min read
           </span>
         </nav>
-      </div>
-
-
-      {/* Main Scrolling Content */}
-      <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
 
         {/* Hero Text Overlay */}
         <div
@@ -148,7 +169,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[40] bg-[rgb(14,14,18)]">
           {/* Main Content Area */}
           <div
-            className="flex-1 flex flex-col bg-[rgb(14,14,18)] z-[40]"
+            className="flex-1 flex flex-col bg-[rgb(14,14,18)] z-[40] border-r-2 border-[rgb(2,1,10)]"
             style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)', gap: 'clamp(32px, 8vw, 64px)' }}
           >
             {project.sections.map((section, index) => (
@@ -181,8 +202,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* Sticky Sidebar */}
           <aside
-            className="w-[24%] min-w-[296px] sticky top-0 border-l-2 border-[rgb(2,1,10)] flex flex-col hidden lg:flex bg-[rgb(14,14,18)] z-50 overflow-hidden"
-            style={{ paddingLeft: 'clamp(16px, 2vw, 32px)', paddingRight: 'clamp(16px, 2vw, 32px)', paddingTop: 'clamp(16px, 2vw, 24px)', paddingBottom: 'clamp(32px, 8vw, 64px)' }}
+            ref={sidebarRef}
+            className="w-[24%] min-w-[296px] flex flex-col hidden lg:flex bg-[rgb(14,14,18)]"
+            style={{
+              position: 'sticky',
+              top: '80px',
+              height: 'auto',
+              paddingLeft: 'clamp(16px, 2vw, 32px)',
+              paddingRight: 'clamp(16px, 2vw, 32px)',
+              paddingTop: 'clamp(16px, 2vw, 24px)',
+              paddingBottom: 'clamp(32px, 8vw, 64px)',
+              alignSelf: 'flex-start',
+            }}
           >
             {/* Chapters Navigation */}
             <nav className="flex flex-col gap-2 w-full" style={{ height: 'auto', position: 'relative', top: 'auto', borderRadius: 'unset', backgroundColor: 'transparent', zIndex: 'auto' }}>
@@ -196,7 +227,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       href={`#section${index + 1}`}
                       className={`font-gucina text-[12px] leading-[18px] tracking-[0.01em] transition-colors duration-200 cursor-pointer ${
                         activeSection === index
-                          ? 'text-[rgb(250,250,250)]'
+                          ? 'sidebar-active-link'
                           : 'text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)]'
                       }`}
                     >
