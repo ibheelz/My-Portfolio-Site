@@ -120,14 +120,14 @@ export default function AboutPage() {
             {/* Work Experiences Section */}
             <div style={{ marginBottom: '64px' }}>
               {/* Work Experiences Header */}
-              <div className="flex items-center justify-between gap-4 mb-8" style={{ marginBottom: '20px', gap: '16px' }}>
+              <div className="flex items-center gap-4 mb-8" style={{ marginBottom: '20px', gap: '16px' }}>
                 <h2
-                  className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase flex-1"
+                  className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
                   style={{ fontFamily: 'Mortend' }}
                 >
                   Work Experiences
                 </h2>
-                <a
+                <
                   href="https://drive.google.com/file/d/1HG_51ItrZI4yQOi1qifwe9L5_q_E2lyG/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
