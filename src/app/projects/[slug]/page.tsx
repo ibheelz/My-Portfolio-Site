@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import Label from '@/src/components/Label'
+import LetsConnectSection from '@/src/components/LetsConnectSection'
 
 interface ProjectDetailPageProps {
   params: { slug: string }
@@ -181,6 +182,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             ))}
           </div>
         </section>
+
+        {/* Let's Connect Section */}
+        <LetsConnectSection />
       </div>
 
       {/* Image Modal */}

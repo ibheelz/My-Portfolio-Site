@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Label from '@/src/components/Label'
 import ToolIcon from '@/src/components/ToolIcon'
+import LetsConnectSection from '@/src/components/LetsConnectSection'
 import { DownloadSimple } from '@phosphor-icons/react'
 
 export default function AboutPage() {
@@ -218,76 +219,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Contact Details Section */}
-        <section
-          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)]"
-          style={{ padding: '96px 64px' }}
-        >
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-            {/* Left Photo */}
-            <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative" style={{ height: '400px', minHeight: '300px' }}>
-              <Image
-                src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
-                alt="Abiola"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* Right Content */}
-            <div className="flex-1 flex flex-col justify-between">
-              <div>
-                <h2
-                  className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase mb-8"
-                  style={{ fontFamily: 'Mortend' }}
-                >
-                  Contact Details
-                </h2>
-                <div className="space-y-6 mb-8">
-                  <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)]">
-                    I'm not just here to design products; I'm here to connect with people.
-                  </p>
-                  <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)]">
-                    As a creative designer, I'm constantly exploring the space where creativity meets technology to build user experiences that are meaningful, lasting, and well crafted.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-6">
-                <div>
-                  <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
-                    Phone Number
-                  </p>
-                  <a
-                    href="tel:+234902448-1896"
-                    className="font-gucina text-[16px] text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)] transition-colors"
-                  >
-                    +234 (902) 448-1896
-                  </a>
-                </div>
-                <div>
-                  <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
-                    Email
-                  </p>
-                  <a
-                    href="mailto:abioladeyeye@gmail.com"
-                    className="font-gucina text-[16px] text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)] transition-colors"
-                  >
-                    abioladeyeye@gmail.com
-                  </a>
-                </div>
-                <div>
-                  <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
-                    Current Residence
-                  </p>
-                  <p className="font-gucina text-[16px] text-[rgb(138,138,138)]">
-                    Lagos, Nigeria
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Let's Connect Section */}
+        <LetsConnectSection />
       </div>
     </>
   )

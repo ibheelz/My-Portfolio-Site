@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { explorations } from '@/src/data/content'
 import ExplorationCard from '@/src/components/ExplorationCard'
+import LetsConnectSection from '@/src/components/LetsConnectSection'
 import { CaretRight } from '@phosphor-icons/react'
 
 interface ExplorationDetailPageProps {
@@ -307,6 +308,9 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             ))}
           </div>
         </section>
+
+        {/* Let's Connect Section */}
+        <LetsConnectSection />
 
         {/* Image Modal */}
         {isModalOpen && (
