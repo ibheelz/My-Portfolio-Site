@@ -202,7 +202,7 @@ export default function AboutPage() {
 
           {/* Right Sidebar */}
           <aside
-            className="w-full lg:w-[25%] lg:min-w-[296px] border-t-2 lg:border-t-0 lg:border-l-2 border-[rgb(2,1,10)]"
+            className="w-full lg:w-[25%] lg:min-w-[296px] border-t-2 lg:border-t-0 lg:border-l-2 border-[rgb(2,1,10)] sm:-ml-4 md:-ml-8 lg:ml-0"
             style={{
               paddingTop: 'clamp(32px, 8vw, 96px)',
               paddingRight: 'clamp(16px, 5vw, 64px)',
