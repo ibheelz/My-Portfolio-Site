@@ -271,7 +271,7 @@ export default function AboutPage() {
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative" style={{ gap: '32px' }}>
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex flex-col gap-4 relative" style={{ height: '200px' }}>
+              <div key={index} className="flex flex-col gap-4 relative">
                 {/* Vertical Divider */}
                 {index < testimonials.length - 1 && (
                   <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
