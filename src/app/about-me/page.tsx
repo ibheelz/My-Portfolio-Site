@@ -9,7 +9,16 @@ export default function AboutPage() {
   const aboutText = `I'm a designer focused on creating experiences that actually matter. I care about how people interact with technology and work to make those moments simple and meaningful. I love solving complex problems and believe great design starts with understanding people. Every project I take on is about finding thoughtful solutions that work for both users and businesses. I push boundaries but keep things practical. I thrive in collaboration and I'm always learning.`
 
   const whatIDo = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
-  const currentStack = ['Adobe Creative Suite', 'Nano Banana Pro', 'Notion', 'Midjourney', 'Canva', 'Figma', 'Blender', 'Claude']
+  const currentStack = [
+    { name: 'Adobe Creative Suite', icon: '/icons/adobe.png' },
+    { name: 'Nano Banana Pro', icon: '/icons/nano-banana.png' },
+    { name: 'Notion', icon: '/icons/notion.png' },
+    { name: 'Midjourney', icon: '/icons/midjourney.png' },
+    { name: 'Canva', icon: '/icons/canva.png' },
+    { name: 'Figma', icon: '/icons/figma.png' },
+    { name: 'Blender', icon: '/icons/blender.png' },
+    { name: 'Claude', icon: '/icons/claude.png' },
+  ]
   const iKnow = ['Python', 'Photo Manipulation', 'Html and CSS', 'Typography', 'Logo Design', 'Brand Design']
 
   const experience = [
@@ -200,13 +209,11 @@ export default function AboutPage() {
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
                 Current Stack
               </label>
-              <div className="flex flex-wrap gap-8">
+              <div className="flex flex-wrap gap-8" style={{ gap: '32px' }}>
                 {currentStack.map((item) => (
-                  <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
-                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                      {item}
-                    </span>
-                  </div>
+                  <Label key={item.name} variant="BadgeWithIcon" icon={item.icon}>
+                    {item.name}
+                  </Label>
                 ))}
               </div>
               <div className="w-full h-px bg-[rgb(31,31,31)] mt-8" />
