@@ -122,7 +122,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* Sticky Sidebar */}
           <aside
-            className="w-[24%] min-w-[296px] sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col hidden lg:flex bg-[rgb(14,14,18)] z-50 overflow-hidden"
+            className="w-[24%] min-w-[296px] sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-6 pb-16 flex flex-col hidden lg:flex bg-[rgb(14,14,18)] z-50 overflow-hidden"
             style={{ paddingLeft: '24px', paddingRight: '24px' }}
           >
             {/* Chapters Navigation */}
