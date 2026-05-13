@@ -21,7 +21,7 @@ export default function Home() {
       {/* Content container */}
       <div className="content-container">
           {/* SECTION 1 - Hero */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '12px 0px 0px 0px' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', paddingTop: 'clamp(32px, 8vw, 48px)' }}>
             {/* Top row with dot */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <div></div>
@@ -38,7 +38,7 @@ export default function Home() {
             {/* Headline + What I do */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px' }}>
               {/* Headline */}
-              <h1 className="heading-m hero-responsive-heading" style={{ maxWidth: '876px' }}>
+              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, maxWidth: '876px' }}>
                 Building value into <br /> brands through design.
               </h1>
 

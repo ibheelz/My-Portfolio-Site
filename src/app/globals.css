@@ -322,9 +322,6 @@ a {
     height: auto !important;
   }
 
-  .hero-responsive-heading {
-    font-size: 48px !important;
-  }
 }
 
 .page-content {
@@ -473,10 +470,6 @@ nav {
   opacity: 0.4;
 }
 
-.hero-responsive-heading {
-  font-size: 38px !important;
-  line-height: 1.4em !important;
-}
 
 /* TABLET (768px-1239px / below lg) */
 @media (max-width: 1239px) {
@@ -543,11 +536,6 @@ nav {
   .exploration-card > div:first-child {
     aspect-ratio: 1 !important;
   }
-
-  .hero-responsive-heading {
-    font-size: 28px !important;
-    line-height: 1.3em !important;
-  }
 }
 
 /* MOBILE (<768px / sm) */
@@ -604,11 +592,6 @@ nav {
 
   .exploration-card {
     aspect-ratio: 1 !important;
-  }
-
-  .hero-responsive-heading {
-    font-size: 24px !important;
-    line-height: 1.3em !important;
   }
 
   .projects-row {
