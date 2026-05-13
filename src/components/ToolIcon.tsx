@@ -3,37 +3,28 @@ interface ToolIconProps {
 }
 
 export default function ToolIcon({ name }: ToolIconProps) {
-  const colors: Record<string, string> = {
-    'Adobe Creative Suite': '#FF0000',
-    'Nano Banana Pro': '#FFD700',
-    'Notion': '#FFFFFF',
-    'Midjourney': '#9B6FFF',
-    'Canva': '#00C4CC',
-    'Figma': '#F24E1E',
-    'Blender': '#EA7600',
-    'Claude': '#5A5A5A',
+  const iconMap: Record<string, string> = {
+    'Adobe Creative Suite': '/icons/tools/adobe.png',
+    'Nano Banana Pro': '/icons/tools/nano-banana.png',
+    'Notion': '/icons/tools/notion.png',
+    'Midjourney': '/icons/tools/midjourney.png',
+    'Canva': '/icons/tools/canva.png',
+    'Figma': '/icons/tools/figma.png',
+    'Blender': '/icons/tools/blender.png',
+    'Claude': '/icons/tools/claude.svg',
   }
 
-  const color = colors[name] || '#666666'
+  const iconPath = iconMap[name]
 
   return (
-    <div className="flex items-center gap-2">
-      <svg width="20" height="20" viewBox="0 0 20 20" className="flex-shrink-0">
-        <circle cx="10" cy="10" r="8" fill={color} opacity="0.2" />
-        <circle cx="10" cy="10" r="6" fill={color} opacity="0.1" stroke={color} strokeWidth="1" />
-        <text
-          x="10"
-          y="12"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontSize="10"
-          fontWeight="bold"
-          fill={color}
-          fontFamily="Arial, sans-serif"
-        >
-          {name.charAt(0).toUpperCase()}
-        </text>
-      </svg>
+    <div className="flex items-center gap-2 w-full">
+      {iconPath && (
+        <img
+          src={iconPath}
+          alt={name}
+          className="flex-shrink-0 w-5 h-5 object-contain"
+        />
+      )}
       <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
         {name}
       </span>
