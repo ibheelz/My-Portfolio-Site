@@ -14,12 +14,6 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
   useEffect(() => {
     setMobileMenuOpen(false)
-    // Reset scroll position on navigation
-    const pageContent = document.querySelector('.page-content')
-    if (pageContent) {
-      pageContent.scrollTop = 0
-    }
-    window.scrollTo(0, 0)
   }, [pathname])
 
   return (
