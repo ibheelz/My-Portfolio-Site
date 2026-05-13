@@ -44,13 +44,24 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
       {/* Fixed Top Nav Bar */}
       <nav
-        className="fixed top-4 right-4 h-12 z-10 bg-[rgb(14,14,18)] rounded-t-xl border-b-2 border-[rgb(2,1,10)] px-16 md:px-4 flex items-center gap-2.5 overflow-hidden transition-opacity duration-300 hidden lg:flex"
-        style={{ left: '312px', opacity: navVisible ? 1 : 0, pointerEvents: navVisible ? 'auto' : 'none' }}
+        className="fixed top-4 h-12 z-10 bg-[rgb(14,14,18)] rounded-t-[12px] border-b-2 border-[rgb(2,1,10)] overflow-hidden transition-opacity duration-300"
+        style={{
+          left: 'clamp(8px, 5vw, 312px)',
+          right: '16px',
+          opacity: navVisible ? 1 : 0,
+          pointerEvents: navVisible ? 'auto' : 'none',
+          display: 'flex',
+          alignItems: 'flex-end',
+          paddingLeft: 'clamp(16px, 5vw, 64px)',
+          paddingRight: 'clamp(16px, 5vw, 64px)',
+          paddingBottom: '8px',
+          gap: '10px',
+        }}
       >
-        <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]">
+        <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0 }}>
           {project.title}
         </h3>
-        <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)] ml-auto">
+        <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', marginLeft: 'auto' }}>
           {project.readingTime || '5'} min read
         </span>
       </nav>
