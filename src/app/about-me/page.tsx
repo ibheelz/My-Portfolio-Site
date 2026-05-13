@@ -120,41 +120,13 @@ export default function AboutPage() {
             {/* Work Experiences Section */}
             <div style={{ marginBottom: '64px' }}>
               {/* Work Experiences Header */}
-              <div className="flex items-center gap-4 mb-8" style={{ marginBottom: '20px', gap: '16px' }}>
+              <div className="mb-8" style={{ marginBottom: '20px' }}>
                 <h2
                   className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
                   style={{ fontFamily: 'Mortend' }}
                 >
                   Work Experiences
                 </h2>
-                <a
-                  href="https://drive.google.com/file/d/1HG_51ItrZI4yQOi1qifwe9L5_q_E2lyG/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative inline-flex items-center flex-shrink-0 border border-[rgb(51,51,51)] rounded-full overflow-hidden transition-colors"
-                  style={{ padding: '12px 12px 12px 16px' }}
-                >
-                  {/* Hover background fill */}
-                  <span
-                    className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100"
-                    style={{
-                      top: '12px',
-                      bottom: '12px',
-                      left: '0',
-                      right: '0',
-                      backgroundColor: 'rgb(22, 66, 91)',
-                      zIndex: 1,
-                    }}
-                  />
-
-                  {/* Text and Icon */}
-                  <span className="relative z-[2] flex items-center" style={{ gap: '4px' }}>
-                    <span className="font-gucina font-semibold text-[12px] leading-[18px] tracking-[0.01em] text-[rgb(129,195,215)]">
-                      Full resume
-                    </span>
-                    <DownloadSimple size={18} weight="regular" color="rgb(129,195,215)" />
-                  </span>
-                </a>
               </div>
 
               {/* Column Headers */}
@@ -177,7 +149,7 @@ export default function AboutPage() {
               </div>
 
               {/* Experience Rows */}
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 mb-8" style={{ marginBottom: '32px' }}>
                 {experience.map((exp, index) => (
                   <div key={index} className="flex justify-between gap-8 pb-6" style={{ borderBottom: `1px solid rgb(31, 31, 31)`, paddingBottom: '24px' }}>
                     <div className="flex-1">
@@ -198,6 +170,36 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
+
+              {/* Full Resume Button */}
+              <a
+                href="https://drive.google.com/file/d/1HG_51ItrZI4yQOi1qifwe9L5_q_E2lyG/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative inline-flex items-center flex-shrink-0 border border-[rgb(51,51,51)] rounded-full overflow-hidden transition-colors"
+                style={{ padding: '12px 12px 12px 16px' }}
+              >
+                {/* Hover background fill */}
+                <span
+                  className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100"
+                  style={{
+                    top: '12px',
+                    bottom: '12px',
+                    left: '0',
+                    right: '0',
+                    backgroundColor: 'rgb(22, 66, 91)',
+                    zIndex: 1,
+                  }}
+                />
+
+                {/* Text and Icon */}
+                <span className="relative z-[2] flex items-center" style={{ gap: '4px' }}>
+                  <span className="font-gucina font-semibold text-[12px] leading-[18px] tracking-[0.01em] text-[rgb(129,195,215)]">
+                    Full resume
+                  </span>
+                  <DownloadSimple size={18} weight="regular" color="rgb(129,195,215)" />
+                </span>
+              </a>
             </div>
           </div>
 
