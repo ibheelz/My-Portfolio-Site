@@ -24,7 +24,7 @@ export default function ExplorationsPage() {
 
         {/* SECTION 2 - Explorations Grid */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-          <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+          <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', columnGap: '24px', rowGap: '50px' }}>
             {explorations.map((exploration) => (
               <ExplorationCard key={exploration.slug} exploration={exploration} />
             ))}

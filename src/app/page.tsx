@@ -110,7 +110,6 @@ export default function Home() {
                   className="project-card project-card-home group"
                   style={{
                     width: '100%',
-                    height: '520px',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
@@ -156,7 +155,7 @@ export default function Home() {
           </section>
 
           {/* SECTION 3 - Explorations */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginTop: '100px' }}>
             {/* Section header */}
             <div
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}

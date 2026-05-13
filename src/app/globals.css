@@ -275,7 +275,7 @@ a {
   }
 
   .content-container {
-    padding: 48px 80px 80px 80px;
+    padding: 48px 80px 32px 80px;
     gap: 80px;
   }
 
@@ -307,11 +307,12 @@ a {
   }
 
   .project-card {
-    height: 580px !important;
+    height: auto !important;
   }
 
   .exploration-card {
-    height: 580px !important;
+    aspect-ratio: 1 !important;
+    gap: 12px !important;
   }
 
   /* Ensure image containers remain square on ultra-wide */
@@ -340,7 +341,7 @@ a {
 }
 
 .content-container {
-  padding: 64px 64px 64px 64px;
+  padding: 64px 64px 32px 64px;
   display: flex;
   flex-direction: column;
   gap: 0px;
@@ -348,7 +349,7 @@ a {
 }
 
 .explorations-content {
-  padding: 64px 64px 64px 64px;
+  padding: 64px 64px 32px 64px;
   display: flex;
   flex-direction: column;
   gap: 64px;
@@ -415,24 +416,25 @@ nav {
 
 .explorations-grid {
   grid-template-columns: repeat(3, minmax(50px, 1fr)) !important;
-  gap: 24px !important;
+  column-gap: 24px !important;
+  row-gap: 50px !important;
 }
 
 .project-card {
-  height: 520px !important;
+  height: auto !important;
 }
 
 .project-card-home {
-  height: 520px !important;
+  height: auto !important;
 }
 
 .exploration-card {
-  height: 550px !important;
-  aspect-ratio: 0.889 !important;
+  aspect-ratio: 1 !important;
+  gap: 12px !important;
 }
 
 .exploration-card-home {
-  height: 520px !important;
+  height: auto !important;
 }
 
 /* Projects Row Hover Effects */
@@ -504,7 +506,7 @@ nav {
   }
 
   .explorations-content {
-    padding: 64px 16px 64px 16px;
+    padding: 64px 16px 32px 16px;
     gap: 32px;
   }
 
@@ -521,7 +523,8 @@ nav {
 
   .explorations-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 24px !important;
+    column-gap: 24px !important;
+    row-gap: 50px !important;
   }
 
   .project-card {
@@ -529,8 +532,8 @@ nav {
   }
 
   .exploration-card {
-    height: 400px !important;
-    aspect-ratio: 0.889 !important;
+    aspect-ratio: 1 !important;
+    gap: 12px !important;
   }
 
   .projects-row {
@@ -576,7 +579,7 @@ nav {
   }
 
   .explorations-content {
-    padding: 16px 16px 16px 16px;
+    padding: 16px 16px 32px 16px;
     gap: 32px;
   }
 
@@ -593,7 +596,8 @@ nav {
 
   .explorations-grid {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+    column-gap: 24px !important;
+    row-gap: 50px !important;
   }
 
   .project-card {
@@ -601,8 +605,8 @@ nav {
   }
 
   .exploration-card {
-    height: 350px !important;
-    aspect-ratio: 0.889 !important;
+    aspect-ratio: 1 !important;
+    gap: 12px !important;
   }
 
   .hero-responsive-heading {
@@ -644,7 +648,8 @@ nav {
   }
 
   .explorations-grid {
-    gap: 12px !important;
+    column-gap: 12px !important;
+    row-gap: 50px !important;
   }
 
   .project-card {

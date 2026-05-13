@@ -17,7 +17,7 @@ export default function ProjectsPage() {
   return (
     <div className="content-container">
       {/* SECTION 1 - Page Headline */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden', marginBottom: '64px' }}>
         <h1 className="heading-s" style={{ textTransform: 'uppercase' }}>
           Projects
         </h1>
@@ -27,7 +27,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* SECTION 2 - Projects Grid */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: '100px' }}>
         <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
           {featuredProjects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
