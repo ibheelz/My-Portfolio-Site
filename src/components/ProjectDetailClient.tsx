@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import Image from 'next/image'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
@@ -32,6 +32,13 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const [sidebarFixed, setSidebarFixed] = useState(true)
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const pageContent = document.querySelector('.page-content') as HTMLElement
+    if (pageContent) {
+      pageContent.scrollTop = 0
+    }
+  }, [slug])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
