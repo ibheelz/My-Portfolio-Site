@@ -58,38 +58,38 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <div className="fixed bottom-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
 
       {/* Fixed Top Nav Bar - Desktop only */}
-      <nav
-        style={{
-          position: 'fixed',
-          top: '16px',
-          left: '312px',
-          right: '16px',
-          height: '48px',
-          zIndex: 10,
-          backgroundColor: 'rgb(14,14,18)',
-          borderRadius: '12px 12px 0 0',
-          borderBottom: '2px solid rgb(2,1,10)',
-          overflow: 'hidden',
-          transition: 'opacity 300ms ease',
-          opacity: navVisible ? 1 : 0,
-          pointerEvents: navVisible ? 'auto' : 'none',
-          display: 'flex',
-          alignItems: 'flex-end',
-          paddingLeft: '64px',
-          paddingRight: '64px',
-          paddingBottom: '8px',
-          gap: '10px',
-          '@media (max-width: 1023px)': { display: 'none' },
-        }}
-        className="hidden lg:flex"
-      >
-        <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0 }}>
-          {project.title}
-        </h3>
-        <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', marginLeft: 'auto' }}>
-          {project.readingTime || '5'} min read
-        </span>
-      </nav>
+      <div style={{ display: 'none' }} className="lg:block">
+        <nav
+          style={{
+            position: 'fixed',
+            top: '16px',
+            left: '312px',
+            right: '16px',
+            height: '48px',
+            zIndex: 10,
+            backgroundColor: 'rgb(14,14,18)',
+            borderRadius: '12px 12px 0 0',
+            borderBottom: '2px solid rgb(2,1,10)',
+            overflow: 'hidden',
+            transition: 'opacity 300ms ease',
+            opacity: navVisible ? 1 : 0,
+            pointerEvents: navVisible ? 'auto' : 'none',
+            display: 'flex',
+            alignItems: 'flex-end',
+            paddingLeft: '64px',
+            paddingRight: '64px',
+            paddingBottom: '8px',
+            gap: '10px',
+          }}
+        >
+          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0 }}>
+            {project.title}
+          </h3>
+          <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', marginLeft: 'auto' }}>
+            {project.readingTime || '5'} min read
+          </span>
+        </nav>
+      </div>
 
 
       {/* Main Scrolling Content */}
