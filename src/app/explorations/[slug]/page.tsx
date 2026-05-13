@@ -138,11 +138,11 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           <div className="flex-1 flex flex-col justify-between" style={{ padding: 'clamp(24px, 5vw, 48px)', paddingTop: 'clamp(24px, 5vw, 48px)' }}>
             {/* Top Content */}
             <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)' }}>
-              <h1 className="font-heading text-[clamp(28px,6vw,40px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
                 {exploration.title}
               </h1>
               {exploration.description && (
-                <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.7] text-[rgb(138,138,138)]" style={{ margin: 0 }}>
+                <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em] text-[rgb(138,138,138)]" style={{ margin: 0 }}>
                   {exploration.description}
                 </p>
               )}
@@ -189,7 +189,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         <div className="flex flex-col lg:hidden overflow-hidden w-full" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}>
           {/* Title at top */}
           <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 16px)' }}>
-            <h1 className="font-heading text-[clamp(28px,7vw,36px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+            <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
               {exploration.title}
             </h1>
           </div>
@@ -263,7 +263,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Info section for mobile */}
           <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(24px, 5vw, 48px)' }}>
             {exploration.description && (
-              <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.7] text-[rgb(138,138,138)]" style={{ margin: 0, marginBottom: 'clamp(16px, 4vw, 24px)' }}>
+              <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em] text-[rgb(138,138,138)]" style={{ margin: 0, marginBottom: 'clamp(16px, 4vw, 24px)' }}>
                 {exploration.description}
               </p>
             )}
