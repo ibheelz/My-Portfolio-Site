@@ -38,6 +38,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     if (pageContent) {
       pageContent.scrollTop = 0
     }
+    window.scrollY = 0
+  }, [slug])
+
+  useEffect(() => {
+    const pageContent = document.querySelector('.page-content') as HTMLElement
+    if (pageContent) {
+      pageContent.scrollTop = 0
+    }
   }, [slug])
 
   useEffect(() => {
