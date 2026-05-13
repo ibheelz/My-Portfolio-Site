@@ -7,7 +7,7 @@ export default function LetsConnectSection() {
   return (
     <section
       className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-visible"
-      style={{ padding: '96px' }}
+      style={{ paddingTop: '96px', paddingBottom: '96px', paddingLeft: '64px', paddingRight: '64px' }}
     >
       {/* Outer container - flex row */}
       <div className="flex flex-col lg:flex-row gap-8 items-stretch lg:items-stretch" style={{ gap: '32px' }}>
