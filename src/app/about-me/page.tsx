@@ -66,7 +66,7 @@ export default function AboutPage() {
       {/* Hero Section with Fixed Background */}
       <div
         className="relative w-full overflow-visible flex flex-col justify-end px-16 md:px-4 bg-fixed"
-        style={{ height: '70vh', paddingLeft: '64px', paddingRight: '64px', paddingBottom: '24px' }}
+        style={{ height: '100vh', paddingLeft: '64px', paddingRight: '64px', paddingBottom: '24px' }}
       >
         <Image
           src="https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png"
