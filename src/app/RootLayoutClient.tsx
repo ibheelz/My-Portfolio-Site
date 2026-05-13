@@ -10,10 +10,15 @@ import SideNav from '@/src/components/SideNav'
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const prevPathnameRef = useRef<string>(pathname)
 
   const shouldAnimate = pathname === '/' || prevPathnameRef.current === '/'
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     prevPathnameRef.current = pathname
@@ -74,7 +79,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
           <motion.main
             key={pathname}
             className="page-content"
-            initial={{ opacity: 0 }}
+            initial={mounted ? { opacity: 0 } : { opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
