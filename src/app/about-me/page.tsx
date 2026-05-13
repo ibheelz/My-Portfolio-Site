@@ -207,7 +207,10 @@ export default function AboutPage() {
               paddingTop: 'clamp(32px, 8vw, 96px)',
               paddingRight: 'clamp(16px, 5vw, 64px)',
               paddingBottom: 'clamp(32px, 8vw, 64px)',
-              paddingLeft: 'clamp(16px, 5vw, 24px)'
+              paddingLeft: 'clamp(16px, 5vw, 24px)',
+              marginLeft: 'calc(-1 * clamp(16px, 5vw, 64px))',
+              marginRight: 'calc(-1 * clamp(16px, 5vw, 64px))',
+              width: 'calc(100% + 2 * clamp(16px, 5vw, 64px))'
             }}
           >
             {/* What I Do */}
