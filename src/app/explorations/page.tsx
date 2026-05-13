@@ -27,13 +27,13 @@ export default function ExplorationsPage() {
         <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', overflow: 'hidden' }}>
           <h1
             className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase"
-            style={{ fontFamily: 'Mortend', color: 'rgb(250, 250, 250)' }}
+            style={{ fontFamily: 'Mortend', color: 'rgb(250, 250, 250)', margin: 0 }}
           >
             Latest creations
           </h1>
           <p
             className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]"
-            style={{ color: 'rgb(138, 138, 138)', maxWidth: '100%', fontFamily: "'Gucina'" }}
+            style={{ color: 'rgb(138, 138, 138)', maxWidth: '100%', fontFamily: "'Gucina'", margin: 0 }}
           >
             Created with Nano Banana and other tools
           </p>
