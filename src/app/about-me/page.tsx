@@ -57,18 +57,37 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* Name Heading */}
-      <div className="relative w-full bg-[rgb(14,14,18)] z-10" style={{ paddingLeft: '64px', paddingRight: '64px', paddingTop: '96px' }}>
+      {/* Hero Section */}
+      <div
+        className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4 min-h-[70vh]"
+        style={{ paddingLeft: '64px', paddingRight: '64px' }}
+      >
+        <Image
+          src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
+          alt="Abiola Adeyeye"
+          fill
+          className="absolute inset-0 object-cover"
+        />
+
+        {/* Gradient overlay for title readability */}
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
+          style={{
+            height: '200px',
+            background: 'linear-gradient(to top, rgb(14, 14, 18) 0%, rgba(14, 14, 18, 0.6) 50%, transparent 100%)'
+          }}
+        />
+
         <h1
-          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
-          style={{ fontFamily: 'Mortend', marginBottom: '64px' }}
+          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
+          style={{ fontFamily: 'Mortend' }}
         >
           Abiola Adeyeye
         </h1>
       </div>
 
       {/* Solid Content Area - Two Column Layout */}
-      <div className="relative w-full bg-[rgb(14,14,18)] z-10">
+      <div className="relative w-full bg-[rgb(14,14,18)]">
         <div className="flex flex-col lg:flex-row gap-2 px-4" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
 
           {/* Left Column */}
