@@ -117,7 +117,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             </div>
 
             {/* Image Indicators */}
-            <div className="flex items-center justify-center gap-2 py-4 px-4 bg-[rgb(14,14,18)]">
+            <div className="flex items-center justify-center gap-2 bg-[rgb(14,14,18)]" style={{ paddingTop: 'clamp(6px, 1vw, 8px)', paddingBottom: 'clamp(6px, 1vw, 8px)', paddingLeft: 'clamp(12px, 2vw, 16px)', paddingRight: 'clamp(12px, 2vw, 16px)' }}>
               {exploration.images.map((_, index) => (
                 <button
                   key={index}
@@ -243,7 +243,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             </div>
 
             {/* Image Indicators */}
-            <div className="flex items-center justify-center gap-2 bg-[rgb(14,14,18)]" style={{ padding: 'clamp(12px, 2vw, 16px)' }}>
+            <div className="flex items-center justify-center gap-2 bg-[rgb(14,14,18)]" style={{ paddingTop: 'clamp(6px, 1vw, 8px)', paddingBottom: 'clamp(6px, 1vw, 8px)', paddingLeft: 'clamp(12px, 2vw, 16px)', paddingRight: 'clamp(12px, 2vw, 16px)' }}>
               {exploration.images.map((_, index) => (
                 <button
                   key={index}
