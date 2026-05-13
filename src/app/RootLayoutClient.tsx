@@ -23,10 +23,10 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
       <motion.div
         className="page-wrapper"
         key={pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
       >
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
         <div className="hidden lg:flex sidebar-nav">
