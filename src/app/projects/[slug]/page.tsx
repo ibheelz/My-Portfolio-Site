@@ -75,7 +75,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <div className="fixed bottom-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
 
       {/* Fixed Top Nav Bar - Desktop only */}
-      <div style={{ display: 'none' }} className="lg:block">
+      <div className="hidden lg:block">
         <nav
           style={{
             position: 'fixed',
