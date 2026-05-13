@@ -126,7 +126,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             style={{ paddingLeft: '24px', paddingRight: '24px' }}
           >
             {/* Chapters Navigation */}
-            <nav className="flex flex-col gap-2 w-full">
+            <nav className="flex flex-col gap-2 w-full" style={{ height: 'auto', position: 'relative', top: 'auto', borderRadius: 'unset', backgroundColor: 'transparent', zIndex: 'auto' }}>
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                 Contents
               </label>
