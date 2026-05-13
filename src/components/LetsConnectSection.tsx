@@ -10,7 +10,7 @@ export default function LetsConnectSection() {
       style={{ padding: '96px' }}
     >
       {/* Outer container - flex row */}
-      <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-center" style={{ gap: '32px' }}>
+      <div className="flex flex-col lg:flex-row gap-8 items-stretch lg:items-stretch" style={{ gap: '32px' }}>
         {/* Left Side - Photograph */}
         <div className="w-full lg:w-1/2 relative flex-shrink-0" style={{ height: '440px' }}>
           <div className="relative w-full h-full rounded-2xl overflow-visible" style={{ borderRadius: '16px' }}>
@@ -36,7 +36,7 @@ export default function LetsConnectSection() {
         </div>
 
         {/* Right Side - Text and Contact Area */}
-        <div className="flex-1 w-full lg:w-1/2 flex flex-col overflow-visible" style={{ paddingTop: '64px' }}>
+        <div className="flex-1 w-full lg:w-1/2 flex flex-col overflow-visible" style={{ height: '440px' }}>
           {/* Main content wrapper with max-width */}
           <div className="flex flex-col gap-6 max-w-[640px] mx-auto lg:mx-0 w-full justify-between h-full" style={{ gap: '24px' }}>
 
