@@ -197,7 +197,7 @@ export default function AboutPage() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" style={{ gap: '32px' }}>
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex gap-4 relative" style={{}}>
+              <div key={index} className="flex gap-4 items-start relative" style={{}}>
                 {/* Vertical Divider */}
                 {index < testimonials.length - 1 && (
                   <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
@@ -205,11 +205,12 @@ export default function AboutPage() {
 
                 {/* Avatar */}
                 <div
-                  className="flex-shrink-0 flex items-center justify-center rounded-full text-[12px] font-bold text-white"
+                  className="flex-shrink-0 flex items-center justify-center rounded-full text-[10px] font-bold text-white"
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    minWidth: '48px',
+                    width: '34px',
+                    height: '34px',
+                    minWidth: '34px',
+                    marginTop: '2px',
                     backgroundColor: ['rgb(99, 102, 241)', 'rgb(168, 85, 247)', 'rgb(59, 130, 246)'][index],
                   }}
                 >
