@@ -42,18 +42,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <div className="fixed top-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
       <div className="fixed bottom-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
 
-      {/* Fixed Top Nav Bar */}
+      {/* Fixed Top Nav Bar - Desktop only */}
       <nav
-        className="fixed top-4 h-12 z-10 bg-[rgb(14,14,18)] rounded-t-[12px] border-b-2 border-[rgb(2,1,10)] overflow-hidden transition-opacity duration-300"
+        className="hidden lg:flex fixed top-4 h-12 z-10 bg-[rgb(14,14,18)] rounded-t-[12px] border-b-2 border-[rgb(2,1,10)] overflow-hidden transition-opacity duration-300"
         style={{
-          left: 'clamp(8px, 5vw, 312px)',
+          left: '312px',
           right: '16px',
           opacity: navVisible ? 1 : 0,
           pointerEvents: navVisible ? 'auto' : 'none',
-          display: 'flex',
           alignItems: 'flex-end',
-          paddingLeft: 'clamp(16px, 5vw, 64px)',
-          paddingRight: 'clamp(16px, 5vw, 64px)',
+          paddingLeft: '64px',
+          paddingRight: '64px',
           paddingBottom: '8px',
           gap: '10px',
         }}
