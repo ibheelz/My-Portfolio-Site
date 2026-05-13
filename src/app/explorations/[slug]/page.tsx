@@ -63,8 +63,13 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         {/* First Section - Split Layout */}
         <div
           className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-hidden hidden lg:flex"
-          style={{ minHeight: 'clamp(60vh, 80vh, 100vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
+          style={{ minHeight: 'clamp(50vh, 70vh, 80vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 5vw, 48px)' }}
         >
+          {/* Title positioned at top left */}
+          <h1 className="absolute top-0 left-0 font-heading text-[clamp(28px,6vw,40px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', paddingLeft: 'clamp(16px, 5vw, 64px)' }}>
+            {exploration.title}
+          </h1>
+
           {/* Left Side - Slideshow */}
           <div
             ref={slideShowRef}
@@ -136,10 +141,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Right Side - Info */}
           <div className="flex-1 flex flex-col justify-between" style={{ padding: 'clamp(24px, 5vw, 48px)', paddingTop: 'clamp(24px, 10vw, 96px)' }}>
             {/* Top Content */}
-            <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)', marginTop: 'clamp(60px, 10vw, 100px)' }}>
-              <h1 className="font-heading text-[clamp(28px,6vw,40px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
-                {exploration.title}
-              </h1>
+            <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)' }}>
               {exploration.description && (
                 <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.7] text-[rgb(138,138,138)]">
                   {exploration.description}
@@ -196,7 +198,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Slideshow for mobile */}
           <div
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
-            style={{ width: '100%', height: 'clamp(250px, 50vh, 450px)' }}
+            style={{ width: '100%', height: 'clamp(200px, 40vh, 350px)' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
