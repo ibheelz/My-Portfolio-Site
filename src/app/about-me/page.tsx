@@ -197,36 +197,38 @@ export default function AboutPage() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" style={{ gap: '32px' }}>
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex gap-4 items-start relative" style={{}}>
+              <div key={index} className="flex flex-col gap-4 relative" style={{}}>
                 {/* Vertical Divider */}
                 {index < testimonials.length - 1 && (
                   <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
                 )}
 
-                {/* Avatar */}
-                <div
-                  className="flex-shrink-0 flex items-center justify-center rounded-full text-[10px] font-bold text-white"
-                  style={{
-                    width: '34px',
-                    height: '34px',
-                    minWidth: '34px',
-                    marginTop: '2px',
-                    backgroundColor: ['rgb(99, 102, 241)', 'rgb(168, 85, 247)', 'rgb(59, 130, 246)'][index],
-                  }}
-                >
-                  {testimonial.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
-                </div>
+                {/* Quote */}
+                <p className="font-gucina text-[14px] leading-[24px] text-[rgb(138,138,138)]">
+                  "{testimonial.quote}"
+                </p>
 
-                {/* Content */}
-                <div className="flex flex-col gap-4 flex-1">
-                  <p className="font-gucina text-[14px] leading-[24px] text-[rgb(138,138,138)]">
-                    "{testimonial.quote}"
-                  </p>
+                {/* Avatar + Name/Role Row */}
+                <div className="flex gap-3 items-start">
+                  {/* Avatar */}
+                  <div
+                    className="flex-shrink-0 flex items-center justify-center rounded-full text-[10px] font-bold text-white"
+                    style={{
+                      width: '34px',
+                      height: '34px',
+                      minWidth: '34px',
+                      backgroundColor: ['rgb(99, 102, 241)', 'rgb(168, 85, 247)', 'rgb(59, 130, 246)'][index],
+                    }}
+                  >
+                    {testimonial.name
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
+                  </div>
+
+                  {/* Name and Role */}
                   <div>
-                    <p className="font-gucina font-bold text-[12px] text-[rgb(250,250,250)] mb-1">
+                    <p className="font-gucina font-bold text-[12px] text-[rgb(250,250,250)]">
                       {testimonial.name}
                     </p>
                     <p className="font-gucina text-[12px] text-[rgb(138,138,138)]">

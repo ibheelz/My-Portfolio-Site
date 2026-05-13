@@ -50,12 +50,12 @@ export default function LetsConnectSection() {
               </div>
 
               {/* Large Statement */}
-              <h2
-                className="text-[28px] leading-[1.3em] tracking-[-0.02em] text-[rgb(250,250,250)]"
-                style={{ maxWidth: '544px', fontFamily: 'Mortend' }}
+              <p
+                className="font-gucina text-[28px] leading-[1.3em] tracking-[-0.02em] text-[rgb(250,250,250)]"
+                style={{ maxWidth: '544px' }}
               >
                 I'm not just here to design products; I'm here to connect with people.
-              </h2>
+              </p>
 
               {/* Body Paragraph */}
               <p
