@@ -86,8 +86,8 @@ export default function AboutPage() {
 
         {/* Name at bottom */}
         <h1
-          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
-          style={{ fontFamily: 'Mortend', marginTop: 'auto', marginBottom: '0' }}
+          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
+          style={{ fontFamily: 'Mortend', position: 'absolute', bottom: '24px', left: '64px', right: '64px', zIndex: 2 }}
         >
           Abiola Adeyeye
         </h1>
