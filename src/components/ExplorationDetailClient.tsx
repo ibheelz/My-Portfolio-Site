@@ -281,7 +281,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
           </div>
         </div>
 
-        <section className="w-full bg-[rgb(14,14,18)] overflow-hidden flex flex-col relative z-[40]" style={{ padding: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', gap: 'clamp(24px, 5vw, 40px)' }}>
+        <section className="w-full bg-[rgb(14,14,18)] overflow-hidden flex flex-col" style={{ padding: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', gap: 'clamp(24px, 5vw, 40px)' }}>
           <h2
             className="font-heading text-[clamp(12px,2.5vw,15px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
             style={{ fontFamily: 'Mortend' }}
