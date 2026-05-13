@@ -157,18 +157,11 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-2">
                   Duration and date
                 </label>
-                <div className="flex flex-col gap-0.5">
-                  {project.duration && (
-                    <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                      {project.duration}
-                    </p>
-                  )}
-                  {project.date && (
-                    <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                      {project.date}
-                    </p>
-                  )}
-                </div>
+                <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                  {project.duration}
+                  {project.duration && project.date && <span> | </span>}
+                  {project.date}
+                </p>
               </div>
             )}
           </aside>
