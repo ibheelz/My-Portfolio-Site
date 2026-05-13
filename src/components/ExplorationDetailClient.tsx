@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { explorations } from '@/src/data/content'
 import ExplorationCard from '@/src/components/ExplorationCard'
 import { CaretRight } from '@phosphor-icons/react'
+import { FadeIn } from '@/src/components/FadeIn'
 
 interface ExplorationDetailClientProps {
   slug: string
@@ -174,11 +175,13 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         </div>
 
         <div className="flex flex-col lg:hidden overflow-hidden w-full" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}>
-          <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 16px)' }}>
-            <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
-              {exploration.title}
-            </h1>
-          </div>
+          <FadeIn>
+            <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 16px)' }}>
+              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+                {exploration.title}
+              </h1>
+            </div>
+          </FadeIn>
 
           <div
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
@@ -244,14 +247,15 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
             </div>
           </div>
 
-          <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(24px, 5vw, 48px)' }}>
-            {exploration.description && (
-              <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em] text-[rgb(138,138,138)]" style={{ margin: 0, marginBottom: 'clamp(16px, 4vw, 24px)' }}>
-                {exploration.description}
-              </p>
-            )}
+          <FadeIn>
+            <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(24px, 5vw, 48px)' }}>
+              {exploration.description && (
+                <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em] text-[rgb(138,138,138)]" style={{ margin: 0, marginBottom: 'clamp(16px, 4vw, 24px)' }}>
+                  {exploration.description}
+                </p>
+              )}
 
-            <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 24px)' }}>
+              <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 24px)' }}>
               <div className="flex flex-col" style={{ gap: 'clamp(8px, 2vw, 12px)' }}>
                 <label className="font-gucina font-bold text-[clamp(10px,1.5vw,12px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                   Tools
@@ -278,19 +282,24 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                 </div>
               )}
             </div>
-          </div>
+            </div>
+          </FadeIn>
         </div>
 
         <section className="w-full bg-[rgb(14,14,18)] overflow-hidden flex flex-col" style={{ padding: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', gap: 'clamp(24px, 5vw, 40px)' }}>
-          <h2
-            className="font-heading text-[clamp(12px,2.5vw,15px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
-            style={{ fontFamily: 'Mortend' }}
-          >
-            More explorations
-          </h2>
+          <FadeIn>
+            <h2
+              className="font-heading text-[clamp(12px,2.5vw,15px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+              style={{ fontFamily: 'Mortend' }}
+            >
+              More explorations
+            </h2>
+          </FadeIn>
           <div className="explorations-grid w-full" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 30vw, 400px), 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(32px, 6vw, 64px)' }}>
-            {otherExplorations.map((e) => (
-              <ExplorationCard key={e.slug} exploration={e} />
+            {otherExplorations.map((e, index) => (
+              <FadeIn key={e.slug} delay={index * 0.08}>
+                <ExplorationCard exploration={e} />
+              </FadeIn>
             ))}
           </div>
         </section>
