@@ -67,8 +67,8 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Left Side - Slideshow (65%) */}
           <div
             ref={slideShowRef}
-            className="flex-shrink-0 overflow-hidden relative cursor-grab active:cursor-grabbing"
-            style={{ width: '65%', height: '100%' }}
+            className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full"
+            style={{ width: '65%', height: '100%', flex: '0 0 65%' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
@@ -76,14 +76,14 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             {exploration.images.map((image, index) => (
               <div
                 key={index}
-                className="absolute inset-0 transition-opacity duration-500"
+                className="absolute inset-0 w-full h-full transition-opacity duration-500"
                 style={{ opacity: index === currentImageIndex ? 1 : 0 }}
               >
                 <Image
                   src={image}
                   alt={`${exploration.title} - Image ${index + 1}`}
                   fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             ))}
@@ -153,10 +153,10 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         </div>
 
         {/* Mobile/Tablet Layout */}
-        <div className="flex flex-col lg:hidden overflow-hidden">
+        <div className="flex flex-col lg:hidden overflow-hidden w-full">
           {/* Slideshow for mobile */}
           <div
-            className="relative overflow-hidden cursor-grab active:cursor-grabbing"
+            className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full"
             style={{ width: '100%', height: '70vh' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
@@ -165,14 +165,14 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             {exploration.images.map((image, index) => (
               <div
                 key={index}
-                className="absolute inset-0 transition-opacity duration-500"
+                className="absolute inset-0 w-full h-full transition-opacity duration-500"
                 style={{ opacity: index === currentImageIndex ? 1 : 0 }}
               >
                 <Image
                   src={image}
                   alt={`${exploration.title} - Image ${index + 1}`}
                   fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             ))}
