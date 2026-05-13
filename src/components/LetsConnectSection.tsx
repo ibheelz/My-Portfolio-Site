@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Phone, EnvelopeSimpleOpen, MapPin } from '@phosphor-icons/react'
 
 export default function LetsConnectSection() {
@@ -14,14 +13,11 @@ export default function LetsConnectSection() {
         {/* Left Side - Photograph - appears below text on mobile */}
         <div className="w-full lg:w-1/2 relative lg:flex-shrink-0 lg:h-full" style={{ height: 'clamp(400px, 80vw, 700px)' }}>
           <div className="relative w-full h-full rounded-2xl overflow-hidden" style={{ borderRadius: '16px', position: 'relative', width: '100%', height: '100%' }}>
-            <Image
+            <img
               src="/me.jpg"
               alt="Let's Connect"
-              fill
-              className="object-cover"
+              className="w-full h-full object-cover"
               style={{ borderRadius: '16px' }}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
             />
           </div>
         </div>
