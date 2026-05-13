@@ -10,14 +10,14 @@ export default function AboutPage() {
 
   const whatIDo = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
   const currentStack = [
-    { name: 'Adobe Creative Suite', icon: '/icons/adobe.png' },
-    { name: 'Nano Banana Pro', icon: '/icons/nano-banana.png' },
-    { name: 'Notion', icon: '/icons/notion.png' },
-    { name: 'Midjourney', icon: '/icons/midjourney.png' },
-    { name: 'Canva', icon: '/icons/canva.png' },
-    { name: 'Figma', icon: '/icons/figma.png' },
-    { name: 'Blender', icon: '/icons/blender.png' },
-    { name: 'Claude', icon: '/icons/claude.png' },
+    'Adobe Creative Suite',
+    'Nano Banana Pro',
+    'Notion',
+    'Midjourney',
+    'Canva',
+    'Figma',
+    'Blender',
+    'Claude',
   ]
   const iKnow = ['Python', 'Photo Manipulation', 'Html and CSS', 'Typography', 'Logo Design', 'Brand Design']
 
@@ -160,11 +160,13 @@ export default function AboutPage() {
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
                 Current Stack
               </label>
-              <div className="flex flex-wrap gap-8" style={{ gap: '32px' }}>
+              <div className="flex flex-wrap gap-3">
                 {currentStack.map((item) => (
-                  <Label key={item.name} variant="BadgeWithIcon" icon={item.icon}>
-                    {item.name}
-                  </Label>
+                  <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
+                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {item}
+                    </span>
+                  </div>
                 ))}
               </div>
               <div className="w-full h-px bg-[rgb(31,31,31)] mt-8" />
@@ -217,37 +219,43 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Let's Connect Section */}
+        {/* Contact Details Section */}
         <section
           className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)]"
           style={{ padding: '96px 64px' }}
         >
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-            {/* Left Photo */}
-            <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative" style={{ height: '400px', minHeight: '300px' }}>
-              <Image
-                src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
-                alt="Abiola"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* Right Content */}
+            {/* Left Content */}
             <div className="flex-1 flex flex-col justify-between">
               <div>
                 <h2
                   className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase mb-8"
                   style={{ fontFamily: 'Mortend' }}
                 >
-                  Let's Connect
+                  Contact Details
                 </h2>
-                <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)] mb-8">
-                  I'm always interested in hearing about new projects and creative collaborations. Whether you have a question or just want to say hello, feel free to get in touch.
-                </p>
+                <div className="space-y-6 mb-8">
+                  <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)]">
+                    I'm not just here to design products; I'm here to connect with people.
+                  </p>
+                  <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)]">
+                    As a creative designer, I'm constantly exploring the space where creativity meets technology to build user experiences that are meaningful, lasting, and well crafted.
+                  </p>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-6">
+                <div>
+                  <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
+                    Phone Number
+                  </p>
+                  <a
+                    href="tel:+234902448-1896"
+                    className="font-gucina text-[16px] text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)] transition-colors"
+                  >
+                    +234 (902) 448-1896
+                  </a>
+                </div>
                 <div>
                   <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
                     Email
@@ -259,7 +267,25 @@ export default function AboutPage() {
                     abioladeyeye@gmail.com
                   </a>
                 </div>
+                <div>
+                  <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
+                    Current Residence
+                  </p>
+                  <p className="font-gucina text-[16px] text-[rgb(138,138,138)]">
+                    Lagos, Nigeria
+                  </p>
+                </div>
               </div>
+            </div>
+
+            {/* Right Photo */}
+            <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative" style={{ height: '400px', minHeight: '300px' }}>
+              <Image
+                src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
+                alt="Abiola"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </section>
