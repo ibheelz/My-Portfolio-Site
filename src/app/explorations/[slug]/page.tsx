@@ -67,46 +67,66 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Left Side - Slideshow (65%) */}
           <div
             ref={slideShowRef}
-            className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full"
+            className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
             style={{ width: '65%', height: '100%', flex: '0 0 65%' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
           >
-            {exploration.images.map((image, index) => (
-              <div
-                key={index}
-                className="absolute inset-0 w-full h-full transition-opacity duration-500"
-                style={{ opacity: index === currentImageIndex ? 1 : 0 }}
+            {/* Image Container */}
+            <div className="relative flex-1 w-full overflow-hidden">
+              {exploration.images.map((image, index) => (
+                <div
+                  key={index}
+                  className="absolute inset-0 w-full h-full transition-opacity duration-500"
+                  style={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                >
+                  <Image
+                    src={image}
+                    alt={`${exploration.title} - Image ${index + 1}`}
+                    fill
+                    className="object-fill"
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+
+              {/* Previous Button */}
+              <button
+                onClick={handlePrevious}
+                className="absolute left-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+                style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === 0 ? 0.65 : 1 }}
+                disabled={currentImageIndex === 0}
               >
-                <Image
-                  src={image}
-                  alt={`${exploration.title} - Image ${index + 1}`}
-                  fill
-                  className="w-full h-full object-cover"
+                <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="absolute right-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+                style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === exploration.images.length - 1 ? 0.65 : 1 }}
+                disabled={currentImageIndex === exploration.images.length - 1}
+              >
+                <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
+              </button>
+            </div>
+
+            {/* Image Indicators */}
+            <div className="flex items-center justify-center gap-2 py-4 px-4 bg-[rgb(14,14,18)]">
+              {exploration.images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className="w-2 h-2 rounded-full transition-all"
+                  style={{
+                    backgroundColor: index === currentImageIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
+                    width: index === currentImageIndex ? '12px' : '8px'
+                  }}
+                  aria-label={`Go to image ${index + 1}`}
                 />
-              </div>
-            ))}
-
-            {/* Previous Button */}
-            <button
-              onClick={handlePrevious}
-              className="absolute left-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-              style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === 0 ? 0.65 : 1 }}
-              disabled={currentImageIndex === 0}
-            >
-              <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
-            </button>
-
-            {/* Next Button */}
-            <button
-              onClick={handleNext}
-              className="absolute right-8 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-              style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === exploration.images.length - 1 ? 0.65 : 1 }}
-              disabled={currentImageIndex === exploration.images.length - 1}
-            >
-              <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
-            </button>
+              ))}
+            </div>
           </div>
 
           {/* Right Side - Info (35%) */}
@@ -156,45 +176,65 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         <div className="flex flex-col lg:hidden overflow-hidden w-full">
           {/* Slideshow for mobile */}
           <div
-            className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full"
+            className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
             style={{ width: '100%', height: '70vh' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
           >
-            {exploration.images.map((image, index) => (
-              <div
-                key={index}
-                className="absolute inset-0 w-full h-full transition-opacity duration-500"
-                style={{ opacity: index === currentImageIndex ? 1 : 0 }}
+            {/* Image Container */}
+            <div className="relative flex-1 w-full overflow-hidden">
+              {exploration.images.map((image, index) => (
+                <div
+                  key={index}
+                  className="absolute inset-0 w-full h-full transition-opacity duration-500"
+                  style={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                >
+                  <Image
+                    src={image}
+                    alt={`${exploration.title} - Image ${index + 1}`}
+                    fill
+                    className="object-fill"
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+
+              {/* Navigation Buttons */}
+              <button
+                onClick={handlePrevious}
+                className="absolute left-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
+                style={{ top: '50%', transform: 'translateY(-50%)' }}
+                disabled={currentImageIndex === 0}
               >
-                <Image
-                  src={image}
-                  alt={`${exploration.title} - Image ${index + 1}`}
-                  fill
-                  className="w-full h-full object-cover"
+                <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
+              </button>
+
+              <button
+                onClick={handleNext}
+                className="absolute right-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
+                style={{ top: '50%', transform: 'translateY(-50%)' }}
+                disabled={currentImageIndex === exploration.images.length - 1}
+              >
+                <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
+              </button>
+            </div>
+
+            {/* Image Indicators */}
+            <div className="flex items-center justify-center gap-2 py-3 px-4 bg-[rgb(14,14,18)]">
+              {exploration.images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className="w-2 h-2 rounded-full transition-all"
+                  style={{
+                    backgroundColor: index === currentImageIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
+                    width: index === currentImageIndex ? '12px' : '8px'
+                  }}
+                  aria-label={`Go to image ${index + 1}`}
                 />
-              </div>
-            ))}
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={handlePrevious}
-              className="absolute left-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
-              style={{ top: '50%', transform: 'translateY(-50%)' }}
-              disabled={currentImageIndex === 0}
-            >
-              <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
-            </button>
-
-            <button
-              onClick={handleNext}
-              className="absolute right-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10"
-              style={{ top: '50%', transform: 'translateY(-50%)' }}
-              disabled={currentImageIndex === exploration.images.length - 1}
-            >
-              <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
-            </button>
+              ))}
+            </div>
           </div>
 
           {/* Info section for mobile */}
