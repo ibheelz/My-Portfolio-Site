@@ -24,11 +24,26 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       const currentScrollY = window.scrollY
       setScrollY(currentScrollY)
       setNavVisible(currentScrollY > 628)
+
+      // Update active section based on scroll position
+      const sections = project.sections
+      let activeIndex = 0
+
+      for (let i = 0; i < sections.length; i++) {
+        const element = document.getElementById(`section${i + 1}`)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 300) {
+            activeIndex = i
+          }
+        }
+      }
+      setActiveSection(activeIndex)
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [project])
 
   if (!project) {
     return <div className="ml-[296px] p-8">Project not found</div>
@@ -44,18 +59,29 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
       {/* Fixed Top Nav Bar - Desktop only */}
       <nav
-        className="hidden lg:flex fixed top-4 h-12 z-10 bg-[rgb(14,14,18)] rounded-t-[12px] border-b-2 border-[rgb(2,1,10)] overflow-hidden transition-opacity duration-300"
         style={{
+          position: 'fixed',
+          top: '16px',
           left: '312px',
           right: '16px',
+          height: '48px',
+          zIndex: 10,
+          backgroundColor: 'rgb(14,14,18)',
+          borderRadius: '12px 12px 0 0',
+          borderBottom: '2px solid rgb(2,1,10)',
+          overflow: 'hidden',
+          transition: 'opacity 300ms ease',
           opacity: navVisible ? 1 : 0,
           pointerEvents: navVisible ? 'auto' : 'none',
+          display: 'flex',
           alignItems: 'flex-end',
           paddingLeft: '64px',
           paddingRight: '64px',
           paddingBottom: '8px',
           gap: '10px',
+          '@media (max-width: 1023px)': { display: 'none' },
         }}
+        className="hidden lg:flex"
       >
         <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0 }}>
           {project.title}
