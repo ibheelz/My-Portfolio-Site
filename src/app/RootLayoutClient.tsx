@@ -75,9 +75,9 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             key={pathname}
             className="page-content"
             initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             {children}
           </motion.main>
