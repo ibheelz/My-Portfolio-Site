@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { List, X } from '@phosphor-icons/react'
@@ -11,6 +11,13 @@ import SideNav from '@/src/components/SideNav'
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const prevPathnameRef = useRef<string>(pathname)
+
+  const shouldAnimate = pathname === '/' || prevPathnameRef.current === '/'
+
+  useEffect(() => {
+    prevPathnameRef.current = pathname
+  }, [pathname])
 
   useEffect(() => {
     setMobileMenuOpen(false)
@@ -23,10 +30,10 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
       <motion.div
         className="page-wrapper"
         key={pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        initial={shouldAnimate ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+        animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+        exit={shouldAnimate ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+        transition={shouldAnimate ? { duration: 0.5, ease: 'easeInOut' } : { duration: 0 }}
       >
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
         <div className="hidden lg:flex sidebar-nav">
