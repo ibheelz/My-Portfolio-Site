@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
@@ -19,6 +20,7 @@ interface SideNavProps {
 
 export default function SideNav({ hideProfile = false }: SideNavProps) {
   const pathname = usePathname()
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null)
 
   const isActive = (path: string) => pathname === path
 
@@ -77,20 +79,28 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
         {navItems.map((item) => {
           const Icon = item.icon
           const active = isActive(item.href)
+          const isHovered = hoveredNav === item.href
           return (
-            <Link
+            <div
               key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 rounded-full transition-colors body-m-leading"
-              style={{
-                padding: '10px 24px 10px 10px',
-                backgroundColor: 'transparent',
-                color: active ? 'rgb(129, 195, 215)' : 'rgb(138, 138, 138)',
-              }}
+              onMouseEnter={() => setHoveredNav(item.href)}
+              onMouseLeave={() => setHoveredNav(null)}
             >
-              <Icon size={24} weight="light" color={active ? 'rgb(129, 195, 215)' : 'rgb(143, 134, 152)'} />
-              <span>{item.label}</span>
-            </Link>
+              <Link
+                href={item.href}
+                className="flex items-center gap-3 rounded-full transition-all body-m-leading"
+                style={{
+                  padding: '10px 24px 10px 10px',
+                  backgroundColor: isHovered ? '#000000' : 'transparent',
+                  color: active ? 'rgb(129, 195, 215)' : 'rgb(138, 138, 138)',
+                  display: 'fit-content',
+                  width: 'fit-content',
+                }}
+              >
+                <Icon size={24} weight="light" color={active ? 'rgb(129, 195, 215)' : 'rgb(143, 134, 152)'} />
+                <span>{item.label}</span>
+              </Link>
+            </div>
           )
         })}
       </div>
@@ -100,22 +110,30 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
         <p className="uppercase-headline">Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
+          const isHovered = hoveredNav === `social-${item.href}`
           return (
-            <a
+            <div
               key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-full transition-colors hover:text-white body-m-leading"
-              style={{
-                padding: '10px 24px 10px 10px',
-                backgroundColor: 'transparent',
-                color: 'rgb(138, 138, 138)',
-              }}
+              onMouseEnter={() => setHoveredNav(`social-${item.href}`)}
+              onMouseLeave={() => setHoveredNav(null)}
             >
-              <Icon size={24} weight="light" color="rgb(143, 134, 152)" />
-              <span>{item.label}</span>
-            </a>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-full transition-all hover:text-white body-m-leading"
+                style={{
+                  padding: '10px 24px 10px 10px',
+                  backgroundColor: isHovered ? '#000000' : 'transparent',
+                  color: 'rgb(138, 138, 138)',
+                  display: 'fit-content',
+                  width: 'fit-content',
+                }}
+              >
+                <Icon size={24} weight="light" color="rgb(143, 134, 152)" />
+                <span>{item.label}</span>
+              </a>
+            </div>
           )
         })}
       </div>
