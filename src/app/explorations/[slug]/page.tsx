@@ -60,15 +60,18 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
 
       {/* Main Content */}
       <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
+        {/* Desktop Title Section */}
+        <div className="hidden lg:block w-full" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 20px)' }}>
+          <h1 className="font-heading text-[clamp(28px,6vw,40px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
+            {exploration.title}
+          </h1>
+        </div>
+
         {/* First Section - Split Layout */}
         <div
           className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-hidden hidden lg:flex"
-          style={{ minHeight: 'clamp(50vh, 70vh, 80vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 5vw, 48px)' }}
+          style={{ minHeight: 'clamp(50vh, 70vh, 80vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
-          {/* Title positioned at top left */}
-          <h1 className="absolute top-0 left-0 font-heading text-[clamp(28px,6vw,40px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', paddingLeft: 'clamp(16px, 5vw, 64px)' }}>
-            {exploration.title}
-          </h1>
 
           {/* Left Side - Slideshow */}
           <div
