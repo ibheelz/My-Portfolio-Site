@@ -91,7 +91,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[40] bg-[rgb(14,14,18)]">
           {/* Main Content Area */}
           <div
-            className="flex-1 overflow-hidden flex flex-col gap-16 px-16 pt-24 pb-16 md:px-4 sm:px-4 bg-[rgb(14,14,18)] z-[40]"
+            className="flex-1 flex flex-col gap-16 px-16 pt-24 pb-16 md:px-4 sm:px-4 bg-[rgb(14,14,18)] z-[40]"
             style={{ paddingLeft: '64px', paddingRight: '64px' }}
           >
             {project.sections.map((section, index) => (
