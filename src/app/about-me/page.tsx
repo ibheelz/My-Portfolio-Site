@@ -222,9 +222,9 @@ export default function AboutPage() {
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
                 Current Stack
               </label>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col gap-3">
                 {currentStack.map((item) => (
-                  <div key={item}>
+                  <div key={item} className="w-full">
                     <ToolIcon name={item} />
                   </div>
                 ))}
