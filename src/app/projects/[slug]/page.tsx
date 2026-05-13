@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import Label from '@/src/components/Label'
+import { FadeIn } from '@/src/components/FadeIn'
 
 interface ProjectDetailPageProps {
   params: { slug: string }
@@ -79,12 +80,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             }}
           />
 
-          <h1
-            className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
-            style={{ fontFamily: 'Mortend', margin: 0 }}
-          >
-            {project.title}
-          </h1>
+          <FadeIn className="relative z-[2]">
+            <h1
+              className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
+              style={{ fontFamily: 'Mortend', margin: 0 }}
+            >
+              {project.title}
+            </h1>
+          </FadeIn>
         </div>
 
         {/* Content + Sidebar Wrapper */}
@@ -95,28 +98,30 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)', gap: 'clamp(32px, 8vw, 64px)' }}
           >
             {project.sections.map((section, index) => (
-              <section key={index} id={`section${index + 1}`} className="flex flex-col gap-8 w-full">
-                <h2
-                  className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
-                  style={{ fontFamily: 'Mortend', margin: 0 }}
-                >
-                  {section.title}
-                </h2>
-                <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)] whitespace-pre-wrap">
-                  {section.content}
-                </p>
-                {section.image && (
-                  <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image || null)}>
-                    <Image
-                      src={section.image}
-                      alt={section.title}
-                      width={1400}
-                      height={1051}
-                      className="w-full h-auto group-hover:opacity-90 transition-opacity"
-                    />
-                  </div>
-                )}
-              </section>
+              <FadeIn key={index} delay={index * 0.06}>
+                <section id={`section${index + 1}`} className="flex flex-col gap-8 w-full">
+                  <h2
+                    className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+                    style={{ fontFamily: 'Mortend', margin: 0 }}
+                  >
+                    {section.title}
+                  </h2>
+                  <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)] whitespace-pre-wrap">
+                    {section.content}
+                  </p>
+                  {section.image && (
+                    <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image || null)}>
+                      <Image
+                        src={section.image}
+                        alt={section.title}
+                        width={1400}
+                        height={1051}
+                        className="w-full h-auto group-hover:opacity-90 transition-opacity"
+                      />
+                    </div>
+                  )}
+                </section>
+              </FadeIn>
             ))}
           </div>
 
@@ -169,15 +174,19 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
         {/* More Projects Section */}
         <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)' }}>
-          <h2
-            className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
-            style={{ fontFamily: 'Mortend', margin: 0 }}
-          >
-            More projects
-          </h2>
+          <FadeIn>
+            <h2
+              className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+              style={{ fontFamily: 'Mortend', margin: 0 }}
+            >
+              More projects
+            </h2>
+          </FadeIn>
           <div className="projects-grid grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1" style={{ columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
-            {otherProjects.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
+            {otherProjects.map((p, index) => (
+              <FadeIn key={p.slug} delay={index * 0.08}>
+                <ProjectCard project={p} />
+              </FadeIn>
             ))}
           </div>
         </section>

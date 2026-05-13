@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import { ArrowDownRight } from '@phosphor-icons/react'
+import { FadeIn } from '@/src/components/FadeIn'
 
 const otherProjects = [
   { name: 'Lucia Davis', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/luciaqxxn/' },
@@ -17,101 +18,108 @@ export default function ProjectsPage() {
   return (
     <div className="content-container">
       {/* SECTION 1 - Page Headline */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', overflow: 'hidden', marginBottom: '64px' }}>
-        <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
-          Projects
-        </h1>
-        <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content', margin: 0 }}>
-          (2025 - 2026)
-        </p>
-      </section>
+      <FadeIn>
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', overflow: 'hidden', marginBottom: '64px' }}>
+          <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+            Projects
+          </h1>
+          <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content', margin: 0 }}>
+            (2025 - 2026)
+          </p>
+        </section>
+      </FadeIn>
 
       {/* SECTION 2 - Projects Grid */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: '100px' }}>
         <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {featuredProjects.map((project, index) => (
+            <FadeIn key={project.slug} delay={index * 0.08}>
+              <ProjectCard project={project} />
+            </FadeIn>
           ))}
         </div>
       </section>
 
       {/* SECTION 3 - Other Projects */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '12px', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', height: '28px', overflow: 'hidden', gap: '2px' }}>
-          <h2 className="heading-2" style={{ textTransform: 'uppercase' }}>
-            Other projects
-          </h2>
-        </div>
+        <FadeIn>
+          <div style={{ display: 'flex', alignItems: 'center', height: '28px', overflow: 'hidden', gap: '2px' }}>
+            <h2 className="heading-2" style={{ textTransform: 'uppercase' }}>
+              Other projects
+            </h2>
+          </div>
+        </FadeIn>
 
         <div className="projects-rows-stack" style={{ display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden', marginTop: '10px' }}>
-          {otherProjects.map((project) => (
-            <a
-              key={project.name}
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="projects-row"
-              style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '40px',
-                borderBottom: '1px solid rgb(31, 31, 31)',
-                padding: '12px',
-                cursor: 'pointer',
-              }}
-            >
-              {/* Title */}
-              <div style={{ flex: 1, zIndex: 2, position: 'relative' }}>
-                <p className="body-m-leading projects-row-title" style={{ color: 'rgb(138, 138, 138)' }}>
-                  {project.name}
-                </p>
-              </div>
-
-              {/* Labels */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 2, position: 'relative' }}>
-                <div
-                  style={{
-                    borderRadius: '40px',
-                    border: '1px solid rgb(51, 51, 51)',
-                    padding: '8px 12px',
-                    fontSize: '12px',
-                    lineHeight: '18px',
-                    color: 'rgb(138, 138, 138)',
-                    fontFamily: 'Gucina',
-                  }}
-                >
-                  {project.label1}
+          {otherProjects.map((project, index) => (
+            <FadeIn key={project.name} delay={index * 0.08}>
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="projects-row"
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '40px',
+                  borderBottom: '1px solid rgb(31, 31, 31)',
+                  padding: '12px',
+                  cursor: 'pointer',
+                }}
+              >
+                {/* Title */}
+                <div style={{ flex: 1, zIndex: 2, position: 'relative' }}>
+                  <p className="body-m-leading projects-row-title" style={{ color: 'rgb(138, 138, 138)' }}>
+                    {project.name}
+                  </p>
                 </div>
-                <div
-                  style={{
-                    borderRadius: '40px',
-                    border: '1px solid rgb(51, 51, 51)',
-                    padding: '8px 12px',
-                    fontSize: '12px',
-                    lineHeight: '18px',
-                    color: 'rgb(138, 138, 138)',
-                    fontFamily: 'Gucina',
-                  }}
-                >
-                  {project.label2}
+
+                {/* Labels */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 2, position: 'relative' }}>
+                  <div
+                    style={{
+                      borderRadius: '40px',
+                      border: '1px solid rgb(51, 51, 51)',
+                      padding: '8px 12px',
+                      fontSize: '12px',
+                      lineHeight: '18px',
+                      color: 'rgb(138, 138, 138)',
+                      fontFamily: 'Gucina',
+                    }}
+                  >
+                    {project.label1}
+                  </div>
+                  <div
+                    style={{
+                      borderRadius: '40px',
+                      border: '1px solid rgb(51, 51, 51)',
+                      padding: '8px 12px',
+                      fontSize: '12px',
+                      lineHeight: '18px',
+                      color: 'rgb(138, 138, 138)',
+                      fontFamily: 'Gucina',
+                    }}
+                  >
+                    {project.label2}
+                  </div>
                 </div>
-              </div>
 
-              {/* Arrow Icon */}
-              <div className="projects-row-arrow" style={{ width: '36px', height: '36px', zIndex: 2, position: 'relative' }}>
-                <ArrowDownRight
-                  size={20}
-                  weight="bold"
-                  color="rgb(143, 134, 152)"
-                  style={{ transform: 'rotate(-90deg)' }}
-                />
-              </div>
+                {/* Arrow Icon */}
+                <div className="projects-row-arrow" style={{ width: '36px', height: '36px', zIndex: 2, position: 'relative' }}>
+                  <ArrowDownRight
+                    size={20}
+                    weight="bold"
+                    color="rgb(143, 134, 152)"
+                    style={{ transform: 'rotate(-90deg)' }}
+                  />
+                </div>
 
-              {/* Hover Overlay */}
-              <div className="projects-row-overlay" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgb(2, 1, 10)', zIndex: 1, pointerEvents: 'none' }} />
-            </a>
+                {/* Hover Overlay */}
+                <div className="projects-row-overlay" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgb(2, 1, 10)', zIndex: 1, pointerEvents: 'none' }} />
+              </a>
+            </FadeIn>
           ))}
         </div>
       </section>
