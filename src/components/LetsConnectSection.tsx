@@ -54,7 +54,9 @@ export default function LetsConnectSection() {
                 className="font-gucina text-[28px] leading-[1.3em] tracking-[-0.02em] text-[rgb(250,250,250)]"
                 style={{ maxWidth: '544px' }}
               >
-                I'm not just here to design products; I'm here to connect with people.
+                I'm not just here to design products;
+                <br />
+                I'm here to connect with people.
               </p>
 
               {/* Body Paragraph */}
