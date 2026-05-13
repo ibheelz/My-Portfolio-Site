@@ -69,8 +69,8 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
 
         {/* First Section - Split Layout */}
         <div
-          className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-hidden hidden lg:flex"
-          style={{ minHeight: 'clamp(50vh, 70vh, 80vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
+          className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-visible hidden lg:flex"
+          style={{ height: '60vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
 
           {/* Left Side - Slideshow */}
