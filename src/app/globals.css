@@ -405,8 +405,9 @@ nav.project-detail-nav {
     order: -1;
     width: 100%;
     flex-shrink: 0;
-    height: auto;
-    min-height: 64px;
+    height: auto !important;
+    min-height: 80px !important;
+    overflow: visible !important;
   }
 }
 
@@ -577,6 +578,7 @@ nav.project-detail-nav {
     height: 100vh;
     padding: 0;
     gap: 0;
+    overflow: visible !important;
   }
 
   nav {
