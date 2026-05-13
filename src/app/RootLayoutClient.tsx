@@ -25,16 +25,8 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
   return (
     <>
-      <AnimatePresence mode="wait">
       {/* Main Layout */}
-      <motion.div
-        className="page-wrapper"
-        key={pathname}
-        initial={shouldAnimate ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
-        animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-        exit={shouldAnimate ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
-        transition={shouldAnimate ? { duration: 0.5, ease: 'easeInOut' } : { duration: 0 }}
-      >
+      <div className="page-wrapper">
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
         <div className="hidden lg:flex sidebar-nav">
           <SideNav />
@@ -78,10 +70,19 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Page Content */}
-        <main className="page-content">
-          {children}
-        </main>
-      </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.main
+            key={pathname}
+            className="page-content"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+          >
+            {children}
+          </motion.main>
+        </AnimatePresence>
+      </div>
 
       {/* Mobile Menu Modal Overlay */}
       <AnimatePresence>
@@ -120,7 +121,6 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
       </AnimatePresence>
     </>
   )
