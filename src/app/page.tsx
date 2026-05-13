@@ -21,7 +21,7 @@ export default function Home() {
       {/* Content container */}
       <div className="content-container">
           {/* SECTION 1 - Hero */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', paddingTop: 'clamp(32px, 8vw, 48px)' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)' }}>
             {/* Top row with dot */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <div></div>
