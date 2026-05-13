@@ -397,7 +397,8 @@ nav.project-detail-nav {
     order: -1;
     width: 100%;
     flex-shrink: 0;
-    height: 56px;
+    height: auto;
+    min-height: 64px;
   }
 }
 
@@ -511,7 +512,7 @@ nav.project-detail-nav {
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 16px;
-    height: calc(100% - 56px);
+    min-height: 0;
   }
 
   .content-container {
@@ -580,7 +581,7 @@ nav.project-detail-nav {
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 0;
-    height: calc(100% - 56px);
+    min-height: 0;
   }
 
   .content-container {
