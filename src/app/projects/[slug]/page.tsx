@@ -122,7 +122,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* Sticky Sidebar */}
           <aside
-            className="w-[24%] min-w-[296px] h-screen sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col gap-3 overflow-y-auto hidden lg:flex bg-[rgb(14,14,18)] z-50"
+            className="w-[24%] min-w-[296px] sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col hidden lg:flex bg-[rgb(14,14,18)] z-50"
             style={{ paddingLeft: '24px', paddingRight: '24px' }}
           >
             {/* Chapters Navigation */}
@@ -148,38 +148,13 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </ul>
             </nav>
 
-            {/* Divider */}
-            <div className="w-full h-px bg-[rgb(31,31,31)]" />
-
-            {/* Role */}
-            <div className="flex flex-col gap-5">
-              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                Role
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {project.roleLabels.map((label) => (
-                  <div
-                    key={label}
-                    className="rounded-full border border-[rgb(51,51,51)] px-3 py-2"
-                  >
-                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                      {label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div className="w-full h-px bg-[rgb(31,31,31)]" />
-
             {/* Duration and Date Info */}
             {(project.duration || project.date) && (
-              <div className="flex flex-col w-full">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-3">
+              <div className="flex flex-col w-full mt-5">
+                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-2">
                   Duration and date
                 </label>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-0.5">
                   {project.duration && (
                     <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
                       {project.duration}
