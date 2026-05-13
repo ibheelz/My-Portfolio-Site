@@ -56,22 +56,20 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
       {/* Fixed Hero Image */}
       <div
-        className="fixed top-4 right-4 h-[664px] md:h-[400px] sm:h-[400px] bg-[rgb(14,14,18)] z-[1] overflow-hidden flex items-center justify-center rounded-t-xl hidden lg:block"
+        className="fixed top-4 right-4 h-[664px] md:h-[400px] sm:h-[400px] bg-[rgb(14,14,18)] z-[1] overflow-hidden rounded-t-xl hidden lg:block"
         style={{ left: '312px' }}
       >
-        <Image
-          src={project.heroImage}
-          alt={project.title}
-          fill
-          className="object-cover rounded-t-xl"
-          style={{
-            top: '-36px',
-            right: '-36px',
-            bottom: '0',
-            left: '-36px',
-            transform: `translateY(${scrollY * -0.15}px)`,
-          }}
-        />
+        <div
+          className="relative w-full h-full overflow-hidden"
+          style={{ transform: `translateY(${scrollY * -0.15}px)` }}
+        >
+          <Image
+            src={project.heroImage}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
+        </div>
       </div>
 
       {/* Main Scrolling Content */}
