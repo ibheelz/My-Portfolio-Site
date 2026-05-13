@@ -159,7 +159,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 </label>
                 <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
                   {project.duration}
-                  {project.duration && project.date && <span> | </span>}
+                  {project.duration && project.date && <span>   |   </span>}
                   {project.date}
                 </p>
               </div>
