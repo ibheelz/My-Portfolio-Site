@@ -57,6 +57,16 @@ export default function AboutPage() {
 
   return (
     <>
+      {/* Name Heading */}
+      <div className="relative w-full bg-[rgb(14,14,18)] z-10" style={{ paddingLeft: '64px', paddingRight: '64px', paddingTop: '96px' }}>
+        <h1
+          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
+          style={{ fontFamily: 'Mortend', marginBottom: '64px' }}
+        >
+          Abiola Adeyeye
+        </h1>
+      </div>
+
       {/* Solid Content Area - Two Column Layout */}
       <div className="relative w-full bg-[rgb(14,14,18)] z-10">
         <div className="flex flex-col lg:flex-row gap-2 px-4" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
