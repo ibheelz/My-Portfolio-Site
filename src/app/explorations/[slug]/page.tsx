@@ -63,13 +63,13 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         {/* First Section - Split Layout */}
         <div
           className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-hidden hidden lg:flex"
-          style={{ height: '100vh', paddingLeft: '64px', paddingRight: '64px' }}
+          style={{ minHeight: 'clamp(80vh, 100vh, 120vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
-          {/* Left Side - Slideshow (65%) */}
+          {/* Left Side - Slideshow */}
           <div
             ref={slideShowRef}
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
-            style={{ width: '65%', height: '100%', flex: '0 0 65%' }}
+            style={{ flex: '1 1 60%', height: '100%' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
@@ -133,34 +133,35 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             </div>
           </div>
 
-          {/* Right Side - Info (35%) */}
-          <div className="flex-1 flex flex-col justify-between p-8">
+          {/* Right Side - Info */}
+          <div className="flex-1 flex flex-col justify-between" style={{ padding: 'clamp(24px, 5vw, 48px)', paddingTop: 'clamp(24px, 10vw, 96px)' }}>
             {/* Top Content */}
-            <div className="flex flex-col gap-8" style={{ marginTop: '100px' }}>
-              <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
+            <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)', marginTop: 'clamp(60px, 10vw, 100px)' }}>
+              <h1 className="font-heading text-[clamp(28px,6vw,40px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
                 {exploration.title}
               </h1>
               {exploration.description && (
-                <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)]">
+                <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.7] text-[rgb(138,138,138)]">
                   {exploration.description}
                 </p>
               )}
             </div>
 
             {/* Bottom Content */}
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)' }}>
               {/* Tools */}
-              <div className="flex flex-col gap-2.5">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+              <div className="flex flex-col" style={{ gap: 'clamp(8px, 2vw, 12px)' }}>
+                <label className="font-gucina font-bold text-[clamp(10px,1.5vw,12px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                   Tools
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap" style={{ gap: 'clamp(6px, 1.5vw, 10px)' }}>
                   {exploration.tools.map((tool) => (
                     <div
                       key={tool}
-                      className="rounded-full border border-[rgb(51,51,51)] px-3 py-2"
+                      className="rounded-full border border-[rgb(51,51,51)]"
+                      style={{ padding: 'clamp(4px, 1vw, 6px) clamp(8px, 1.5vw, 12px)' }}
                     >
-                      <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      <span className="font-gucina text-[clamp(10px,1.5vw,12px)] leading-[1.5] text-[rgb(138,138,138)]">
                         {tool}
                       </span>
                     </div>
@@ -170,11 +171,11 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
 
               {/* Date */}
               {exploration.date && (
-                <div className="flex flex-col gap-3">
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                <div className="flex flex-col" style={{ gap: 'clamp(8px, 1.5vw, 12px)' }}>
+                  <label className="font-gucina font-bold text-[clamp(10px,1.5vw,12px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                     Date
                   </label>
-                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                  <p className="font-gucina text-[clamp(10px,1.5vw,12px)] leading-[1.5] text-[rgb(138,138,138)]">
                     {exploration.date}
                   </p>
                 </div>
@@ -184,11 +185,18 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         </div>
 
         {/* Mobile/Tablet Layout */}
-        <div className="flex flex-col lg:hidden overflow-hidden w-full">
+        <div className="flex flex-col lg:hidden overflow-hidden w-full" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}>
+          {/* Title at top */}
+          <div className="bg-[rgb(14,14,18)]" style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 16px)' }}>
+            <h1 className="font-heading text-[clamp(28px,7vw,36px)] leading-[1.3] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend' }}>
+              {exploration.title}
+            </h1>
+          </div>
+
           {/* Slideshow for mobile */}
           <div
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
-            style={{ width: '100%', height: '70vh' }}
+            style={{ width: '100%', height: 'clamp(300px, 60vh, 600px)' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
@@ -252,26 +260,22 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           </div>
 
           {/* Info section for mobile */}
-          <div className="p-6 bg-[rgb(14,14,18)]">
-            <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase mb-8" style={{ fontFamily: 'Mortend' }}>
-              {exploration.title}
-            </h1>
-
+          <div className="bg-[rgb(14,14,18)]" style={{ padding: 'clamp(24px, 5vw, 48px)' }}>
             {exploration.description && (
-              <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)] mb-8">
+              <p className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.7] text-[rgb(138,138,138)]" style={{ marginBottom: 'clamp(16px, 4vw, 24px)' }}>
                 {exploration.description}
               </p>
             )}
 
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-2.5">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+            <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 24px)' }}>
+              <div className="flex flex-col" style={{ gap: 'clamp(8px, 2vw, 12px)' }}>
+                <label className="font-gucina font-bold text-[clamp(10px,1.5vw,12px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                   Tools
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap" style={{ gap: 'clamp(6px, 1.5vw, 10px)' }}>
                   {exploration.tools.map((tool) => (
-                    <div key={tool} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
-                      <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                    <div key={tool} className="rounded-full border border-[rgb(51,51,51)]" style={{ padding: 'clamp(4px, 1vw, 6px) clamp(8px, 1.5vw, 12px)' }}>
+                      <span className="font-gucina text-[clamp(10px,1.5vw,12px)] leading-[1.5] text-[rgb(138,138,138)]">
                         {tool}
                       </span>
                     </div>
@@ -280,11 +284,11 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
               </div>
 
               {exploration.date && (
-                <div className="flex flex-col gap-3">
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                <div className="flex flex-col" style={{ gap: 'clamp(8px, 1.5vw, 12px)' }}>
+                  <label className="font-gucina font-bold text-[clamp(10px,1.5vw,12px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                     Date
                   </label>
-                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                  <p className="font-gucina text-[clamp(10px,1.5vw,12px)] leading-[1.5] text-[rgb(138,138,138)]">
                     {exploration.date}
                   </p>
                 </div>
@@ -294,14 +298,14 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         </div>
 
         {/* More Explorations Section */}
-        <section className="w-full bg-[rgb(14,14,18)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+        <section className="w-full bg-[rgb(14,14,18)] overflow-hidden flex flex-col relative z-[40]" style={{ padding: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', gap: 'clamp(24px, 5vw, 40px)' }}>
           <h2
-            className="font-heading text-[15px] leading-[1.4em] tracking-[0.01em] text-[rgb(250,250,250)] uppercase"
+            className="font-heading text-[clamp(12px,2.5vw,15px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
             style={{ fontFamily: 'Mortend' }}
           >
             More explorations
           </h2>
-          <div className="explorations-grid grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
+          <div className="explorations-grid w-full" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 30vw, 400px), 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(32px, 6vw, 64px)' }}>
             {otherExplorations.map((e) => (
               <ExplorationCard key={e.slug} exploration={e} />
             ))}
