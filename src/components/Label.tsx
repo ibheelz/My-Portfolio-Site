@@ -16,7 +16,7 @@ export default function Label({ children, variant = 'default', icon }: LabelProp
             alt={String(children)}
             width={24}
             height={24}
-            className="w-full h-full object-cover"
+            style={{ width: '24px', height: '24px' }}
           />
         </div>
         <span className="font-gucina text-[12px] leading-[18px] tracking-[0.01em] text-[rgb(138,138,138)]">

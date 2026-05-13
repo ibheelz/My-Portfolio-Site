@@ -48,56 +48,7 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* Fixed Hero Image */}
-      <div
-        className="fixed hidden lg:block z-0 rounded-t-3xl overflow-hidden"
-        style={{
-          top: '16px',
-          left: '312px',
-          right: '16px',
-          height: '664px',
-          backgroundImage: 'url(https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          marginLeft: '-36px',
-          marginRight: '-36px',
-          marginTop: '-36px',
-          borderRadius: '12px 12px 0 0',
-        }}
-      >
-        <Image
-          src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
-          alt="Abiola Adeyeye"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-
-      {/* Transparent Hero Text Area */}
-      <div
-        className="relative w-full bg-transparent flex flex-col justify-end px-16 pb-9 md:px-4 hidden lg:flex"
-        style={{ height: '680px', paddingLeft: '64px', paddingRight: '64px', zIndex: 1 }}
-      >
-        {/* Gradient overlay */}
-        <div
-          className="absolute bottom-0 left-0 right-0 pointer-events-none"
-          style={{
-            height: '200px',
-            background: 'linear-gradient(to top, rgb(14, 14, 18) 0%, rgba(14, 14, 18, 0.6) 50%, transparent 100%)',
-            zIndex: 1,
-          }}
-        />
-
-        <h1
-          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
-          style={{ fontFamily: 'Mortend', marginBottom: '36px' }}
-        >
-          Abiola Adeyeye
-        </h1>
-      </div>
-
-      {/* Solid Content Area */}
+      {/* Content Area */}
       <div className="relative w-full bg-[rgb(14,14,18)] z-10">
         {/* Left Column + Right Sidebar */}
         <div className="flex flex-col lg:flex-row gap-2 px-16 md:px-4" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
