@@ -38,7 +38,7 @@ export default function Home() {
             {/* Headline + What I do */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px', margin: 0 }}>
               {/* Headline */}
-              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, maxWidth: '876px' }}>
+              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, marginTop: '-0.2em', maxWidth: '876px' }}>
                 Building value into <br /> brands through design.
               </h1>
 
@@ -102,7 +102,7 @@ export default function Home() {
             </div>
 
             {/* Projects grid */}
-            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
               {featuredProjects.map((project) => (
                 <Link
                   key={project.slug}
@@ -182,7 +182,7 @@ export default function Home() {
             </div>
 
             {/* Explorations grid */}
-            <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+            <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
               {featuredExplorations.map((exploration) => (
                 <Link
                   key={exploration.slug}

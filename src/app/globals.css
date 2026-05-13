@@ -298,12 +298,14 @@ a {
 
   .projects-grid {
     grid-template-columns: repeat(4, minmax(50px, 1fr)) !important;
-    gap: 32px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .explorations-grid {
     grid-template-columns: repeat(4, minmax(50px, 1fr)) !important;
-    gap: 32px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .project-card {
@@ -337,7 +339,7 @@ a {
 }
 
 .content-container {
-  padding: 64px 64px 32px 64px;
+  padding: clamp(32px, 8vw, 64px) clamp(16px, 5vw, 64px) 32px clamp(16px, 5vw, 64px);
   display: flex;
   flex-direction: column;
   gap: 0px;
@@ -407,13 +409,14 @@ nav {
 
 .projects-grid {
   grid-template-columns: repeat(3, minmax(50px, 1fr)) !important;
-  gap: 24px !important;
+  column-gap: clamp(16px, 4vw, 32px) !important;
+  row-gap: clamp(48px, 10vw, 96px) !important;
 }
 
 .explorations-grid {
   grid-template-columns: repeat(3, minmax(50px, 1fr)) !important;
-  column-gap: 24px !important;
-  row-gap: 50px !important;
+  column-gap: clamp(16px, 4vw, 32px) !important;
+  row-gap: clamp(48px, 10vw, 96px) !important;
 }
 
 .project-card {
@@ -426,7 +429,7 @@ nav {
 
 .exploration-card {
   aspect-ratio: 1 !important;
-  gap: 12px !important;
+  gap: clamp(16px, 4vw, 32px) !important;
 }
 
 .exploration-card-home {
@@ -510,13 +513,14 @@ nav {
 
   .projects-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .explorations-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    column-gap: 24px !important;
-    row-gap: 50px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .project-card {
@@ -577,13 +581,14 @@ nav {
 
   .projects-grid {
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .explorations-grid {
     grid-template-columns: 1fr !important;
-    column-gap: 24px !important;
-    row-gap: 50px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .project-card {
@@ -624,12 +629,13 @@ nav {
   }
 
   .projects-grid {
-    gap: 12px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .explorations-grid {
-    column-gap: 12px !important;
-    row-gap: 50px !important;
+    column-gap: clamp(16px, 4vw, 32px) !important;
+    row-gap: clamp(48px, 10vw, 96px) !important;
   }
 
   .project-card {

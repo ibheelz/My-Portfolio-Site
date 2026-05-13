@@ -28,7 +28,7 @@ export default function ProjectsPage() {
 
       {/* SECTION 2 - Projects Grid */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: '100px' }}>
-        <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', gap: '24px' }}>
+        <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
           {featuredProjects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}

@@ -47,7 +47,7 @@ export default function ExplorationsPage() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 30vw, 400px), 1fr))',
               columnGap: 'clamp(16px, 4vw, 32px)',
-              rowGap: 'clamp(32px, 6vw, 64px)'
+              rowGap: 'clamp(48px, 10vw, 96px)'
             }}
           >
             {explorations.map((exploration) => (

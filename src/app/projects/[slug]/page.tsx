@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import Label from '@/src/components/Label'
-import LetsConnectSection from '@/src/components/LetsConnectSection'
 
 interface ProjectDetailPageProps {
   params: { slug: string }
@@ -62,7 +61,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         {/* Hero Text Overlay */}
         <div
           className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4"
-          style={{ height: '70vh', paddingLeft: '64px', paddingRight: '64px' }}
+          style={{ height: '70vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
           <Image
             src={project.heroImage}
@@ -81,8 +80,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           />
 
           <h1
-            className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
-            style={{ fontFamily: 'Mortend' }}
+            className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
+            style={{ fontFamily: 'Mortend', margin: 0 }}
           >
             {project.title}
           </h1>
@@ -92,18 +91,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[40] bg-[rgb(14,14,18)]">
           {/* Main Content Area */}
           <div
-            className="flex-1 flex flex-col gap-16 px-16 pt-24 pb-16 md:px-4 sm:px-4 bg-[rgb(14,14,18)] z-[40]"
-            style={{ paddingLeft: '64px', paddingRight: '64px' }}
+            className="flex-1 flex flex-col bg-[rgb(14,14,18)] z-[40]"
+            style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)', gap: 'clamp(32px, 8vw, 64px)' }}
           >
             {project.sections.map((section, index) => (
               <section key={index} id={`section${index + 1}`} className="flex flex-col gap-8 w-full">
                 <h2
-                  className="font-heading text-[15px] leading-[1.4em] tracking-[0.01em] text-[rgb(250,250,250)] uppercase"
-                  style={{ fontFamily: 'Mortend' }}
+                  className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+                  style={{ fontFamily: 'Mortend', margin: 0 }}
                 >
                   {section.title}
                 </h2>
-                <p className="font-body text-[16px] leading-[28px] text-[rgb(138,138,138)] whitespace-pre-wrap">
+                <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)] whitespace-pre-wrap">
                   {section.content}
                 </p>
                 {section.image && (
@@ -123,8 +122,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* Sticky Sidebar */}
           <aside
-            className="w-[24%] min-w-[296px] sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-6 pb-16 flex flex-col hidden lg:flex bg-[rgb(14,14,18)] z-50 overflow-hidden"
-            style={{ paddingLeft: '24px', paddingRight: '24px' }}
+            className="w-[24%] min-w-[296px] sticky top-0 border-l-2 border-[rgb(2,1,10)] flex flex-col hidden lg:flex bg-[rgb(14,14,18)] z-50 overflow-hidden"
+            style={{ paddingLeft: 'clamp(16px, 2vw, 32px)', paddingRight: 'clamp(16px, 2vw, 32px)', paddingTop: 'clamp(16px, 2vw, 24px)', paddingBottom: 'clamp(32px, 8vw, 64px)' }}
           >
             {/* Chapters Navigation */}
             <nav className="flex flex-col gap-2 w-full" style={{ height: 'auto', position: 'relative', top: 'auto', borderRadius: 'unset', backgroundColor: 'transparent', zIndex: 'auto' }}>
@@ -150,7 +149,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </nav>
 
             {/* Divider */}
-            <div className="w-full h-px bg-[rgb(31,31,31)]" style={{ marginTop: '40px', marginBottom: '40px' }} />
+            <div className="w-full h-px bg-[rgb(31,31,31)]" style={{ marginTop: 'clamp(24px, 4vw, 48px)', marginBottom: 'clamp(24px, 4vw, 48px)' }} />
 
             {/* Duration and Date Info */}
             {(project.duration || project.date) && (
@@ -169,22 +168,20 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         </div>
 
         {/* More Projects Section */}
-        <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+        <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)' }}>
           <h2
-            className="font-heading text-[15px] leading-[1.4em] tracking-[0.01em] text-[rgb(250,250,250)] uppercase"
-            style={{ fontFamily: 'Mortend' }}
+            className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+            style={{ fontFamily: 'Mortend', margin: 0 }}
           >
             More projects
           </h2>
-          <div className="projects-grid grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
+          <div className="projects-grid grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1" style={{ columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
             {otherProjects.map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
         </section>
 
-        {/* Let's Connect Section */}
-        <LetsConnectSection />
       </div>
 
       {/* Image Modal */}
