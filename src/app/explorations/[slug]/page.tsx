@@ -63,7 +63,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
         {/* First Section - Split Layout */}
         <div
           className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-hidden hidden lg:flex"
-          style={{ minHeight: 'clamp(80vh, 100vh, 120vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
+          style={{ minHeight: 'clamp(60vh, 80vh, 100vh)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
           {/* Left Side - Slideshow */}
           <div
@@ -89,7 +89,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
                     src={image}
                     alt={`${exploration.title} - Image ${index + 1}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     priority={index === 0}
                   />
                 </div>
@@ -196,7 +196,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
           {/* Slideshow for mobile */}
           <div
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
-            style={{ width: '100%', height: 'clamp(300px, 60vh, 600px)' }}
+            style={{ width: '100%', height: 'clamp(250px, 50vh, 450px)' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
@@ -216,7 +216,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
                     src={image}
                     alt={`${exploration.title} - Image ${index + 1}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     priority={index === 0}
                   />
                 </div>
