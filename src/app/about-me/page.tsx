@@ -65,8 +65,8 @@ export default function AboutPage() {
     <>
       {/* Hero Section with Fixed Background */}
       <div
-        className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4 bg-fixed"
-        style={{ height: '70vh', paddingLeft: '64px', paddingRight: '64px' }}
+        className="relative w-full overflow-visible flex flex-col justify-end px-16 md:px-4 bg-fixed"
+        style={{ height: '70vh', paddingLeft: '64px', paddingRight: '64px', paddingBottom: '24px' }}
       >
         <Image
           src="https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png"
@@ -87,7 +87,7 @@ export default function AboutPage() {
         {/* Name at bottom */}
         <h1
           className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
-          style={{ fontFamily: 'Mortend' }}
+          style={{ fontFamily: 'Mortend', marginBottom: '0' }}
         >
           Abiola Adeyeye
         </h1>
