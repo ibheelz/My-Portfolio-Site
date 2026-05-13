@@ -59,8 +59,13 @@ export default function AboutPage() {
     <>
       {/* Hero Section */}
       <div
-        className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4 min-h-[70vh]"
-        style={{ paddingLeft: '64px', paddingRight: '64px' }}
+        className="relative w-full overflow-hidden flex flex-col justify-end"
+        style={{
+          height: '664px',
+          paddingLeft: '64px',
+          paddingRight: '64px',
+          paddingBottom: '24px',
+        }}
       >
         <Image
           src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
@@ -86,12 +91,52 @@ export default function AboutPage() {
         </h1>
       </div>
 
+      {/* Tablet Hero Adjustments */}
+      <style jsx>{`
+        @media (max-width: 1023px) {
+          .hero-tablet {
+            height: 664px;
+            padding-left: 32px;
+            padding-right: 32px;
+            padding-bottom: 24px;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .hero-mobile {
+            height: 400px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-bottom: 24px;
+          }
+        }
+      `}</style>
+
       {/* Solid Content Area - Two Column Layout */}
       <div className="relative w-full bg-[rgb(14,14,18)]">
-        <div className="flex flex-col lg:flex-row gap-2 px-4" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
+        <div className="flex flex-col lg:flex-row" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
 
           {/* Left Column */}
-          <div className="flex-1" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
+          <div className="flex-1 w-full" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
+            <style jsx>{`
+              @media (max-width: 1023px) {
+                .left-column-tablet {
+                  padding-left: 16px;
+                  padding-right: 16px;
+                  padding-top: 96px;
+                  padding-bottom: 64px;
+                }
+              }
+
+              @media (max-width: 767px) {
+                .left-column-mobile {
+                  padding-left: 16px;
+                  padding-right: 16px;
+                  padding-top: 64px;
+                  padding-bottom: 64px;
+                }
+              }
+            `}</style>
 
             {/* About Me Section */}
             <div className="mb-16" style={{ marginBottom: '64px' }}>
@@ -122,7 +167,7 @@ export default function AboutPage() {
               </div>
 
               {/* Column Headers */}
-              <div className="flex justify-between gap-8 mb-6">
+              <div className="hidden md:flex justify-between gap-8 mb-6">
                 <div className="flex-1">
                   <span className="font-gucina font-bold text-[12px] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                     Company
@@ -141,23 +186,48 @@ export default function AboutPage() {
               </div>
 
               {/* Experience Rows */}
-              <div className="flex flex-col gap-6 mb-8" style={{ marginBottom: '32px' }}>
+              <div className="flex flex-col mb-8" style={{ marginBottom: '32px' }}>
                 {experience.map((exp, index) => (
-                  <div key={index} className="flex justify-between gap-8 pb-6" style={{ borderBottom: `1px solid rgb(31, 31, 31)`, paddingBottom: '24px' }}>
-                    <div className="flex-1">
-                      <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
-                        {exp.company}
-                      </p>
+                  <div key={index} style={{ borderBottom: `1px solid rgb(31, 31, 31)`, paddingBottom: '24px' }}>
+                    {/* Desktop/Tablet: Horizontal */}
+                    <div className="hidden md:flex justify-between gap-8 pb-6">
+                      <div className="flex-1">
+                        <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
+                          {exp.company}
+                        </p>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
+                          {exp.role}
+                        </p>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
+                          {exp.duration}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
-                        {exp.role}
-                      </p>
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
-                        {exp.duration}
-                      </p>
+
+                    {/* Mobile: Vertical Stack */}
+                    <div className="flex flex-col md:hidden gap-2" style={{ gap: '8px', paddingBottom: '24px' }}>
+                      <div>
+                        <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em]">Company</p>
+                        <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
+                          {exp.company}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em]">Role</p>
+                        <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
+                          {exp.role}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em]">Duration</p>
+                        <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(250,250,250)]">
+                          {exp.duration}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -197,9 +267,37 @@ export default function AboutPage() {
 
           {/* Right Sidebar */}
           <aside
-            className="w-full lg:w-[25%] lg:min-w-[296px] border-t-2 lg:border-t-0 lg:border-l-2 border-[rgb(2,1,10)] hidden lg:block"
-            style={{ paddingTop: '96px', paddingRight: '64px', paddingBottom: '64px', paddingLeft: '24px' }}
+            className="w-full lg:w-[25%] lg:min-w-[296px]"
+            style={{
+              paddingTop: '96px',
+              paddingRight: '64px',
+              paddingBottom: '64px',
+              paddingLeft: '24px',
+              borderLeft: '2px solid rgb(2, 1, 10)',
+            }}
           >
+            <style jsx>{`
+              @media (max-width: 1023px) {
+                aside {
+                  width: 100%;
+                  border-top: 2px solid rgb(2, 1, 10);
+                  border-left: none;
+                  padding-top: 32px;
+                  padding-right: 16px;
+                  padding-bottom: 64px;
+                  padding-left: 16px;
+                }
+              }
+
+              @media (max-width: 767px) {
+                aside {
+                  padding-top: 32px;
+                  padding-right: 16px;
+                  padding-bottom: 32px;
+                  padding-left: 16px;
+                }
+              }
+            `}</style>
             {/* What I Do */}
             <div className="mb-8" style={{ marginBottom: '32px' }}>
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
@@ -261,12 +359,12 @@ export default function AboutPage() {
           >
             Testimonials
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative" style={{ gap: '32px' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative" style={{ gap: '32px' }}>
             {testimonials.map((testimonial, index) => (
               <div key={index} className="flex flex-col gap-4 relative">
-                {/* Vertical Divider */}
+                {/* Vertical Divider - Desktop/Tablet only */}
                 {index < testimonials.length - 1 && (
-                  <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
+                  <div className="hidden md:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
                 )}
 
                 {/* Quote */}
