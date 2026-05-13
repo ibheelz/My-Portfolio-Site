@@ -18,9 +18,14 @@ export default function AboutPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const aboutText1 = `I'm a designer focused on creating experiences that actually matter. I care about how people interact with technology and work to make those moments simple and meaningful. I love solving complex problems and believe great design starts with understanding people.`
-
-  const aboutText2 = `Every project I take on is about finding thoughtful solutions that work for both users and businesses. I push boundaries but keep things practical. I thrive in collaboration and I'm always learning.`
+  const aboutSentences = [
+    "I'm a designer focused on creating experiences that actually matter.",
+    "I care about how people interact with technology and work to make those moments simple and meaningful.",
+    "I love solving complex problems and believe great design starts with understanding people.",
+    "Every project I take on is about finding thoughtful solutions that work for both users and businesses.",
+    "I push boundaries but keep things practical.",
+    "I thrive in collaboration and I'm always learning."
+  ]
 
   const currentStack = [
     'Adobe Creative Suite',
@@ -108,12 +113,11 @@ export default function AboutPage() {
               >
                 About me
               </h2>
-              <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)] mb-4">
-                {aboutText1}
-              </p>
-              <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
-                {aboutText2}
-              </p>
+              {aboutSentences.map((sentence, index) => (
+                <p key={index} className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)] mb-4">
+                  {sentence}
+                </p>
+              ))}
               <div className="w-full" style={{ borderBottom: `1px solid rgb(31, 31, 31)`, marginTop: '64px', paddingBottom: '24px' }} />
             </div>
 
