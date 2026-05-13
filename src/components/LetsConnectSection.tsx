@@ -51,8 +51,8 @@ export default function LetsConnectSection() {
 
               {/* Large Statement */}
               <h2
-                className="font-gucina text-[28px] leading-[1.3em] tracking-[-0.02em] text-[rgb(250,250,250)]"
-                style={{ maxWidth: '544px', fontWeight: '500' }}
+                className="text-[28px] leading-[1.3em] tracking-[-0.02em] text-[rgb(250,250,250)]"
+                style={{ maxWidth: '544px', fontFamily: 'Mortend' }}
               >
                 I'm not just here to design products; I'm here to connect with people.
               </h2>
