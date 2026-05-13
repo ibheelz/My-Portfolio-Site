@@ -123,7 +123,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             paddingTop: '0px',
             paddingBottom: '0px',
             gap: '0px',
-            zIndex: 50,
+            zIndex: 25,
           }}
         >
           <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.01em', margin: 0, whiteSpace: 'nowrap', marginRight: '20px', flexShrink: 0, textTransform: 'none', fontFamily: 'Gucina' }}>
