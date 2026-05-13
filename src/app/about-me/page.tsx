@@ -91,52 +91,12 @@ export default function AboutPage() {
         </h1>
       </div>
 
-      {/* Tablet Hero Adjustments */}
-      <style jsx>{`
-        @media (max-width: 1023px) {
-          .hero-tablet {
-            height: 664px;
-            padding-left: 32px;
-            padding-right: 32px;
-            padding-bottom: 24px;
-          }
-        }
-
-        @media (max-width: 767px) {
-          .hero-mobile {
-            height: 400px;
-            padding-left: 16px;
-            padding-right: 16px;
-            padding-bottom: 24px;
-          }
-        }
-      `}</style>
-
       {/* Solid Content Area - Two Column Layout */}
       <div className="relative w-full bg-[rgb(14,14,18)]">
         <div className="flex flex-col lg:flex-row" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
 
           {/* Left Column */}
           <div className="flex-1 w-full" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
-            <style jsx>{`
-              @media (max-width: 1023px) {
-                .left-column-tablet {
-                  padding-left: 16px;
-                  padding-right: 16px;
-                  padding-top: 96px;
-                  padding-bottom: 64px;
-                }
-              }
-
-              @media (max-width: 767px) {
-                .left-column-mobile {
-                  padding-left: 16px;
-                  padding-right: 16px;
-                  padding-top: 64px;
-                  padding-bottom: 64px;
-                }
-              }
-            `}</style>
 
             {/* About Me Section */}
             <div className="mb-16" style={{ marginBottom: '64px' }}>
@@ -267,37 +227,14 @@ export default function AboutPage() {
 
           {/* Right Sidebar */}
           <aside
-            className="w-full lg:w-[25%] lg:min-w-[296px]"
+            className="w-full lg:w-[25%] lg:min-w-[296px] border-t-2 lg:border-t-0 lg:border-l-2 border-[rgb(2,1,10)]"
             style={{
               paddingTop: '96px',
               paddingRight: '64px',
               paddingBottom: '64px',
               paddingLeft: '24px',
-              borderLeft: '2px solid rgb(2, 1, 10)',
             }}
           >
-            <style jsx>{`
-              @media (max-width: 1023px) {
-                aside {
-                  width: 100%;
-                  border-top: 2px solid rgb(2, 1, 10);
-                  border-left: none;
-                  padding-top: 32px;
-                  padding-right: 16px;
-                  padding-bottom: 64px;
-                  padding-left: 16px;
-                }
-              }
-
-              @media (max-width: 767px) {
-                aside {
-                  padding-top: 32px;
-                  padding-right: 16px;
-                  padding-bottom: 32px;
-                  padding-left: 16px;
-                }
-              }
-            `}</style>
             {/* What I Do */}
             <div className="mb-8" style={{ marginBottom: '32px' }}>
               <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
