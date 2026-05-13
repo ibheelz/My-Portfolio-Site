@@ -312,7 +312,6 @@ a {
 
   .exploration-card {
     aspect-ratio: 1 !important;
-    gap: 12px !important;
   }
 
   /* Ensure image containers remain square on ultra-wide */
@@ -533,7 +532,6 @@ nav {
 
   .exploration-card {
     aspect-ratio: 1 !important;
-    gap: 12px !important;
   }
 
   .projects-row {
@@ -606,7 +604,6 @@ nav {
 
   .exploration-card {
     aspect-ratio: 1 !important;
-    gap: 12px !important;
   }
 
   .hero-responsive-heading {
