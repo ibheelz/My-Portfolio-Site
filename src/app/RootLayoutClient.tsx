@@ -127,7 +127,6 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
           </motion.div>
         )}
       </AnimatePresence>
-      </div>
       </AnimatePresence>
     </>
   )

@@ -106,7 +106,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   {section.content}
                 </p>
                 {section.image && (
-                  <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image)}>
+                  <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image || null)}>
                     <Image
                       src={section.image}
                       alt={section.title}
