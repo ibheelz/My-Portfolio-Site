@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Abiola Adeyeye — Brand & Visual Designer',
   description: 'Brand and visual designer with 5+ years of experience in brand identity, AI-augmented workflows, and iGaming design.',
   metadataBase: new URL('https://abioladeyeye.com'),
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
