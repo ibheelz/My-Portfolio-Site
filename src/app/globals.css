@@ -401,15 +401,15 @@ nav.project-detail-nav {
 
 @media (max-width: 1239px) {
   .mobile-navbar {
-    display: block !important;
+    display: flex !important;
     order: -1;
     width: 100%;
     flex-shrink: 0;
-    height: auto !important;
     min-height: 80px !important;
     overflow: visible !important;
     background-color: rgb(14, 14, 18);
     border-bottom: 2px solid rgb(2, 1, 10);
+    align-items: center;
   }
 }
 
