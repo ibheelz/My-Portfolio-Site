@@ -6,14 +6,14 @@ interface ToolIconProps {
 
 export default function ToolIcon({ name }: ToolIconProps) {
   const iconMap: Record<string, string> = {
-    'Adobe Creative Suite': '/icons/adobe.svg',
-    'Nano Banana Pro': '/icons/nano-banana.svg',
-    'Notion': '/icons/notion.svg',
-    'Midjourney': '/icons/midjourney.svg',
-    'Canva': '/icons/canva.svg',
-    'Figma': '/icons/figma.svg',
-    'Blender': '/icons/blender.svg',
-    'Claude': '/icons/anthropic.svg',
+    'Adobe Creative Suite': '/icons/tools/adobe.svg',
+    'Nano Banana Pro': '/icons/tools/nano-banana.svg',
+    'Notion': '/icons/tools/notion.svg',
+    'Midjourney': '/icons/tools/midjourney.svg',
+    'Canva': '/icons/tools/canva.svg',
+    'Figma': '/icons/tools/figma.svg',
+    'Blender': '/icons/tools/blender.svg',
+    'Claude': '/icons/tools/claude.svg',
   }
 
   const iconPath = iconMap[name]
