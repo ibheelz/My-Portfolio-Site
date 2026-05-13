@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { List, X } from '@phosphor-icons/react'
 import Image from 'next/image'
@@ -29,7 +30,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         <div className="lg:hidden w-full mobile-navbar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div className="flex items-center justify-between bg-[rgb(14,14,18)] px-4 py-3 w-full">
             {/* Left: Abiola Profile */}
-            <div className="flex gap-3 items-center">
+            <Link href="/" className="flex gap-3 items-center cursor-pointer">
               <Image
                 src="/profile-photo.jpg"
                 alt="Abiola Adeyeye"
@@ -40,11 +41,11 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
               />
               <div className="flex flex-col gap-0">
                 <h3 className="heading-3 text-sm">Abiola Adeyeye</h3>
-                <a href="mailto:abioladeyeye@gmail.com" className="body-s text-xs hover:underline">
+                <span className="body-s text-xs">
                   abioladeyeye@gmail.com
-                </a>
+                </span>
               </div>
-            </div>
+            </Link>
 
             {/* Right: Hamburger Button */}
             <button
