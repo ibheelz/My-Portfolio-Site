@@ -122,7 +122,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* Sticky Sidebar */}
           <aside
-            className="w-[24%] min-w-[296px] h-screen sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col gap-6 overflow-y-auto hidden lg:flex bg-[rgb(14,14,18)] z-50"
+            className="w-[24%] min-w-[296px] h-screen sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col gap-3 overflow-y-auto hidden lg:flex bg-[rgb(14,14,18)] z-50"
             style={{ paddingLeft: '24px', paddingRight: '24px' }}
           >
             {/* Chapters Navigation */}
@@ -174,23 +174,25 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             <div className="w-full h-px bg-[rgb(31,31,31)]" />
 
             {/* Duration and Date Info */}
-            <div className="flex flex-col w-full">
-              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-4">
-                Duration and date
-              </label>
-              <div className="flex flex-col gap-2">
-                {project.duration && (
-                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                    {project.duration}
-                  </p>
-                )}
-                {project.date && (
-                  <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                    {project.date}
-                  </p>
-                )}
+            {(project.duration || project.date) && (
+              <div className="flex flex-col w-full">
+                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-3">
+                  Duration and date
+                </label>
+                <div className="flex flex-col gap-1">
+                  {project.duration && (
+                    <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {project.duration}
+                    </p>
+                  )}
+                  {project.date && (
+                    <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {project.date}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </aside>
         </div>
 
