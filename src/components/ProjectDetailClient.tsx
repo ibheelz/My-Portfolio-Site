@@ -105,10 +105,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         <nav
           className="project-detail-nav hidden lg:block"
           style={{
-            position: 'sticky',
+            position: 'fixed',
             top: 0,
+            left: '312px',
+            right: '16px',
             height: '48px',
-            width: '100%',
             backgroundColor: 'rgb(14,14,18)',
             borderRadius: '12px 12px 0 0',
             borderBottom: '2px solid rgb(2,1,10)',
@@ -122,7 +123,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             paddingTop: '0px',
             paddingBottom: '0px',
             gap: '0px',
-            zIndex: 20,
+            zIndex: 50,
           }}
         >
           <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.01em', margin: 0, whiteSpace: 'nowrap', marginRight: '20px', flexShrink: 0, textTransform: 'none', fontFamily: 'Gucina' }}>
