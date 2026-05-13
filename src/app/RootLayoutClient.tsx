@@ -10,19 +10,7 @@ import SideNav from '@/src/components/SideNav'
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
-  const prevPathnameRef = useRef<string>(pathname)
-
-  const shouldAnimate = pathname === '/' || prevPathnameRef.current === '/'
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    prevPathnameRef.current = pathname
-  }, [pathname])
 
   useEffect(() => {
     setMobileMenuOpen(false)
@@ -75,18 +63,9 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Page Content */}
-        <AnimatePresence mode="wait">
-          <motion.main
-            key={pathname}
-            className="page-content"
-            initial={mounted ? { opacity: 0 } : { opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-          >
-            {children}
-          </motion.main>
-        </AnimatePresence>
+        <main className="page-content">
+          {children}
+        </main>
       </div>
 
       {/* Mobile Menu Modal Overlay */}
