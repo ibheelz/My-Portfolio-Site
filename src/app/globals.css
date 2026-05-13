@@ -75,11 +75,13 @@ body {
 
 @media (max-width: 767px) {
   html {
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   body {
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
@@ -597,7 +599,7 @@ nav.project-detail-nav {
 @media (max-width: 767px) {
   .page-wrapper {
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
     padding: 0;
     gap: 0;
     overflow: visible !important;
