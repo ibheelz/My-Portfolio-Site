@@ -54,39 +54,32 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         </span>
       </nav>
 
-      {/* Fixed Hero Image */}
-      <div
-        className="fixed top-4 right-4 z-[1] overflow-hidden rounded-t-xl hidden lg:block"
-        style={{ left: '312px', height: '664px', width: 'calc(100% - 328px)' }}
-      >
-        <div
-          className="w-full h-full overflow-hidden"
-          style={{ transform: `translateY(${scrollY * -0.15}px)` }}
-        >
-          <img
-            src={project.heroImage}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            style={{ display: 'block' }}
-          />
-        </div>
-      </div>
 
       {/* Main Scrolling Content */}
-      <div className="relative w-full overflow-visible">
+      <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
         {/* Hero Text Overlay */}
         <div
-          className="relative w-full h-[680px] md:h-[400px] overflow-hidden flex flex-col justify-end gap-6 px-16 pb-6 md:px-4"
-          style={{ paddingLeft: '64px', paddingRight: '64px' }}
+          className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4"
+          style={{ height: '70vh', paddingLeft: '64px', paddingRight: '64px' }}
         >
           <Image
             src={project.heroImage}
             alt={project.title}
             fill
-            className="absolute inset-0 object-cover rounded-t-xl -z-10 lg:hidden"
+            className="absolute inset-0 object-cover"
           />
+
+          {/* Gradient overlay for title readability */}
+          <div
+            className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
+            style={{
+              height: '200px',
+              background: 'linear-gradient(to top, rgb(14, 14, 18) 0%, rgba(14, 14, 18, 0.6) 50%, transparent 100%)'
+            }}
+          />
+
           <h1
-            className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-10"
+            className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
             style={{ fontFamily: 'Mortend' }}
           >
             {project.title}
@@ -94,10 +87,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         </div>
 
         {/* Content + Sidebar Wrapper */}
-        <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[2]">
+        <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[40] bg-[rgb(14,14,18)]">
           {/* Main Content Area */}
           <div
-            className="flex-1 overflow-hidden flex flex-col gap-16 px-16 pt-24 pb-16 md:px-4 sm:px-4"
+            className="flex-1 overflow-hidden flex flex-col gap-16 px-16 pt-24 pb-16 md:px-4 sm:px-4 bg-[rgb(14,14,18)] z-[40]"
             style={{ paddingLeft: '64px', paddingRight: '64px', paddingTop: '96px' }}
           >
             {project.sections.map((section, index) => (
@@ -126,7 +119,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* Sticky Sidebar */}
           <aside
-            className="w-[24%] min-w-[296px] h-screen sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col gap-6 overflow-hidden hidden lg:flex"
+            className="w-[24%] min-w-[296px] h-screen sticky top-0 border-l-2 border-[rgb(2,1,10)] px-6 pt-24 pb-16 flex flex-col gap-6 overflow-hidden hidden lg:flex bg-[rgb(14,14,18)] z-50"
             style={{ paddingLeft: '24px', paddingRight: '24px', paddingTop: '96px' }}
           >
             {/* Chapters Navigation */}
@@ -203,10 +196,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         </div>
 
         {/* More Projects Section */}
-        <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8">
+        <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
           <h2
             className="font-heading text-[15px] leading-[1.4em] tracking-[0.01em] text-[rgb(250,250,250)] uppercase"
-            style={{ fontFamily: 'Mortend', paddingLeft: '64px' }}
+            style={{ fontFamily: 'Mortend' }}
           >
             More projects
           </h2>
@@ -219,8 +212,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
         {/* Let's Connect Section */}
         <section
-          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-visible flex flex-row md:flex-col gap-8 px-16 py-24 md:px-4 md:py-12"
-          style={{ paddingLeft: '64px', paddingRight: '64px' }}
+          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-visible flex flex-row md:flex-col gap-8 px-16 py-24 md:px-4 md:py-12 relative z-[40]"
+          style={{ paddingLeft: '64px', paddingRight: '64px', background: 'rgb(14, 14, 18)' }}
         >
           {/* Profile Image */}
           <div className="flex-1 relative h-[440px] md:h-[280px]">
@@ -229,13 +222,6 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               alt="Profile"
               fill
               className="rounded-2xl object-cover z-[1]"
-            />
-            <img
-              src="https://framerusercontent.com/images/dCtHDieyJay9H91GpY1lWIzFAI.svg"
-              alt="Logo"
-              width={108}
-              height={43}
-              className="absolute right-3 bottom-3 z-10"
             />
           </div>
 
