@@ -15,6 +15,7 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const slideShowRef = useRef<HTMLDivElement>(null)
 
   if (!exploration) {
@@ -74,7 +75,10 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             onMouseLeave={() => setIsDragging(false)}
           >
             {/* Image Container */}
-            <div className="relative flex-1 w-full overflow-hidden">
+            <div
+              className="relative flex-1 w-full overflow-hidden cursor-pointer hover:opacity-95 transition-opacity"
+              onClick={() => setIsModalOpen(true)}
+            >
               {exploration.images.map((image, index) => (
                 <div
                   key={index}
@@ -190,7 +194,10 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             onMouseLeave={() => setIsDragging(false)}
           >
             {/* Image Container */}
-            <div className="relative flex-1 w-full overflow-hidden">
+            <div
+              className="relative flex-1 w-full overflow-hidden cursor-pointer hover:opacity-95 transition-opacity"
+              onClick={() => setIsModalOpen(true)}
+            >
               {exploration.images.map((image, index) => (
                 <div
                   key={index}
@@ -300,6 +307,67 @@ export default function ExplorationDetailPage({ params }: ExplorationDetailPageP
             ))}
           </div>
         </section>
+
+        {/* Image Modal */}
+        {isModalOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-95 z-[100] flex items-center justify-center p-4 cursor-pointer"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <div className="relative w-full h-full max-w-6xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              <Image
+                src={exploration.images[currentImageIndex]}
+                alt={`${exploration.title} - Image ${currentImageIndex + 1}`}
+                fill
+                className="object-contain"
+              />
+
+              {/* Previous Button */}
+              <button
+                onClick={handlePrevious}
+                className="absolute left-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+                style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === 0 ? 0.65 : 1 }}
+                disabled={currentImageIndex === 0}
+              >
+                <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="absolute right-4 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+                style={{ top: '50%', transform: 'translateY(-50%)', opacity: currentImageIndex === exploration.images.length - 1 ? 0.65 : 1 }}
+                disabled={currentImageIndex === exploration.images.length - 1}
+              >
+                <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
+              </button>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full flex items-center justify-center text-white text-2xl z-20"
+              >
+                ✕
+              </button>
+
+              {/* Image Indicators */}
+              <div className="absolute bottom-4 flex items-center justify-center gap-2 px-4">
+                {exploration.images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className="w-2 h-2 rounded-full transition-all"
+                    style={{
+                      backgroundColor: index === currentImageIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
+                      width: index === currentImageIndex ? '12px' : '8px'
+                    }}
+                    aria-label={`Go to image ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
