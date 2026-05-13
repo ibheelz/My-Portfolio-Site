@@ -59,20 +59,24 @@ export const projects: Project[] = [
     roleLabels: ['Visual Identity', 'Brand Identity', 'Branding', 'Cafe'],
     sections: [
       {
-        title: 'The Brief',
-        content: 'Verdant is a sustainable cafe focused on organic, locally-sourced ingredients. The brand identity needed to reflect the cafe\'s commitment to nature and sustainability while maintaining a modern, approachable aesthetic.',
+        title: 'Project Overview',
+        content: 'Verdant Cafe is a Portland-based specialty coffee brand centered on one idea: sitting down with your friend over a good cup of coffee. Founder Marcus Chen sources beans directly from farmers in Colombia, Ethiopia, and Guatemala. The playful-but-premium brand identity features hand-drawn typography, warm earthy colors, and a bearded mascot that represents Marcus while doubling as two coffee cups toasting—embedding friendship into every detail.',
+        image: 'https://framerusercontent.com/images/xOhrZlZGOQ2RCjPxGczDXfAtdYc.gif?width=800&height=450',
       },
       {
-        title: 'Design Direction',
-        content: 'The design system uses natural color palettes inspired by plants and earth tones. Typography emphasizes clarity and readability, while the visual elements incorporate organic shapes and botanical illustrations to reinforce the eco-conscious message.',
+        title: 'The Challenge',
+        content: 'Specialty coffee branding has become overly serious and exclusive. Most brands adopt minimal, cold aesthetics that feel more like design museums than welcoming spaces. Men aged 30-50 lack accessible third places where they can sit down with friends without pretense or performance. Verdant needed to break this mold while maintaining premium quality and ethical sourcing standards.',
+        image: 'https://framerusercontent.com/images/1teDv4ZcZm10tBmTdbONWqT8Sso.gif?width=1400&height=1051',
+      },
+      {
+        title: 'Brand Strategy',
+        content: 'The strategy centers on genuine human connection over coffee. Marcus Chen\'s story of rediscovering friendship through a simple coffee conversation became the brand foundation. Verdant positions itself as playful but premium, targeting men who appreciate craft quality but reject coffee snobbery. The brand promise is simple: good coffee from farmers we know, shared in a space where you can relax and talk.',
+        image: 'https://framerusercontent.com/images/Sl8rx0GmuTH5PtkF3T6c6W2p9g.gif?width=800&height=450',
       },
       {
         title: 'Visual Identity',
-        content: 'The logo features a stylized leaf that doubles as a coffee cup, symbolizing the intersection of nature and coffee culture. This mark forms the foundation of the entire visual system.',
-      },
-      {
-        title: 'Application',
-        content: 'From packaging to digital touchpoints, the brand identity maintains consistency while adapting to different contexts. The flexible system allows for seasonal variations and special editions.',
+        content: 'The bearded mascot icon represents Marcus while visually reading as two coffee cups toasting. Warm earthy colors (deep teal & cream) and organic typography create an approachable premium aesthetic that feels crafted, not corporate.',
+        image: 'https://framerusercontent.com/images/umKHDWBYIi7CLGa4eIRtHGSrQw.png?width=1400&height=964',
       },
     ],
   },
@@ -89,50 +93,20 @@ export const projects: Project[] = [
     roleLabels: ['Brand Design', 'Branding', 'Listening Bar', 'Entertainment'],
     sections: [
       {
-        title: 'The Concept',
-        content: 'Duskline is an immersive listening bar experience where music is the main attraction. The brand needed to communicate sophistication, exclusivity, and a deep appreciation for sonic experiences.',
+        title: 'Project Overview',
+        content: 'Duskline is a vinyl record shop that transforms into a listening bar at night. It\'s built for people who take music seriously but want somewhere warm and welcoming to enjoy it.\n\nThe brand identity captures that dual nature, dark, atmospheric, and confident by night, but always approachable. Every design decision was guided by one idea: sound first.',
+      },
+      {
+        title: 'The Challenge',
+        content: 'Duskline operates as two things at once, a record shop by day and a listening bar by night. The challenge was building a single brand identity that could hold both without feeling split or inconsistent.\n\nThe design had to feel warm and browsable in the daytime while shifting into something moodier and more atmospheric after dark. One visual language, two very different experiences.',
       },
       {
         title: 'Brand Strategy',
-        content: 'The visual identity draws inspiration from analog music formats and vintage audio equipment, reimagined for a contemporary audience. Deep, moody colors create an intimate atmosphere.',
+        content: 'The strategy was to lead with the listening experience rather than the products. Whether you are flipping through crates or sitting with a drink, the common thread is sound. That became the anchor for every brand decision.\n\nFrom the color palette to the typography, everything was built to feel intentional and unhurried. The brand does not shout for attention. It draws you in quietly, the same way good music does.',
       },
       {
-        title: 'Design Elements',
-        content: 'Custom typography and a distinctive audio waveform pattern serve as key brand elements. These are used consistently across all touchpoints to create a cohesive experience.',
-      },
-      {
-        title: 'Experience Design',
-        content: 'Every interaction reinforces the brand\'s focus on sound and listening. From the website to physical signage, the design invites visitors into an exclusive sonic world.',
-      },
-    ],
-  },
-  {
-    type: 'project',
-    slug: 'again-again',
-    title: 'Again & Again',
-    label1: 'Skincare',
-    label2: 'Beauty',
-    duration: '2 Months',
-    isFeatured: false,
-    cardImage: 'https://framerusercontent.com/images/placeholder-skincare.png',
-    heroImage: 'https://framerusercontent.com/images/placeholder-skincare-hero.png',
-    roleLabels: ['Brand Design', 'Packaging Design', 'Beauty', 'Skincare'],
-    sections: [
-      {
-        title: 'Skincare Brand',
-        content: 'A clean, minimalist approach to skincare branding.',
-      },
-      {
-        title: 'Visual System',
-        content: 'Emphasizing natural ingredients and sustainable practices.',
-      },
-      {
-        title: 'Packaging',
-        content: 'Elegant packaging design that stands out on shelves.',
-      },
-      {
-        title: 'Digital Presence',
-        content: 'Cohesive digital experience across all platforms.',
+        title: 'Visual Identity',
+        content: 'The identity is built around a rich, considered color system. Deep burgundy anchors the palette with weight and warmth, balanced by a soft cream and a warm off white that keep the brand from feeling heavy or closed off.\n\nTogether the three colors reflect the atmosphere of the space itself. Dark and intimate at its core, but always with enough warmth to feel welcoming. The palette works across everything from signage to packaging without losing its character.',
       },
     ],
   },

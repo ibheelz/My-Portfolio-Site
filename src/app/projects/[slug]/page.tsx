@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import Label from '@/src/components/Label'
-import { Envelope, Phone, MapPin } from '@phosphor-icons/react'
 
 interface ProjectDetailPageProps {
   params: { slug: string }
@@ -17,6 +16,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const [scrollY, setScrollY] = useState(0)
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
+  const [modalImage, setModalImage] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +57,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
       {/* Main Scrolling Content */}
       <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
+
         {/* Hero Text Overlay */}
         <div
           className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4"
@@ -105,13 +106,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   {section.content}
                 </p>
                 {section.image && (
-                  <Image
-                    src={section.image}
-                    alt={section.title}
-                    width={800}
-                    height={680}
-                    className="w-full h-[680px] md:h-[400px] sm:h-[280px] rounded-xl overflow-auto object-cover"
-                  />
+                  <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image)}>
+                    <Image
+                      src={section.image}
+                      alt={section.title}
+                      width={1400}
+                      height={1051}
+                      className="w-full h-auto group-hover:opacity-90 transition-opacity"
+                    />
+                  </div>
                 )}
               </section>
             ))}
@@ -169,18 +172,6 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 </div>
               </div>
 
-              {/* Team */}
-              {project.team && (
-                <div className="flex flex-col gap-5">
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                    Team
-                  </label>
-                  <div className="flex gap-2">
-                    {/* Team avatars placeholder */}
-                    <div className="w-8 h-8 rounded-full bg-[rgb(31,31,31)]" />
-                  </div>
-                </div>
-              )}
 
               {/* Duration and Date */}
               <div className="flex flex-col gap-4">
@@ -209,91 +200,31 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             ))}
           </div>
         </section>
-
-        {/* Let's Connect Section */}
-        <section
-          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-visible flex flex-row md:flex-col gap-8 px-16 py-24 md:px-4 md:py-12 relative z-[40]"
-          style={{ paddingLeft: '64px', paddingRight: '64px', background: 'rgb(14, 14, 18)' }}
-        >
-          {/* Profile Image */}
-          <div className="flex-1 relative h-[440px] md:h-[280px]">
-            <Image
-              src="https://framerusercontent.com/images/5ylj0gysRWJbYU3eEdJqMvks02w.png"
-              alt="Profile"
-              fill
-              className="rounded-2xl object-cover z-[1]"
-            />
-          </div>
-
-          {/* Connect Info */}
-          <div className="flex-1 h-full flex flex-col justify-between gap-6 max-w-[640px]">
-            <div className="flex flex-col gap-2.5">
-              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] w-[233px]">
-                Let's connect
-              </label>
-              <h2 className="font-gucina font-medium text-[28px] leading-[1.3em] tracking-[-0.02em] text-[rgb(250,250,250)] max-w-[544px]">
-                I'm not just here to design products; I'm here to connect with people.
-              </h2>
-              <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)] max-w-[500px]">
-                As a creative designer, I'm constantly exploring the space where creativity meets technology to create experiences that matter.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-6 justify-end">
-              {/* Email */}
-              <div className="flex gap-4 items-center w-full">
-                <div className="w-10 h-10 rounded-lg border border-[rgb(51,51,51)] flex items-center justify-center flex-shrink-0">
-                  <Envelope size={20} weight="regular" color="rgb(143,134,152)" />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                    Email
-                  </label>
-                  <a
-                    href="mailto:abioladeyeye@gmail.com"
-                    className="font-gucina text-[16px] leading-[20px] tracking-[0.01em] text-[rgb(250,250,250)] hover:underline"
-                  >
-                    abioladeyeye@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex gap-4 items-center w-full">
-                <div className="w-10 h-10 rounded-lg border border-[rgb(51,51,51)] flex items-center justify-center flex-shrink-0">
-                  <Phone size={20} weight="regular" color="rgb(143,134,152)" />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                    Phone Number
-                  </label>
-                  <a
-                    href="tel:+1234567890"
-                    className="font-gucina text-[16px] leading-[20px] tracking-[0.01em] text-[rgb(250,250,250)] hover:underline"
-                  >
-                    +1 (555) 123-4567
-                  </a>
-                </div>
-              </div>
-
-              {/* Residence */}
-              <div className="flex gap-4 items-center w-full">
-                <div className="w-10 h-10 rounded-lg border border-[rgb(51,51,51)] flex items-center justify-center flex-shrink-0">
-                  <MapPin size={20} weight="regular" color="rgb(143,134,152)" />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                    Current Residence
-                  </label>
-                  <p className="font-gucina text-[16px] leading-[20px] tracking-[0.01em] text-[rgb(250,250,250)]">
-                    Lagos, Nigeria
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
+
+      {/* Image Modal */}
+      {modalImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 z-[100] flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setModalImage(null)}
+        >
+          <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={modalImage}
+              alt="Full size image"
+              width={1400}
+              height={1051}
+              className="w-full h-auto rounded-lg"
+            />
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full flex items-center justify-center text-white text-2xl"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
