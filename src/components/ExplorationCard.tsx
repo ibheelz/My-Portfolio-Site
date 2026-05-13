@@ -46,8 +46,8 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
       {/* Text Area */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(4px, 1vw, 8px)' }}>
         <h3
-          className="font-gucina font-bold text-[clamp(12px,2vw,16px)] leading-[1.5]"
-          style={{ color: 'rgb(250, 250, 250)' }}
+          className="font-body text-[clamp(12px,2vw,16px)] leading-[1.5]"
+          style={{ color: 'rgb(250, 250, 250)', fontFamily: "'Gucina'", fontWeight: 600 }}
         >
           {exploration.title}
         </h3>

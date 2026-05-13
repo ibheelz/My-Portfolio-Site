@@ -32,8 +32,8 @@ export default function ExplorationsPage() {
             Latest creations
           </h1>
           <p
-            className="font-gucina text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]"
-            style={{ color: 'rgb(138, 138, 138)', maxWidth: '100%' }}
+            className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]"
+            style={{ color: 'rgb(138, 138, 138)', maxWidth: '100%', fontFamily: "'Gucina'" }}
           >
             Created with Nano Banana and other tools
           </p>
