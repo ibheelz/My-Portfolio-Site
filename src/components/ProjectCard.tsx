@@ -19,7 +19,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               src={project.cardImage}
               alt={project.title}
               fill
+              loading="lazy"
+              quality={75}
               className="object-cover group-hover:scale-[1.03] transition-transform duration-[400ms]"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1240px) 50vw, 400px"
             />
           </div>
 

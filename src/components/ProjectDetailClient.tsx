@@ -142,7 +142,10 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             src={project.heroImage}
             alt={project.title}
             fill
+            priority
+            quality={80}
             className="absolute inset-0 object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 100vw"
           />
 
           <div
@@ -188,7 +191,10 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         alt={section.title}
                         width={1400}
                         height={1051}
+                        loading="lazy"
+                        quality={75}
                         className="w-full h-auto group-hover:opacity-90 transition-opacity"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
                       />
                     </div>
                   )}

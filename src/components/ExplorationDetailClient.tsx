@@ -86,6 +86,8 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                     fill
                     className="object-contain"
                     priority={index === 0}
+                    quality={80}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 50vw"
                   />
                 </div>
               ))}
@@ -201,6 +203,8 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                     fill
                     className="object-contain"
                     priority={index === 0}
+                    quality={80}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 50vw"
                   />
                 </div>
               ))}
