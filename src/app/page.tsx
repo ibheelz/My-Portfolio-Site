@@ -21,9 +21,9 @@ export default function Home() {
       {/* Content container */}
       <div className="content-container">
           {/* SECTION 1 - Hero */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {/* Top row with dot */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
               <div></div>
               <div
                 style={{
@@ -36,7 +36,7 @@ export default function Home() {
             </div>
 
             {/* Headline + What I do */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px', margin: 0 }}>
               {/* Headline */}
               <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, maxWidth: '876px' }}>
                 Building value into <br /> brands through design.
