@@ -36,7 +36,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setNavVisible(!entry.isIntersecting)
+        if (!entry.isIntersecting) {
+          setNavVisible(true)
+        }
       },
       { threshold: 0 }
     )
