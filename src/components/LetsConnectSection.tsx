@@ -12,7 +12,7 @@ export default function LetsConnectSection() {
       {/* Outer container - flex row on desktop, column on mobile */}
       <div className="flex flex-col-reverse lg:flex-row gap-8 items-stretch lg:items-stretch w-full" style={{ gap: 'clamp(24px, 5vw, 40px)' }}>
         {/* Left Side - Photograph - appears below text on mobile */}
-        <div className="w-full lg:w-1/2 relative flex-shrink-0 lg:h-full" style={{ height: 'clamp(300px, 60vw, 700px)' }}>
+        <div className="w-full lg:w-1/2 relative flex-shrink-0 lg:h-full" style={{ height: 'clamp(350px, 60vw, 700px)' }}>
           <div className="relative w-full h-full rounded-2xl overflow-hidden" style={{ borderRadius: '16px', position: 'relative', width: '100%', height: '100%' }}>
             <Image
               src="/me.jpg"
