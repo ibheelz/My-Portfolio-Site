@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 interface ToolIconProps {
   name: string
 }
@@ -21,14 +19,11 @@ export default function ToolIcon({ name }: ToolIconProps) {
   return (
     <div className="flex items-center gap-2">
       {iconPath ? (
-        <div className="flex-shrink-0 w-5 h-5 relative">
-          <Image
-            src={iconPath}
-            alt={name}
-            fill
-            className="object-contain"
-          />
-        </div>
+        <img
+          src={iconPath}
+          alt={name}
+          className="flex-shrink-0 w-5 h-5 object-contain"
+        />
       ) : (
         <div className="flex-shrink-0 w-5 h-5 bg-[rgb(97,97,97)] rounded-full" />
       )}
