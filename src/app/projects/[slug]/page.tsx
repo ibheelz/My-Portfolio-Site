@@ -117,15 +117,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             pointerEvents: navVisible ? 'auto' : 'none',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'flex-start',
             flexWrap: 'nowrap',
             paddingLeft: 'clamp(16px, 5vw, 64px)',
             paddingRight: 'clamp(16px, 5vw, 64px)',
-            paddingBottom: '8px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
             gap: '0px',
             zIndex: 50,
           }}
         >
-          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.2px', margin: 0, whiteSpace: 'nowrap', marginRight: '20px', flexShrink: 0, textTransform: 'none' }}>
+          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.01em', margin: 0, whiteSpace: 'nowrap', marginRight: '20px', flexShrink: 0, textTransform: 'none', fontFamily: 'Gucina' }}>
             {project.title}
           </h3>
           <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', whiteSpace: 'nowrap', flexShrink: 0 }}>
