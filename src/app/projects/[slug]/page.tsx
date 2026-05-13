@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { projects } from '@/src/data/content'
@@ -18,15 +18,29 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const [modalImage, setModalImage] = useState<string | null>(null)
+  const heroTitleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
+    // Intersection Observer for hero title visibility
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Show nav when hero title is NOT visible (has scrolled past)
+        setNavVisible(!entry.isIntersecting)
+      },
+      { threshold: 0 }
+    )
+
+    if (heroTitleRef.current) {
+      observer.observe(heroTitleRef.current)
+    }
+
+    // Scroll listener for active section tracking
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       setScrollY(currentScrollY)
-      setNavVisible(currentScrollY > 628)
 
       // Update active section based on scroll position
-      const sections = project.sections
+      const sections = project?.sections || []
       let activeIndex = 0
 
       for (let i = 0; i < sections.length; i++) {
@@ -42,7 +56,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
     }
 
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      observer.disconnect()
+    }
   }, [project])
 
   if (!project) {
@@ -118,6 +135,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           <FadeIn className="relative z-[2]">
             <h1
+              ref={heroTitleRef}
               className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
               style={{ fontFamily: 'Mortend', margin: 0 }}
             >
