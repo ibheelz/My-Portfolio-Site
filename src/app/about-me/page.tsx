@@ -1,135 +1,311 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import Label from '@/src/components/Label'
-import { Envelope, Phone, MapPin } from '@phosphor-icons/react'
+import { DownloadSimple } from '@phosphor-icons/react'
 
 export default function AboutPage() {
-  const skills = [
-    'Brand Identity',
-    'Visual Design',
-    'UI/UX Design',
-    'Design Systems',
-    '3D Modeling',
-    'Motion Design',
-    'Figma',
-    'Adobe Creative Suite',
-    'Generative AI Design',
-    'Marketing Design',
-  ]
+  const aboutText = `I'm a designer focused on creating experiences that actually matter. I care about how people interact with technology and work to make those moments simple and meaningful. I love solving complex problems and believe great design starts with understanding people. Every project I take on is about finding thoughtful solutions that work for both users and businesses. I push boundaries but keep things practical. I thrive in collaboration and I'm always learning.`
+
+  const whatIDo = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
+  const currentStack = ['Adobe Creative Suite', 'Nano Banana Pro', 'Notion', 'Midjourney', 'Canva', 'Figma', 'Blender', 'Claude']
+  const iKnow = ['Python', 'Photo Manipulation', 'Html and CSS', 'Typography', 'Logo Design', 'Brand Design']
 
   const experience = [
+    { company: 'Miela', role: 'Brand Designer and IT Lead', duration: 'Jun 2023 to Oct 2025' },
+    { company: 'Eyekontact Limited', role: 'Senior Creative Executive', duration: '2022 to 2023' },
+    { company: 'Kunyo.co', role: 'Creative Specialist', duration: 'May 2021 to Sep 2022' },
+    { company: 'EaglesTracker', role: 'Graphic Designer', duration: 'Jan 2019 to Dec 2021' },
+  ]
+
+  const testimonials = [
     {
-      title: 'Senior Brand Designer',
-      company: 'Creative Studio',
-      duration: '2023 - Present',
-      description: 'Leading brand identity projects and mentoring junior designers',
+      name: 'Ana Smith',
+      title: 'Product Manager at Tech Innovations',
+      quote: `Abiola's design expertise is a game-changer. He's a valuable asset to any design team.`,
     },
     {
-      title: 'Brand Designer',
-      company: 'Design Agency',
-      duration: '2021 - 2023',
-      description: 'Created visual identities and design systems for multiple clients',
+      name: 'Jan Sue',
+      title: 'Product Manager at Nava',
+      quote: 'Working with Abiola on our startup\'s product was an incredible experience.',
     },
     {
-      title: 'UI/UX Designer',
-      company: 'Tech Startup',
-      duration: '2019 - 2021',
-      description: 'Designed user interfaces and experiences for mobile and web platforms',
+      name: 'Tony Jones',
+      title: 'Product Manager at Acme',
+      quote: 'Abiola has a strong creative instinct and an ability to translate a brief into something that truly stands out.',
     },
   ]
 
   return (
-    <div className="px-16 py-12" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
-      {/* Bio Section */}
-      <section className="mb-16 max-w-3xl" style={{ marginBottom: '64px' }}>
-        <h1 className="text-heading-m font-semibold mb-8">About me</h1>
-        <div className="space-y-6">
-          <p className="text-body-m text-grey-text-main leading-relaxed">
-            I'm a brand and visual designer with over 5 years of experience creating meaningful brand experiences and visual identities. My approach combines strategic thinking with creative execution to deliver designs that resonate with audiences and drive business value.
-          </p>
-          <p className="text-body-m text-grey-text-main leading-relaxed">
-            I specialize in brand identity design, visual systems, and creative direction. I'm passionate about leveraging AI-augmented workflows to enhance creativity and efficiency, while maintaining the human touch that makes design meaningful.
-          </p>
-          <p className="text-body-m text-grey-text-main leading-relaxed">
-            When I'm not designing, I'm exploring new technologies, experimenting with generative tools, and connecting with the creative community. I believe great design happens at the intersection of art, strategy, and technology.
-          </p>
-        </div>
-      </section>
+    <>
+      {/* Fixed Hero Image */}
+      <div
+        className="fixed hidden lg:block z-0 rounded-t-3xl overflow-hidden"
+        style={{
+          top: '16px',
+          left: '312px',
+          right: '16px',
+          height: '664px',
+          backgroundImage: 'url(https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          marginLeft: '-36px',
+          marginRight: '-36px',
+          marginTop: '-36px',
+          borderRadius: '12px 12px 0 0',
+        }}
+      >
+        <Image
+          src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
+          alt="Abiola Adeyeye"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
-      {/* Skills Section */}
-      <section className="mb-16" style={{ marginBottom: '64px' }}>
-        <h2 className="text-heading-2 font-semibold mb-8">Skills & Expertise</h2>
-        <div className="flex flex-wrap gap-3">
-          {skills.map((skill) => (
-            <Label key={skill} variant="BadgeNoIcon">
-              {skill}
-            </Label>
-          ))}
-        </div>
-      </section>
+      {/* Transparent Hero Text Area */}
+      <div
+        className="relative w-full bg-transparent flex flex-col justify-end px-16 pb-9 md:px-4 hidden lg:flex"
+        style={{ height: '680px', paddingLeft: '64px', paddingRight: '64px', zIndex: 1 }}
+      >
+        {/* Gradient overlay */}
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: '200px',
+            background: 'linear-gradient(to top, rgb(14, 14, 18) 0%, rgba(14, 14, 18, 0.6) 50%, transparent 100%)',
+            zIndex: 1,
+          }}
+        />
 
-      {/* Experience Section */}
-      <section className="mb-16 max-w-3xl" style={{ marginBottom: '64px' }}>
-        <h2 className="text-heading-2 font-semibold mb-8">Experience</h2>
-        <div className="space-y-0">
-          {experience.map((job, index) => (
-            <div
-              key={index}
-              className="border-b-2 border-black py-6 px-0"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <h3 className="text-heading-3 font-semibold">{job.title}</h3>
-                  <p className="text-body-m text-grey-text-main">{job.company}</p>
-                </div>
-                <span className="text-body-s text-grey-text-main">{job.duration}</span>
+        <h1
+          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase relative z-[2]"
+          style={{ fontFamily: 'Mortend', marginBottom: '36px' }}
+        >
+          Abiola Adeyeye
+        </h1>
+      </div>
+
+      {/* Solid Content Area */}
+      <div className="relative w-full bg-[rgb(14,14,18)] z-10">
+        {/* Left Column + Right Sidebar */}
+        <div className="flex flex-col lg:flex-row gap-2 px-16 md:px-4" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
+          {/* Left Column */}
+          <div className="flex-1" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
+            {/* About Me Section */}
+            <div className="mb-16" style={{ marginBottom: '64px', maxWidth: '612px' }}>
+              <h2
+                className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase mb-5"
+                style={{ fontFamily: 'Mortend', marginBottom: '20px' }}
+              >
+                About me
+              </h2>
+              <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
+                {aboutText}
+              </p>
+              <div className="w-full h-px bg-[rgb(31,31,31)] mt-12" style={{ marginTop: '64px' }} />
+            </div>
+
+            {/* Resume Section */}
+            <div style={{ marginBottom: '64px' }}>
+              {/* Resume Header */}
+              <div className="flex items-center justify-between mb-8" style={{ marginBottom: '20px' }}>
+                <h2
+                  className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+                  style={{ fontFamily: 'Mortend' }}
+                >
+                  Resume
+                </h2>
+                <a
+                  href="https://drive.google.com/file/d/1HG_51ItrZI4yQOi1qifwe9L5_q_E2lyG/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-gucina text-[12px] text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)] transition-colors"
+                >
+                  Full resume
+                  <DownloadSimple size={16} weight="bold" />
+                </a>
               </div>
-              <p className="text-body-m text-grey-text-main">{job.description}</p>
+
+              {/* Column Headers */}
+              <div className="flex justify-between gap-8 mb-6">
+                <div className="flex-1">
+                  <span className="font-gucina font-bold text-[12px] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                    Company
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <span className="font-gucina font-bold text-[12px] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                    Role
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <span className="font-gucina font-bold text-[12px] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+                    Duration
+                  </span>
+                </div>
+              </div>
+
+              {/* Experience Rows */}
+              <div className="flex flex-col gap-6">
+                {experience.map((exp, index) => (
+                  <div key={index} className="flex justify-between gap-8">
+                    <div className="flex-1">
+                      <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                        {exp.company}
+                      </p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                        {exp.role}
+                      </p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                        {exp.duration}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Right Sidebar */}
+          <aside
+            className="w-full lg:w-[25%] lg:min-w-[296px] border-t-2 lg:border-t-0 lg:border-l-2 border-[rgb(2,1,10)] hidden lg:block"
+            style={{ paddingTop: '96px', paddingRight: '64px', paddingBottom: '64px', paddingLeft: '24px' }}
+          >
+            {/* What I Do */}
+            <div className="mb-8" style={{ marginBottom: '32px' }}>
+              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
+                What I Do
+              </label>
+              <div className="flex flex-wrap gap-3">
+                {whatIDo.map((item) => (
+                  <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
+                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="w-full h-px bg-[rgb(31,31,31)] mt-8" />
+            </div>
+
+            {/* Current Stack */}
+            <div className="mb-8" style={{ marginBottom: '32px' }}>
+              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
+                Current Stack
+              </label>
+              <div className="flex flex-wrap gap-8">
+                {currentStack.map((item) => (
+                  <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
+                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="w-full h-px bg-[rgb(31,31,31)] mt-8" />
+            </div>
+
+            {/* I Know */}
+            <div>
+              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block mb-5" style={{ marginBottom: '20px' }}>
+                I Know
+              </label>
+              <div className="flex flex-wrap gap-3">
+                {iKnow.map((item) => (
+                  <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
+                    <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
-      </section>
 
-      {/* Contact Section */}
-      <section className="border-t-2 border-black p-16" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
-        <h2 className="text-uppercase text-grey-text-main text-xs font-semibold mb-8">Get in touch</h2>
-        <h3 className="text-heading-m font-semibold mb-8">Let's work together</h3>
+        {/* Testimonials Section */}
+        <section
+          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-hidden"
+          style={{ padding: '64px', gap: '20px' }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" style={{ gap: '32px' }}>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="flex flex-col gap-4 relative" style={{ height: '200px' }}>
+                {/* Vertical Divider */}
+                {index < testimonials.length - 1 && (
+                  <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
+                )}
 
-        <div className="space-y-6 max-w-2xl">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 border border-grey-border-darker rounded flex items-center justify-center">
-              <Envelope size={20} />
+                <p className="font-gucina text-[14px] leading-[24px] text-[rgb(138,138,138)] flex-1">
+                  "{testimonial.quote}"
+                </p>
+                <div>
+                  <p className="font-gucina font-bold text-[12px] text-[rgb(250,250,250)] mb-1">
+                    {testimonial.name}
+                  </p>
+                  <p className="font-gucina text-[12px] text-[rgb(138,138,138)]">
+                    {testimonial.title}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Let's Connect Section */}
+        <section
+          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)]"
+          style={{ padding: '96px 64px' }}
+        >
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            {/* Left Photo */}
+            <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative" style={{ height: '400px', minHeight: '300px' }}>
+              <Image
+                src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
+                alt="Abiola"
+                fill
+                className="object-cover"
+              />
             </div>
-            <div>
-              <p className="text-body-s text-grey-text-main mb-1">Email</p>
-              <a href="mailto:abioladeyeye@gmail.com" className="text-body-m font-semibold hover:underline">
-                abioladeyeye@gmail.com
-              </a>
+
+            {/* Right Content */}
+            <div className="flex-1 flex flex-col justify-between">
+              <div>
+                <h2
+                  className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-[rgb(250,250,250)] uppercase mb-8"
+                  style={{ fontFamily: 'Mortend' }}
+                >
+                  Let's Connect
+                </h2>
+                <p className="font-gucina text-[16px] leading-[28px] text-[rgb(138,138,138)] mb-8">
+                  I'm always interested in hearing about new projects and creative collaborations. Whether you have a question or just want to say hello, feel free to get in touch.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="font-gucina text-[12px] text-[rgb(97,97,97)] uppercase tracking-[0.14em] font-bold mb-2">
+                    Email
+                  </p>
+                  <a
+                    href="mailto:abioladeyeye@gmail.com"
+                    className="font-gucina text-[16px] text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)] transition-colors"
+                  >
+                    abioladeyeye@gmail.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 border border-grey-border-darker rounded flex items-center justify-center">
-              <Phone size={20} />
-            </div>
-            <div>
-              <p className="text-body-s text-grey-text-main mb-1">Phone</p>
-              <p className="text-body-m font-semibold">+1 (555) 123-4567</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 border border-grey-border-darker rounded flex items-center justify-center">
-              <MapPin size={20} />
-            </div>
-            <div>
-              <p className="text-body-s text-grey-text-main mb-1">Location</p>
-              <p className="text-body-m font-semibold">Lagos, Nigeria</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   )
 }
