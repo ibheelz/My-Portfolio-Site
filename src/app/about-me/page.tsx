@@ -65,17 +65,9 @@ export default function AboutPage() {
           paddingLeft: '64px',
           paddingRight: '64px',
           paddingBottom: '24px',
-          backgroundColor: 'rgba(114, 47, 55, 0.5)',
+          backgroundColor: 'rgb(114, 47, 55)',
         }}
       >
-        <Image
-          src="https://framerusercontent.com/images/rwhNTEieRWAoioAYAhisVn9BCE.jpeg"
-          alt="Abiola Adeyeye"
-          fill
-          className="absolute inset-0 object-cover"
-          priority
-        />
-
         {/* Gradient overlay for title readability */}
         <div
           className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
