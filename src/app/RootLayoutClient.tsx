@@ -7,19 +7,6 @@ import { List, X } from '@phosphor-icons/react'
 import Image from 'next/image'
 import SideNav from '@/src/components/SideNav'
 
-const pageVariants = {
-  initial: { opacity: 0, y: 10 },
-  enter: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  },
-  exit: {
-    opacity: 0,
-    y: -10,
-    transition: { duration: 0.3, ease: 'easeIn' }
-  }
-}
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -87,7 +74,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         <main className="page-content">
           {children}
         </main>
-      </div>
+      </motion.div>
 
       {/* Mobile Menu Modal Overlay */}
       <AnimatePresence>
@@ -127,7 +114,6 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
           </motion.div>
         )}
       </AnimatePresence>
-      </motion.div>
       </AnimatePresence>
     </>
   )
