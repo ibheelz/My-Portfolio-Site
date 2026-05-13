@@ -56,11 +56,11 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
       {/* Fixed Hero Image */}
       <div
-        className="fixed top-4 right-4 h-[664px] md:h-[400px] sm:h-[400px] bg-[rgb(14,14,18)] z-[1] overflow-hidden rounded-t-xl hidden lg:block"
-        style={{ left: '312px' }}
+        className="fixed top-4 right-4 z-[1] overflow-hidden rounded-t-xl hidden lg:flex"
+        style={{ left: '312px', height: '664px', width: 'calc(100% - 328px)' }}
       >
         <div
-          className="relative w-full h-full overflow-hidden"
+          className="relative w-full h-full"
           style={{ transform: `translateY(${scrollY * -0.15}px)` }}
         >
           <Image
