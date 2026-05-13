@@ -15,7 +15,7 @@ export default function LetsConnectSection() {
         <div className="w-full lg:w-1/2 relative flex-shrink-0">
           <div className="relative w-full h-full rounded-2xl overflow-visible" style={{ borderRadius: '16px' }}>
             <Image
-              src="https://framerusercontent.com/images/5ylj0gysRWJbYU3eEdJqMvks02w.png"
+              src="/me.jpg"
               alt="Let's Connect"
               fill
               className="object-cover"
