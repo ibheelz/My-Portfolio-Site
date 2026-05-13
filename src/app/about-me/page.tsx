@@ -65,6 +65,7 @@ export default function AboutPage() {
           paddingLeft: '64px',
           paddingRight: '64px',
           paddingBottom: '24px',
+          backgroundColor: 'rgba(114, 47, 55, 0.5)',
         }}
       >
         <Image
@@ -72,6 +73,7 @@ export default function AboutPage() {
           alt="Abiola Adeyeye"
           fill
           className="absolute inset-0 object-cover"
+          priority
         />
 
         {/* Gradient overlay for title readability */}
