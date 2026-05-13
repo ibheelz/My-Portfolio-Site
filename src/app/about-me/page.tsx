@@ -5,18 +5,7 @@ import Link from 'next/link'
 import ToolIcon from '@/src/components/ToolIcon'
 import LetsConnectSection from '@/src/components/LetsConnectSection'
 import { DownloadSimple } from '@phosphor-icons/react'
-import { useState, useEffect } from 'react'
-
 export default function AboutPage() {
-  const [scrollY, setScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   const aboutSentences = [
     "I'm a designer focused on creating experiences that actually matter.",
@@ -68,36 +57,6 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* Hero Section with Fixed Background */}
-      <div
-        className="relative w-full overflow-visible flex flex-col justify-end px-16 md:px-4 bg-fixed"
-        style={{ height: '664px', paddingLeft: '64px', paddingRight: '64px', paddingBottom: '24px' }}
-      >
-        <Image
-          src="https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png"
-          alt="About Me Hero"
-          fill
-          className="absolute inset-0 object-cover"
-        />
-
-        {/* Gradient overlay */}
-        <div
-          className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
-          style={{
-            height: '200px',
-            background: 'linear-gradient(to top, rgb(14, 14, 18) 0%, rgba(14, 14, 18, 0.6) 50%, transparent 100%)'
-          }}
-        />
-
-        {/* Name at bottom */}
-        <h1
-          className="font-heading text-[45px] leading-[106px] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
-          style={{ fontFamily: 'Mortend', position: 'absolute', bottom: '24px', left: '64px', right: '64px', zIndex: 2 }}
-        >
-          Abiola Adeyeye
-        </h1>
-      </div>
-
       {/* Solid Content Area - Two Column Layout */}
       <div className="relative w-full bg-[rgb(14,14,18)] z-10">
         <div className="flex flex-col lg:flex-row gap-2 px-4" style={{ paddingLeft: '64px', paddingRight: '64px', gap: '8px' }}>
