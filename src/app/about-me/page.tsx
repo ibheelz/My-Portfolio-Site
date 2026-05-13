@@ -114,18 +114,18 @@ export default function AboutPage() {
               <p className="font-gucina text-[16px] leading-[28px] tracking-[0.01em] text-[rgb(138,138,138)]">
                 {aboutText2}
               </p>
-              <div className="w-full h-px bg-[rgb(31,31,31)] mt-16" style={{ marginTop: '64px' }} />
+              <div className="w-full" style={{ borderBottom: `1px solid rgb(31, 31, 31)`, marginTop: '64px', paddingBottom: '24px' }} />
             </div>
 
-            {/* Resume Section */}
+            {/* Work Experiences Section */}
             <div style={{ marginBottom: '64px' }}>
-              {/* Resume Header */}
+              {/* Work Experiences Header */}
               <div className="flex items-center justify-between mb-8" style={{ marginBottom: '20px' }}>
                 <h2
                   className="font-heading text-[15px] leading-[28px] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
                   style={{ fontFamily: 'Mortend' }}
                 >
-                  Resume
+                  Work Experiences
                 </h2>
                 <a
                   href="https://drive.google.com/file/d/1HG_51ItrZI4yQOi1qifwe9L5_q_E2lyG/view?usp=sharing"
