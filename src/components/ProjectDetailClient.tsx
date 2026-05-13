@@ -104,7 +104,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           className="project-detail-nav hidden lg:block"
           style={{
             position: 'sticky',
-            top: 0,
+            top: '16px',
             height: '48px',
             width: '100%',
             backgroundColor: 'rgb(14,14,18)',
