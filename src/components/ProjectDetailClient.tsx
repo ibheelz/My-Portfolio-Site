@@ -144,7 +144,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             {project.title}
           </h3>
           <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', whiteSpace: 'nowrap', flexShrink: 0 }}>
-            {project.readingTime || '5'} min read
+            {project.readingTime || '5 min read'}
           </span>
         </nav>
 
