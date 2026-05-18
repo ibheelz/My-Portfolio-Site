@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Visitor {
+  id          String     @id @default(cuid())
+  sessionId   String     @unique
+  ip          String?
+  country     String?
+  city        String?
+  isp         String?
+  browser     String?
+  os          String?
+  deviceType  String?
+  referrer    String?
+  userAgent   String?
+  startedAt   DateTime   @default(now())
+  endedAt     DateTime?
+  totalTime   Int?
+  pageViews   PageView[]
+  clicks      Click[]
+}
+
+model PageView {
+  id         String   @id @default(cuid())
+  sessionId  String
+  path       String
+  referrer   String?
+  timeSpent  Int?
+  viewedAt   DateTime @default(now())
+  visitor    Visitor  @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId])
+}
+
+model Click {
+  id          String   @id @default(cuid())
+  sessionId   String
+  path        String
+  elementText String?
+  elementType String?
+  clickedAt   DateTime @default(now())
+  visitor     Visitor  @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId])
+}

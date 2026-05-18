@@ -7,11 +7,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { List, X } from '@phosphor-icons/react'
 import Image from 'next/image'
 import SideNav from '@/src/components/SideNav'
+import { useAnalytics } from '@/src/hooks/useAnalytics'
 
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  useAnalytics()
 
   useEffect(() => {
     setMobileMenuOpen(false)
