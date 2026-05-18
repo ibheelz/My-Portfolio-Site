@@ -13,7 +13,6 @@
     "@prisma/client": "^5.22.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
-    "better-sqlite3": "^12.10.0",
     "framer-motion": "^10.16.0",
     "isbot": "^5.1.40",
     "next": "^14.0.0",
@@ -23,7 +22,6 @@
     "ua-parser-js": "^2.0.9"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
