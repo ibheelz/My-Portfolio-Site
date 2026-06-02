@@ -26,11 +26,27 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
   const otherExplorations = explorations.filter((e) => e.slug !== exploration.slug).slice(0, 3)
 
   useEffect(() => {
+    if (isModalOpen) return
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % exploration.images.length)
     }, 3000)
     return () => clearInterval(interval)
-  }, [exploration.images.length])
+  }, [exploration.images.length, isModalOpen])
+
+  useEffect(() => {
+    if (!isModalOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        handlePrevious()
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        handleNext()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isModalOpen, currentImageIndex, exploration.images.length])
 
   const handlePrevious = () => {
     setCurrentImageIndex((prev) => (prev - 1 + exploration.images.length) % exploration.images.length)

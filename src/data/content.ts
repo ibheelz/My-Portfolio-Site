@@ -155,23 +155,6 @@ export const blogPosts: BlogPost[] = [
 export const explorations: Exploration[] = [
   {
     type: 'exploration',
-    slug: 'slots',
-    title: 'Casino & Slots',
-    description: 'A set of iGaming and slots promotional posters designed in Adobe Photoshop and Nano Banana Pro for todoalrojo, driving engagement across competitive betting and slots markets.',
-    date: 'Mar 13, 2025',
-    tools: ['Photoshop', 'Nano Banana Pro'],
-    isFeatured: false,
-    cardImage: 'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png?width=2000&height=2000',
-    images: [
-      'https://framerusercontent.com/images/nUnmXrvePnrnIGceHLamqYFmk.png?width=2000&height=2000',
-      'https://framerusercontent.com/images/wdEJoaqd9g8MrW29f2upk7QFJzQ.png?width=2000&height=2000',
-      'https://framerusercontent.com/images/Wwcfxo4n5XI2kTqU5uK0PSeVIMI.png?width=2000&height=2000',
-      'https://framerusercontent.com/images/sQqAQcXD2cNGfrBfxn8XJPQ4HE.png?width=2000&height=2000',
-      'https://framerusercontent.com/images/bIy3Wm81gIbP6mrUi5RkzGKdI.png?width=2000&height=2000',
-    ],
-  },
-  {
-    type: 'exploration',
     slug: 'ecommerce-posters',
     title: 'E-Commerce Posters',
     description: 'Product-focused e-commerce visuals designed in Adobe Photoshop and Illustrator, built to perform across major listing platforms and turn browsers into buyers.',

@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { ArrowLeft } from '@phosphor-icons/react'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import { FadeIn } from '@/src/components/FadeIn'
@@ -25,6 +27,7 @@ interface ProjectDetailClientProps {
 }
 
 export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) {
+  const router = useRouter()
   const project = projects.find((p) => p.slug === slug)
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
@@ -136,16 +139,21 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             paddingRight: 'clamp(16px, 5vw, 64px)',
             paddingTop: '0px',
             paddingBottom: '0px',
-            gap: '0px',
+            gap: '12px',
             zIndex: 50,
           }}
         >
-          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.01em', margin: 0, whiteSpace: 'nowrap', marginRight: '20px', flexShrink: 0, textTransform: 'none', fontFamily: 'Gucina' }}>
+          <button
+            onClick={() => router.back()}
+            className="flex items-center justify-center hover:opacity-75 transition-opacity"
+            aria-label="Go back"
+            style={{ padding: 0, background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0, marginRight: '4px' }}
+          >
+            <ArrowLeft size={18} color="rgb(250,250,250)" weight="light" />
+          </button>
+          <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.01em', margin: 0, whiteSpace: 'nowrap', flexShrink: 0, textTransform: 'none', fontFamily: 'Gucina' }}>
             {project.title}
           </h3>
-          <span className="font-gucina text-[12px] leading-[24px] text-[rgb(138,138,138)]" style={{ letterSpacing: '0.01em', whiteSpace: 'nowrap', flexShrink: 0 }}>
-            {project.readingTime || '5 min read'}
-          </span>
         </nav>
 
         <div

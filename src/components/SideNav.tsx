@@ -22,7 +22,7 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
   const pathname = usePathname()
   const [hoveredNav, setHoveredNav] = useState<string | null>(null)
 
-  const isActive = (path: string) => pathname === path
+  const isActive = (path: string) => path === '/' ? pathname === '/' : pathname.startsWith(path)
 
   const navItems = [
     { href: '/', label: 'Explore', icon: Compass },
@@ -91,7 +91,7 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
                 className="flex items-center gap-3 rounded-full transition-all body-m-leading"
                 style={{
                   padding: '10px 24px 10px 10px',
-                  backgroundColor: isHovered ? '#000000' : 'transparent',
+                  backgroundColor: isHovered || active ? '#000000' : 'transparent',
                   color: active ? 'rgb(129, 195, 215)' : 'rgb(138, 138, 138)',
                   display: 'fit-content',
                   width: 'fit-content',

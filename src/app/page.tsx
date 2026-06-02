@@ -9,7 +9,9 @@ import { FadeIn } from '@/src/components/FadeIn'
 
 export default function Home() {
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
+  const [selectedService, setSelectedService] = useState<string | null>(null)
 
+  const services = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
   const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 3)
   const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 3)
 
@@ -22,7 +24,7 @@ export default function Home() {
       {/* Content container */}
       <div className="content-container">
           {/* SECTION 1 - Hero */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: '50px' }} className="sm:mb-[50px] max-sm:mb-0">
             {/* Top row with dot */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
               <div></div>
@@ -40,8 +42,8 @@ export default function Home() {
             <FadeIn>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px', margin: 0 }}>
                 {/* Headline */}
-                <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, marginTop: '-0.2em', maxWidth: '876px' }}>
-                  Building value into <br /> brands through design.
+                <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, marginTop: '-0.2em', maxWidth: 'clamp(100%, 100%, 876px)' }}>
+                  Building value into brands through design.
                 </h1>
 
                 {/* What I do block */}
@@ -50,12 +52,64 @@ export default function Home() {
                     What I do
                   </label>
 
-                  {/* Labels row */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', maxWidth: '736px' }}>
-                    {['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design'].map(
+                  {/* Desktop Labels row */}
+                  <div className="hidden sm:flex" style={{ flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
+                    {services.map(
                       (label) => (
-                        <div
+                        <button
                           key={label}
+                          onClick={() => setSelectedService(label)}
+                          onMouseEnter={() => setSelectedService(label)}
+                          onMouseLeave={() => setSelectedService(null)}
+                          style={{
+                            borderRadius: '40px',
+                            border: selectedService === label ? '1px solid #000000' : '1px solid var(--grey-border-darker)',
+                            padding: '8px 12px',
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: selectedService === label ? 'rgb(129, 195, 215)' : 'var(--grey-text-main)',
+                            backgroundColor: selectedService === label ? '#000000' : 'transparent',
+                            fontFamily: 'Gucina',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {label}
+                        </button>
+                      )
+                    )}
+                  </div>
+
+                  {/* Mobile carousel */}
+                  <div className="sm:hidden overflow-hidden w-full" style={{ marginTop: '10px', marginBottom: '0px' }}>
+                    <style>{`
+                      @keyframes scroll-services {
+                        0% {
+                          transform: translateX(0);
+                        }
+                        100% {
+                          transform: translateX(calc(-50% - 4px));
+                        }
+                      }
+
+                      .service-scroll-container {
+                        display: flex;
+                        gap: 8px;
+                        animation: scroll-services 30s linear infinite;
+                        width: max-content;
+                      }
+
+                      .service-item {
+                        flex-shrink: 0;
+                      }
+                    `}</style>
+                    <div className="service-scroll-container">
+                      {services.map((label) => (
+                        <button
+                          key={`scroll-${label}`}
+                          onClick={() => setSelectedService(label)}
                           style={{
                             borderRadius: '40px',
                             border: '1px solid var(--grey-border-darker)',
@@ -65,12 +119,39 @@ export default function Home() {
                             color: 'var(--grey-text-main)',
                             backgroundColor: 'transparent',
                             fontFamily: 'Gucina',
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
                           }}
+                          className="service-item"
                         >
                           {label}
-                        </div>
-                      )
-                    )}
+                        </button>
+                      ))}
+                      {services.map((label) => (
+                        <button
+                          key={`scroll-dup-${label}`}
+                          style={{
+                            borderRadius: '40px',
+                            border: '1px solid var(--grey-border-darker)',
+                            padding: '8px 12px',
+                            fontSize: '12px',
+                            lineHeight: '18px',
+                            color: 'var(--grey-text-main)',
+                            backgroundColor: 'transparent',
+                            fontFamily: 'Gucina',
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
+                            pointerEvents: 'none',
+                          }}
+                          className="service-item"
+                          aria-hidden="true"
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -78,7 +159,7 @@ export default function Home() {
           </section>
 
           {/* SECTION 2 - Recent Projects */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginTop: '50px' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px, 8vw, 32px)', marginTop: '0px' }} className="max-sm:-mt-5">
             {/* Section header */}
             <FadeIn>
               <div
