@@ -119,37 +119,6 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    type: 'project',
-    slug: 'lucia',
-    title: 'Lucia',
-    label1: 'AI Influencer',
-    label2: 'Generative Design',
-    duration: 'TBD',
-    date: 'Coming Soon',
-    isFeatured: true,
-    cardImage: '/lucia-cover.jpg',
-    heroImage: '/lucia-page-cover.png',
-    roleLabels: ['Design', 'Project'],
-    sections: [
-      {
-        title: 'Project Overview',
-        content: 'Coming soon.',
-      },
-      {
-        title: 'The Challenge',
-        content: 'Coming soon.',
-      },
-      {
-        title: 'Strategy',
-        content: 'Coming soon.',
-      },
-      {
-        title: 'Visual Identity',
-        content: 'Coming soon.',
-      },
-    ],
-  },
 ]
 
 export const blogPosts: BlogPost[] = [
