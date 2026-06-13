@@ -7,7 +7,6 @@ import { ArrowDownRight } from '@phosphor-icons/react'
 import { FadeIn } from '@/src/components/FadeIn'
 
 const otherProjects = [
-  { name: 'Lucia Davis', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/luciaqxxn/' },
   { name: 'Riley Mobolaji', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/rileyqxxn/' },
   { name: 'Aria Vale', label1: 'AI Influencer', label2: 'Personal Project', href: 'https://www.instagram.com/_ariavale/' },
 ]
