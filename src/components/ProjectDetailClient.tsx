@@ -114,12 +114,41 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
   const otherProjects = projects.filter((p) => p.slug !== project.slug).slice(0, 3)
 
+  const handleImageContextMenu = (e: React.MouseEvent | React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    return false
+  }
+
+  const handleImageDrag = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    return false
+  }
+
+  const handlePageContextMenu = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement
+    if (target.tagName === 'IMG' || target.closest('img')) {
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+    }
+  }
+
   return (
     <>
+      <style>{`
+        img {
+          user-select: none;
+          -webkit-user-drag: none;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+        }
+      `}</style>
       <div className="fixed top-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
       <div className="fixed bottom-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
 
-      <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
+      <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]" style={{ userSelect: 'none' }} onContextMenu={handlePageContextMenu}>
         <nav
           className="project-detail-nav hidden lg:block"
           style={{
@@ -168,6 +197,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             quality={80}
             className="absolute inset-0 object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 100vw"
+            onContextMenu={handleImageContextMenu}
+            onDragStart={handleImageDrag}
+            style={{ userSelect: 'none' }}
           />
 
           <div
@@ -217,6 +249,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         quality={75}
                         className="w-full h-auto group-hover:opacity-90 transition-opacity"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
+                        onContextMenu={(e) => handleImageContextMenu(e as any)}
+                        onDragStart={handleImageDrag}
+                        style={{ userSelect: 'none' }}
                       />
                     </div>
                   )}
@@ -301,6 +336,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         <div
           className="fixed inset-0 bg-black bg-opacity-90 z-[100] flex items-center justify-center p-4 cursor-pointer"
           onClick={() => setModalImage(null)}
+          style={{ userSelect: 'none' }}
         >
           <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
             <Image
@@ -309,6 +345,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
               width={1400}
               height={1051}
               className="w-full h-auto rounded-lg"
+              onContextMenu={(e) => handleImageContextMenu(e as any)}
+              onDragStart={handleImageDrag}
+              style={{ userSelect: 'none' }}
             />
             <button
               onClick={() => setModalImage(null)}

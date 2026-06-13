@@ -11,13 +11,33 @@ interface ExplorationDetailClientProps {
   slug: string
 }
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export default function ExplorationDetailClient({ slug }: ExplorationDetailClientProps) {
-  const exploration = explorations.find((e) => e.slug === slug)
+  const baseExploration = explorations.find((e) => e.slug === slug)
+  const [exploration, setExploration] = useState(baseExploration)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const slideShowRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (baseExploration) {
+      setExploration({
+        ...baseExploration,
+        images: shuffleArray(baseExploration.images)
+      })
+      setCurrentImageIndex(0)
+    }
+  }, [slug])
 
   if (!exploration) {
     return <div className="ml-[296px] p-8">Exploration not found</div>
@@ -146,7 +166,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
           <div className="flex-1 flex flex-col justify-between" style={{ padding: 'clamp(24px, 5vw, 48px)', paddingTop: 'clamp(24px, 5vw, 48px)' }}>
             <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)' }}>
-              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+              <h1 className="font-heading text-[clamp(16px,4vw,22.5px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
                 {exploration.title}
               </h1>
               {exploration.description && (
@@ -193,7 +213,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         <div className="flex flex-col lg:hidden overflow-hidden w-full mobile-navbar-spacing" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}>
           <FadeIn>
             <div style={{ paddingTop: 'clamp(24px, 5vw, 48px)', paddingBottom: 'clamp(12px, 2vw, 16px)' }}>
-              <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+              <h1 className="font-heading text-[clamp(16px,4vw,22.5px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
                 {exploration.title}
               </h1>
             </div>
@@ -272,14 +292,14 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
               )}
 
               <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 24px)' }}>
-              <div className="flex flex-col" style={{ gap: 'clamp(8px, 2vw, 12px)' }}>
-                <label className="font-gucina font-bold text-[clamp(10px,1.5vw,12px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
+              <div className="flex flex-col" style={{ gap: 'clamp(4px, 1vw, 6px)' }}>
+                <label className="font-gucina font-bold text-[clamp(5px,0.75vw,6px)] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
                   Tools
                 </label>
-                <div className="flex flex-wrap" style={{ gap: 'clamp(6px, 1.5vw, 10px)' }}>
+                <div className="flex flex-wrap" style={{ gap: 'clamp(3px, 0.75vw, 5px)' }}>
                   {exploration.tools.map((tool) => (
-                    <div key={tool} className="rounded-full border border-[rgb(51,51,51)]" style={{ padding: 'clamp(4px, 1vw, 6px) clamp(8px, 1.5vw, 12px)' }}>
-                      <span className="font-gucina text-[clamp(10px,1.5vw,12px)] leading-[1.5] text-[rgb(138,138,138)]">
+                    <div key={tool} className="rounded-full border border-[rgb(51,51,51)]" style={{ padding: 'clamp(2px, 0.5vw, 3px) clamp(4px, 0.75vw, 6px)' }}>
+                      <span className="font-gucina text-[clamp(5px,0.75vw,6px)] leading-[1.5] text-[rgb(138,138,138)]">
                         {tool}
                       </span>
                     </div>
@@ -305,7 +325,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         <section className="w-full bg-[rgb(14,14,18)] overflow-hidden flex flex-col" style={{ padding: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', gap: 'clamp(24px, 5vw, 40px)' }}>
           <FadeIn>
             <h2
-              className="font-heading text-[clamp(12px,2.5vw,15px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+              className="font-heading text-[clamp(6px,1.25vw,7.5px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
               style={{ fontFamily: 'Mortend' }}
             >
               More explorations
