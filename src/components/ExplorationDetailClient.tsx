@@ -33,7 +33,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
     if (baseExploration) {
       setExploration({
         ...baseExploration,
-        images: shuffleArray(baseExploration.images)
+        images: baseExploration.randomizeImages !== false ? shuffleArray(baseExploration.images) : baseExploration.images
       })
       setCurrentImageIndex(0)
     }

@@ -45,42 +45,38 @@ export interface Exploration {
   isFeatured?: boolean
   cardImage: string
   images: string[]
+  randomizeImages?: boolean
 }
 
 export const projects: Project[] = [
   {
     type: 'project',
-    slug: 'verdant',
-    title: 'Verdant',
-    label1: 'Cafe',
-    label2: 'Branding',
-    duration: '4 Weeks',
-    date: 'January – February 2026',
-    readingTime: '4 min read',
+    slug: 'martell',
+    title: 'Martell',
+    label1: 'TBD',
+    label2: 'TBD',
+    duration: 'TBD',
+    date: 'Coming Soon',
     isFeatured: true,
-    cardImage: 'https://framerusercontent.com/images/Gjv37JbUfzuixRwc4G6wKaGqehc.png',
-    heroImage: 'https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png',
-    roleLabels: ['Visual Identity', 'Brand Identity', 'Branding', 'Cafe'],
+    cardImage: '/martell-cover.png',
+    heroImage: '/martell-cover.png',
+    roleLabels: ['Design'],
     sections: [
       {
         title: 'Project Overview',
-        content: 'Verdant Cafe is a Portland-based specialty coffee brand centered on one idea: sitting down with your friend over a good cup of coffee. Founder Marcus Chen sources beans directly from farmers in Colombia, Ethiopia, and Guatemala. The playful-but-premium brand identity features hand-drawn typography, warm earthy colors, and a bearded mascot that represents Marcus while doubling as two coffee cups toasting—embedding friendship into every detail.',
-        image: 'https://framerusercontent.com/images/xOhrZlZGOQ2RCjPxGczDXfAtdYc.gif?width=800&height=450',
+        content: '',
       },
       {
         title: 'The Challenge',
-        content: 'Specialty coffee branding has become overly serious and exclusive. Most brands adopt minimal, cold aesthetics that feel more like design museums than welcoming spaces. Men aged 30-50 lack accessible third places where they can sit down with friends without pretense or performance. Verdant needed to break this mold while maintaining premium quality and ethical sourcing standards.',
-        image: 'https://framerusercontent.com/images/1teDv4ZcZm10tBmTdbONWqT8Sso.gif?width=1400&height=1051',
+        content: '',
       },
       {
-        title: 'Brand Strategy',
-        content: 'The strategy centers on genuine human connection over coffee. Marcus Chen\'s story of rediscovering friendship through a simple coffee conversation became the brand foundation. Verdant positions itself as playful but premium, targeting men who appreciate craft quality but reject coffee snobbery. The brand promise is simple: good coffee from farmers we know, shared in a space where you can relax and talk.',
-        image: 'https://framerusercontent.com/images/Sl8rx0GmuTH5PtkF3T6c6W2p9g.gif?width=800&height=450',
+        title: 'Strategy',
+        content: '',
       },
       {
         title: 'Visual Identity',
-        content: 'The bearded mascot icon represents Marcus while visually reading as two coffee cups toasting. Warm earthy colors (deep teal & cream) and organic typography create an approachable premium aesthetic that feels crafted, not corporate.',
-        image: 'https://framerusercontent.com/images/umKHDWBYIi7CLGa4eIRtHGSrQw.png?width=1400&height=964',
+        content: '',
       },
     ],
   },
@@ -116,6 +112,73 @@ export const projects: Project[] = [
         title: 'Visual Identity',
         content: 'The identity is built around a rich, considered color system. Deep burgundy anchors the palette with weight and warmth, balanced by a soft cream and a warm off white that keep the brand from feeling heavy or closed off.\n\nTogether the three colors reflect the atmosphere of the space itself. Dark and intimate at its core, but always with enough warmth to feel welcoming. The palette works across everything from signage to packaging without losing its character.',
         image: 'https://framerusercontent.com/images/lU8OrmyNlhSmf7qWsr4BoaWjCWk.png?width=1408&height=957',
+      },
+    ],
+  },
+  {
+    type: 'project',
+    slug: 'lucia',
+    title: 'Lucia',
+    label1: 'AI Influencer',
+    label2: 'Generative Design',
+    duration: 'TBD',
+    date: 'Coming Soon',
+    isFeatured: true,
+    cardImage: '/lucia-cover.jpg',
+    heroImage: '/lucia-page-cover.png',
+    roleLabels: ['Design', 'Project'],
+    sections: [
+      {
+        title: 'Project Overview',
+        content: 'Coming soon.',
+      },
+      {
+        title: 'The Challenge',
+        content: 'Coming soon.',
+      },
+      {
+        title: 'Strategy',
+        content: 'Coming soon.',
+      },
+      {
+        title: 'Visual Identity',
+        content: 'Coming soon.',
+      },
+    ],
+  },
+  {
+    type: 'project',
+    slug: 'verdant',
+    title: 'Verdant',
+    label1: 'Cafe',
+    label2: 'Branding',
+    duration: '4 Weeks',
+    date: 'January – February 2026',
+    readingTime: '4 min read',
+    isFeatured: true,
+    cardImage: 'https://framerusercontent.com/images/Gjv37JbUfzuixRwc4G6wKaGqehc.png',
+    heroImage: 'https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png',
+    roleLabels: ['Visual Identity', 'Brand Identity', 'Branding', 'Cafe'],
+    sections: [
+      {
+        title: 'Project Overview',
+        content: 'Verdant Cafe is a Portland-based specialty coffee brand centered on one idea: sitting down with your friend over a good cup of coffee. Founder Marcus Chen sources beans directly from farmers in Colombia, Ethiopia, and Guatemala. The playful-but-premium brand identity features hand-drawn typography, warm earthy colors, and a bearded mascot that represents Marcus while doubling as two coffee cups toasting—embedding friendship into every detail.',
+        image: 'https://framerusercontent.com/images/xOhrZlZGOQ2RCjPxGczDXfAtdYc.gif?width=800&height=450',
+      },
+      {
+        title: 'The Challenge',
+        content: 'Specialty coffee branding has become overly serious and exclusive. Most brands adopt minimal, cold aesthetics that feel more like design museums than welcoming spaces. Men aged 30-50 lack accessible third places where they can sit down with friends without pretense or performance. Verdant needed to break this mold while maintaining premium quality and ethical sourcing standards.',
+        image: 'https://framerusercontent.com/images/1teDv4ZcZm10tBmTdbONWqT8Sso.gif?width=1400&height=1051',
+      },
+      {
+        title: 'Brand Strategy',
+        content: 'The strategy centers on genuine human connection over coffee. Marcus Chen\'s story of rediscovering friendship through a simple coffee conversation became the brand foundation. Verdant positions itself as playful but premium, targeting men who appreciate craft quality but reject coffee snobbery. The brand promise is simple: good coffee from farmers we know, shared in a space where you can relax and talk.',
+        image: 'https://framerusercontent.com/images/Sl8rx0GmuTH5PtkF3T6c6W2p9g.gif?width=800&height=450',
+      },
+      {
+        title: 'Visual Identity',
+        content: 'The bearded mascot icon represents Marcus while visually reading as two coffee cups toasting. Warm earthy colors (deep teal & cream) and organic typography create an approachable premium aesthetic that feels crafted, not corporate.',
+        image: 'https://framerusercontent.com/images/umKHDWBYIi7CLGa4eIRtHGSrQw.png?width=1400&height=964',
       },
     ],
   },
@@ -162,6 +225,7 @@ export const explorations: Exploration[] = [
     tools: ['Photoshop', 'Illustrator'],
     isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/FpnS05Dyr8VS33BysFtyZYsoxo.webp?width=1842&height=1754',
+    randomizeImages: true,
     images: [
       'https://framerusercontent.com/images/FpnS05Dyr8VS33BysFtyZYsoxo.webp?width=1842&height=1754',
       'https://framerusercontent.com/images/lbe2UvK4F3tucUOwQMZWrh2NE.jpg?width=4096&height=4096',
@@ -179,6 +243,7 @@ export const explorations: Exploration[] = [
     tools: ['Photoshop', 'Illustrator'],
     isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/LbnvzXqr3P4LBJV2Q1gES4NauU.png?width=2000&height=2000',
+    randomizeImages: true,
     images: [
       'https://framerusercontent.com/images/wuYJgeFi4Cbxh0glSqabfpGh4.png?width=2048&height=2048',
       'https://framerusercontent.com/images/0OoFz5p9hNvRgCJLvy669DQzbG4.png?width=2000&height=2000',
@@ -186,5 +251,16 @@ export const explorations: Exploration[] = [
       'https://framerusercontent.com/images/gItAqlwvxAL4vL9GothXOsAIo.png?width=2000&height=2000',
       'https://framerusercontent.com/images/Becqj5MqCKgeGnFc5lTZLCfq5Uo.png?width=2000&height=2000',
     ],
+  },
+  {
+    type: 'exploration',
+    slug: 'headphone-max',
+    title: 'Headphone Max',
+    description: '3D product visualizations of the Headphone Max, exploring form, materials, and design variations through multiple perspectives and iterations.',
+    date: 'Jun 19, 2026',
+    tools: ['Blender'],
+    cardImage: '/1.png',
+    randomizeImages: false,
+    images: ['/1.png', '/2.png', '/3.png', '/4.png', '/5.png'],
   },
 ]

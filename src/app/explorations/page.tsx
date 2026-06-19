@@ -48,7 +48,7 @@ export default function ExplorationsPage() {
             className="w-full"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 30vw, 400px), 1fr))',
+              gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))',
               columnGap: 'clamp(16px, 4vw, 32px)',
               rowGap: 'clamp(48px, 10vw, 96px)'
             }}

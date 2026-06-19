@@ -210,15 +210,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             }}
           />
 
-          <FadeIn className="relative z-[2]">
-            <h1
-              ref={heroTitleRef}
-              className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
-              style={{ fontFamily: 'Mortend', margin: 0 }}
-            >
-              {project.title}
-            </h1>
-          </FadeIn>
         </div>
 
         <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[40] bg-[rgb(14,14,18)]">
