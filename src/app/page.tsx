@@ -286,6 +286,7 @@ export default function Home() {
                       gap: '12px',
                       textDecoration: 'none',
                       color: 'inherit',
+                      paddingBottom: '10px',
                     }}
                   >
                     <div
