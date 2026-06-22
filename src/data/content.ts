@@ -190,7 +190,7 @@ export const projects: Project[] = [
       {
         title: 'Where It Stands Now',
         content: 'The brand was designed in 2020. Since then Rash has won WAFCON, signed for PSG, and become one of the most recognizable athletes in African women\'s football. The identity built six years ago is still the one she carries.',
-        image: '/rash-on-merch.png',
+        images: ['/rash-on-merch.png', '/rash-on-merch-2.png'],
       },
     ],
   },
