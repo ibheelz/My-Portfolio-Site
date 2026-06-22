@@ -352,48 +352,18 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4"
           style={{ height: '70vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
-          {project.slug === 'martell' && (
-            <>
-              <Image
-                src="/martell-hero-mobile.webp"
-                alt={project.title}
-                fill
-                priority
-                quality={80}
-                className="absolute inset-0 object-cover block md:hidden"
-                sizes="100vw"
-                onContextMenu={handleImageContextMenu}
-                onDragStart={handleImageDrag}
-                style={{ userSelect: 'none' }}
-              />
-              <Image
-                src={project.heroImage}
-                alt={project.title}
-                fill
-                priority
-                quality={80}
-                className="absolute inset-0 object-cover hidden md:block"
-                sizes="(max-width: 1240px) 100vw, 100vw"
-                onContextMenu={handleImageContextMenu}
-                onDragStart={handleImageDrag}
-                style={{ userSelect: 'none' }}
-              />
-            </>
-          )}
-          {project.slug !== 'martell' && (
-            <Image
-              src={project.heroImage}
-              alt={project.title}
-              fill
-              priority
-              quality={80}
-              className="absolute inset-0 object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 100vw"
-              onContextMenu={handleImageContextMenu}
-              onDragStart={handleImageDrag}
-              style={{ userSelect: 'none' }}
-            />
-          )}
+          <Image
+            src={project.heroImage}
+            alt={project.title}
+            fill
+            priority
+            quality={80}
+            className="absolute inset-0 object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 100vw"
+            onContextMenu={handleImageContextMenu}
+            onDragStart={handleImageDrag}
+            style={{ userSelect: 'none' }}
+          />
 
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
