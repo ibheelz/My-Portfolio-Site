@@ -71,6 +71,27 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   }, [slug])
 
   useEffect(() => {
+    const pageContent = document.querySelector('.page-content') as HTMLElement
+    if (!pageContent) return
+
+    const handleScroll = () => {
+      project?.sections.forEach((_, index) => {
+        const heading = document.querySelector(`#section${index + 1} h2`) as HTMLElement
+        if (heading) {
+          const rect = heading.getBoundingClientRect()
+          const isInView = rect.top >= 0 && rect.top < window.innerHeight / 2
+          if (isInView) {
+            setActiveSection(index)
+          }
+        }
+      })
+    }
+
+    pageContent.addEventListener('scroll', handleScroll)
+    return () => pageContent.removeEventListener('scroll', handleScroll)
+  }, [project])
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Handle modal carousel keyboard navigation
       if (modalCarouselImages) {
