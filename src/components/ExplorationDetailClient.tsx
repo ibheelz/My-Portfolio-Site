@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { explorations } from '@/src/data/content'
 import ExplorationCard from '@/src/components/ExplorationCard'
-import LetsConnectSection from '@/src/components/LetsConnectSection'
 import { CaretRight } from '@phosphor-icons/react'
 import { FadeIn } from '@/src/components/FadeIn'
 
@@ -200,10 +199,6 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
             </div>
           </section>
 
-          {/* Third Section - Let's Connect */}
-          <section className="border-t-2 border-[rgb(2,1,10)] px-4 py-24">
-            <LetsConnectSection />
-          </section>
         </div>
       </div>
 

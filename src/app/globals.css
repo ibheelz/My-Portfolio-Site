@@ -536,6 +536,19 @@ nav.project-detail-nav {
     display: none;
   }
 
+  .mobile-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    display: flex !important;
+    width: 100%;
+    height: 80px;
+    overflow: visible !important;
+    background-color: rgb(14, 14, 18);
+  }
+
   .page-content {
     width: 100%;
     flex: 1;
