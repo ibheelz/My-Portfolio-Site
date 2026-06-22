@@ -93,12 +93,12 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         <div className="mx-4 lg:mx-4 my-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
 
           {/* First Section - Full Viewport Height Split Layout */}
-          <div className="flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 h-auto lg:h-screen">
+          <div className="exploration-detail-layout flex flex-col gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 h-auto">
 
             {/* Left Side - Slideshow (square on mobile, 65% on desktop) */}
             <div
               ref={slideShowRef}
-              className="w-full lg:w-[65%] relative overflow-hidden cursor-grab active:cursor-grabbing h-auto lg:h-full aspect-square lg:aspect-auto"
+              className="exploration-slideshow w-full relative overflow-hidden cursor-grab active:cursor-grabbing h-auto aspect-square"
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
               onMouseLeave={() => setIsDragging(false)}
@@ -124,19 +124,19 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   </div>
                 ))}
 
-                {/* Previous Button - Left Middle (hidden on mobile) */}
+                {/* Previous Button - Left Middle (hidden on smaller screens) */}
                 <button
                   onClick={(e) => { e.stopPropagation(); handlePrevious(); }}
-                  className="absolute left-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors hidden lg:flex"
+                  className="exploration-nav-button absolute left-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
                   style={{ transform: 'translateY(-50%)' }}
                 >
                   <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
                 </button>
 
-                {/* Next Button - Right Middle (hidden on mobile) */}
+                {/* Next Button - Right Middle (hidden on smaller screens) */}
                 <button
                   onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                  className="absolute right-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors hidden lg:flex"
+                  className="exploration-nav-button absolute right-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
                   style={{ transform: 'translateY(-50%)' }}
                 >
                   <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
@@ -144,8 +144,8 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
               </div>
             </div>
 
-            {/* Right Side - Text Information (remaining width on desktop) */}
-            <div className="w-full lg:w-[35%] flex flex-col lg:justify-between p-8 gap-8 lg:gap-0">
+            {/* Right Side - Text Information (below image on smaller screens) */}
+            <div className="exploration-info w-full flex flex-col justify-start p-8 gap-8">
               {/* Top Content */}
               <div className="flex flex-col gap-8">
                 <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
