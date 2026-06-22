@@ -71,6 +71,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     }
   }, [slug])
 
+  useEffect(() => {
+    console.log('activeSection state changed to:', activeSection)
+  }, [activeSection])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
