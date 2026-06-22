@@ -99,22 +99,22 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'Project Overview',
-        content: 'Duskline is a vinyl record shop that transforms into a listening bar at night. It\'s built for people who take music seriously but want somewhere warm and welcoming to enjoy it.\n\nThe brand identity captures that dual nature, dark, atmospheric, and confident by night, but always approachable. Every design decision was guided by one idea: sound first.',
+        content: 'Duskline is a vinyl record shop that becomes a listening bar at night. It serves people who care about music and want a warm, welcoming place to enjoy it.\n\nThe brand captures the dual experience. It feels dark and atmospheric at night, but always friendly. Every design choice started with one principle: sound first.',
         image: 'https://framerusercontent.com/images/jdAWGQ79Ef5Oq9ifYlVLjaQ4E.gif?width=800&height=600',
       },
       {
         title: 'The Challenge',
-        content: 'Duskline operates as two things at once, a record shop by day and a listening bar by night. The challenge was building a single brand identity that could hold both without feeling split or inconsistent.\n\nThe design had to feel warm and browsable in the daytime while shifting into something moodier and more atmospheric after dark. One visual language, two very different experiences.',
+        content: 'Duskline is two things at once: a record shop during the day and a listening bar at night. The challenge was creating one brand identity that worked for both without feeling split.\n\nThe design needed to feel warm and easy to browse during the day, then shift into something darker and moodier at night. One visual language for two very different experiences.',
         image: 'https://framerusercontent.com/images/fsgAmyTmClybagSHaZB6UZFQ4T8.gif?width=1408&height=958',
       },
       {
         title: 'Brand Strategy',
-        content: 'The strategy was to lead with the listening experience rather than the products. Whether you are flipping through crates or sitting with a drink, the common thread is sound. That became the anchor for every brand decision.\n\nFrom the color palette to the typography, everything was built to feel intentional and unhurried. The brand does not shout for attention. It draws you in quietly, the same way good music does.',
+        content: 'The strategy focuses on the listening experience, not just the products. Whether you are flipping through records or sitting with a drink, sound is the connecting thread. This became the foundation for every design choice.\n\nEvery detail, from color to typeface, was designed to feel intentional and unhurried. The brand does not demand attention. Instead, it draws you in quietly, the way good music does.',
         image: 'https://framerusercontent.com/images/iFsYnxNfati1W0exANnih8B9Qc.gif?width=1920&height=1440',
       },
       {
         title: 'Visual Identity',
-        content: 'The identity is built around a rich, considered color system. Deep burgundy anchors the palette with weight and warmth, balanced by a soft cream and a warm off white that keep the brand from feeling heavy or closed off.\n\nTogether the three colors reflect the atmosphere of the space itself. Dark and intimate at its core, but always with enough warmth to feel welcoming. The palette works across everything from signage to packaging without losing its character.',
+        content: 'The identity uses a carefully chosen color system. Deep burgundy gives the palette weight and warmth. Soft cream and warm off-white balance it out and keep the brand from feeling heavy.\n\nThe three colors reflect the feeling of the space. Dark and intimate, but always warm enough to feel welcome. These colors work across signage, packaging, and everything else without losing their character.',
         image: 'https://framerusercontent.com/images/lU8OrmyNlhSmf7qWsr4BoaWjCWk.png?width=1408&height=957',
       },
     ],
@@ -135,22 +135,22 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'Project Overview',
-        content: 'Verdant Cafe is a Portland-based specialty coffee brand centered on one idea: sitting down with your friend over a good cup of coffee. Founder Marcus Chen sources beans directly from farmers in Colombia, Ethiopia, and Guatemala.\n\nThe playful-but-premium brand identity features hand-drawn typography, warm earthy colors, and a bearded mascot that represents Marcus while doubling as two coffee cups toasting and embedding friendship into every detail.',
+        content: 'Verdant Cafe is a Portland specialty coffee brand with one core idea: sitting down with a friend over a good cup of coffee. Founder Marcus Chen buys beans directly from farmers in Colombia, Ethiopia, and Guatemala.\n\nThe brand identity is playful but premium. It features hand-drawn typefaces, warm earthy colors, and a bearded mascot that represents Marcus. The mascot also reads as two coffee cups toasting, embedding friendship into every detail.',
         image: 'https://framerusercontent.com/images/xOhrZlZGOQ2RCjPxGczDXfAtdYc.gif?width=800&height=450',
       },
       {
         title: 'The Challenge',
-        content: 'Specialty coffee branding has become overly serious and exclusive. Most brands adopt minimal, cold aesthetics that feel more like design museums than welcoming spaces.\n\nMen aged 30 to 50 lack accessible third places where they can sit down with friends without pretense or performance. Verdant needed to break this mold while maintaining premium quality and ethical sourcing standards.',
+        content: 'Specialty coffee branding has become too serious and exclusive. Most brands use minimal, cold design that feels more like a museum than a welcoming space.\n\nMen between 30 and 50 need accessible places to sit and talk with friends. Verdant needed to feel different while keeping its focus on quality and ethical sourcing.',
         image: 'https://framerusercontent.com/images/1teDv4ZcZm10tBmTdbONWqT8Sso.gif?width=1400&height=1051',
       },
       {
         title: 'Brand Strategy',
-        content: 'The strategy centers on genuine human connection over coffee. Marcus Chen\'s story of rediscovering friendship through a simple coffee conversation became the brand foundation.\n\nVerdant positions itself as playful but premium, targeting men who appreciate craft quality but reject coffee snobbery. The brand promise is simple: good coffee from farmers we know, shared in a space where you can relax and talk.',
+        content: 'The strategy is built on genuine human connection over coffee. Marcus Chen built the brand around his story of finding friendship again through coffee.\n\nVerdant is playful but premium. It targets men who care about quality but do not want coffee snobbery. The promise is simple: good coffee from farmers we know, in a place where you can relax and talk.',
         image: 'https://framerusercontent.com/images/Sl8rx0GmuTH5PtkF3T6c6W2p9g.gif?width=800&height=450',
       },
       {
         title: 'Visual Identity',
-        content: 'The bearded mascot icon represents Marcus while visually reading as two coffee cups toasting.\n\nWarm earthy colors (deep teal and cream) and organic typography create an approachable premium aesthetic that feels crafted, not corporate.',
+        content: 'The bearded mascot icon represents Marcus. It also reads as two coffee cups toasting together.\n\nWarm earthy colors, deep teal and cream, and simple typefaces create a design that feels handmade and real, not corporate.',
         image: 'https://framerusercontent.com/images/umKHDWBYIi7CLGa4eIRtHGSrQw.png?width=1400&height=964',
       },
     ],
