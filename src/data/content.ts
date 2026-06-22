@@ -60,12 +60,13 @@ export const projects: Project[] = [
     date: 'June – July 2023',
     isFeatured: true,
     cardImage: '/martell-cover.webp',
-    heroImage: '/martell-hero.webp',
+    heroImage: '/martell-cover.webp',
     roleLabels: ['Design'],
     sections: [
       {
         title: 'The Idea',
         content: 'Most outdoor advertising asks for attention. This did not. The brief was about location, specifically the one roundabout in Lagos that every single person crossing into Lagos Island cannot avoid.\n\nThe audacity of the concept was not the structure itself. It was the decision to plant a permanent branded monument at that exact point in the city and let geography do the rest.',
+        image: '/martell-hero.webp',
       },
       {
         title: 'Process',
