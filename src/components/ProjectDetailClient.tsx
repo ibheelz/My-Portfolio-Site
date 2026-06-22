@@ -32,7 +32,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const [modalImage, setModalImage] = useState<string | null>(null)
+  const [modalCarouselImages, setModalCarouselImages] = useState<string[] | null>(null)
+  const [modalCarouselIndex, setModalCarouselIndex] = useState(0)
   const [sidebarFixed, setSidebarFixed] = useState(true)
+  const [carouselStates, setCarouselStates] = useState<Record<number, { currentIndex: number; isInteracting: boolean }>>({})
+  const [carouselIntervals, setCarouselIntervals] = useState<Record<number, NodeJS.Timeout>>({})
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)
 
@@ -50,6 +54,43 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       pageContent.scrollTop = 0
     }
   }, [slug])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Handle modal carousel keyboard navigation
+      if (modalCarouselImages) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault()
+          setModalCarouselIndex((prev) => (prev - 1 + modalCarouselImages.length) % modalCarouselImages.length)
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault()
+          setModalCarouselIndex((prev) => (prev + 1) % modalCarouselImages.length)
+        } else if (e.key === 'Escape') {
+          setModalCarouselImages(null)
+        }
+      } else {
+        // Only handle arrow keys if a carousel is being interacted with
+        Object.entries(carouselStates).forEach(([sectionIndexStr, state]) => {
+          if (state.isInteracting) {
+            const sectionIndex = parseInt(sectionIndexStr)
+            const section = project?.sections[sectionIndex]
+            if (section?.images) {
+              if (e.key === 'ArrowLeft') {
+                e.preventDefault()
+                handleCarouselPrevious(sectionIndex, section.images.length)
+              } else if (e.key === 'ArrowRight') {
+                e.preventDefault()
+                handleCarouselNext(sectionIndex, section.images.length)
+              }
+            }
+          }
+        })
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [carouselStates, project, modalCarouselImages])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,6 +149,26 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     }
   }, [project])
 
+  useEffect(() => {
+    // Initialize carousels as static (no autoplay)
+    if (project) {
+      const newStates: Record<number, { currentIndex: number; isInteracting: boolean }> = {}
+      project.sections.forEach((section, index) => {
+        if (section.images && section.images.length > 0) {
+          newStates[index] = { currentIndex: 0, isInteracting: false }
+        }
+      })
+      setCarouselStates(newStates)
+    }
+
+    return () => {
+      // Cleanup intervals
+      Object.keys(carouselIntervals).forEach(key => {
+        clearInterval(carouselIntervals[parseInt(key)])
+      })
+    }
+  }, [slug])
+
   if (!project) {
     return <div className="ml-[296px] p-8">Project not found</div>
   }
@@ -133,6 +194,71 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       e.stopPropagation()
       return false
     }
+  }
+
+  const startCarouselAutoplay = (sectionIndex: number, totalImages: number) => {
+    const interval = setInterval(() => {
+      setCarouselStates(prev => {
+        const state = prev[sectionIndex] || { currentIndex: 0, isInteracting: false }
+        if (!state.isInteracting) {
+          return {
+            ...prev,
+            [sectionIndex]: {
+              ...state,
+              currentIndex: (state.currentIndex + 1) % totalImages
+            }
+          }
+        }
+        return prev
+      })
+    }, 3000)
+
+    setCarouselIntervals(prev => ({
+      ...prev,
+      [sectionIndex]: interval
+    }))
+  }
+
+  const stopCarouselAutoplay = (sectionIndex: number) => {
+    if (carouselIntervals[sectionIndex]) {
+      clearInterval(carouselIntervals[sectionIndex])
+      setCarouselIntervals(prev => {
+        const newIntervals = { ...prev }
+        delete newIntervals[sectionIndex]
+        return newIntervals
+      })
+    }
+  }
+
+  const handleCarouselClick = (sectionIndex: number) => {
+    setCarouselStates(prev => ({
+      ...prev,
+      [sectionIndex]: {
+        ...prev[sectionIndex],
+        isInteracting: true
+      }
+    }))
+    stopCarouselAutoplay(sectionIndex)
+  }
+
+  const handleCarouselPrevious = (sectionIndex: number, totalImages: number) => {
+    setCarouselStates(prev => ({
+      ...prev,
+      [sectionIndex]: {
+        ...prev[sectionIndex],
+        currentIndex: (prev[sectionIndex]?.currentIndex || 0) - 1 < 0 ? totalImages - 1 : (prev[sectionIndex]?.currentIndex || 0) - 1
+      }
+    }))
+  }
+
+  const handleCarouselNext = (sectionIndex: number, totalImages: number) => {
+    setCarouselStates(prev => ({
+      ...prev,
+      [sectionIndex]: {
+        ...prev[sectionIndex],
+        currentIndex: ((prev[sectionIndex]?.currentIndex || 0) + 1) % totalImages
+      }
+    }))
   }
 
   return (
@@ -189,18 +315,48 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           className="relative w-full overflow-hidden flex flex-col justify-end px-16 pb-6 md:px-4"
           style={{ height: '70vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
         >
-          <Image
-            src={project.heroImage}
-            alt={project.title}
-            fill
-            priority
-            quality={80}
-            className="absolute inset-0 object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 100vw"
-            onContextMenu={handleImageContextMenu}
-            onDragStart={handleImageDrag}
-            style={{ userSelect: 'none' }}
-          />
+          {project.slug === 'martell' && (
+            <>
+              <Image
+                src="/martell-hero-mobile.png"
+                alt={project.title}
+                fill
+                priority
+                quality={80}
+                className="absolute inset-0 object-cover block md:hidden"
+                sizes="100vw"
+                onContextMenu={handleImageContextMenu}
+                onDragStart={handleImageDrag}
+                style={{ userSelect: 'none' }}
+              />
+              <Image
+                src={project.heroImage}
+                alt={project.title}
+                fill
+                priority
+                quality={80}
+                className="absolute inset-0 object-cover hidden md:block"
+                sizes="(max-width: 1240px) 100vw, 100vw"
+                onContextMenu={handleImageContextMenu}
+                onDragStart={handleImageDrag}
+                style={{ userSelect: 'none' }}
+              />
+            </>
+          )}
+          {project.slug !== 'martell' && (
+            <Image
+              src={project.heroImage}
+              alt={project.title}
+              fill
+              priority
+              quality={80}
+              className="absolute inset-0 object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1240px) 100vw, 100vw"
+              onContextMenu={handleImageContextMenu}
+              onDragStart={handleImageDrag}
+              style={{ userSelect: 'none' }}
+            />
+          )}
 
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none z-[1]"
@@ -229,7 +385,87 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)] whitespace-pre-wrap">
                     {section.content}
                   </p>
-                  {section.image && (
+                  {section.images && section.images.length > 0 ? (
+                    <div
+                      className="w-full rounded-xl overflow-hidden cursor-pointer group relative"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setModalCarouselImages(section.images!)
+                        setModalCarouselIndex(carouselStates[index]?.currentIndex || 0)
+                      }}
+                      onMouseEnter={() => {
+                        setCarouselStates(prev => ({
+                          ...prev,
+                          [index]: {
+                            ...prev[index],
+                            isInteracting: true
+                          }
+                        }))
+                      }}
+                    >
+                      <div className="relative" style={{ width: '100%', paddingBottom: '75%', position: 'relative' }}>
+                        {section.images.map((image, imgIndex) => (
+                          <div
+                            key={imgIndex}
+                            className="absolute inset-0 w-full h-full"
+                            style={{ display: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'block' : 'none' }}
+                          >
+                            <Image
+                              src={image}
+                              alt={`${section.title} - Image ${imgIndex + 1}`}
+                              fill
+                              loading="lazy"
+                              quality={75}
+                              className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
+                              onContextMenu={(e) => handleImageContextMenu(e as any)}
+                              onDragStart={handleImageDrag}
+                              style={{ userSelect: 'none' }}
+                            />
+                          </div>
+                        ))}
+
+                        {(carouselStates[index]?.isInteracting) && (
+                          <>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); handleCarouselPrevious(index, section.images!.length) }}
+                              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] rounded-full flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+                              style={{ width: '36px', height: '36px' }}
+                            >
+                              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>‹</span>
+                            </button>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); handleCarouselNext(index, section.images!.length) }}
+                              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] rounded-full flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+                              style={{ width: '36px', height: '36px' }}
+                            >
+                              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>›</span>
+                            </button>
+
+                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-2 z-10">
+                              {section.images.map((_, dotIndex) => (
+                                <button
+                                  key={dotIndex}
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    setCarouselStates(prev => ({
+                                      ...prev,
+                                      [index]: { ...prev[index], currentIndex: dotIndex }
+                                    }))
+                                  }}
+                                  className="w-2 h-2 rounded-full transition-all"
+                                  style={{
+                                    backgroundColor: (carouselStates[index]?.currentIndex || 0) === dotIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
+                                    width: (carouselStates[index]?.currentIndex || 0) === dotIndex ? '12px' : '8px'
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ) : section.image && (
                     <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image || null)}>
                       <Image
                         src={section.image}
@@ -346,6 +582,72 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             >
               ✕
             </button>
+          </div>
+        </div>
+      )}
+
+      {modalCarouselImages && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-95 z-[100] flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setModalCarouselImages(null)}
+          style={{ userSelect: 'none' }}
+        >
+          <div className="relative w-full h-full max-w-6xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={modalCarouselImages[modalCarouselIndex]}
+              alt={`Image ${modalCarouselIndex + 1}`}
+              fill
+              className="object-contain"
+              onContextMenu={(e) => handleImageContextMenu(e as any)}
+              onDragStart={handleImageDrag}
+              style={{ userSelect: 'none' }}
+            />
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setModalCarouselIndex((prev) => (prev - 1 + modalCarouselImages.length) % modalCarouselImages.length)
+              }}
+              className="absolute left-4 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+              style={{ width: '36px', height: '36px', top: '50%', transform: 'translateY(-50%)' }}
+            >
+              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>‹</span>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setModalCarouselIndex((prev) => (prev + 1) % modalCarouselImages.length)
+              }}
+              className="absolute right-4 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
+              style={{ width: '36px', height: '36px', top: '50%', transform: 'translateY(-50%)' }}
+            >
+              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>›</span>
+            </button>
+
+            <button
+              onClick={() => setModalCarouselImages(null)}
+              className="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full flex items-center justify-center text-white text-2xl z-20"
+            >
+              ✕
+            </button>
+
+            <div className="absolute bottom-4 flex items-center justify-center gap-2 px-4 z-10">
+              {modalCarouselImages.map((_, dotIndex) => (
+                <button
+                  key={dotIndex}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setModalCarouselIndex(dotIndex)
+                  }}
+                  className="w-2 h-2 rounded-full transition-all"
+                  style={{
+                    backgroundColor: modalCarouselIndex === dotIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
+                    width: modalCarouselIndex === dotIndex ? '12px' : '8px'
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}

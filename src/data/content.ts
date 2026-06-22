@@ -17,6 +17,7 @@ export interface Project {
     title: string
     content: string
     image?: string
+    images?: string[]
   }>
 }
 
@@ -55,28 +56,32 @@ export const projects: Project[] = [
     title: 'Martell',
     label1: 'TBD',
     label2: 'TBD',
-    duration: 'TBD',
-    date: 'Coming Soon',
+    duration: '2 Months',
+    date: 'June – July 2023',
     isFeatured: true,
     cardImage: '/martell-cover.png',
-    heroImage: '/martell-cover.png',
+    heroImage: '/martell-hero-new.png',
     roleLabels: ['Design'],
     sections: [
       {
-        title: 'Project Overview',
-        content: '',
+        title: 'The Idea',
+        content: 'Most outdoor advertising asks for attention. This did not. The brief was about location, specifically the one roundabout in Lagos that every single person crossing into Lagos Island cannot avoid. The audacity of the concept was not the structure itself. It was the decision to plant a permanent branded monument at that exact point in the city and let geography do the rest.',
+        image: '/martell-hero.png',
       },
       {
-        title: 'The Challenge',
-        content: '',
+        title: 'Process',
+        content: 'I handled the 3D modeling and visualization in Blender as part of the creative team at Eyekontact. Every surface and proportion was built to real world scale before fabrication began.',
+        images: ['/6.png', '/5.png', '/4.png'],
       },
       {
-        title: 'Strategy',
-        content: '',
+        title: 'Visualization',
+        content: 'The renders showed exactly what would be built. Navy background, white letters, gold swallow. The swallow was the most detailed part. Each fin was modeled separately so it would catch shadow properly at that size. What you see in the render is what went up at the roundabout.',
+        images: ['/martell-vis-1.png', '/martell-vis-3.png', '/martell-vis-2.png'],
       },
       {
-        title: 'Visual Identity',
-        content: '',
+        title: 'Result',
+        content: 'The installation went up at the Admiralty Way roundabout in Lekki, one of the most trafficked junctions on the Lagos Island corridor. Day or night, from ground level or above, it held. The ground lanterns framing the black platform, the backlit lettering cutting through Lagos traffic at night, the swallow visible from every approach. It was not just seen. It was felt. That is what happens when the location is the strategy.',
+        images: ['/martell-res-1.jpg', '/martell-res-2.jpg', '/martell-res-3.jpg', '/martell-res-4.jpg'],
       },
     ],
   },
