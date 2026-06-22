@@ -494,7 +494,10 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                           <div
                             key={imgIndex}
                             className="absolute inset-0 w-full h-full carousel-image"
-                            style={{ display: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'block' : 'none', opacity: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 1 : 0 }}
+                            style={{
+                              opacity: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 1 : 0,
+                              pointerEvents: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'auto' : 'none'
+                            }}
                           >
                             <Image
                               src={image}
