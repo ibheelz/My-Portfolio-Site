@@ -37,6 +37,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const [sidebarFixed, setSidebarFixed] = useState(true)
   const [carouselStates, setCarouselStates] = useState<Record<number, { currentIndex: number; isInteracting: boolean }>>({})
   const [carouselIntervals, setCarouselIntervals] = useState<Record<number, NodeJS.Timeout>>({})
+  const [touchStartX, setTouchStartX] = useState(0)
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)
 
@@ -259,6 +260,28 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         currentIndex: ((prev[sectionIndex]?.currentIndex || 0) + 1) % totalImages
       }
     }))
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEndX = e.changedTouches[0].clientX
+    const difference = touchStartX - touchEndX
+    const threshold = 50
+
+    if (Math.abs(difference) > threshold) {
+      if (difference > 0) {
+        if (modalCarouselImages) {
+          setModalCarouselIndex((prev) => (prev + 1) % modalCarouselImages.length)
+        }
+      } else {
+        if (modalCarouselImages) {
+          setModalCarouselIndex((prev) => (prev - 1 + modalCarouselImages.length) % modalCarouselImages.length)
+        }
+      }
+    }
   }
 
   return (
@@ -591,6 +614,8 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           className="fixed inset-0 bg-black bg-opacity-95 z-[100] flex items-center justify-center p-4 cursor-pointer"
           onClick={() => setModalCarouselImages(null)}
           style={{ userSelect: 'none' }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <div className="relative w-full h-full max-w-6xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <Image
