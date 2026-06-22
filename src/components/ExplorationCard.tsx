@@ -15,11 +15,10 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
       className="exploration-card group"
       style={{
         width: '100%',
-        aspectRatio: '1',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'clamp(16px, 4vw, 32px)',
+        gap: '12px',
         textDecoration: 'none',
         color: 'inherit',
         cursor: 'pointer'
