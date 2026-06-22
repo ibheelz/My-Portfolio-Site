@@ -76,16 +76,18 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
     const handleScroll = () => {
       const scrollTop = pageContent.scrollTop
+      const viewportMiddle = scrollTop + pageContent.clientHeight / 3
       let activeIndex = 0
+      let closestDistance = Infinity
 
       for (let i = 0; i < project.sections.length; i++) {
         const section = document.querySelector(`#section${i + 1}`) as HTMLElement
         if (section) {
           const sectionTop = section.offsetTop
-          if (sectionTop <= scrollTop + 150) {
+          const distance = Math.abs(sectionTop - viewportMiddle)
+          if (distance < closestDistance) {
+            closestDistance = distance
             activeIndex = i
-          } else {
-            break
           }
         }
       }
