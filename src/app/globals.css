@@ -554,7 +554,7 @@ nav.project-detail-nav {
 }
 
 .project-card-home {
-  aspect-ratio: 1 !important;
+  height: auto !important;
 }
 
 .exploration-card {
