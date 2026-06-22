@@ -547,6 +547,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   <li key={index}>
                     <a
                       href={`#section${index + 1}`}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setActiveSection(index)
+                        const heading = document.querySelector(`#section${index + 1} h2`)
+                        if (heading) {
+                          heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                        }
+                      }}
                       className={`font-gucina text-[12px] leading-[18px] tracking-[0.01em] transition-colors duration-200 cursor-pointer ${
                         activeSection === index
                           ? 'sidebar-active-link'
