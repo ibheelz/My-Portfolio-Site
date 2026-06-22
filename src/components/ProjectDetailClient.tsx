@@ -109,6 +109,21 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   }, [carouselStates, project, modalCarouselImages])
 
   useEffect(() => {
+    if (!modalCarouselImages) {
+      // Resume autoplay for all carousels when modal is closed
+      Object.entries(carouselStates).forEach(([indexStr, state]) => {
+        if (!state.isInteracting) {
+          const index = parseInt(indexStr)
+          const section = project?.sections[index]
+          if (section?.images) {
+            startCarouselAutoplay(index, section.images.length)
+          }
+        }
+      })
+    }
+  }, [modalCarouselImages])
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
@@ -170,12 +185,18 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   }, [project])
 
   useEffect(() => {
-    // Initialize carousels as static (no autoplay)
+    // Initialize carousels with autoplay
     if (project) {
       const newStates: Record<number, { currentIndex: number; isInteracting: boolean }> = {}
       project.sections.forEach((section, index) => {
         if (section.images && section.images.length > 0) {
           newStates[index] = { currentIndex: 0, isInteracting: false }
+          // Start autoplay for this carousel if not in modal view
+          setTimeout(() => {
+            if (!modalCarouselImages) {
+              startCarouselAutoplay(index, section.images!.length)
+            }
+          }, 0)
         }
       })
       setCarouselStates(newStates)
@@ -220,7 +241,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     const interval = setInterval(() => {
       setCarouselStates(prev => {
         const state = prev[sectionIndex] || { currentIndex: 0, isInteracting: false }
-        if (!state.isInteracting) {
+        if (!state.isInteracting && !modalCarouselImages) {
           return {
             ...prev,
             [sectionIndex]: {
@@ -231,7 +252,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         }
         return prev
       })
-    }, 3000)
+    }, 2500)
 
     setCarouselIntervals(prev => ({
       ...prev,
@@ -266,9 +287,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       ...prev,
       [sectionIndex]: {
         ...prev[sectionIndex],
-        currentIndex: (prev[sectionIndex]?.currentIndex || 0) - 1 < 0 ? totalImages - 1 : (prev[sectionIndex]?.currentIndex || 0) - 1
+        currentIndex: (prev[sectionIndex]?.currentIndex || 0) - 1 < 0 ? totalImages - 1 : (prev[sectionIndex]?.currentIndex || 0) - 1,
+        isInteracting: true
       }
     }))
+    stopCarouselAutoplay(sectionIndex)
   }
 
   const handleCarouselNext = (sectionIndex: number, totalImages: number) => {
@@ -276,9 +299,22 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       ...prev,
       [sectionIndex]: {
         ...prev[sectionIndex],
-        currentIndex: ((prev[sectionIndex]?.currentIndex || 0) + 1) % totalImages
+        currentIndex: ((prev[sectionIndex]?.currentIndex || 0) + 1) % totalImages,
+        isInteracting: true
       }
     }))
+    stopCarouselAutoplay(sectionIndex)
+  }
+
+  const resumeCarouselAutoplay = (sectionIndex: number, totalImages: number) => {
+    setCarouselStates(prev => ({
+      ...prev,
+      [sectionIndex]: {
+        ...prev[sectionIndex],
+        isInteracting: false
+      }
+    }))
+    startCarouselAutoplay(sectionIndex, totalImages)
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -311,6 +347,10 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           -webkit-user-drag: none;
           -webkit-touch-callout: none;
           -webkit-user-select: none;
+        }
+
+        .carousel-image {
+          transition: opacity 0.6s ease-in-out;
         }
       `}</style>
       <div className="fixed top-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
@@ -443,14 +483,18 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                             isInteracting: true
                           }
                         }))
+                        stopCarouselAutoplay(index)
+                      }}
+                      onMouseLeave={() => {
+                        resumeCarouselAutoplay(index, section.images!.length)
                       }}
                     >
                       <div className="relative" style={{ width: '100%', paddingBottom: '75%', position: 'relative' }}>
                         {section.images.map((image, imgIndex) => (
                           <div
                             key={imgIndex}
-                            className="absolute inset-0 w-full h-full"
-                            style={{ display: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'block' : 'none' }}
+                            className="absolute inset-0 w-full h-full carousel-image"
+                            style={{ display: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'block' : 'none', opacity: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 1 : 0 }}
                           >
                             <Image
                               src={image}
