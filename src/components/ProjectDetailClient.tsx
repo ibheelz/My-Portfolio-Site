@@ -78,9 +78,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const sectionId = entry.target.id
-            const index = parseInt(sectionId.replace('section', '')) - 1
-            setActiveSection(index)
+            const section = (entry.target as HTMLElement).closest('section')
+            if (section && section.id) {
+              const index = parseInt(section.id.replace('section', '')) - 1
+              setActiveSection(index)
+            }
           }
         })
       },
