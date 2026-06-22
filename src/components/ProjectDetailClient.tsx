@@ -45,6 +45,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const project = projects.find((p) => p.slug === slug)
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
+  const [isManuallyScrolling, setIsManuallyScrolling] = useState(false)
   const [modalImage, setModalImage] = useState<string | null>(null)
   const [modalCarouselImages, setModalCarouselImages] = useState<string[] | null>(null)
   const [modalCarouselIndex, setModalCarouselIndex] = useState(0)
@@ -75,6 +76,8 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     if (!pageContent || !project) return
 
     const handleScroll = () => {
+      if (isManuallyScrolling) return
+
       const scrollTop = pageContent.scrollTop
       const viewportMiddle = scrollTop + pageContent.clientHeight / 3
       let activeIndex = 0
@@ -580,10 +583,12 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       onClick={(e) => {
                         e.preventDefault()
                         setActiveSection(index)
+                        setIsManuallyScrolling(true)
                         const heading = document.querySelector(`#section${index + 1} h2`)
                         if (heading) {
                           heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
                         }
+                        setTimeout(() => setIsManuallyScrolling(false), 1000)
                       }}
                       className={`font-gucina text-[12px] leading-[18px] tracking-[0.01em] transition-colors duration-200 cursor-pointer ${
                         activeSection === index
