@@ -329,7 +329,6 @@ a {
   .exploration-detail-layout {
     flex-direction: row !important;
     height: 100vh !important;
-    h-screen !important;
   }
 
   .exploration-slideshow {
