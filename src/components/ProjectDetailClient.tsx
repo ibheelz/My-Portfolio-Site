@@ -71,37 +71,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     }
   }, [slug])
 
-  useEffect(() => {
-    const pageContent = document.querySelector('.page-content') as HTMLElement
-    if (!pageContent || !project) return
-
-    const handleScroll = () => {
-      if (isManuallyScrolling) return
-
-      const scrollTop = pageContent.scrollTop
-      const viewportMiddle = scrollTop + pageContent.clientHeight / 3
-      let activeIndex = 0
-      let closestDistance = Infinity
-
-      for (let i = 0; i < project.sections.length; i++) {
-        const section = document.querySelector(`#section${i + 1}`) as HTMLElement
-        if (section) {
-          const sectionTop = section.offsetTop
-          const distance = Math.abs(sectionTop - viewportMiddle)
-          if (distance < closestDistance) {
-            closestDistance = distance
-            activeIndex = i
-          }
-        }
-      }
-
-      setActiveSection(activeIndex)
-    }
-
-    pageContent.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => pageContent.removeEventListener('scroll', handleScroll)
-  }, [project])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
