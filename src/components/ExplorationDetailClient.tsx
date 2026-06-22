@@ -125,7 +125,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                       src={image}
                       alt={`${exploration.title} - Image ${index + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                       priority={index === 0}
                       quality={80}
                       sizes="100vw"
@@ -219,7 +219,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
               src={exploration.images[currentImageIndex]}
               alt={`${exploration.title} - Image ${currentImageIndex + 1}`}
               fill
-              className="object-contain"
+              className="object-cover"
             />
 
             <button
