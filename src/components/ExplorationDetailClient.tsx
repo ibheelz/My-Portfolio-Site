@@ -325,7 +325,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         <section className="w-full bg-[rgb(14,14,18)] overflow-hidden flex flex-col" style={{ padding: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', gap: 'clamp(24px, 5vw, 40px)' }}>
           <FadeIn>
             <h2
-              className="font-heading text-[clamp(6px,1.25vw,7.5px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+              className="font-heading text-[clamp(12px,2vw,16px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase"
               style={{ fontFamily: 'Mortend' }}
             >
               More explorations
