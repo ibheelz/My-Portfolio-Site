@@ -189,7 +189,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
           </div>
 
           {/* Second Section - More Explorations Grid */}
-          <section className="p-16">
+          <section className="px-4 py-16">
             <h2 className="font-heading text-[16px] leading-[1.2] tracking-[-0.02em] text-white uppercase mb-8" style={{ fontFamily: 'Mortend' }}>
               More explorations
             </h2>
@@ -201,7 +201,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
           </section>
 
           {/* Third Section - Let's Connect */}
-          <section className="border-t-2 border-[rgb(2,1,10)] p-24">
+          <section className="border-t-2 border-[rgb(2,1,10)] px-4 py-24">
             <LetsConnectSection />
           </section>
         </div>
