@@ -133,18 +133,20 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   </div>
                 ))}
 
-                {/* Previous Button - Top Left */}
+                {/* Previous Button - Left Middle */}
                 <button
                   onClick={(e) => { e.stopPropagation(); handlePrevious(); }}
-                  className="absolute top-4 left-4 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
+                  className="absolute left-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
+                  style={{ transform: 'translateY(-50%)' }}
                 >
                   <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
                 </button>
 
-                {/* Next Button - Top Right */}
+                {/* Next Button - Right Middle */}
                 <button
                   onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
+                  className="absolute right-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
+                  style={{ transform: 'translateY(-50%)' }}
                 >
                   <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
                 </button>
