@@ -135,22 +135,22 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'Project Overview',
-        content: 'Verdant Cafe is a Portland-based specialty coffee brand centered on one idea: sitting down with your friend over a good cup of coffee. Founder Marcus Chen sources beans directly from farmers in Colombia, Ethiopia, and Guatemala. The playful-but-premium brand identity features hand-drawn typography, warm earthy colors, and a bearded mascot that represents Marcus while doubling as two coffee cups toasting—embedding friendship into every detail.',
+        content: 'Verdant Cafe is a Portland-based specialty coffee brand centered on one idea: sitting down with your friend over a good cup of coffee. Founder Marcus Chen sources beans directly from farmers in Colombia, Ethiopia, and Guatemala.\n\nThe playful-but-premium brand identity features hand-drawn typography, warm earthy colors, and a bearded mascot that represents Marcus while doubling as two coffee cups toasting and embedding friendship into every detail.',
         image: 'https://framerusercontent.com/images/xOhrZlZGOQ2RCjPxGczDXfAtdYc.gif?width=800&height=450',
       },
       {
         title: 'The Challenge',
-        content: 'Specialty coffee branding has become overly serious and exclusive. Most brands adopt minimal, cold aesthetics that feel more like design museums than welcoming spaces. Men aged 30-50 lack accessible third places where they can sit down with friends without pretense or performance. Verdant needed to break this mold while maintaining premium quality and ethical sourcing standards.',
+        content: 'Specialty coffee branding has become overly serious and exclusive. Most brands adopt minimal, cold aesthetics that feel more like design museums than welcoming spaces.\n\nMen aged 30 to 50 lack accessible third places where they can sit down with friends without pretense or performance. Verdant needed to break this mold while maintaining premium quality and ethical sourcing standards.',
         image: 'https://framerusercontent.com/images/1teDv4ZcZm10tBmTdbONWqT8Sso.gif?width=1400&height=1051',
       },
       {
         title: 'Brand Strategy',
-        content: 'The strategy centers on genuine human connection over coffee. Marcus Chen\'s story of rediscovering friendship through a simple coffee conversation became the brand foundation. Verdant positions itself as playful but premium, targeting men who appreciate craft quality but reject coffee snobbery. The brand promise is simple: good coffee from farmers we know, shared in a space where you can relax and talk.',
+        content: 'The strategy centers on genuine human connection over coffee. Marcus Chen\'s story of rediscovering friendship through a simple coffee conversation became the brand foundation.\n\nVerdant positions itself as playful but premium, targeting men who appreciate craft quality but reject coffee snobbery. The brand promise is simple: good coffee from farmers we know, shared in a space where you can relax and talk.',
         image: 'https://framerusercontent.com/images/Sl8rx0GmuTH5PtkF3T6c6W2p9g.gif?width=800&height=450',
       },
       {
         title: 'Visual Identity',
-        content: 'The bearded mascot icon represents Marcus while visually reading as two coffee cups toasting. Warm earthy colors (deep teal & cream) and organic typography create an approachable premium aesthetic that feels crafted, not corporate.',
+        content: 'The bearded mascot icon represents Marcus while visually reading as two coffee cups toasting.\n\nWarm earthy colors (deep teal and cream) and organic typography create an approachable premium aesthetic that feels crafted, not corporate.',
         image: 'https://framerusercontent.com/images/umKHDWBYIi7CLGa4eIRtHGSrQw.png?width=1400&height=964',
       },
     ],
