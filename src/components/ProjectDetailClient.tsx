@@ -72,23 +72,32 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
   useEffect(() => {
     const pageContent = document.querySelector('.page-content') as HTMLElement
-    if (!pageContent) return
+    if (!pageContent || !project) return
 
-    const handleScroll = () => {
-      project?.sections.forEach((_, index) => {
-        const heading = document.querySelector(`#section${index + 1} h2`) as HTMLElement
-        if (heading) {
-          const rect = heading.getBoundingClientRect()
-          const isInView = rect.top >= 0 && rect.top < window.innerHeight / 2
-          if (isInView) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id
+            const index = parseInt(sectionId.replace('section', '')) - 1
             setActiveSection(index)
           }
-        }
-      })
-    }
+        })
+      },
+      {
+        root: pageContent,
+        threshold: 0.3
+      }
+    )
 
-    pageContent.addEventListener('scroll', handleScroll)
-    return () => pageContent.removeEventListener('scroll', handleScroll)
+    project.sections.forEach((_, index) => {
+      const heading = document.querySelector(`#section${index + 1} h2`)
+      if (heading) {
+        observer.observe(heading)
+      }
+    })
+
+    return () => observer.disconnect()
   }, [project])
 
   useEffect(() => {
