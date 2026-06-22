@@ -40,14 +40,6 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
     }
   }, [slug])
 
-  useEffect(() => {
-    if (!exploration) return
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % exploration.images.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [exploration])
-
   if (!exploration) {
     return <div className="ml-[296px] p-8">Exploration not found</div>
   }
@@ -117,8 +109,8 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                 {exploration.images.map((image, index) => (
                   <div
                     key={index}
-                    className="absolute inset-0 cursor-pointer transition-opacity duration-500"
-                    style={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                    className="absolute inset-0 cursor-pointer"
+                    style={{ display: index === currentImageIndex ? 'block' : 'none' }}
                     onClick={() => setIsModalOpen(true)}
                   >
                     <Image
