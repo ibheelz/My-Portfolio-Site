@@ -256,7 +256,6 @@ export const explorations: Exploration[] = [
     cardImage: 'https://framerusercontent.com/images/LbnvzXqr3P4LBJV2Q1gES4NauU.png?width=2000&height=2000',
     randomizeImages: true,
     images: [
-      'https://framerusercontent.com/images/wuYJgeFi4Cbxh0glSqabfpGh4.png?width=2048&height=2048',
       'https://framerusercontent.com/images/0OoFz5p9hNvRgCJLvy669DQzbG4.png?width=2000&height=2000',
       'https://framerusercontent.com/images/LbnvzXqr3P4LBJV2Q1gES4NauU.png?width=2000&height=2000',
       'https://framerusercontent.com/images/gItAqlwvxAL4vL9GothXOsAIo.png?width=2000&height=2000',
