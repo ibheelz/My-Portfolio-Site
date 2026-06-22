@@ -268,8 +268,8 @@ a {
   padding: 16px;
 }
 
-/* MEDIUM DESKTOP (1240px - 1799px) - Keep sidebar, mobile content */
-@media (min-width: 1240px) and (max-width: 1799px) {
+/* MEDIUM DESKTOP (1240px - 1399px) - Keep sidebar, mobile content */
+@media (min-width: 1240px) and (max-width: 1399px) {
   .page-wrapper {
     flex-direction: row;
   }
@@ -324,8 +324,8 @@ a {
   }
 }
 
-/* LARGE DESKTOP (≥1800px) - Full split layout */
-@media (min-width: 1800px) {
+/* LARGE DESKTOP (≥1400px) - Full split layout */
+@media (min-width: 1400px) {
   .exploration-detail-layout {
     flex-direction: row !important;
     height: 100vh !important;
