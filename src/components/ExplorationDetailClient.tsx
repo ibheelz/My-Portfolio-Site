@@ -96,8 +96,8 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
       <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
         <div
-          className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-visible hidden lg:flex"
-          style={{ height: '100vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(16px, 5vw, 64px)', paddingBottom: 'clamp(16px, 5vw, 64px)' }}
+          className="relative w-full flex flex-col lg:flex-row gap-0 border-b-2 border-[rgb(2,1,10)] pb-0 overflow-visible hidden lg:flex"
+          style={{ height: '100vh' }}
         >
           <div
             ref={slideShowRef}
@@ -164,7 +164,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col justify-between" style={{ padding: 'clamp(24px, 5vw, 48px)', paddingTop: 'clamp(24px, 5vw, 48px)' }}>
+          <div className="flex-1 flex flex-col justify-between" style={{ padding: 'clamp(24px, 5vw, 48px)' }}>
             <div className="flex flex-col" style={{ gap: 'clamp(16px, 4vw, 32px)' }}>
               <h1 className="font-heading text-[clamp(16px,4vw,22.5px)] leading-[1.2] tracking-[-0.02em] text-[rgb(250,250,250)] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
                 {exploration.title}
