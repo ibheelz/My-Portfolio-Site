@@ -406,7 +406,7 @@ a {
   }
 
   .exploration-card {
-    aspect-ratio: 1 !important;
+    height: auto !important;
   }
 
   /* Ensure image containers remain square on ultra-wide */
@@ -672,7 +672,7 @@ nav.project-detail-nav {
   }
 
   .exploration-card {
-    aspect-ratio: 1 !important;
+    height: auto !important;
   }
 
   .projects-row {
@@ -758,7 +758,7 @@ nav.project-detail-nav {
   }
 
   .exploration-card {
-    aspect-ratio: 1 !important;
+    height: auto !important;
   }
 
   .projects-row {
