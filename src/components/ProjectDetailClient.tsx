@@ -318,7 +318,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           {project.slug === 'martell' && (
             <>
               <Image
-                src="/martell-hero-mobile.png"
+                src="/martell-hero-mobile.webp"
                 alt={project.title}
                 fill
                 priority

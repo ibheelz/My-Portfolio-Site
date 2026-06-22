@@ -23,9 +23,6 @@ export default function ProjectsPage() {
           <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
             Projects
           </h1>
-          <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]" style={{ color: 'rgb(138, 138, 138)', width: 'fit-content', margin: 0 }}>
-            (2025 - 2026)
-          </p>
         </section>
       </FadeIn>
 
