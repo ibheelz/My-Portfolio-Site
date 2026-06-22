@@ -268,6 +268,40 @@ a {
   padding: 16px;
 }
 
+/* MEDIUM DESKTOP (1240px - 1799px) - Keep sidebar, mobile content */
+@media (min-width: 1240px) and (max-width: 1799px) {
+  .page-wrapper {
+    flex-direction: row;
+  }
+
+  .sidebar-nav {
+    display: flex !important;
+  }
+
+  .mobile-navbar {
+    display: none !important;
+  }
+
+  .page-content {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 16px;
+    min-height: 0;
+  }
+
+  .content-container {
+    padding: 32px 16px 32px 16px;
+    gap: 32px;
+  }
+
+  .explorations-content {
+    padding: 32px 16px 16px 16px;
+    gap: 32px;
+  }
+}
+
 /* ULTRA-WIDE (≥1920px / 2xl) */
 @media (min-width: 1920px) {
   .page-wrapper {
