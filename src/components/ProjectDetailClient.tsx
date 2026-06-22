@@ -45,7 +45,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const project = projects.find((p) => p.slug === slug)
   const [navVisible, setNavVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
-  const [isManuallyScrolling, setIsManuallyScrolling] = useState(false)
   const [modalImage, setModalImage] = useState<string | null>(null)
   const [modalCarouselImages, setModalCarouselImages] = useState<string[] | null>(null)
   const [modalCarouselIndex, setModalCarouselIndex] = useState(0)
@@ -55,6 +54,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const [touchStartX, setTouchStartX] = useState(0)
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)
+  const isManuallyScrollingRef = useRef(false)
 
   useLayoutEffect(() => {
     const pageContent = document.querySelector('.page-content') as HTMLElement
@@ -70,10 +70,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       pageContent.scrollTop = 0
     }
   }, [slug])
-
-  useEffect(() => {
-    console.log('activeSection state changed to:', activeSection)
-  }, [activeSection])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -127,6 +123,10 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     }
 
     const handleScroll = () => {
+      if (isManuallyScrollingRef.current) {
+        return
+      }
+
       const sections = project?.sections || []
       let activeIndex = 0
 
@@ -556,14 +556,15 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       onClick={(e) => {
                         e.preventDefault()
                         const sectionIndex = parseInt((e.currentTarget as HTMLElement).getAttribute('data-section-index') || '0')
-                        console.log('Clicked index:', sectionIndex, 'activeSection will be set to:', sectionIndex)
                         setActiveSection(sectionIndex)
-                        setIsManuallyScrolling(true)
+                        isManuallyScrollingRef.current = true
                         const heading = document.querySelector(`#section${sectionIndex + 1} h2`)
                         if (heading) {
                           heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
                         }
-                        setTimeout(() => setIsManuallyScrolling(false), 1000)
+                        setTimeout(() => {
+                          isManuallyScrollingRef.current = false
+                        }, 1000)
                       }}
                       className={`font-gucina text-[12px] leading-[18px] tracking-[0.01em] transition-colors duration-200 cursor-pointer ${
                         activeSection === index
