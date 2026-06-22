@@ -66,7 +66,6 @@ export const projects: Project[] = [
       {
         title: 'The Idea',
         content: 'Most outdoor advertising asks for attention. This did not. The brief was about location, specifically the one roundabout in Lagos that every single person crossing into Lagos Island cannot avoid. The audacity of the concept was not the structure itself. It was the decision to plant a permanent branded monument at that exact point in the city and let geography do the rest.',
-        image: '/martell-hero.webp',
       },
       {
         title: 'Process',
