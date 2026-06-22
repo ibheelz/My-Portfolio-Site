@@ -170,11 +170,11 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'The Person',
-        content: 'Rasheedat Ajibade, known as Rash, is a Nigerian professional footballer who was already making waves at Atletico Madrid when this project began. She is now captain of the Super Falcons and plays for Paris Saint-Germain.\n\nKnown for her blue hair and her campaign #TheGirlWithTheBluehair, Rash needed a personal brand that matched her energy on and off the pitch.',
+        content: 'Rasheedat Ajibade, known as Rash, is a Nigerian professional footballer who was already making waves at Atletico Madrid when this project began. She is now captain of the Super Falcons and plays for Paris Saint-Germain.\n\nKnown for her blue hair and her campaign #TheGirlWithTheBlueHair, Rash needed a personal brand that matched her energy on and off the pitch.',
       },
       {
         title: 'The Logo',
-        content: 'The mark is designed around Rasheedat herself. The shape forms an R but it is also a figure in motion, a player mid-kick, striking the ball with her right foot the way she plays.\n\nThe blue circle sitting at the top is her blue hair, the same detail that made her #TheGirlWithTheBluehair before the world knew her name. Everything in the logo is her. The initial, the movement, the hair.\n\nIt is a portrait disguised as a symbol.',
+        content: 'The mark is designed around Rasheedat herself. The shape forms an R but it is also a figure in motion, a player mid-kick, striking the ball with her right foot the way she plays.\n\nThe blue circle sitting at the top is her blue hair, the same detail that made her #TheGirlWithTheBlueHair before the world knew her name. Everything in the logo is her. The initial, the movement, the hair.\n\nIt is a portrait disguised as a symbol.',
         image: '/rash-logo.webp',
       },
       {

@@ -9,11 +9,11 @@ import ProjectCard from '@/src/components/ProjectCard'
 import { FadeIn } from '@/src/components/FadeIn'
 
 const renderStyledContent = (text: string): ReactNode[] => {
-  const parts = text.split(/(#TheGirlWithTheBluehair)/g)
+  const parts = text.split(/(#TheGirlWithTheBlueHair)/g)
   return parts.map((part, index) => {
-    if (part === '#TheGirlWithTheBluehair') {
+    if (part === '#TheGirlWithTheBlueHair') {
       return (
-        <span key={index} style={{ color: 'rgb(0, 150, 214)' }}>
+        <span key={index} style={{ color: 'rgb(129, 195, 215)' }}>
           {part}
         </span>
       )
