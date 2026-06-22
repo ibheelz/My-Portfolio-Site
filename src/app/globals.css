@@ -550,7 +550,7 @@ nav.project-detail-nav {
 }
 
 .project-card {
-  aspect-ratio: 1 !important;
+  height: auto !important;
 }
 
 .project-card-home {
