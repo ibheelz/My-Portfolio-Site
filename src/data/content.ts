@@ -129,7 +129,7 @@ export const projects: Project[] = [
     duration: '4 Weeks',
     date: 'January – February 2026',
     readingTime: '4 min read',
-    isFeatured: false,
+    isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/Gjv37JbUfzuixRwc4G6wKaGqehc.png',
     heroImage: 'https://framerusercontent.com/images/9bJJ90PcA0AIO3pZTS7Gi79k.png',
     roleLabels: ['Visual Identity', 'Brand Identity', 'Branding', 'Cafe'],
