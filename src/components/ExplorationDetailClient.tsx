@@ -160,6 +160,11 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                 <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
                   {exploration.title}
                 </h1>
+                {exploration.description && (
+                  <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
+                    {exploration.description}
+                  </p>
+                )}
               </div>
 
               {/* Bottom Content */}
