@@ -350,7 +350,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         }
 
         .carousel-image {
-          transition: opacity 0.8s ease-in-out;
+          transition: opacity 1.2s ease-in-out;
+        }
+
+        .carousel-image img {
+          transition: none !important;
         }
       `}</style>
       <div className="fixed top-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-20 hidden lg:block" />
@@ -505,7 +509,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                               fill
                               loading="eager"
                               quality={75}
-                              className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                              className="w-full h-full object-cover"
                               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
                               onContextMenu={(e) => handleImageContextMenu(e as any)}
                               onDragStart={handleImageDrag}
