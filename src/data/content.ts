@@ -65,21 +65,21 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'The Idea',
-        content: 'Most outdoor advertising asks for attention. This did not. The brief was about location, specifically the one roundabout in Lagos that every single person crossing into Lagos Island cannot avoid. The audacity of the concept was not the structure itself. It was the decision to plant a permanent branded monument at that exact point in the city and let geography do the rest.',
+        content: 'Most outdoor advertising asks for attention. This did not. The brief was about location, specifically the one roundabout in Lagos that every single person crossing into Lagos Island cannot avoid.\n\nThe audacity of the concept was not the structure itself. It was the decision to plant a permanent branded monument at that exact point in the city and let geography do the rest.',
       },
       {
         title: 'Process',
-        content: 'I handled the 3D modeling and visualization in Blender as part of the creative team at Eyekontact. Every surface and proportion was built to real world scale before fabrication began.',
+        content: 'I handled the 3D modeling and visualization in Blender as part of the creative team at Eyekontact.\n\nEvery surface and proportion was built to real world scale before fabrication began.',
         images: ['/martell-pro-1.webp', '/martell-pro-2.webp', '/martell-pro-3.webp'],
       },
       {
         title: 'Visualization',
-        content: 'The renders showed exactly what would be built. Navy background, white letters, gold swallow. The swallow was the most detailed part. Each fin was modeled separately so it would catch shadow properly at that size. What you see in the render is what went up at the roundabout.',
+        content: 'The renders showed exactly what would be built. Navy background, white letters, gold swallow.\n\nThe swallow was the most detailed part. Each fin was modeled separately so it would catch shadow properly at that size. What you see in the render is what went up at the roundabout.',
         images: ['/martell-vis-1.webp', '/martell-vis-3.webp', '/martell-vis-2.webp'],
       },
       {
         title: 'Result',
-        content: 'The installation went up at the Admiralty Way roundabout in Lekki, one of the most trafficked junctions on the Lagos Island corridor. Day or night, from ground level or above, it held. The ground lanterns framing the black platform, the backlit lettering cutting through Lagos traffic at night, the swallow visible from every approach. It was not just seen. It was felt. That is what happens when the location is the strategy.',
+        content: 'The installation went up at the Admiralty Way roundabout in Lekki, one of the most trafficked junctions on the Lagos Island corridor. Day or night, from ground level or above, it held.\n\nThe ground lanterns framing the black platform, the backlit lettering cutting through Lagos traffic at night, the swallow visible from every approach. It was not just seen. It was felt.\n\nThat is what happens when the location is the strategy.',
         images: ['/martell-res-1.webp', '/martell-res-2.webp', '/martell-res-3.webp', '/martell-res-4.webp'],
       },
     ],
@@ -170,25 +170,25 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'The Person',
-        content: 'Rasheedat Ajibade, known as Rash, is a Nigerian professional footballer who was already making waves at Atletico Madrid when this project began. She is now captain of the Super Falcons and plays for Paris Saint-Germain. Known for her blue hair and her campaign #TheGirlWithTheBluehair, Rash needed a personal brand that matched her energy on and off the pitch.',
+        content: 'Rasheedat Ajibade, known as Rash, is a Nigerian professional footballer who was already making waves at Atletico Madrid when this project began. She is now captain of the Super Falcons and plays for Paris Saint-Germain.\n\nKnown for her blue hair and her campaign #TheGirlWithTheBluehair, Rash needed a personal brand that matched her energy on and off the pitch.',
       },
       {
         title: 'The Logo',
-        content: 'The mark is designed around Rasheedat herself. The shape forms an R but it is also a figure in motion, a player mid-kick, striking the ball with her right foot the way she plays. The blue circle sitting at the top is her blue hair, the same detail that made her #TheGirlWithTheBluehair before the world knew her name. Everything in the logo is her. The initial, the movement, the hair. It is a portrait disguised as a symbol.',
+        content: 'The mark is designed around Rasheedat herself. The shape forms an R but it is also a figure in motion, a player mid-kick, striking the ball with her right foot the way she plays.\n\nThe blue circle sitting at the top is her blue hair, the same detail that made her #TheGirlWithTheBluehair before the world knew her name. Everything in the logo is her. The initial, the movement, the hair.\n\nIt is a portrait disguised as a symbol.',
         image: '/rash-logo.webp',
       },
       {
         title: 'The Identity',
-        content: 'The logo is built around a single gesture. Clean, personal, unmistakable. The wordmark sits underneath it, straightforward and confident, the same way she carries herself. No excess. Just her name and what it stands for.',
+        content: 'The logo is built around a single gesture. Clean, personal, unmistakable.\n\nThe wordmark sits underneath it, straightforward and confident, the same way she carries herself. No excess. Just her name and what it stands for.',
       },
       {
         title: 'The Merch',
-        content: 'The identity was applied across a full range of merchandise. Hoodies, slides, beanies. Each piece carries the brand quietly, the way a personal brand should, present without being loud.',
+        content: 'The identity was applied across a full range of merchandise. Hoodies, slides, beanies.\n\nEach piece carries the brand quietly, the way a personal brand should, present without being loud.',
         images: ['/rash-slides.webp', '/rash-merch.webp'],
       },
       {
         title: 'Where It Stands Now',
-        content: 'The brand was designed in 2020. Since then Rash has won WAFCON, signed for PSG, and become one of the most recognizable athletes in African women\'s football. The identity built six years ago is still the one she carries.',
+        content: 'The brand was designed in 2020. Since then Rash has won WAFCON, signed for PSG, and become one of the most recognizable athletes in African women\'s football.\n\nThe identity built six years ago is still the one she carries.',
         images: ['/rash-on-merch.webp', '/rash-on-merch-2.webp'],
       },
     ],
