@@ -165,8 +165,8 @@ export const projects: Project[] = [
     duration: '1 Month',
     date: 'March 2020',
     isFeatured: true,
-    cardImage: '/rash-cover.png',
-    heroImage: '/rash-hero.jpg',
+    cardImage: '/rash-cover.webp',
+    heroImage: '/rash-hero.webp',
     roleLabels: ['Branding', 'Sports'],
     sections: [
       {
@@ -176,7 +176,7 @@ export const projects: Project[] = [
       {
         title: 'The Logo',
         content: 'The mark is designed around Rasheedat herself. The shape forms an R but it is also a figure in motion, a player mid-kick, striking the ball with her right foot the way she plays. The blue circle sitting at the top is her blue hair, the same detail that made her #TheGirlWithTheBluehair before the world knew her name. Everything in the logo is her. The initial, the movement, the hair. It is a portrait disguised as a symbol.',
-        image: '/rash-logo.png',
+        image: '/rash-logo.webp',
       },
       {
         title: 'The Identity',
@@ -185,12 +185,12 @@ export const projects: Project[] = [
       {
         title: 'The Merch',
         content: 'The identity was applied across a full range of merchandise. Hoodies, slides, beanies. Each piece carries the brand quietly, the way a personal brand should, present without being loud.',
-        images: ['/rash-slides.png', '/rash-merch.png'],
+        images: ['/rash-slides.webp', '/rash-merch.webp'],
       },
       {
         title: 'Where It Stands Now',
         content: 'The brand was designed in 2020. Since then Rash has won WAFCON, signed for PSG, and become one of the most recognizable athletes in African women\'s football. The identity built six years ago is still the one she carries.',
-        images: ['/rash-on-merch.png', '/rash-on-merch-2.png'],
+        images: ['/rash-on-merch.webp', '/rash-on-merch-2.webp'],
       },
     ],
   },
