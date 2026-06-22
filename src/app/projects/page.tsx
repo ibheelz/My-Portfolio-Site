@@ -14,6 +14,7 @@ const otherProjects = [
 
 export default function ProjectsPage() {
   const featuredProjects = projects.filter((p) => p.isFeatured)
+  const allProjects = projects.filter((p) => !p.isFeatured)
 
   return (
     <div className="content-container">
@@ -37,7 +38,92 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* SECTION 3 - Other Projects */}
+      {/* SECTION 3 - All Projects */}
+      {allProjects.length > 0 && (
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '12px', overflow: 'hidden', marginBottom: '100px' }}>
+          <FadeIn>
+            <div style={{ display: 'flex', alignItems: 'center', height: '28px', overflow: 'hidden', gap: '2px' }}>
+              <h2 className="heading-2" style={{ textTransform: 'uppercase' }}>
+                All projects
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="projects-rows-stack" style={{ display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden', marginTop: '10px' }}>
+            {allProjects.map((project, index) => (
+              <FadeIn key={project.slug} delay={index * 0.08}>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="projects-row"
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '40px',
+                    borderBottom: '1px solid rgb(31, 31, 31)',
+                    padding: '12px',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {/* Title */}
+                  <div style={{ flex: 1, zIndex: 2, position: 'relative' }}>
+                    <p className="body-m-leading projects-row-title" style={{ color: 'rgb(138, 138, 138)' }}>
+                      {project.title}
+                    </p>
+                  </div>
+
+                  {/* Labels */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 2, position: 'relative' }}>
+                    <div
+                      style={{
+                        borderRadius: '40px',
+                        border: '1px solid rgb(51, 51, 51)',
+                        padding: '8px 12px',
+                        fontSize: '12px',
+                        lineHeight: '18px',
+                        color: 'rgb(138, 138, 138)',
+                        fontFamily: 'Gucina',
+                      }}
+                    >
+                      {project.label1}
+                    </div>
+                    <div
+                      style={{
+                        borderRadius: '40px',
+                        border: '1px solid rgb(51, 51, 51)',
+                        padding: '8px 12px',
+                        fontSize: '12px',
+                        lineHeight: '18px',
+                        color: 'rgb(138, 138, 138)',
+                        fontFamily: 'Gucina',
+                      }}
+                    >
+                      {project.label2}
+                    </div>
+                  </div>
+
+                  {/* Arrow Icon */}
+                  <div className="projects-row-arrow" style={{ width: '36px', height: '36px', zIndex: 2, position: 'relative' }}>
+                    <ArrowDownRight
+                      size={20}
+                      weight="bold"
+                      color="rgb(143, 134, 152)"
+                      style={{ transform: 'rotate(-90deg)' }}
+                    />
+                  </div>
+
+                  {/* Hover Overlay */}
+                  <div className="projects-row-overlay" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgb(2, 1, 10)', zIndex: 1, pointerEvents: 'none' }} />
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* SECTION 4 - Other Projects */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '12px', overflow: 'hidden' }}>
         <FadeIn>
           <div style={{ display: 'flex', alignItems: 'center', height: '28px', overflow: 'hidden', gap: '2px' }}>
