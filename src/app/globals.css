@@ -550,15 +550,15 @@ nav.project-detail-nav {
 }
 
 .project-card {
-  height: auto !important;
+  aspect-ratio: 1 !important;
 }
 
 .project-card-home {
-  height: auto !important;
+  aspect-ratio: 1 !important;
 }
 
 .exploration-card {
-  aspect-ratio: 1 !important;
+  height: auto !important;
   gap: clamp(16px, 4vw, 32px) !important;
 }
 
