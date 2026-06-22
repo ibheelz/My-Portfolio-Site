@@ -1,12 +1,26 @@
 'use client'
 
-import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { ArrowLeft } from '@phosphor-icons/react'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import { FadeIn } from '@/src/components/FadeIn'
+
+const renderStyledContent = (text: string): ReactNode[] => {
+  const parts = text.split(/(#TheGirlWithTheBluehair)/g)
+  return parts.map((part, index) => {
+    if (part === '#TheGirlWithTheBluehair') {
+      return (
+        <span key={index} style={{ color: 'rgb(0, 150, 214)' }}>
+          {part}
+        </span>
+      )
+    }
+    return part
+  })
+}
 
 interface Project {
   slug: string
@@ -406,7 +420,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     {section.title}
                   </h2>
                   <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)] whitespace-pre-wrap">
-                    {section.content}
+                    {renderStyledContent(section.content)}
                   </p>
                   {section.images && section.images.length > 0 ? (
                     <div
