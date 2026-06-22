@@ -549,11 +549,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   <li key={index}>
                     <a
                       href={`#section${index + 1}`}
+                      data-section-index={index}
                       onClick={(e) => {
                         e.preventDefault()
-                        setActiveSection(index)
+                        const sectionIndex = parseInt((e.currentTarget as HTMLElement).getAttribute('data-section-index') || '0')
+                        console.log('Clicked index:', sectionIndex, 'activeSection will be set to:', sectionIndex)
+                        setActiveSection(sectionIndex)
                         setIsManuallyScrolling(true)
-                        const heading = document.querySelector(`#section${index + 1} h2`)
+                        const heading = document.querySelector(`#section${sectionIndex + 1} h2`)
                         if (heading) {
                           heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
                         }
