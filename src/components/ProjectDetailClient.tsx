@@ -75,26 +75,26 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     if (!pageContent || !project) return
 
     const handleScroll = () => {
-      let currentSection = 0
-      const navHeight = 100
+      const scrollTop = pageContent.scrollTop
+      let activeIndex = 0
 
-      project.sections.forEach((_, index) => {
-        const section = document.querySelector(`#section${index + 1}`) as HTMLElement
+      for (let i = 0; i < project.sections.length; i++) {
+        const section = document.querySelector(`#section${i + 1}`) as HTMLElement
         if (section) {
-          const rect = section.getBoundingClientRect()
-          const pageContentRect = pageContent.getBoundingClientRect()
-          const relativeTop = rect.top - pageContentRect.top
-
-          if (relativeTop - navHeight <= pageContent.scrollTop + 20) {
-            currentSection = index
+          const sectionTop = section.offsetTop
+          if (sectionTop <= scrollTop + 150) {
+            activeIndex = i
+          } else {
+            break
           }
         }
-      })
+      }
 
-      setActiveSection(currentSection)
+      setActiveSection(activeIndex)
     }
 
     pageContent.addEventListener('scroll', handleScroll)
+    handleScroll()
     return () => pageContent.removeEventListener('scroll', handleScroll)
   }, [project])
 
