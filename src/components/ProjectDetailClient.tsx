@@ -415,7 +415,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                 <section id={`section${index + 1}`} className="flex flex-col gap-8 w-full">
                   <h2
                     className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
-                    style={{ fontFamily: 'Mortend', margin: 0 }}
+                    style={{ fontFamily: 'Mortend', margin: 0, scrollMarginTop: '100px' }}
                   >
                     {section.title}
                   </h2>
