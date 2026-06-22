@@ -97,12 +97,12 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
       <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
         <div
           className="relative w-full flex flex-col lg:flex-row gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 overflow-visible hidden lg:flex"
-          style={{ height: '85vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
+          style={{ height: '100vh', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(16px, 5vw, 64px)', paddingBottom: 'clamp(16px, 5vw, 64px)' }}
         >
           <div
             ref={slideShowRef}
             className="relative overflow-hidden cursor-grab active:cursor-grabbing w-full flex flex-col"
-            style={{ flex: '1 1 65%', height: '100%' }}
+            style={{ flex: '1 1 70%', height: '100%' }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={() => setIsDragging(false)}
