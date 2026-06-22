@@ -74,32 +74,28 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     const pageContent = document.querySelector('.page-content') as HTMLElement
     if (!pageContent || !project) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const section = (entry.target as HTMLElement).closest('section')
-            if (section && section.id) {
-              const index = parseInt(section.id.replace('section', '')) - 1
-              setActiveSection(index)
-            }
+    const handleScroll = () => {
+      let currentSection = 0
+      const navHeight = 100
+
+      project.sections.forEach((_, index) => {
+        const section = document.querySelector(`#section${index + 1}`) as HTMLElement
+        if (section) {
+          const rect = section.getBoundingClientRect()
+          const pageContentRect = pageContent.getBoundingClientRect()
+          const relativeTop = rect.top - pageContentRect.top
+
+          if (relativeTop - navHeight <= pageContent.scrollTop + 20) {
+            currentSection = index
           }
-        })
-      },
-      {
-        root: pageContent,
-        threshold: 0.3
-      }
-    )
+        }
+      })
 
-    project.sections.forEach((_, index) => {
-      const heading = document.querySelector(`#section${index + 1} h2`)
-      if (heading) {
-        observer.observe(heading)
-      }
-    })
+      setActiveSection(currentSection)
+    }
 
-    return () => observer.disconnect()
+    pageContent.addEventListener('scroll', handleScroll)
+    return () => pageContent.removeEventListener('scroll', handleScroll)
   }, [project])
 
   useEffect(() => {
