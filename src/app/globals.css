@@ -327,17 +327,19 @@ a {
 /* LARGE DESKTOP (≥1800px) - Full split layout */
 @media (min-width: 1800px) {
   .exploration-detail-layout {
-    flex-direction: row;
-    height: 100vh;
+    flex-direction: row !important;
+    height: 100vh !important;
+    h-screen !important;
   }
 
   .exploration-slideshow {
-    width: 65%;
-    height: 100%;
+    width: 65% !important;
+    height: 100% !important;
   }
 
   .exploration-info {
-    width: 35%;
+    width: 35% !important;
+    height: 100% !important;
     justify-content: space-between !important;
     gap: 0 !important;
   }
