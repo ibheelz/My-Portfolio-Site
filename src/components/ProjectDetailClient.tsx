@@ -185,18 +185,12 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   }, [project])
 
   useEffect(() => {
-    // Initialize carousels with autoplay
+    // Initialize carousels
     if (project) {
       const newStates: Record<number, { currentIndex: number; isInteracting: boolean }> = {}
       project.sections.forEach((section, index) => {
         if (section.images && section.images.length > 0) {
           newStates[index] = { currentIndex: 0, isInteracting: false }
-          // Start autoplay for this carousel if not in modal view
-          setTimeout(() => {
-            if (!modalCarouselImages) {
-              startCarouselAutoplay(index, section.images!.length)
-            }
-          }, 0)
         }
       })
       setCarouselStates(newStates)
@@ -209,6 +203,17 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       })
     }
   }, [slug])
+
+  useEffect(() => {
+    // Start autoplay for all carousels after they're initialized
+    if (project && Object.keys(carouselStates).length > 0) {
+      project.sections.forEach((section, index) => {
+        if (section.images && section.images.length > 0 && !carouselIntervals[index]) {
+          startCarouselAutoplay(index, section.images.length)
+        }
+      })
+    }
+  }, [carouselStates, project])
 
   if (!project) {
     return <div className="ml-[296px] p-8">Project not found</div>
