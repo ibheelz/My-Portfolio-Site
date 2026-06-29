@@ -251,7 +251,7 @@ export const explorations: Exploration[] = [
     type: 'exploration',
     slug: 'posters',
     title: 'Posters',
-    description: 'E-commerce visuals designed in Photoshop and Illustrator to drive conversions across platforms.',
+    description: 'Creative poster designs exploring visual storytelling and composition through various artistic styles.',
     date: 'Aug 25, 2023',
     tools: ['Photoshop', 'Illustrator'],
     isFeatured: true,

@@ -54,11 +54,11 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
       {!hideProfile && (
         <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
           <Image
-            src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
+            src="/profile-photo.jpg"
             alt="Abiola Adeyeye"
             width={48}
             height={48}
-            style={{ borderRadius: '36px', flexShrink: 0 }}
+            style={{ borderRadius: '36px', flexShrink: 0, objectFit: 'cover' }}
             priority
           />
           <div className="flex flex-col gap-0">

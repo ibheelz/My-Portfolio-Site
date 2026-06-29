@@ -93,16 +93,9 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
           {/* Header Section */}
           <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-8 p-8">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
-                {exploration.title}
-              </h1>
-              {exploration.date && (
-                <span style={{ fontSize: '14px', color: 'rgb(138, 138, 138)', whiteSpace: 'nowrap', flexShrink: 0 }}>
-                  {exploration.date.split(' ').pop()}
-                </span>
-              )}
-            </div>
+            <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase mb-4" style={{ fontFamily: 'Mortend', margin: 0 }}>
+              {exploration.title}
+            </h1>
             {exploration.description && (
               <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
                 {exploration.description}
