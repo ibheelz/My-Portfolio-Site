@@ -5,6 +5,14 @@ import ExplorationCard from '@/src/components/ExplorationCard'
 import { FadeIn } from '@/src/components/FadeIn'
 
 export default function ExplorationsPage() {
+  const getYear = (dateStr?: string) => {
+    if (!dateStr) return 0
+    const match = dateStr.match(/\d{4}/)
+    return match ? parseInt(match[0], 10) : 0
+  }
+
+  const sortedExplorations = [...explorations].sort((a, b) => getYear(b.date) - getYear(a.date))
+
   return (
     <>
       {/* Fixed decorative margins */}
@@ -33,12 +41,6 @@ export default function ExplorationsPage() {
             >
               Explorations
             </h1>
-            <p
-              className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] tracking-[0.01em]"
-              style={{ color: 'rgb(138, 138, 138)', maxWidth: '100%', fontFamily: "'Gucina'", margin: 0 }}
-            >
-              Created with Nano Banana and other tools
-            </p>
           </section>
         </FadeIn>
 
@@ -53,7 +55,7 @@ export default function ExplorationsPage() {
               rowGap: 'clamp(48px, 10vw, 96px)'
             }}
           >
-            {explorations.map((exploration, index) => (
+            {sortedExplorations.map((exploration, index) => (
               <FadeIn key={exploration.slug} delay={index * 0.08}>
                 <ExplorationCard exploration={exploration} />
               </FadeIn>

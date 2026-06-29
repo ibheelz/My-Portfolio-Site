@@ -11,8 +11,17 @@ export default function Home() {
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
   const [selectedService, setSelectedService] = useState<string | null>(null)
 
+  const getYear = (dateStr?: string) => {
+    if (!dateStr) return 0
+    const match = dateStr.match(/\d{4}/)
+    return match ? parseInt(match[0], 10) : 0
+  }
+
   const services = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
-  const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 3)
+  const featuredProjects = projects
+    .filter((p) => p.isFeatured)
+    .sort((a, b) => getYear(b.date) - getYear(a.date))
+    .slice(0, 3)
   const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 3)
 
   return (
@@ -223,17 +232,24 @@ export default function Home() {
                           {project.title}
                         </h3>
 
-                        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                          <span className="body-s">{project.label1}</span>
-                          <div
-                            style={{
-                              width: '4px',
-                              height: '4px',
-                              backgroundColor: 'var(--grey-border-darker)',
-                              borderRadius: '8px',
-                            }}
-                          />
-                          <span className="body-s">{project.label2}</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                          <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                            <span className="body-s">{project.label1}</span>
+                            <div
+                              style={{
+                                width: '4px',
+                                height: '4px',
+                                backgroundColor: 'var(--grey-border-darker)',
+                                borderRadius: '8px',
+                              }}
+                            />
+                            <span className="body-s">{project.label2}</span>
+                          </div>
+                          {project.date && (
+                            <span className="body-s" style={{ color: 'rgb(138, 138, 138)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                              {getYear(project.date)}
+                            </span>
+                          )}
                         </div>
                     </div>
                   </Link>
@@ -252,7 +268,7 @@ export default function Home() {
                 onMouseLeave={() => setHoveredSection(null)}
               >
                 <h2 className="heading-2">
-                  Personal creations
+                  Explore
                 </h2>
                 <Link
                   href="/explorations"

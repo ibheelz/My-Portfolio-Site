@@ -28,7 +28,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Text Area */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '0px', paddingRight: '0px' }}>
-            <h3 className="heading-3">{project.title}</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+              <h3 className="heading-3">{project.title}</h3>
+              {project.date && (
+                <span style={{ fontSize: '12px', color: 'rgb(138, 138, 138)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  {project.date.split(' ').pop()}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </Link>

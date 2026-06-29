@@ -55,6 +55,9 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
       } else if (e.key === 'ArrowRight') {
         e.preventDefault()
         handleNext()
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        setIsModalOpen(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -84,106 +87,44 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
   return (
     <>
-      {/* Fixed decorative bars */}
-      <div className="fixed top-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-3 hidden lg:block" />
-      <div className="fixed bottom-0 left-[312px] right-4 h-4 bg-[rgb(2,1,10)] z-3 hidden lg:block" />
-
-      <div className="relative w-full bg-[rgb(2,1,10)]">
+<div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
         {/* Main content rectangle with padding */}
         <div className="mx-4 lg:mx-4 my-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
 
-          {/* First Section - Full Viewport Height Split Layout */}
-          <div className="exploration-detail-layout flex flex-col gap-2.5 border-b-2 border-[rgb(2,1,10)] pb-8 h-auto">
-
-            {/* Left Side - Slideshow (square on mobile, 65% on desktop) */}
-            <div
-              ref={slideShowRef}
-              className="exploration-slideshow w-full relative overflow-hidden cursor-grab active:cursor-grabbing h-auto aspect-square"
-              onMouseDown={handleMouseDown}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={() => setIsDragging(false)}
-            >
-              {/* Slideshow Images */}
-              <div className="w-full h-full relative">
-                {exploration.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="absolute inset-0 cursor-pointer"
-                    style={{ display: index === currentImageIndex ? 'block' : 'none' }}
-                    onClick={() => setIsModalOpen(true)}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${exploration.title} - Image ${index + 1}`}
-                      fill
-                      className="object-cover"
-                      priority={index === 0}
-                      quality={80}
-                      sizes="100vw"
-                    />
-                  </div>
-                ))}
-
-                {/* Previous Button - Left Middle (hidden on smaller screens) */}
-                <button
-                  onClick={(e) => { e.stopPropagation(); handlePrevious(); }}
-                  className="exploration-nav-button absolute left-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
-                  style={{ transform: 'translateY(-50%)' }}
-                >
-                  <CaretRight size={16} weight="bold" color="rgb(138,138,138)" style={{ transform: 'scaleX(-1)' }} />
-                </button>
-
-                {/* Next Button - Right Middle (hidden on smaller screens) */}
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                  className="exploration-nav-button absolute right-4 top-1/2 z-10 w-10 h-10 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center hover:border-[rgb(138,138,138)] transition-colors"
-                  style={{ transform: 'translateY(-50%)' }}
-                >
-                  <CaretRight size={16} weight="bold" color="rgb(138,138,138)" />
-                </button>
-              </div>
+          {/* Header Section */}
+          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-8 p-8">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+                {exploration.title}
+              </h1>
+              {exploration.date && (
+                <span style={{ fontSize: '14px', color: 'rgb(138, 138, 138)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  {exploration.date.split(' ').pop()}
+                </span>
+              )}
             </div>
+            {exploration.description && (
+              <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
+                {exploration.description}
+              </p>
+            )}
+          </div>
 
-            {/* Right Side - Text Information (below image on smaller screens) */}
-            <div className="exploration-info w-full flex flex-col justify-start p-8 gap-8">
-              {/* Top Content */}
-              <div className="flex flex-col gap-8">
-                <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
-                  {exploration.title}
-                </h1>
-                {exploration.description && (
-                  <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
-                    {exploration.description}
-                  </p>
-                )}
-              </div>
-
-              {/* Bottom Content */}
-              <div className="flex flex-col gap-8">
-                {/* Tools Block */}
-                <div>
-                  <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                    Tools
-                  </label>
-                  <div className="flex flex-wrap gap-2 mt-2.5">
-                    {exploration.tools.map((tool) => (
-                      <span key={tool} className="px-3 py-1.5 border border-[rgb(51,51,51)] rounded-full font-gucina text-[12px] text-[rgb(138,138,138)]">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
+          {/* Grid Section */}
+          <div className="exploration-grid p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {exploration.images.map((image, index) => (
+                <div key={index} className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group" onClick={() => setIsModalOpen(true)}>
+                  <Image
+                    src={image}
+                    alt={`${exploration.title} - Image ${index + 1}`}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    quality={80}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
                 </div>
-
-                {/* Date Block */}
-                {exploration.date && (
-                  <div>
-                    <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                      Date
-                    </label>
-                    <p className="font-gucina text-[12px] text-[rgb(138,138,138)] mt-3">{exploration.date}</p>
-                  </div>
-                )}
-              </div>
+              ))}
             </div>
           </div>
 
@@ -205,23 +146,55 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
       {/* Modal for full screen image view */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-95 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black z-[100] flex items-center justify-center py-16 px-4"
           onClick={() => setIsModalOpen(false)}
         >
-          <div className="relative w-full h-full max-w-6xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={exploration.images[currentImageIndex]}
-              alt={`${exploration.title} - Image ${currentImageIndex + 1}`}
-              fill
-              className="object-cover"
-            />
+          {/* Close button - top right */}
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-6 right-6 w-6 h-6 rounded-full flex items-center justify-center text-white hover:text-black hover:bg-red-600 active:text-black active:bg-red-600 z-50 transition-colors font-extrabold text-xs"
+          >
+            ✕
+          </button>
 
+          <div className="flex items-center justify-center gap-6 w-full h-full" onClick={(e) => e.stopPropagation()}>
+            {/* Left Arrow */}
             <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full flex items-center justify-center text-white text-2xl z-20"
+              onClick={(e) => { e.stopPropagation(); handlePrevious(); }}
+              className="flex-shrink-0 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors"
             >
-              ✕
+              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+              </svg>
             </button>
+
+            {/* Image */}
+            <div className="flex items-center justify-center max-w-4xl max-h-screen">
+              <Image
+                src={exploration.images[currentImageIndex]}
+                alt={`${exploration.title} - Image ${currentImageIndex + 1}`}
+                width={1200}
+                height={800}
+                className="object-contain rounded-lg"
+                priority
+                sizes="(max-width: 768px) 90vw, (max-width: 1024px) 80vw, 1000px"
+              />
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={(e) => { e.stopPropagation(); handleNext(); }}
+              className="flex-shrink-0 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors"
+            >
+              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Counter at bottom */}
+          <div className="absolute bottom-[calc(1.5rem-20px)] left-1/2 transform -translate-x-1/2 font-gucina text-[14px] text-[rgb(138,138,138)]">
+            {currentImageIndex + 1} / {exploration.images.length}
           </div>
         </div>
       )}

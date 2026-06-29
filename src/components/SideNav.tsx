@@ -25,8 +25,8 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
   const isActive = (path: string) => path === '/' ? pathname === '/' : pathname.startsWith(path)
 
   const navItems = [
-    { href: '/', label: 'Explore', icon: Compass },
-    { href: '/projects', label: 'Projects', icon: Briefcase },
+    { href: '/', label: 'Home', icon: Compass },
+    { href: '/projects', label: 'Works', icon: Briefcase },
     { href: '/explorations', label: 'Explorations', icon: Path },
     { href: '/about-me', label: 'About', icon: UserIcon },
   ]
@@ -52,7 +52,7 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
     >
       {/* Profile Section */}
       {!hideProfile && (
-        <div className="flex gap-3 items-start">
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
           <Image
             src="https://framerusercontent.com/images/pYTUyNQdLsvydRLSiS2tOjZ6V2U.png"
             alt="Abiola Adeyeye"
@@ -66,6 +66,7 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
             <a
               href="mailto:abioladeyeye@gmail.com"
               className="body-s hover:underline"
+              onClick={(e) => e.stopPropagation()}
             >
               abioladeyeye@gmail.com
             </a>

@@ -744,13 +744,13 @@ nav.project-detail-nav {
   .projects-grid {
     grid-template-columns: 1fr !important;
     column-gap: clamp(16px, 4vw, 32px) !important;
-    row-gap: clamp(48px, 10vw, 96px) !important;
+    row-gap: clamp(24px, 6vw, 64px) !important;
   }
 
   .explorations-grid {
     grid-template-columns: 1fr !important;
     column-gap: clamp(16px, 4vw, 32px) !important;
-    row-gap: clamp(48px, 10vw, 96px) !important;
+    row-gap: clamp(24px, 6vw, 64px) !important;
   }
 
   .project-card {

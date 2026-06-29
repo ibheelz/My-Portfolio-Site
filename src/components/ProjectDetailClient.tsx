@@ -48,12 +48,10 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const [modalImage, setModalImage] = useState<string | null>(null)
   const [modalCarouselImages, setModalCarouselImages] = useState<string[] | null>(null)
   const [modalCarouselIndex, setModalCarouselIndex] = useState(0)
-  const [sidebarFixed, setSidebarFixed] = useState(true)
   const [carouselStates, setCarouselStates] = useState<Record<number, { currentIndex: number; isInteracting: boolean }>>({})
   const [carouselIntervals, setCarouselIntervals] = useState<Record<number, NodeJS.Timeout>>({})
   const [touchStartX, setTouchStartX] = useState(0)
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
-  const sidebarRef = useRef<HTMLDivElement>(null)
   const isManuallyScrollingRef = useRef(false)
 
   useLayoutEffect(() => {
@@ -168,9 +166,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
       if (moreProjectsSection) {
         const rect = moreProjectsSection.getBoundingClientRect()
         if (rect.top <= window.innerHeight / 2) {
-          setSidebarFixed(false)
         } else {
-          setSidebarFixed(true)
         }
       }
     }
@@ -461,11 +457,47 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
         <div className="relative w-full flex flex-row lg:flex-row md:flex-col sm:flex-col items-start z-[40] bg-[rgb(14,14,18)]">
           <div
-            className="flex-1 flex flex-col bg-[rgb(14,14,18)] z-[40] border-r-2 border-[rgb(2,1,10)]"
+            className="flex-1 flex flex-col bg-[rgb(14,14,18)] z-[40]"
             style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)', gap: 'clamp(32px, 8vw, 64px)' }}
           >
             {project.sections.map((section, index) => (
               <FadeIn key={index} delay={index * 0.06}>
+                {index === 0 && (
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '64px', paddingBottom: '32px', borderBottom: '1px solid rgb(31, 31, 31)' }}>
+                    <div>
+                      <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', textTransform: 'uppercase', fontFamily: 'Gucina', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>
+                        Type
+                      </p>
+                      <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
+                        TBD
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', textTransform: 'uppercase', fontFamily: 'Gucina', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>
+                        Year
+                      </p>
+                      <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
+                        {project.date ? project.date.split(' ').pop() : 'TBD'}
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', textTransform: 'uppercase', fontFamily: 'Gucina', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>
+                        Scope
+                      </p>
+                      <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
+                        TBD
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', textTransform: 'uppercase', fontFamily: 'Gucina', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>
+                        Tools
+                      </p>
+                      <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
+                        TBD
+                      </p>
+                    </div>
+                  </div>
+                )}
                 <section id={`section${index + 1}`} className="flex flex-col gap-8 w-full">
                   <h2
                     className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
@@ -527,17 +559,19 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                           <>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleCarouselPrevious(index, section.images!.length) }}
-                              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] rounded-full flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-                              style={{ width: '36px', height: '36px' }}
+                              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors z-10"
                             >
-                              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>‹</span>
+                              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                              </svg>
                             </button>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleCarouselNext(index, section.images!.length) }}
-                              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] rounded-full flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-                              style={{ width: '36px', height: '36px' }}
+                              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors z-10"
                             >
-                              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>›</span>
+                              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                              </svg>
                             </button>
 
                             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-2 z-10">
@@ -564,7 +598,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       </div>
                     </div>
                   ) : section.image && (
-                    <div className="w-full rounded-xl overflow-hidden cursor-pointer group" onClick={() => setModalImage(section.image || null)}>
+                    <div className="w-full rounded-xl overflow-hidden cursor-pointer group max-h-[70vh]" onClick={() => setModalImage(section.image || null)}>
                       <Image
                         src={section.image}
                         alt={section.title}
@@ -572,7 +606,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         height={1051}
                         loading="lazy"
                         quality={75}
-                        className="w-full h-auto group-hover:opacity-90 transition-opacity"
+                        className="w-full h-auto object-cover group-hover:opacity-90 transition-opacity"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
                         onContextMenu={(e) => handleImageContextMenu(e as any)}
                         onDragStart={handleImageDrag}
@@ -585,71 +619,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             ))}
           </div>
 
-          <aside
-            ref={sidebarRef}
-            className="w-[24%] min-w-[296px] flex flex-col hidden lg:flex bg-[rgb(14,14,18)]"
-            style={{
-              position: 'sticky',
-              top: '80px',
-              height: 'auto',
-              paddingLeft: 'clamp(16px, 2vw, 32px)',
-              paddingRight: 'clamp(16px, 2vw, 32px)',
-              paddingTop: 'clamp(16px, 2vw, 24px)',
-              paddingBottom: 'clamp(32px, 8vw, 64px)',
-              alignSelf: 'flex-start',
-            }}
-          >
-            <nav className="flex flex-col gap-2 w-full" style={{ height: 'auto', position: 'relative', top: 'auto', borderRadius: 'unset', backgroundColor: 'transparent', zIndex: 'auto' }}>
-              <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)]">
-                Contents
-              </label>
-              <ul className="flex flex-col gap-1 w-full">
-                {project.sections.map((section, index) => (
-                  <li key={index}>
-                    <a
-                      href={`#section${index + 1}`}
-                      data-section-index={index}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        const sectionIndex = parseInt((e.currentTarget as HTMLElement).getAttribute('data-section-index') || '0')
-                        setActiveSection(sectionIndex)
-                        isManuallyScrollingRef.current = true
-                        const heading = document.querySelector(`#section${sectionIndex + 1} h2`)
-                        if (heading) {
-                          heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                        }
-                        setTimeout(() => {
-                          isManuallyScrollingRef.current = false
-                        }, 1000)
-                      }}
-                      className={`font-gucina text-[12px] leading-[18px] tracking-[0.01em] transition-colors duration-200 cursor-pointer ${
-                        activeSection === index
-                          ? 'sidebar-active-link'
-                          : 'text-[rgb(138,138,138)] hover:text-[rgb(250,250,250)]'
-                      }`}
-                    >
-                      {section.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="w-full h-px bg-[rgb(31,31,31)]" style={{ marginTop: 'clamp(24px, 4vw, 48px)', marginBottom: 'clamp(24px, 4vw, 48px)' }} />
-
-            {(project.duration || project.date) && (
-              <div className="flex flex-col w-full">
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] mb-2">
-                  Duration and date
-                </label>
-                <p className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-                  {project.duration}
-                  {project.duration && project.date && <span style={{ margin: '0 12px' }}>|</span>}
-                  {project.date}
-                </p>
-              </div>
-            )}
-          </aside>
         </div>
 
         <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)' }}>
@@ -673,95 +642,89 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
       {modalImage && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-90 z-[100] flex items-center justify-center p-4 cursor-pointer"
+          className="fixed inset-0 bg-black z-[100] flex items-center justify-center py-16 px-4"
           onClick={() => setModalImage(null)}
           style={{ userSelect: 'none' }}
         >
-          <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={() => setModalImage(null)}
+            className="absolute top-6 right-6 w-6 h-6 rounded-full flex items-center justify-center text-white hover:text-black hover:bg-red-600 active:text-black active:bg-red-600 z-50 transition-colors font-extrabold text-xs"
+          >
+            ✕
+          </button>
+
+          <div className="flex items-center justify-center max-w-[90vw] max-h-[80vh]" onClick={(e) => e.stopPropagation()}>
             <Image
               src={modalImage}
               alt="Full size image"
-              width={1400}
-              height={1051}
-              className="w-full h-auto rounded-lg"
+              width={1600}
+              height={900}
+              className="object-contain rounded-lg"
               onContextMenu={(e) => handleImageContextMenu(e as any)}
               onDragStart={handleImageDrag}
               style={{ userSelect: 'none' }}
             />
-            <button
-              onClick={() => setModalImage(null)}
-              className="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full flex items-center justify-center text-white text-2xl"
-            >
-              ✕
-            </button>
           </div>
         </div>
       )}
 
       {modalCarouselImages && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-95 z-[100] flex items-center justify-center p-4 cursor-pointer"
+          className="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center py-16 px-4"
           onClick={() => setModalCarouselImages(null)}
           style={{ userSelect: 'none' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="relative w-full h-full max-w-6xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={modalCarouselImages[modalCarouselIndex]}
-              alt={`Image ${modalCarouselIndex + 1}`}
-              fill
-              className="object-contain"
-              onContextMenu={(e) => handleImageContextMenu(e as any)}
-              onDragStart={handleImageDrag}
-              style={{ userSelect: 'none' }}
-            />
+          <button
+            onClick={() => setModalCarouselImages(null)}
+            className="absolute top-6 right-6 w-6 h-6 rounded-full flex items-center justify-center text-white hover:text-black hover:bg-red-600 active:text-black active:bg-red-600 z-50 transition-colors font-extrabold text-xs"
+          >
+            ✕
+          </button>
 
+          <div className="flex items-center justify-center gap-6 w-full h-full" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setModalCarouselIndex((prev) => (prev - 1 + modalCarouselImages.length) % modalCarouselImages.length)
               }}
-              className="absolute left-4 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-              style={{ width: '36px', height: '36px', top: '50%', transform: 'translateY(-50%)' }}
+              className="flex-shrink-0 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors"
             >
-              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>‹</span>
+              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+              </svg>
             </button>
+
+            <div className="flex items-center justify-center max-w-[90vw] max-h-[80vh]">
+              <Image
+                src={modalCarouselImages[modalCarouselIndex]}
+                alt={`Image ${modalCarouselIndex + 1}`}
+                width={1600}
+                height={900}
+                className="object-contain rounded-lg"
+                priority
+                onContextMenu={(e) => handleImageContextMenu(e as any)}
+                onDragStart={handleImageDrag}
+                style={{ userSelect: 'none' }}
+              />
+            </div>
 
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setModalCarouselIndex((prev) => (prev + 1) % modalCarouselImages.length)
               }}
-              className="absolute right-4 rounded-full bg-[rgb(2,1,10)] border border-[rgb(51,51,51)] flex items-center justify-center z-10 hover:border-[rgb(138,138,138)] transition-colors"
-              style={{ width: '36px', height: '36px', top: '50%', transform: 'translateY(-50%)' }}
+              className="flex-shrink-0 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors"
             >
-              <span style={{ color: 'rgb(138,138,138)', fontSize: '18px' }}>›</span>
+              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
+          </div>
 
-            <button
-              onClick={() => setModalCarouselImages(null)}
-              className="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full flex items-center justify-center text-white text-2xl z-20"
-            >
-              ✕
-            </button>
-
-            <div className="absolute bottom-4 flex items-center justify-center gap-2 px-4 z-10">
-              {modalCarouselImages.map((_, dotIndex) => (
-                <button
-                  key={dotIndex}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setModalCarouselIndex(dotIndex)
-                  }}
-                  className="w-2 h-2 rounded-full transition-all"
-                  style={{
-                    backgroundColor: modalCarouselIndex === dotIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
-                    width: modalCarouselIndex === dotIndex ? '12px' : '8px'
-                  }}
-                />
-              ))}
-            </div>
+          <div className="absolute bottom-[calc(1.5rem-20px)] left-1/2 transform -translate-x-1/2 font-gucina text-[14px] text-[rgb(138,138,138)]">
+            {modalCarouselIndex + 1} / {modalCarouselImages.length}
           </div>
         </div>
       )}

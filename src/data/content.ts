@@ -52,6 +52,25 @@ export interface Exploration {
 export const projects: Project[] = [
   {
     type: 'project',
+    slug: 'jameson',
+    title: 'Jameson',
+    label1: '',
+    label2: '',
+    duration: '2 Months',
+    date: 'September 2024',
+    isFeatured: false,
+    cardImage: '/jdot-cover.png',
+    heroImage: '',
+    roleLabels: [],
+    sections: [
+      {
+        title: 'Overview',
+        content: '',
+      },
+    ],
+  },
+  {
+    type: 'project',
     slug: 'martell',
     title: 'Martell',
     label1: 'OOH',
@@ -230,8 +249,8 @@ export const blogPosts: BlogPost[] = [
 export const explorations: Exploration[] = [
   {
     type: 'exploration',
-    slug: 'ecommerce-posters',
-    title: 'E-Commerce Posters',
+    slug: 'posters',
+    title: 'Posters',
     description: 'E-commerce visuals designed in Photoshop and Illustrator to drive conversions across platforms.',
     date: 'Aug 25, 2023',
     tools: ['Photoshop', 'Illustrator'],
@@ -243,24 +262,8 @@ export const explorations: Exploration[] = [
       'https://framerusercontent.com/images/lbe2UvK4F3tucUOwQMZWrh2NE.jpg?width=4096&height=4096',
       'https://framerusercontent.com/images/dIpWOsFwzVtdzNSD3pSAHhmmjKY.png?width=1242&height=1208',
       'https://framerusercontent.com/images/TZ87NRylhvnOTFPfdO9D0ajJeio.png?width=2048&height=2048',
-      'https://framerusercontent.com/images/OgavkGMN17ocGoOl7oJqVT7taps.png?width=4840&height=4832',
-    ],
-  },
-  {
-    type: 'exploration',
-    slug: 'social-media-designs',
-    title: 'Social Media Designs',
-    description: 'Dynamic social media and promotional designs created in Photoshop and Illustrator, randomized to showcase diverse campaigns.',
-    date: 'Mar 16, 2025',
-    tools: ['Photoshop', 'Illustrator'],
-    isFeatured: true,
-    cardImage: 'https://framerusercontent.com/images/LbnvzXqr3P4LBJV2Q1gES4NauU.png?width=2000&height=2000',
-    randomizeImages: true,
-    images: [
-      'https://framerusercontent.com/images/0OoFz5p9hNvRgCJLvy669DQzbG4.png?width=2000&height=2000',
       'https://framerusercontent.com/images/LbnvzXqr3P4LBJV2Q1gES4NauU.png?width=2000&height=2000',
       'https://framerusercontent.com/images/gItAqlwvxAL4vL9GothXOsAIo.png?width=2000&height=2000',
-      'https://framerusercontent.com/images/Becqj5MqCKgeGnFc5lTZLCfq5Uo.png?width=2000&height=2000',
-    ],
+      ],
   },
 ]
