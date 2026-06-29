@@ -180,7 +180,7 @@ export default function Home() {
                   Featured
                 </h2>
                 <Link
-                  href="/projects"
+                  href="/works"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -201,7 +201,7 @@ export default function Home() {
               {featuredProjects.map((project, index) => (
                 <FadeIn key={project.slug} delay={index * 0.08}>
                   <Link
-                    href={`/projects/${project.slug}`}
+                    href={`/works/${project.slug}`}
                     className="project-card project-card-home group"
                     style={{
                       width: '100%',
@@ -271,7 +271,7 @@ export default function Home() {
                   Explore
                 </h2>
                 <Link
-                  href="/explorations"
+                  href="/explore"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -292,7 +292,7 @@ export default function Home() {
               {featuredExplorations.map((exploration, index) => (
                 <FadeIn key={exploration.slug} delay={index * 0.08}>
                   <Link
-                    href={`/explorations/${exploration.slug}`}
+                    href={`/explore/${exploration.slug}`}
                     className="exploration-card exploration-card-home group"
                     style={{
                       width: '100%',

@@ -26,8 +26,8 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
 
   const navItems = [
     { href: '/', label: 'Home', icon: Compass },
-    { href: '/projects', label: 'Works', icon: Briefcase },
-    { href: '/explorations', label: 'Explorations', icon: Path },
+    { href: '/works', label: 'Works', icon: Briefcase },
+    { href: '/explore', label: 'Explore', icon: Path },
     { href: '/about-me', label: 'About', icon: UserIcon },
   ]
 

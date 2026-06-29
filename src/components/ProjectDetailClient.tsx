@@ -469,7 +469,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         Type
                       </p>
                       <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
-                        TBD
+                        {project.slug === 'martell' || project.slug === 'jameson' ? 'Out-of-Home Advertising' : project.slug === 'duskline' ? 'Listening Bar' : project.slug === 'verdant' ? 'Cafe' : project.slug === 'rash' ? 'Sports' : 'TBD'}
                       </p>
                     </div>
                     <div>
@@ -485,7 +485,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         Scope
                       </p>
                       <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
-                        TBD
+                        {project.slug === 'martell' || project.slug === 'jameson' ? '3D Modelling' : project.slug === 'duskline' ? 'Branding, Visual Design' : project.slug === 'verdant' ? 'Branding, Visual Design' : project.slug === 'rash' ? 'Branding' : 'TBD'}
                       </p>
                     </div>
                     <div>
