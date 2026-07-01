@@ -93,14 +93,29 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
           {/* Header Section */}
           <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-8 p-8">
-            <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase mb-4" style={{ fontFamily: 'Mortend', margin: 0 }}>
-              {exploration.title}
-            </h1>
-            {exploration.description && (
-              <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
-                {exploration.description}
-              </p>
-            )}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
+              <div>
+                <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase mb-4" style={{ fontFamily: 'Mortend', margin: 0 }}>
+                  {exploration.title}
+                </h1>
+                {exploration.description && (
+                  <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
+                    {exploration.description}
+                  </p>
+                )}
+              </div>
+              {exploration.slug === 'lucia' && (
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity"
+                  style={{ backgroundColor: 'rgb(31, 31, 31)' }}
+                >
+                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '28px', height: '28px' }} />
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Grid Section */}
