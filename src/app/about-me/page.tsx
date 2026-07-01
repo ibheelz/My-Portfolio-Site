@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ToolIcon from '@/src/components/ToolIcon'
-import LetsConnectSection from '@/src/components/LetsConnectSection'
 import { DownloadSimple } from '@phosphor-icons/react'
 import { FadeIn } from '@/src/components/FadeIn'
 export default function AboutPage() {
@@ -29,31 +28,12 @@ export default function AboutPage() {
   ]
 
   const whatIDo = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
-  const iKnow = ['Python', 'Photo Manipulation', 'Html and CSS', 'Typography', 'Logo Design', 'Brand Design']
 
   const experience = [
     { company: 'Miela', role: 'Brand Designer & IT Lead', duration: 'Jun 2023 - Oct 2025' },
     { company: 'Eyekontact Limited', role: 'Senior Creative Executive', duration: '2022 - 2023' },
     { company: 'Kunyo.co', role: 'Creative Specialist', duration: 'May 2021 - Sep 2022' },
     { company: 'EaglesTracker', role: 'Graphic Designer', duration: 'Jan 2019 - Dec 2021' },
-  ]
-
-  const testimonials = [
-    {
-      name: 'Ana Smith',
-      title: 'Product Manager at Tech Innovations',
-      quote: `Abiola's design expertise is a game-changer. He's a valuable asset to any design team.`,
-    },
-    {
-      name: 'Jan Sue',
-      title: 'Product Manager at Nava',
-      quote: 'Working with Abiola on our startup\'s product was an incredible experience.',
-    },
-    {
-      name: 'Tony Jones',
-      title: 'Product Manager at Acme',
-      quote: 'Abiola has a strong creative instinct and an ability to translate a brief into something that truly stands out.',
-    },
   ]
 
   return (
@@ -237,7 +217,7 @@ export default function AboutPage() {
             </FadeIn>
 
             {/* Current Stack */}
-            <FadeIn style={{ marginBottom: 'clamp(24px, 5vw, 32px)' }}>
+            <FadeIn>
               <div>
                 <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block" style={{ marginBottom: 'clamp(12px, 2vw, 20px)' }}>
                   Current Stack
@@ -249,93 +229,11 @@ export default function AboutPage() {
                     </div>
                   ))}
                 </div>
-                <div className="w-full h-px bg-[rgb(31,31,31)]" style={{ marginTop: 'clamp(16px, 3vw, 32px)' }} />
-              </div>
-            </FadeIn>
-
-            {/* I Know */}
-            <FadeIn>
-              <div>
-                <label className="font-gucina font-bold text-[12px] leading-[1.4em] tracking-[0.14em] uppercase text-[rgb(97,97,97)] block" style={{ marginBottom: 'clamp(12px, 2vw, 20px)' }}>
-                  I Know
-                </label>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {iKnow.map((item) => (
-                    <div key={item} className="rounded-full border border-[rgb(51,51,51)] px-3 py-2">
-                      <span className="font-gucina text-[clamp(11px,2vw,12px)] leading-[1.5] text-[rgb(138,138,138)]">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </FadeIn>
           </aside>
         </div>
-
-        {/* Testimonials Section */}
-        <section
-          className="w-full border-t-2 border-[rgb(2,1,10)] bg-[rgb(14,14,18)] overflow-hidden"
-          style={{ paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)', paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)' }}
-        >
-          <h2
-            className="font-heading text-[clamp(12px,2.5vw,15px)] leading-[1.4] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
-            style={{ fontFamily: 'Mortend', marginBottom: 'clamp(16px, 3vw, 20px)' }}
-          >
-            Testimonials
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative" style={{ gap: 'clamp(24px, 5vw, 32px)' }}>
-            {testimonials.map((testimonial, index) => (
-              <FadeIn key={index} delay={index * 0.08}>
-                <div className="flex flex-col gap-4 relative">
-                {/* Vertical Divider - only on lg */}
-                {index < testimonials.length - 1 && (
-                  <div className="hidden lg:block absolute right-0 top-0 w-px h-64 bg-[rgb(31,31,31)]" style={{ height: '256px' }} />
-                )}
-
-                {/* Quote */}
-                <p className="font-gucina text-[clamp(13px,2vw,14px)] leading-[1.6] text-[rgb(138,138,138)]">
-                  "{testimonial.quote}"
-                </p>
-
-                {/* Avatar + Name/Role Row */}
-                <div className="flex gap-3 items-start">
-                  <div
-                    className="flex-shrink-0 flex items-center justify-center rounded-full text-[10px] font-bold text-white"
-                    style={{
-                      width: '34px',
-                      height: '34px',
-                      minWidth: '34px',
-                      backgroundColor: ['rgb(99, 102, 241)', 'rgb(168, 85, 247)', 'rgb(59, 130, 246)'][index],
-                    }}
-                  >
-                    {testimonial.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </div>
-
-
-                  <div>
-                    <p className="font-gucina font-bold text-[clamp(11px,2vw,12px)] text-[rgb(250,250,250)]">
-                      {testimonial.name}
-                    </p>
-                    <p className="font-gucina text-[clamp(11px,2vw,12px)] text-[rgb(138,138,138)]">
-                      {testimonial.title}
-                    </p>
-                  </div>
-                </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </section>
       </div>
-
-      {/* Let's Connect Section */}
-      <FadeIn>
-        <LetsConnectSection />
-      </FadeIn>
     </>
   )
 }
