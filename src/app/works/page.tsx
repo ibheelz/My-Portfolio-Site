@@ -23,7 +23,7 @@ export default function ProjectsPage() {
             Selected Projects
           </h1>
           <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)]" style={{ margin: 0 }}>
-            A curated collection of projects that showcase 3D design, branding, and creative problem-solving.
+            A mix of projects that showcase different aspects of creative work—design, strategy, and execution.
           </p>
         </section>
       </FadeIn>
