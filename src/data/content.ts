@@ -281,7 +281,7 @@ export const explorations: Exploration[] = [
     type: 'exploration',
     slug: 'lucia',
     title: 'Lucia',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: 'An AI influencer dedicated to Chelsea FC and connecting with the football community on Instagram.',
     date: 'Jul 01, 2026',
     tools: ['Photoshop', 'Nano Banana Pro'],
     isFeatured: false,
