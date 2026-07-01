@@ -288,6 +288,7 @@ export const explorations: Exploration[] = [
     cardImage: '/lucia/lucia-cover.jpg',
     randomizeImages: false,
     images: [
+      '/lucia/lucia-cover.jpg',
       '/lucia/lucia-1.jpg',
       '/lucia/lucia-2.jpg',
       '/lucia/lucia-3.jpg',
