@@ -105,7 +105,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
           {/* Grid Section */}
           <div className="exploration-grid p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[5px]">
               {exploration.images.map((image, index) => (
                 <div key={index} className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group" onClick={() => setIsModalOpen(true)}>
                   <Image
