@@ -41,6 +41,9 @@ export default function ExplorationsPage() {
             >
               Explorations
             </h1>
+            <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)]" style={{ margin: 0 }}>
+              Here's where I explore ideas freely. Design experiments, visual studies, and creative play.
+            </p>
           </section>
         </FadeIn>
 
