@@ -109,10 +109,9 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 flex items-center justify-center hover:opacity-80 transition-opacity"
-                  style={{ backgroundColor: 'rgb(14, 14, 18)', borderRadius: '999px', width: '120px', height: '56px', minWidth: '120px' }}
+                  className="flex-shrink-0 hover:opacity-80 transition-opacity"
                 >
-                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '32px', height: '32px', filter: 'brightness(0) invert(1)' }} />
+                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '40px', height: '40px', filter: 'brightness(0) invert(1)' }} />
                 </a>
               )}
             </div>
