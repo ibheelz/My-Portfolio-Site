@@ -112,7 +112,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   className="hover:opacity-80 transition-opacity"
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
                 >
-                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '40px', height: 'auto', filter: 'brightness(0) invert(1)', display: 'block' }} />
+                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '64px', height: 'auto', filter: 'brightness(0) invert(1)', display: 'block' }} />
                 </a>
               )}
             </div>
