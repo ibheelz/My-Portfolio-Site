@@ -263,27 +263,13 @@ export default function Home() {
             {/* Section header */}
             <FadeIn>
               <div
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', height: '28px', overflow: 'hidden' }}
                 onMouseEnter={() => setHoveredSection('explorations')}
                 onMouseLeave={() => setHoveredSection(null)}
               >
                 <h2 className="heading-2">
                   Explore
                 </h2>
-                <Link
-                  href="/explore"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '2px',
-                    color: 'rgb(129, 195, 215)',
-                    fontSize: '12px',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  View all
-                  <ArrowRight size={16} weight="bold" />
-                </Link>
               </div>
             </FadeIn>
 
