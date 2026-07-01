@@ -761,6 +761,10 @@ nav.project-detail-nav {
     height: auto !important;
   }
 
+  .exploration-grid {
+    padding: 16px !important;
+  }
+
   .projects-row {
     flex-direction: column !important;
     gap: 12px !important;
