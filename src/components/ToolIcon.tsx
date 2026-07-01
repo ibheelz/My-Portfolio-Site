@@ -11,6 +11,8 @@ export default function ToolIcon({ name }: ToolIconProps) {
     'Canva': '/icons/tools/canva.png',
     'Figma': '/icons/tools/figma.png',
     'Blender': '/icons/tools/blender.png',
+    'Photoshop': '/icons/tools/photoshop.webp',
+    'Illustrator': '/icons/tools/illustrator.webp',
     'Claude': '/icons/tools/claude.svg',
   }
 

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ArrowLeft } from '@phosphor-icons/react'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
+import ToolIcon from '@/src/components/ToolIcon'
 import { FadeIn } from '@/src/components/FadeIn'
 
 const renderStyledContent = (text: string): ReactNode[] => {
@@ -108,14 +109,27 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
   useEffect(() => {
     if (!modalCarouselImages) {
-      // Resume autoplay for all carousels when modal is closed
-      Object.entries(carouselStates).forEach(([indexStr, state]) => {
-        if (!state.isInteracting) {
+      // Clear all existing intervals first
+      Object.keys(carouselIntervals).forEach(key => {
+        clearInterval(carouselIntervals[parseInt(key)])
+      })
+
+      // Reset interaction state and restart autoplay
+      setCarouselStates(prev => {
+        const updated = { ...prev }
+        Object.entries(updated).forEach(([indexStr, state]) => {
           const index = parseInt(indexStr)
-          const section = project?.sections[index]
-          if (section?.images) {
-            startCarouselAutoplay(index, section.images.length)
-          }
+          updated[index] = { ...state, isInteracting: false }
+        })
+        return updated
+      })
+
+      // Restart autoplay for all carousels
+      Object.entries(carouselStates).forEach(([indexStr, state]) => {
+        const index = parseInt(indexStr)
+        const section = project?.sections[index]
+        if (section?.images) {
+          startCarouselAutoplay(index, section.images.length)
         }
       })
     }
@@ -239,6 +253,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   }
 
   const startCarouselAutoplay = (sectionIndex: number, totalImages: number) => {
+    // Clear any existing interval first
+    if (carouselIntervals[sectionIndex]) {
+      clearInterval(carouselIntervals[sectionIndex])
+    }
+
     const interval = setInterval(() => {
       setCarouselStates(prev => {
         const state = prev[sectionIndex] || { currentIndex: 0, isInteracting: false }
@@ -253,7 +272,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         }
         return prev
       })
-    }, 2500)
+    }, 4500)
 
     setCarouselIntervals(prev => ({
       ...prev,
@@ -492,9 +511,26 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       <p style={{ fontSize: '12px', color: 'rgb(97, 97, 97)', textTransform: 'uppercase', fontFamily: 'Gucina', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>
                         Tools
                       </p>
-                      <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
-                        TBD
-                      </p>
+                      {(project.slug === 'martell' || project.slug === 'jameson') ? (
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '0px' }}>
+                          <ToolIcon name="Blender" />
+                          <ToolIcon name="Photoshop" />
+                        </div>
+                      ) : (project.slug === 'duskline' || project.slug === 'verdant') ? (
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '0px' }}>
+                          <ToolIcon name="Figma" />
+                          <ToolIcon name="Photoshop" />
+                        </div>
+                      ) : project.slug === 'rash' ? (
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '0px' }}>
+                          <ToolIcon name="Photoshop" />
+                          <ToolIcon name="Illustrator" />
+                        </div>
+                      ) : (
+                        <p style={{ fontSize: '14px', color: 'rgb(250, 250, 250)', fontFamily: 'Gucina', margin: 0 }}>
+                          TBD
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -530,7 +566,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         resumeCarouselAutoplay(index, section.images!.length)
                       }}
                     >
-                      <div className="relative" style={{ width: '100%', paddingBottom: '75%', position: 'relative' }}>
+                      <div className="relative" style={{ width: '100%', ...(project.slug === 'duskline' || project.slug === 'verdant' ? { position: 'relative', minHeight: '80vh' } : { paddingBottom: '75%', position: 'relative' }) }}>
                         {section.images.map((image, imgIndex) => (
                           <div
                             key={imgIndex}
@@ -546,11 +582,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                               fill
                               loading="eager"
                               quality={75}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full"
+                              style={{ objectFit: (project.slug === 'duskline' || project.slug === 'verdant') ? 'contain' : 'cover', userSelect: 'none' }}
                               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
                               onContextMenu={(e) => handleImageContextMenu(e as any)}
                               onDragStart={handleImageDrag}
-                              style={{ userSelect: 'none' }}
                             />
                           </div>
                         ))}
@@ -598,7 +634,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       </div>
                     </div>
                   ) : section.image && (
-                    <div className="w-full rounded-xl overflow-hidden cursor-pointer group max-h-[70vh]" onClick={() => setModalImage(section.image || null)}>
+                    <div
+                      className="w-full rounded-xl overflow-hidden cursor-pointer group"
+                      style={{ maxHeight: (project.slug === 'duskline' || project.slug === 'verdant') ? '80vh' : '70vh' }}
+                      onClick={() => setModalImage(section.image || null)}
+                    >
                       <Image
                         src={section.image}
                         alt={section.title}
@@ -606,11 +646,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                         height={1051}
                         loading="lazy"
                         quality={75}
-                        className="w-full h-auto object-cover group-hover:opacity-90 transition-opacity"
+                        className="w-full h-full group-hover:opacity-90 transition-opacity"
+                        style={{
+                          objectFit: (project.slug === 'duskline' || project.slug === 'verdant') ? 'contain' : 'cover',
+                          userSelect: 'none'
+                        }}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
                         onContextMenu={(e) => handleImageContextMenu(e as any)}
                         onDragStart={handleImageDrag}
-                        style={{ userSelect: 'none' }}
                       />
                     </div>
                   )}
