@@ -283,7 +283,7 @@ export const explorations: Exploration[] = [
     title: 'Lucia',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     date: 'Jul 01, 2026',
-    tools: [],
+    tools: ['Nano Banana Pro', 'Photoshop'],
     isFeatured: false,
     cardImage: '/lucia/lucia-cover.webp',
     randomizeImages: false,
