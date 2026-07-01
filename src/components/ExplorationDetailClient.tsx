@@ -39,6 +39,15 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         images: baseExploration.randomizeImages !== false ? shuffleArray(baseExploration.images) : baseExploration.images
       })
       setCurrentImageIndex(0)
+      // Scroll to reveal description text below navbar on page load
+      if (typeof window !== 'undefined') {
+        setTimeout(() => {
+          const headerSection = document.querySelector('.exploration-header')
+          if (headerSection) {
+            headerSection.scrollIntoView({ behavior: 'auto', block: 'start' })
+          }
+        }, 0)
+      }
     }
   }, [slug])
 
@@ -130,7 +139,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         <div className="mx-4 lg:mx-4 my-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
 
           {/* Header Section */}
-          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-4 px-8 py-4" style={{ marginTop: '48px' }}>
+          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-4 px-8 py-4" style={{ marginTop: '0', scrollMarginTop: '60px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
               <div>
                 {exploration.description && (
@@ -139,7 +148,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   </p>
                 )}
                 {exploration.tools && exploration.tools.length > 0 && (
-                  <div style={{ display: 'flex', gap: '16px', marginTop: '12px', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '16px', marginTop: '12px', marginBottom: '8px', alignItems: 'center' }}>
                     {exploration.tools.map((tool) => (
                       <div key={tool} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                         <div style={{ width: '16px', height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -214,7 +223,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
           {/* Grid Section */}
           <div className="exploration-grid p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[5px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[18px] md:gap-[5px]">
               {exploration.images.map((image, index) => (
                 <div key={index} className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group" onClick={() => setIsModalOpen(true)}>
                   <Image
