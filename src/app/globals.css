@@ -397,8 +397,8 @@ a {
 
   .explorations-grid {
     grid-template-columns: repeat(4, minmax(50px, 1fr)) !important;
-    column-gap: clamp(16px, 4vw, 32px) !important;
-    row-gap: clamp(48px, 10vw, 96px) !important;
+    column-gap: clamp(12px, 3vw, 24px) !important;
+    row-gap: clamp(32px, 6vw, 64px) !important;
   }
 
   .project-card {
@@ -539,8 +539,8 @@ nav.project-detail-nav {
 
 .projects-grid {
   grid-template-columns: repeat(3, minmax(50px, 1fr)) !important;
-  column-gap: clamp(12px, 3vw, 24px) !important;
-  row-gap: clamp(32px, 6vw, 64px) !important;
+  column-gap: clamp(16px, 4vw, 32px) !important;
+  row-gap: clamp(48px, 10vw, 96px) !important;
 }
 
 .explorations-grid {
@@ -663,8 +663,8 @@ nav.project-detail-nav {
 
   .explorations-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    column-gap: clamp(16px, 4vw, 32px) !important;
-    row-gap: clamp(48px, 10vw, 96px) !important;
+    column-gap: clamp(12px, 3vw, 24px) !important;
+    row-gap: clamp(32px, 6vw, 64px) !important;
   }
 
   .project-card {
