@@ -29,12 +29,12 @@ export default function ExplorationsPage() {
           paddingRight: 'clamp(16px, 5vw, 64px)',
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(32px, 8vw, 64px)'
+          gap: '0'
         }}
       >
         {/* SECTION 1 - Page Headline */}
         <FadeIn>
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', overflow: 'hidden' }}>
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.5vw, 12px)', overflow: 'hidden', marginBottom: '32px' }}>
             <h1
               className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase"
               style={{ fontFamily: 'Mortend', color: 'rgb(250, 250, 250)', margin: 0 }}
@@ -45,7 +45,7 @@ export default function ExplorationsPage() {
         </FadeIn>
 
         {/* SECTION 2 - Explorations Grid */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: 'clamp(32px, 8vw, 64px)' }}>
           <div
             className="w-full explorations-grid"
             style={{
