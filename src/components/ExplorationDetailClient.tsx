@@ -89,10 +89,10 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
     <>
 <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
         {/* Main content rectangle with padding */}
-        <div className="mx-[5px] lg:mx-[5px] mt-[5px] mb-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
+        <div className="mx-4 lg:mx-4 my-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
 
           {/* Header Section */}
-          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-8 px-[5px] py-[5px]">
+          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-8 p-8">
             <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase mb-4" style={{ fontFamily: 'Mortend', margin: 0 }}>
               {exploration.title}
             </h1>
@@ -104,7 +104,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
           </div>
 
           {/* Grid Section */}
-          <div className="exploration-grid px-[5px]">
+          <div className="exploration-grid p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {exploration.images.map((image, index) => (
                 <div key={index} className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group" onClick={() => setIsModalOpen(true)}>
