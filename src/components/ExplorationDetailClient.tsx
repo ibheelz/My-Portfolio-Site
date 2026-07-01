@@ -112,14 +112,14 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
                   onMouseEnter={(e) => {
                     const img = e.currentTarget.querySelector('img')
-                    if (img) img.style.filter = 'brightness(0) invert(1) hue-rotate(200deg) saturate(1.5)'
+                    if (img) img.style.filter = 'brightness(0) invert(1) hue-rotate(220deg) saturate(2) brightness(1.2)'
                   }}
                   onMouseLeave={(e) => {
                     const img = e.currentTarget.querySelector('img')
                     if (img) img.style.filter = 'brightness(0) invert(1)'
                   }}
                 >
-                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '80px', height: 'auto', filter: 'brightness(0) invert(1)', display: 'block', transition: 'filter 0.3s ease' }} />
+                  <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '100px', height: 'auto', filter: 'brightness(0) invert(1)', display: 'block', transition: 'filter 0.3s ease' }} />
                 </a>
               )}
             </div>
