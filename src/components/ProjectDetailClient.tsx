@@ -57,11 +57,13 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const isManuallyScrollingRef = useRef(false)
 
   useLayoutEffect(() => {
-    const pageContent = document.querySelector('.page-content') as HTMLElement
-    if (pageContent) {
-      pageContent.scrollTop = 0
+    if (typeof window !== 'undefined') {
+      const pageContent = document.querySelector('.page-content') as HTMLElement
+      if (pageContent) {
+        pageContent.scrollTop = 0
+      }
+      window.scrollY = 0
     }
-    window.scrollY = 0
   }, [slug])
 
   useEffect(() => {
@@ -74,9 +76,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   }, [])
 
   useEffect(() => {
-    const pageContent = document.querySelector('.page-content') as HTMLElement
-    if (pageContent) {
-      pageContent.scrollTop = 0
+    if (typeof window !== 'undefined') {
+      const pageContent = document.querySelector('.page-content') as HTMLElement
+      if (pageContent) {
+        pageContent.scrollTop = 0
+      }
     }
   }, [slug])
 
