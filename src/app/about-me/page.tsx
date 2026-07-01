@@ -96,7 +96,7 @@ export default function AboutPage() {
             </FadeIn>
 
             {/* Work Experiences Section */}
-            <div style={{ marginBottom: 'clamp(32px, 8vw, 64px)' }}>
+            <div style={{ marginBottom: 'clamp(16px, 3vw, 24px)' }}>
               {/* Work Experiences Header */}
               <div style={{ marginBottom: 'clamp(12px, 2vw, 20px)' }}>
                 <h2
