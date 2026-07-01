@@ -47,7 +47,7 @@ export default function ExplorationsPage() {
         {/* SECTION 2 - Explorations Grid */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
           <div
-            className="w-full"
+            className="w-full explorations-grid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))',
