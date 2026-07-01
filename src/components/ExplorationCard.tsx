@@ -19,7 +19,7 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        gap: '6px',
+        gap: '3px',
         textDecoration: 'none',
         color: 'inherit',
         cursor: 'pointer'

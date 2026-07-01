@@ -559,7 +559,7 @@ nav.project-detail-nav {
 
 .exploration-card {
   height: auto !important;
-  gap: clamp(16px, 4vw, 32px) !important;
+  gap: 3px !important;
 }
 
 .exploration-card-home {
