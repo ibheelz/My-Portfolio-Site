@@ -65,22 +65,22 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'The Idea',
-        content: 'Jameson wanted Lagos to feel the distillery before they ever stepped inside it. The plan was simple. Put something so big and so bold on a Lagos road that people in traffic had no choice but to notice. That something was the barrel man. Jameson\'s iconic figure, the one that represents the cooper and the craft behind every bottle, built at full scale, standing on top of a branded container. And the detail that made it all click: he was facing the direction of the venue. Not just a decoration. A guide.',
+        content: 'Jameson wanted Lagos to feel the distillery before they ever stepped inside it. The plan was simple. Put something so big and so bold on a Lagos road that people in traffic had no choice but to notice.\n\nThat something was the barrel man. Jameson\'s iconic figure, the one that represents the cooper and the craft behind every bottle, built at full scale, standing on top of a branded container. And the detail that made it all click: he was facing the direction of the venue. Not just a decoration. A guide.',
         image: '/jameson-idea.png',
       },
       {
         title: 'Process',
-        content: 'I modeled the container and the barrel man from scratch in Blender. The figure had to look like it was moving, like it was actually heading somewhere. Because it was. Every joint, every proportion, every angle was worked out in 3D before anything was built in real life.',
+        content: 'I modeled the container and the barrel man from scratch in Blender. The figure had to look like it was moving, like it was actually heading somewhere. Because it was.\n\nEvery joint, every proportion, every angle was worked out in 3D before anything was built in real life.',
         images: ['/jameson-process-1.png', '/jameson-process-2.png', '/jameson-process-3.png', '/jameson-process-4.png'],
       },
       {
         title: 'Visualization',
-        content: 'The renders showed exactly what would go up. Jameson green, the barrel man mid-stride, the branded container underneath him with the event details on every face. What you see in the render is what showed up on the street.',
+        content: 'The renders showed exactly what would go up. Jameson green, the barrel man mid-stride, the branded container underneath him with the event details on every face.\n\nWhat you see in the render is what showed up on the street.',
         images: ['/jameson-vis-1.png', '/jameson-vis-2.png', '/jameson-vis-3.png', '/jameson-vis-4.png', '/jameson-vis-5.png', '/jameson-vis-6.png'],
       },
       {
         title: 'Result',
-        content: 'It went up on one of the busiest roads on Lagos Island and stayed through the full run of JDOT at Fidelity Bank Grounds Oniru. People in traffic saw a giant green figure carrying a barrel and pointing the way. The barrel man was the first thing they saw. The event was the second.',
+        content: 'It went up on one of the busiest roads on Lagos Island and stayed through the full run of JDOT at Fidelity Bank Grounds Oniru.\n\nPeople in traffic saw a giant green figure carrying a barrel and pointing the way. The barrel man was the first thing they saw. The event was the second.',
         images: ['/jameson-result-1.jpg', '/jameson-result-2.jpg', '/jameson-result-3.jpg', '/jameson-result-4.jpg', '/jameson-result-5.jpg', '/jameson-result-6.jpg', '/jameson-result-7.jpg', '/jameson-result-8.jpg', '/jameson-result-9.jpg'],
       },
     ],
