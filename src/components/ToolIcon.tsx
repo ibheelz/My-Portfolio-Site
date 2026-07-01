@@ -1,8 +1,9 @@
 interface ToolIconProps {
   name: string
+  hideText?: boolean
 }
 
-export default function ToolIcon({ name }: ToolIconProps) {
+export default function ToolIcon({ name, hideText }: ToolIconProps) {
   const iconMap: Record<string, string> = {
     'Adobe Creative Suite': '/icons/tools/adobe.png',
     'Nano Banana Pro': '/icons/tools/nano-banana.png',
@@ -19,7 +20,7 @@ export default function ToolIcon({ name }: ToolIconProps) {
   const iconPath = iconMap[name]
 
   return (
-    <div className="flex items-center gap-2 w-full">
+    <div className={hideText ? "flex items-center" : "flex items-center gap-2 w-full"}>
       {iconPath && (
         <img
           src={iconPath}
@@ -27,9 +28,11 @@ export default function ToolIcon({ name }: ToolIconProps) {
           className="flex-shrink-0 w-5 h-5 object-contain"
         />
       )}
-      <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
-        {name}
-      </span>
+      {!hideText && (
+        <span className="font-gucina text-[12px] leading-[18px] text-[rgb(138,138,138)]">
+          {name}
+        </span>
+      )}
     </div>
   )
 }

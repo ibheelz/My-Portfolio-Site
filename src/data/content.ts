@@ -264,7 +264,7 @@ export const explorations: Exploration[] = [
     title: 'Posters',
     description: 'Creative poster designs exploring visual storytelling and composition through various artistic styles.',
     date: 'Aug 25, 2023',
-    tools: ['Photoshop', 'Illustrator'],
+    tools: ['Photoshop', 'Illustrator', 'Figma'],
     isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/FpnS05Dyr8VS33BysFtyZYsoxo.webp?width=1842&height=1754',
     randomizeImages: true,
