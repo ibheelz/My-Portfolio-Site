@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { explorations } from '@/src/data/content'
 import ExplorationCard from '@/src/components/ExplorationCard'
-import { CaretRight } from '@phosphor-icons/react'
+import ToolIcon from '@/src/components/ToolIcon'
+import { CaretRight, ArrowLeft } from '@phosphor-icons/react'
 import { FadeIn } from '@/src/components/FadeIn'
 
 interface ExplorationDetailClientProps {
@@ -21,6 +23,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 }
 
 export default function ExplorationDetailClient({ slug }: ExplorationDetailClientProps) {
+  const router = useRouter()
   const baseExploration = explorations.find((e) => e.slug === slug)
   const [exploration, setExploration] = useState(baseExploration)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -87,21 +90,94 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
 
   return (
     <>
+      <nav
+        className="hidden lg:flex"
+        style={{
+          position: 'sticky',
+          top: 0,
+          height: '48px',
+          width: '100%',
+          backgroundColor: 'rgb(14,14,18)',
+          borderRadius: '12px 12px 0 0',
+          borderBottom: '2px solid rgb(2,1,10)',
+          overflow: 'visible',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          flexWrap: 'nowrap',
+          paddingLeft: 'clamp(16px, 5vw, 64px)',
+          paddingRight: 'clamp(16px, 5vw, 64px)',
+          paddingTop: '0px',
+          paddingBottom: '0px',
+          gap: '12px',
+          zIndex: 50,
+        }}
+      >
+        <button
+          onClick={() => router.back()}
+          className="flex items-center justify-center hover:opacity-75 transition-opacity"
+          aria-label="Go back"
+          style={{ padding: 0, background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0, marginRight: '4px' }}
+        >
+          <ArrowLeft size={18} color="rgb(250,250,250)" weight="light" />
+        </button>
+        <h3 className="font-gucina font-medium text-[16px] leading-[28px] text-[rgb(250,250,250)]" style={{ letterSpacing: '0.01em', margin: 0, whiteSpace: 'nowrap', flexShrink: 0, textTransform: 'none', fontFamily: 'Gucina' }}>
+          {exploration.title}
+        </h3>
+      </nav>
 <div className="relative w-full overflow-visible bg-[rgb(14,14,18)]">
         {/* Main content rectangle with padding */}
         <div className="mx-4 lg:mx-4 my-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
 
           {/* Header Section */}
-          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-8 p-8">
+          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-4 px-8 py-4" style={{ marginTop: '48px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
               <div>
-                <h1 className="font-heading text-[32px] leading-[40px] tracking-[-0.7px] text-white uppercase mb-4" style={{ fontFamily: 'Mortend', margin: 0 }}>
-                  {exploration.title}
-                </h1>
                 {exploration.description && (
-                  <p className="font-gucina text-[14px] leading-[1.6] text-[rgb(138,138,138)]">
+                  <p className="font-gucina text-[14px] leading-[1.6]" style={{ color: ['posters', 'lucia'].includes(exploration.slug) ? 'white' : 'rgb(138,138,138)' }}>
                     {exploration.description}
                   </p>
+                )}
+                {exploration.tools && exploration.tools.length > 0 && (
+                  <div style={{ display: 'flex', gap: '16px', marginTop: '12px', alignItems: 'center' }}>
+                    {exploration.tools.map((tool) => (
+                      <div key={tool} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <div style={{ width: '16px', height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <ToolIcon name={tool} hideText={true} />
+                        </div>
+                        <span className="font-gucina text-[12px] text-[rgb(138,138,138)]">{tool}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {exploration.slug === 'lucia' && (
+                  <a
+                    href="https://www.instagram.com/luciaqxxn/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex lg:hidden mt-4"
+                    style={{ alignItems: 'center', justifyContent: 'center', width: 'fit-content', transition: 'all 0.3s ease', backgroundColor: 'transparent', padding: '0', border: 'none' }}
+                    onMouseEnter={(e) => {
+                      const link = e.currentTarget as HTMLAnchorElement
+                      link.style.backgroundColor = 'white'
+                      link.style.padding = '12px 16px'
+                      link.style.border = '1px solid rgb(200, 200, 200)'
+                      link.style.borderRadius = '8px'
+                      const img = link.querySelector('img')
+                      if (img) img.style.filter = 'brightness(0)'
+                    }}
+                    onMouseLeave={(e) => {
+                      const link = e.currentTarget as HTMLAnchorElement
+                      link.style.backgroundColor = 'transparent'
+                      link.style.padding = '0'
+                      link.style.border = 'none'
+                      link.style.borderRadius = '0'
+                      const img = link.querySelector('img')
+                      if (img) img.style.filter = 'brightness(0) invert(1)'
+                    }}
+                  >
+                    <img src="/instagram-logo.webp" alt="Instagram" style={{ width: '100px', height: 'auto', filter: 'brightness(0) invert(1)', display: 'block', transition: 'filter 0.3s ease' }} />
+                  </a>
                 )}
               </div>
               {exploration.slug === 'lucia' && (
@@ -109,13 +185,24 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                   href="https://www.instagram.com/luciaqxxn/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+                  className="hidden lg:flex"
+                  style={{ alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.3s ease', backgroundColor: 'transparent', padding: '0', border: 'none' }}
                   onMouseEnter={(e) => {
-                    const img = e.currentTarget.querySelector('img')
-                    if (img) img.style.filter = 'invert(0.8) sepia(1) hue-rotate(200deg) saturate(3)'
+                    const link = e.currentTarget as HTMLAnchorElement
+                    link.style.backgroundColor = 'white'
+                    link.style.padding = '12px 16px'
+                    link.style.border = '1px solid rgb(200, 200, 200)'
+                    link.style.borderRadius = '8px'
+                    const img = link.querySelector('img')
+                    if (img) img.style.filter = 'brightness(0)'
                   }}
                   onMouseLeave={(e) => {
-                    const img = e.currentTarget.querySelector('img')
+                    const link = e.currentTarget as HTMLAnchorElement
+                    link.style.backgroundColor = 'transparent'
+                    link.style.padding = '0'
+                    link.style.border = 'none'
+                    link.style.borderRadius = '0'
+                    const img = link.querySelector('img')
                     if (img) img.style.filter = 'brightness(0) invert(1)'
                   }}
                 >
