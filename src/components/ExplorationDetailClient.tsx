@@ -106,13 +106,13 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
               </div>
               {exploration.slug === 'lucia' && (
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/luciaqxxn/"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
                   onMouseEnter={(e) => {
                     const img = e.currentTarget.querySelector('img')
-                    if (img) img.style.filter = 'brightness(0) invert(1) hue-rotate(220deg) saturate(2) brightness(1.2)'
+                    if (img) img.style.filter = 'invert(0.8) sepia(1) hue-rotate(200deg) saturate(3)'
                   }}
                   onMouseLeave={(e) => {
                     const img = e.currentTarget.querySelector('img')
