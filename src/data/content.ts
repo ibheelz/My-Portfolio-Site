@@ -60,23 +60,23 @@ export const projects: Project[] = [
     date: 'September 2024',
     isFeatured: true,
     cardImage: '/jdot-cover.png',
-    heroImage: '/jameson-hero.png',
+    heroImage: '/jameson-hero.webp',
     roleLabels: [],
     sections: [
       {
         title: 'The Idea',
         content: 'Jameson wanted Lagos to feel the distillery before they ever stepped inside it. The plan was simple. Put something so big and so bold on a Lagos road that people in traffic had no choice but to notice.\n\nThat something was the barrel man. Jameson\'s iconic figure, the one that represents the cooper and the craft behind every bottle, built at full scale, standing on top of a branded container. And the detail that made it all click: he was facing the direction of the venue. Not just a decoration. A guide.',
-        image: '/jameson-idea.png',
+        image: '/jameson-idea.webp',
       },
       {
         title: 'Process',
         content: 'I modeled the container and the barrel man from scratch in Blender. The figure had to look like it was moving, like it was actually heading somewhere. Because it was.\n\nEvery joint, every proportion, every angle was worked out in 3D before anything was built in real life.',
-        images: ['/jameson-process-1.png', '/jameson-process-2.png', '/jameson-process-3.png', '/jameson-process-4.png'],
+        images: ['/jameson-process-1.webp', '/jameson-process-2.webp', '/jameson-process-3.webp', '/jameson-process-4.webp'],
       },
       {
         title: 'Visualization',
         content: 'The renders showed exactly what would go up. Jameson green, the barrel man mid-stride, the branded container underneath him with the event details on every face.\n\nWhat you see in the render is what showed up on the street.',
-        images: ['/jameson-vis-1.png', '/jameson-vis-2.png', '/jameson-vis-3.png', '/jameson-vis-4.png', '/jameson-vis-5.png', '/jameson-vis-6.png'],
+        images: ['/jameson-vis-1.webp', '/jameson-vis-2.webp', '/jameson-vis-3.webp', '/jameson-vis-4.webp', '/jameson-vis-5.webp', '/jameson-vis-6.webp'],
       },
       {
         title: 'Result',
