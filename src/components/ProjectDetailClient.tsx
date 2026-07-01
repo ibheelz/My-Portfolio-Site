@@ -560,12 +560,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   </p>
                   {section.images && section.images.length > 0 ? (
                     <div
-                      className={`w-full rounded-xl overflow-hidden group relative ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && window.innerWidth >= 768) ? '' : 'cursor-pointer'}`}
+                      className={`w-full rounded-xl overflow-hidden group relative ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
                       onClick={(e) => {
                         e.stopPropagation()
                         const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
-                        const isMobileView = window.innerWidth < 768
-                        if (isMobileView || !noModalProjects.includes(project?.slug || '')) {
+                        if (isMobile || !noModalProjects.includes(project?.slug || '')) {
                           setModalCarouselImages(section.images!)
                           setModalCarouselIndex(carouselStates[index]?.currentIndex || 0)
                         }
@@ -653,12 +652,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     </div>
                   ) : section.image && (
                     <div
-                      className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && window.innerWidth >= 768) ? '' : 'cursor-pointer'}`}
+                      className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
                       style={{ maxHeight: (project.slug === 'duskline' || project.slug === 'verdant') ? '80vh' : '70vh' }}
                       onClick={() => {
                         const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
-                        const isMobileView = window.innerWidth < 768
-                        if (isMobileView || !noModalProjects.includes(project?.slug || '')) {
+                        if (isMobile || !noModalProjects.includes(project?.slug || '')) {
                           setModalImage(section.image || null)
                         }
                       }}
