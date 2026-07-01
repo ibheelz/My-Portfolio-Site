@@ -52,6 +52,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
   const [carouselStates, setCarouselStates] = useState<Record<number, { currentIndex: number; isInteracting: boolean }>>({})
   const [carouselIntervals, setCarouselIntervals] = useState<Record<number, NodeJS.Timeout>>({})
   const [touchStartX, setTouchStartX] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
   const heroTitleRef = useRef<HTMLHeadingElement>(null)
   const isManuallyScrollingRef = useRef(false)
 
@@ -62,6 +63,15 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
     }
     window.scrollY = 0
   }, [slug])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const pageContent = document.querySelector('.page-content') as HTMLElement
@@ -546,11 +556,15 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   </p>
                   {section.images && section.images.length > 0 ? (
                     <div
-                      className="w-full rounded-xl overflow-hidden cursor-pointer group relative"
+                      className={`w-full rounded-xl overflow-hidden group relative ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && window.innerWidth >= 768) ? '' : 'cursor-pointer'}`}
                       onClick={(e) => {
                         e.stopPropagation()
-                        setModalCarouselImages(section.images!)
-                        setModalCarouselIndex(carouselStates[index]?.currentIndex || 0)
+                        const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
+                        const isMobileView = window.innerWidth < 768
+                        if (isMobileView || !noModalProjects.includes(project?.slug || '')) {
+                          setModalCarouselImages(section.images!)
+                          setModalCarouselIndex(carouselStates[index]?.currentIndex || 0)
+                        }
                       }}
                       onMouseEnter={() => {
                         setCarouselStates(prev => ({
@@ -595,17 +609,17 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                           <>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleCarouselPrevious(index, section.images!.length) }}
-                              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors z-10"
+                              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
                             >
-                              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
                               </svg>
                             </button>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleCarouselNext(index, section.images!.length) }}
-                              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors z-10"
+                              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
                             >
-                              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                               </svg>
                             </button>
@@ -635,9 +649,15 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     </div>
                   ) : section.image && (
                     <div
-                      className="w-full rounded-xl overflow-hidden cursor-pointer group"
+                      className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && window.innerWidth >= 768) ? '' : 'cursor-pointer'}`}
                       style={{ maxHeight: (project.slug === 'duskline' || project.slug === 'verdant') ? '80vh' : '70vh' }}
-                      onClick={() => setModalImage(section.image || null)}
+                      onClick={() => {
+                        const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
+                        const isMobileView = window.innerWidth < 768
+                        if (isMobileView || !noModalProjects.includes(project?.slug || '')) {
+                          setModalImage(section.image || null)
+                        }
+                      }}
                     >
                       <Image
                         src={section.image}
@@ -713,9 +733,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
       {modalCarouselImages && (
         <div
-          className="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center py-16 px-4"
+          className="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center px-4"
           onClick={() => setModalCarouselImages(null)}
-          style={{ userSelect: 'none' }}
+          style={{ userSelect: 'none', paddingTop: '60px', paddingBottom: '100px' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -726,20 +746,20 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             ✕
           </button>
 
-          <div className="flex items-center justify-center gap-6 w-full h-full" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center justify-center gap-6 w-full flex-1" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setModalCarouselIndex((prev) => (prev - 1 + modalCarouselImages.length) % modalCarouselImages.length)
               }}
-              className="flex-shrink-0 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors"
+              className="hidden md:flex flex-shrink-0 w-8 h-8 rounded-full items-center justify-center" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
             >
-              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
-            <div className="flex items-center justify-center max-w-[90vw] max-h-[80vh]">
+            <div className={`flex items-center justify-center h-full ${isMobile ? 'w-screen' : 'max-w-[90vw]'}`}>
               <Image
                 src={modalCarouselImages[modalCarouselIndex]}
                 alt={`Image ${modalCarouselIndex + 1}`}
@@ -749,7 +769,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                 priority
                 onContextMenu={(e) => handleImageContextMenu(e as any)}
                 onDragStart={handleImageDrag}
-                style={{ userSelect: 'none' }}
+                style={{ userSelect: 'none', maxHeight: '50vh', width: 'auto', height: 'auto' }}
               />
             </div>
 
@@ -758,9 +778,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                 e.stopPropagation()
                 setModalCarouselIndex((prev) => (prev + 1) % modalCarouselImages.length)
               }}
-              className="flex-shrink-0 w-8 h-8 rounded-full bg-transparent border border-[rgb(138,138,138)] flex items-center justify-center hover:bg-[#60A5FA] hover:border-[#60A5FA] active:bg-[#60A5FA] active:border-[#60A5FA] hover:text-black active:text-black transition-colors"
+              className="hidden md:flex flex-shrink-0 w-8 h-8 rounded-full items-center justify-center" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
             >
-              <svg className="w-4 h-4 text-[rgb(138,138,138)] hover:text-black active:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
               </svg>
             </button>
