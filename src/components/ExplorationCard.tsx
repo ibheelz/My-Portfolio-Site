@@ -52,7 +52,7 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
           >
             {exploration.title}
           </h3>
-          {exploration.tools && exploration.tools.length > 0 && (
+          {exploration.tools && exploration.tools.length > 0 && !['lucia', 'posters'].includes(exploration.slug) && (
             <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
               {exploration.tools.map((tool) => (
                 <div key={tool} style={{ width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
