@@ -559,39 +559,13 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     {renderStyledContent(section.content)}
                   </p>
                   {section.images && section.images.length > 0 ? (
-                    <div
-                      className={`w-full rounded-xl overflow-hidden group relative ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
-                        if (isMobile || !noModalProjects.includes(project?.slug || '')) {
-                          setModalCarouselImages(section.images!)
-                          setModalCarouselIndex(carouselStates[index]?.currentIndex || 0)
-                        }
-                      }}
-                      onMouseEnter={() => {
-                        setCarouselStates(prev => ({
-                          ...prev,
-                          [index]: {
-                            ...prev[index],
-                            isInteracting: true
-                          }
-                        }))
-                        stopCarouselAutoplay(index)
-                      }}
-                      onMouseLeave={() => {
-                        resumeCarouselAutoplay(index, section.images!.length)
-                      }}
-                    >
-                      <div className="relative" style={{ width: '100%', ...(project.slug === 'duskline' || project.slug === 'verdant' ? { position: 'relative', minHeight: '80vh' } : { paddingBottom: '75%', position: 'relative' }) }}>
+                    (['martell', 'jameson'].includes(project?.slug || '')) ? (
+                      <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {section.images.map((image, imgIndex) => (
                           <div
                             key={imgIndex}
-                            className="absolute inset-0 w-full h-full carousel-image"
-                            style={{
-                              opacity: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 1 : 0,
-                              pointerEvents: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'auto' : 'none'
-                            }}
+                            className="w-full rounded-xl overflow-hidden"
+                            style={{ position: 'relative', width: '100%', paddingBottom: '75%' }}
                           >
                             <Image
                               src={image}
@@ -599,57 +573,108 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                               fill
                               loading="eager"
                               quality={75}
-                              className="w-full h-full"
-                              style={{ objectFit: (project.slug === 'duskline' || project.slug === 'verdant') ? 'contain' : 'cover', userSelect: 'none' }}
+                              className="w-full h-full rounded-xl"
+                              style={{ objectFit: 'cover', userSelect: 'none', borderRadius: '12px' }}
                               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
                               onContextMenu={(e) => handleImageContextMenu(e as any)}
                               onDragStart={handleImageDrag}
                             />
                           </div>
                         ))}
-
-                        {(carouselStates[index]?.isInteracting) && (
-                          <>
-                            <button
-                              onClick={(e) => { e.stopPropagation(); handleCarouselPrevious(index, section.images!.length) }}
-                              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
-                            >
-                              <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-                              </svg>
-                            </button>
-                            <button
-                              onClick={(e) => { e.stopPropagation(); handleCarouselNext(index, section.images!.length) }}
-                              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
-                            >
-                              <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                              </svg>
-                            </button>
-
-                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-2 z-10">
-                              {section.images.map((_, dotIndex) => (
-                                <button
-                                  key={dotIndex}
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    setCarouselStates(prev => ({
-                                      ...prev,
-                                      [index]: { ...prev[index], currentIndex: dotIndex }
-                                    }))
-                                  }}
-                                  className="w-2 h-2 rounded-full transition-all"
-                                  style={{
-                                    backgroundColor: (carouselStates[index]?.currentIndex || 0) === dotIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
-                                    width: (carouselStates[index]?.currentIndex || 0) === dotIndex ? '12px' : '8px'
-                                  }}
-                                />
-                              ))}
-                            </div>
-                          </>
-                        )}
                       </div>
-                    </div>
+                    ) : (
+                      <div
+                        className={`w-full rounded-xl overflow-hidden group relative ${(['rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          const noModalProjects = ['rash', 'duskline', 'verdant']
+                          if (isMobile || !noModalProjects.includes(project?.slug || '')) {
+                            setModalCarouselImages(section.images!)
+                            setModalCarouselIndex(carouselStates[index]?.currentIndex || 0)
+                          }
+                        }}
+                        onMouseEnter={() => {
+                          setCarouselStates(prev => ({
+                            ...prev,
+                            [index]: {
+                              ...prev[index],
+                              isInteracting: true
+                            }
+                          }))
+                          stopCarouselAutoplay(index)
+                        }}
+                        onMouseLeave={() => {
+                          resumeCarouselAutoplay(index, section.images!.length)
+                        }}
+                      >
+                        <div className="relative" style={{ width: '100%', ...(project.slug === 'duskline' || project.slug === 'verdant' ? { position: 'relative', minHeight: '80vh' } : { paddingBottom: '75%', position: 'relative' }) }}>
+                          {section.images.map((image, imgIndex) => (
+                            <div
+                              key={imgIndex}
+                              className="absolute inset-0 w-full h-full carousel-image"
+                              style={{
+                                opacity: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 1 : 0,
+                                pointerEvents: (carouselStates[index]?.currentIndex || 0) === imgIndex ? 'auto' : 'none'
+                              }}
+                            >
+                              <Image
+                                src={image}
+                                alt={`${section.title} - Image ${imgIndex + 1}`}
+                                fill
+                                loading="eager"
+                                quality={75}
+                                className="w-full h-full"
+                                style={{ objectFit: (project.slug === 'duskline' || project.slug === 'verdant') ? 'contain' : 'cover', userSelect: 'none' }}
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
+                                onContextMenu={(e) => handleImageContextMenu(e as any)}
+                                onDragStart={handleImageDrag}
+                              />
+                            </div>
+                          ))}
+
+                          {(carouselStates[index]?.isInteracting) && (
+                            <>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); handleCarouselPrevious(index, section.images!.length) }}
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                </svg>
+                              </button>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); handleCarouselNext(index, section.images!.length) }}
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10" style={{ backgroundColor: 'rgb(40, 40, 40)' }}
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="white" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </button>
+
+                              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-2 z-10">
+                                {section.images.map((_, dotIndex) => (
+                                  <button
+                                    key={dotIndex}
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      setCarouselStates(prev => ({
+                                        ...prev,
+                                        [index]: { ...prev[index], currentIndex: dotIndex }
+                                      }))
+                                    }}
+                                    className="w-2 h-2 rounded-full transition-all"
+                                    style={{
+                                      backgroundColor: (carouselStates[index]?.currentIndex || 0) === dotIndex ? 'rgb(250,250,250)' : 'rgb(97,97,97)',
+                                      width: (carouselStates[index]?.currentIndex || 0) === dotIndex ? '12px' : '8px'
+                                    }}
+                                  />
+                                ))}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    )
                   ) : section.image && (
                     <div
                       className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
