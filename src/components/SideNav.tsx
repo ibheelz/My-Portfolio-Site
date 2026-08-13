@@ -46,13 +46,13 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         className="sticky text-white flex flex-col items-center transition-all duration-300"
         style={{
           width: '80px',
-          top: '8px',
+          top: '0px',
           backgroundColor: 'var(--grey-bg)',
           padding: '16px',
-          overflowY: 'auto',
-          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           gap: '24px',
-          maxHeight: 'calc(100vh - 16px)',
           position: 'relative',
         }}
       >
@@ -170,13 +170,12 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
       className="sticky text-white flex flex-col transition-all duration-300"
       style={{
         width: '296px',
-        top: '8px',
+        top: '0px',
         backgroundColor: 'var(--grey-bg)',
         padding: '32px 24px 24px 24px',
-        overflowY: 'auto',
-        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         gap: '32px',
-        maxHeight: 'calc(100vh - 16px)',
         position: 'relative',
       }}
     >

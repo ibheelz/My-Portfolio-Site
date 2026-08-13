@@ -12,7 +12,7 @@ import { useAnalytics } from '@/src/hooks/useAnalytics'
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true)
   const pathname = usePathname()
   useAnalytics()
 
