@@ -56,9 +56,6 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           height: '100%',
         }}
       >
-        {/* Spacing at top before profile */}
-        <div style={{ flex: '0.8' }} />
-
         {/* Profile Section */}
         {!hideProfile && (
           <div
@@ -194,9 +191,6 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         height: '100%',
       }}
     >
-      {/* Spacing at top before profile */}
-      <div style={{ flex: '0.8' }} />
-
       {/* Profile Section */}
       {!hideProfile && (
         <div
