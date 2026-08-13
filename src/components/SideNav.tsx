@@ -48,18 +48,23 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           width: '80px',
           top: '0px',
           backgroundColor: 'var(--grey-bg)',
-          padding: '16px',
+          padding: '3% 2%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '24px',
           position: 'relative',
+          height: '100%',
         }}
       >
         {/* Profile Section */}
         {!hideProfile && (
           <div
-            style={{ cursor: 'pointer', display: 'flex', justifyContent: 'center' }}
+            style={{
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
             onClick={() => window.location.href = '/projects'}
             title="Abiola Adeyeye"
           >
@@ -74,8 +79,11 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           </div>
         )}
 
+        {/* Spacing between profile and main nav */}
+        <div style={{ flex: '0.5' }} />
+
         {/* Main Navigation - Icons Only */}
-        <div className="flex flex-col gap-3" style={{ alignItems: 'center' }}>
+        <div className="flex flex-col gap-3" style={{ alignItems: 'center', flexShrink: 0 }}>
           {navItems.map((item) => {
             const Icon = item.icon
             const active = isActive(item.href)
@@ -104,8 +112,11 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           })}
         </div>
 
+        {/* Spacing between main nav and social */}
+        <div style={{ flex: '1' }} />
+
         {/* Social Navigation - Icons Only */}
-        <div className="flex flex-col gap-3" style={{ alignItems: 'center', marginTop: '12px' }}>
+        <div className="flex flex-col gap-3" style={{ alignItems: 'center', flexShrink: 0 }}>
           {socialItems.map((item) => {
             const Icon = item.icon
             const isHovered = hoveredNav === `social-${item.href}`
@@ -135,15 +146,14 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           })}
         </div>
 
+        {/* Spacing before expand button */}
+        <div style={{ flex: '0.5' }} />
+
         {/* Expand Button - Bottom */}
         {onToggleCollapse && (
           <button
             onClick={onToggleCollapse}
             style={{
-              position: 'absolute',
-              bottom: '16px',
-              left: '50%',
-              transform: 'translateX(-50%)',
               background: 'transparent',
               border: 'none',
               color: 'rgb(138, 138, 138)',
@@ -153,6 +163,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
               alignItems: 'center',
               justifyContent: 'center',
               transition: 'color 0.2s ease',
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
@@ -172,16 +183,25 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         width: '296px',
         top: '0px',
         backgroundColor: 'var(--grey-bg)',
-        padding: '32px 24px 24px 24px',
+        padding: '3% 2%',
         display: 'flex',
         flexDirection: 'column',
-        gap: '32px',
         position: 'relative',
+        height: '100%',
       }}
     >
       {/* Profile Section */}
       {!hideProfile && (
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer' }} onClick={() => window.location.href = '/projects'}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '2%',
+            alignItems: 'flex-start',
+            cursor: 'pointer',
+            flexShrink: 0,
+          }}
+          onClick={() => window.location.href = '/projects'}
+        >
           <Image
             src="/profile-photo.jpg"
             alt="Abiola Adeyeye"
@@ -203,8 +223,11 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         </div>
       )}
 
+      {/* Spacing between profile and main nav */}
+      <div style={{ flex: '0.5' }} />
+
       {/* Main Navigation */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" style={{ flexShrink: 0 }}>
         <p className="uppercase-headline">Main</p>
         {navItems.map((item) => {
           const Icon = item.icon
@@ -220,7 +243,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
                 href={item.href}
                 className="flex items-center gap-3 rounded-full transition-all body-m-leading"
                 style={{
-                  padding: '10px 24px 10px 10px',
+                  padding: '0.7% 1.8% 0.7% 0.7%',
                   backgroundColor: isHovered || active ? '#000000' : 'transparent',
                   color: active ? 'rgb(129, 195, 215)' : 'rgb(138, 138, 138)',
                   display: 'fit-content',
@@ -235,8 +258,11 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         })}
       </div>
 
+      {/* Spacing between main nav and social */}
+      <div style={{ flex: '1' }} />
+
       {/* Social Navigation */}
-      <div className="flex flex-col gap-2" style={{ marginTop: '20px' }}>
+      <div className="flex flex-col gap-2" style={{ flexShrink: 0 }}>
         <p className="uppercase-headline">Social</p>
         {socialItems.map((item) => {
           const Icon = item.icon
@@ -253,7 +279,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 rounded-full transition-all hover:text-white body-m-leading"
                 style={{
-                  padding: '10px 24px 10px 10px',
+                  padding: '0.7% 1.8% 0.7% 0.7%',
                   backgroundColor: isHovered ? '#000000' : 'transparent',
                   color: 'rgb(138, 138, 138)',
                   display: 'fit-content',
@@ -268,14 +294,14 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         })}
       </div>
 
+      {/* Spacing before collapse button */}
+      <div style={{ flex: '0.5' }} />
+
       {/* Collapse Button - Bottom */}
       {onToggleCollapse && (
         <button
           onClick={onToggleCollapse}
           style={{
-            position: 'absolute',
-            bottom: '24px',
-            left: '24px',
             background: 'transparent',
             border: 'none',
             color: 'rgb(138, 138, 138)',
@@ -285,6 +311,9 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'color 0.2s ease',
+            flexShrink: 0,
+            alignSelf: 'flex-start',
+            marginLeft: '2%',
           }}
           onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
