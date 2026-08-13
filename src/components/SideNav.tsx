@@ -48,7 +48,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           width: '80px',
           top: '0px',
           backgroundColor: 'var(--grey-bg)',
-          padding: '3% 2%',
+          padding: '5% 2%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -56,6 +56,9 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           height: '100%',
         }}
       >
+        {/* Spacing at top before profile */}
+        <div style={{ flex: '0.8' }} />
+
         {/* Profile Section */}
         {!hideProfile && (
           <div
@@ -80,7 +83,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         )}
 
         {/* Spacing between profile and main nav */}
-        <div style={{ flex: '0.5' }} />
+        <div style={{ flex: '1.2' }} />
 
         {/* Main Navigation - Icons Only */}
         <div className="flex flex-col gap-3" style={{ alignItems: 'center', flexShrink: 0 }}>
@@ -147,7 +150,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         </div>
 
         {/* Spacing before expand button */}
-        <div style={{ flex: '0.5' }} />
+        <div style={{ flex: '1.2' }} />
 
         {/* Expand Button - Bottom */}
         {onToggleCollapse && (
@@ -158,12 +161,13 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
               border: 'none',
               color: 'rgb(138, 138, 138)',
               cursor: 'pointer',
-              padding: '4px',
+              padding: '8px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               transition: 'color 0.2s ease',
               flexShrink: 0,
+              marginBottom: '2%',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
@@ -183,13 +187,16 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         width: '296px',
         top: '0px',
         backgroundColor: 'var(--grey-bg)',
-        padding: '3% 2%',
+        padding: '5% 2%',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
         height: '100%',
       }}
     >
+      {/* Spacing at top before profile */}
+      <div style={{ flex: '0.8' }} />
+
       {/* Profile Section */}
       {!hideProfile && (
         <div
@@ -224,7 +231,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
       )}
 
       {/* Spacing between profile and main nav */}
-      <div style={{ flex: '0.5' }} />
+      <div style={{ flex: '1.2' }} />
 
       {/* Main Navigation */}
       <div className="flex flex-col gap-2" style={{ flexShrink: 0 }}>
@@ -295,7 +302,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
       </div>
 
       {/* Spacing before collapse button */}
-      <div style={{ flex: '0.5' }} />
+      <div style={{ flex: '1.2' }} />
 
       {/* Collapse Button - Bottom */}
       {onToggleCollapse && (
@@ -306,7 +313,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
             border: 'none',
             color: 'rgb(138, 138, 138)',
             cursor: 'pointer',
-            padding: '4px',
+            padding: '8px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -314,6 +321,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
             flexShrink: 0,
             alignSelf: 'flex-start',
             marginLeft: '2%',
+            marginBottom: '2%',
           }}
           onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
