@@ -607,7 +607,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                           resumeCarouselAutoplay(index, section.images!.length)
                         }}
                       >
-                        <div className="relative" style={{ width: '100%', ...(project.slug === 'duskline' || project.slug === 'verdant' ? { position: 'relative', minHeight: '80vh' } : { paddingBottom: '75%', position: 'relative' }) }}>
+                        <div className="relative" style={{ width: '100%', ...(project.slug === 'duskline' || project.slug === 'verdant' ? { position: 'relative', minHeight: 'auto' } : { paddingBottom: '75%', position: 'relative' }) }}>
                           {section.images.map((image, imgIndex) => (
                             <div
                               key={imgIndex}
@@ -678,7 +678,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   ) : section.image && (
                     <div
                       className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
-                      style={{ maxHeight: (project.slug === 'duskline' || project.slug === 'verdant') ? '80vh' : '70vh' }}
+                      style={{ maxHeight: (['duskline', 'verdant'].includes(project?.slug || '')) ? 'auto' : '70vh' }}
                       onClick={() => {
                         const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
                         if (isMobile || !noModalProjects.includes(project?.slug || '')) {
