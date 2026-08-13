@@ -22,11 +22,10 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
   const pathname = usePathname()
   const [hoveredNav, setHoveredNav] = useState<string | null>(null)
 
-  const isActive = (path: string) => path === '/' ? pathname === '/' : pathname.startsWith(path)
+  const isActive = (path: string) => path === '/projects' ? pathname === '/projects' || pathname.startsWith('/projects/') : pathname.startsWith(path)
 
   const navItems = [
-    { href: '/', label: 'Home', icon: Compass },
-    { href: '/works', label: 'Works', icon: Briefcase },
+    { href: '/projects', label: 'Projects', icon: Briefcase },
     { href: '/explore', label: 'Explore', icon: Path },
     { href: '/about-me', label: 'About', icon: UserIcon },
   ]
@@ -52,7 +51,7 @@ export default function SideNav({ hideProfile = false }: SideNavProps) {
     >
       {/* Profile Section */}
       {!hideProfile && (
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer' }} onClick={() => window.location.href = '/projects'}>
           <Image
             src="/profile-photo.jpg"
             alt="Abiola Adeyeye"

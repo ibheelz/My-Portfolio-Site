@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,8 +10,13 @@ import { ArrowRight } from '@phosphor-icons/react'
 import { FadeIn } from '@/src/components/FadeIn'
 
 export default function Home() {
+  const router = useRouter()
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
   const [selectedService, setSelectedService] = useState<string | null>(null)
+
+  useEffect(() => {
+    router.replace('/projects')
+  }, [])
 
   const getYear = (dateStr?: string) => {
     if (!dateStr) return 0
@@ -180,7 +187,7 @@ export default function Home() {
                   Featured
                 </h2>
                 <Link
-                  href="/works"
+                  href="/projects"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -201,7 +208,7 @@ export default function Home() {
               {featuredProjects.map((project, index) => (
                 <FadeIn key={project.slug} delay={index * 0.08}>
                   <Link
-                    href={`/works/${project.slug}`}
+                    href={`/projects/${project.slug}`}
                     className="project-card project-card-home group"
                     style={{
                       width: '100%',
