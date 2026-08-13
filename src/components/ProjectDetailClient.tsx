@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef, useLayoutEffect, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 import { projects } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
 import ToolIcon from '@/src/components/ToolIcon'
@@ -559,7 +560,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     {renderStyledContent(section.content)}
                   </p>
                   {section.images && section.images.length > 0 ? (
-                    (['martell', 'jameson'].includes(project?.slug || '')) ? (
+                    (['martell', 'jameson', 'rash'].includes(project?.slug || '')) ? (
                       <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {section.images.map((image, imgIndex) => (
                           <div
@@ -584,7 +585,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       </div>
                     ) : (
                       <div
-                        className={`w-full rounded-xl overflow-hidden group relative ${(['rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
+                        className={`w-full rounded-xl overflow-hidden group relative ${(['duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
                         onClick={(e) => {
                           e.stopPropagation()
                           const noModalProjects = ['rash', 'duskline', 'verdant']
@@ -607,7 +608,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                           resumeCarouselAutoplay(index, section.images!.length)
                         }}
                       >
-                        <div className="relative" style={{ width: '100%', ...(project.slug === 'duskline' || project.slug === 'verdant' ? { position: 'relative', minHeight: 'auto' } : { paddingBottom: '75%', position: 'relative' }) }}>
+                        <div className="relative" style={{ width: '100%', ...((['duskline', 'verdant'].includes(project?.slug || '')) ? { position: 'relative', minHeight: 'auto' } : { paddingBottom: '75%', position: 'relative' }) }}>
                           {section.images.map((image, imgIndex) => (
                             <div
                               key={imgIndex}
@@ -678,7 +679,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   ) : section.image && (
                     <div
                       className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
-                      style={{ maxHeight: (['duskline', 'verdant'].includes(project?.slug || '')) ? 'auto' : '70vh' }}
+                      style={{ maxHeight: (['duskline', 'verdant', 'rash'].includes(project?.slug || '')) ? 'auto' : '70vh' }}
                       onClick={() => {
                         const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
                         if (isMobile || !noModalProjects.includes(project?.slug || '')) {
@@ -713,12 +714,33 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
 
         <section className="w-full bg-[rgb(14,14,18)] border-t-2 border-[rgb(2,1,10)] overflow-hidden px-16 py-16 flex flex-col gap-8 relative z-[40]" style={{ paddingLeft: 'clamp(16px, 5vw, 64px)', paddingRight: 'clamp(16px, 5vw, 64px)', paddingTop: 'clamp(32px, 8vw, 64px)', paddingBottom: 'clamp(32px, 8vw, 64px)' }}>
           <FadeIn>
-            <h2
-              className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
-              style={{ fontFamily: 'Mortend', margin: 0 }}
-            >
-              More projects
-            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+              <h2
+                className="font-heading text-[clamp(14px,2vw,16px)] leading-[1.4em] tracking-[0.07em] text-[rgb(250,250,250)] uppercase"
+                style={{ fontFamily: 'Mortend', margin: 0 }}
+              >
+                More projects
+              </h2>
+              <Link
+                href="/projects"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '2px',
+                  color: 'rgb(129, 195, 215)',
+                  fontSize: '12px',
+                  whiteSpace: 'nowrap',
+                  textDecoration: 'none',
+                  transition: 'opacity 0.2s ease',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.8')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+              >
+                See all
+                <ArrowRight size={16} weight="bold" />
+              </Link>
+            </div>
           </FadeIn>
           <div className="projects-grid grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1" style={{ columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
             {otherProjects.map((p, index) => (
