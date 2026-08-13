@@ -67,7 +67,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Page Content */}
-        <main className="page-content flex-1 transition-all duration-300" style={{ flex: 1 }}>
+        <main className="page-content flex-1" style={{ flex: 1, transition: 'margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}>
           {children}
         </main>
       </div>
