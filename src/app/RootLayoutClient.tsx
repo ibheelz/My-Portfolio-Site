@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { List, X } from '@phosphor-icons/react'
+import { List, X, CaretLeft, CaretRight } from '@phosphor-icons/react'
 import Image from 'next/image'
 import SideNav from '@/src/components/SideNav'
 import { useAnalytics } from '@/src/hooks/useAnalytics'
@@ -12,6 +12,7 @@ import { useAnalytics } from '@/src/hooks/useAnalytics'
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const pathname = usePathname()
   useAnalytics()
 
@@ -22,10 +23,10 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
   return (
     <>
       {/* Main Layout */}
-      <div className="page-wrapper">
+      <div className="page-wrapper" style={{ display: 'flex' }}>
         {/* Side Nav - visible only on desktop (hidden on smaller screens) */}
-        <div className="hidden lg:flex sidebar-nav">
-          <SideNav />
+        <div className="hidden lg:flex sidebar-nav transition-all duration-300" style={{ flexShrink: 0 }}>
+          <SideNav collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)} />
         </div>
 
         {/* Mobile/Tablet Top Navbar */}
@@ -66,7 +67,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </div>
 
         {/* Page Content */}
-        <main className="page-content">
+        <main className="page-content flex-1 transition-all duration-300" style={{ flex: 1 }}>
           {children}
         </main>
       </div>
