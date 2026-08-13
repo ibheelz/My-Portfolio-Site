@@ -53,6 +53,7 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           height: '100%',
           gap: '24px',
           maxHeight: 'calc(100vh - 16px)',
+          position: 'relative',
         }}
       >
         {/* Profile Section */}
@@ -133,6 +134,33 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
             )
           })}
         </div>
+
+        {/* Expand Button - Bottom */}
+        {onToggleCollapse && (
+          <button
+            onClick={onToggleCollapse}
+            style={{
+              position: 'absolute',
+              bottom: '16px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'transparent',
+              border: 'none',
+              color: 'rgb(138, 138, 138)',
+              cursor: 'pointer',
+              padding: '4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'color 0.2s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
+            title="Expand sidebar"
+          >
+            <CaretRight size={20} weight="bold" />
+          </button>
+        )}
       </nav>
     )
   }
@@ -152,32 +180,6 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
         position: 'relative',
       }}
     >
-      {/* Collapse Button */}
-      {onToggleCollapse && (
-        <button
-          onClick={onToggleCollapse}
-          style={{
-            position: 'absolute',
-            top: '12px',
-            right: '12px',
-            background: 'transparent',
-            border: 'none',
-            color: 'rgb(138, 138, 138)',
-            cursor: 'pointer',
-            padding: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'color 0.2s ease',
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
-          title="Collapse sidebar"
-        >
-          <CaretLeft size={20} weight="bold" />
-        </button>
-      )}
-
       {/* Profile Section */}
       {!hideProfile && (
         <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer' }} onClick={() => window.location.href = '/projects'}>
@@ -266,6 +268,32 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
           )
         })}
       </div>
+
+      {/* Collapse Button - Bottom */}
+      {onToggleCollapse && (
+        <button
+          onClick={onToggleCollapse}
+          style={{
+            position: 'absolute',
+            bottom: '24px',
+            left: '24px',
+            background: 'transparent',
+            border: 'none',
+            color: 'rgb(138, 138, 138)',
+            cursor: 'pointer',
+            padding: '4px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'color 0.2s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(250, 250, 250)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(138, 138, 138)')}
+          title="Collapse sidebar"
+        >
+          <CaretLeft size={20} weight="bold" />
+        </button>
+      )}
     </nav>
   )
 }
