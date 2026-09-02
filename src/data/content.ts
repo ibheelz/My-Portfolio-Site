@@ -188,44 +188,6 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    type: 'project',
-    slug: 'rash',
-    title: 'Rash',
-    label1: 'Sports',
-    label2: 'Branding',
-    duration: '1 Month',
-    date: 'March 2020',
-    isFeatured: false,
-    cardImage: '/rash-cover.webp',
-    heroImage: '/rash-hero.webp',
-    roleLabels: ['Branding', 'Sports'],
-    sections: [
-      {
-        title: 'The Athlete',
-        content: 'Rasheedat Ajibade, known as Rash, is a Nigerian professional footballer who was already making waves at Atletico Madrid when this project began. She is now captain of the Super Falcons and plays for Paris Saint-Germain.\n\nKnown for her blue hair and her campaign #TheGirlWithTheBlueHair, Rash needed a personal brand that matched her energy on and off the pitch.',
-      },
-      {
-        title: 'The Logo',
-        content: 'The mark is designed around Rasheedat herself. The shape forms an R but it is also a figure in motion, a player mid-kick, striking the ball with her right foot the way she plays.\n\nThe blue circle sitting at the top is her blue hair, the same detail that made her #TheGirlWithTheBlueHair before the world knew her name. Everything in the logo is her. The initial, the movement, the hair.\n\nIt is a portrait disguised as a symbol.',
-        image: '/rash-logo.webp',
-      },
-      {
-        title: 'The Identity',
-        content: 'The logo is built around a single gesture. Clean, personal, unmistakable.\n\nThe wordmark sits underneath it, straightforward and confident, the same way she carries herself. No excess. Just her name and what it stands for.',
-      },
-      {
-        title: 'The Merch',
-        content: 'The identity was applied across a full range of merchandise. Hoodies, slides, beanies.\n\nEach piece carries the brand quietly, the way a personal brand should, present without being loud.',
-        images: ['/rash-slides.webp', '/rash-merch.webp'],
-      },
-      {
-        title: 'Where It Stands Now',
-        content: 'The brand was designed in 2020. Since then Rash has won WAFCON, signed for PSG, and become one of the most recognizable athletes in African women\'s football.\n\nThe identity built six years ago is still the one she carries.',
-        images: ['/rash-on-merch.webp', '/rash-on-merch-2.webp'],
-      },
-    ],
-  },
 ]
 
 export const blogPosts: BlogPost[] = [
