@@ -136,17 +136,17 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'Project Overview',
-        content: 'Duskline is a vinyl record shop that becomes a listening bar at night. It serves people who care about music and want a warm, welcoming place to enjoy it.\n\nThe brand captures the dual experience. It feels dark and atmospheric at night, but always friendly. Every design choice started with one principle: sound first.',
+        content: 'Vinyl record shop that becomes a listening bar at night.',
         image: 'https://framerusercontent.com/images/jdAWGQ79Ef5Oq9ifYlVLjaQ4E.gif?width=800&height=600',
       },
       {
         title: 'The Challenge',
-        content: 'Duskline is two things at once: a record shop during the day and a listening bar at night. The challenge was creating one brand identity that worked for both without feeling split.\n\nThe design needed to feel warm and easy to browse during the day, then shift into something darker and moodier at night. One visual language for two very different experiences.',
+        content: 'Creating one brand identity for two different experiences.',
         image: '/d6.png',
       },
       {
         title: 'Brand Strategy',
-        content: 'The strategy focuses on the listening experience, not just the products. Whether you are flipping through records or sitting with a drink, sound is the connecting thread. This became the foundation for every design choice.\n\nEvery detail, from color to typeface, was designed to feel intentional and unhurried. The brand does not demand attention. Instead, it draws you in quietly, the way good music does.',
+        content: 'Strategy focuses on listening experience, not just products.',
         images: ['/d1.png', '/d2.png', '/d3.png', '/d4.png', '/d5.png', '/d7.gif'],
       },
     ],
@@ -167,22 +167,22 @@ export const projects: Project[] = [
     sections: [
       {
         title: 'Project Overview',
-        content: 'Verdant Cafe is a Portland specialty coffee brand with one core idea: sitting down with a friend over a good cup of coffee. Founder Marcus Chen buys beans directly from farmers in Colombia, Ethiopia, and Guatemala.\n\nThe brand identity is playful but premium. It features hand-drawn typefaces, warm earthy colors, and a bearded mascot that represents Marcus. The mascot also reads as two coffee cups toasting, embedding friendship into every detail.',
+        content: 'Portland specialty coffee brand focused on friendship and connection.',
         video: '<iframe src="https://player.vimeo.com/video/1171121455?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&h=2160" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>',
       },
       {
         title: 'The Challenge',
-        content: 'Specialty coffee branding has become too serious and exclusive. Most brands use minimal, cold design that feels more like a museum than a welcoming space.\n\nMen between 30 and 50 need accessible places to sit and talk with friends. Verdant needed to feel different while keeping its focus on quality and ethical sourcing.',
+        content: 'Specialty coffee branding too serious and exclusive.',
         image: '/verdant-challenge-v2.gif',
       },
       {
         title: 'Brand Strategy',
-        content: 'The strategy is built on genuine human connection over coffee. Marcus Chen built the brand around his story of finding friendship again through coffee.\n\nVerdant is playful but premium. It targets men who care about quality but do not want coffee snobbery. The promise is simple: good coffee from farmers we know, in a place where you can relax and talk.',
+        content: 'Strategy built on genuine human connection over coffee.',
         image: '/verdant-strategy.png',
       },
       {
         title: 'Visual Identity',
-        content: 'The bearded mascot icon represents Marcus. It also reads as two coffee cups toasting together.\n\nWarm earthy colors, deep teal and cream, and simple typefaces create a design that feels handmade and real, not corporate.',
+        content: 'Bearded mascot represents Marcus and two coffee cups.',
         images: ['/verdant-identity-v1.png', '/verdant-identity-v3.png', '/verdant-identity-v4.png', '/verdant-identity-v5.png', '/verdant-identity-v6.png', '/verdant-identity-v7.png', '/verdant-identity-v8.png', '/verdant-identity-v9.png', '/verdant-identity-v10.png'],
         video: '<iframe src="https://player.vimeo.com/video/1171161744?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&h=2160" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>',
       },
