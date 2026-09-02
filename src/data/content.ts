@@ -231,7 +231,7 @@ export const explorations: Exploration[] = [
   {
     type: 'exploration',
     slug: 'posters',
-    title: 'Posters',
+    title: 'Social Media Design',
     description: 'Creative poster designs exploring visual storytelling and composition through various artistic styles.',
     date: 'Aug 25, 2023',
     tools: ['Photoshop', 'Illustrator', 'Figma'],
@@ -257,7 +257,7 @@ export const explorations: Exploration[] = [
   {
     type: 'exploration',
     slug: 'lucia',
-    title: 'Lucia',
+    title: 'AI Influencer Design',
     description: 'An AI influencer dedicated to Chelsea FC and connecting with the football community on Instagram.',
     date: 'Jul 01, 2026',
     tools: ['Photoshop', 'Nano Banana Pro'],
