@@ -560,7 +560,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     {renderStyledContent(section.content)}
                   </p>
                   {section.images && section.images.length > 0 ? (
-                    (['martell', 'jameson', 'rash'].includes(project?.slug || '')) ? (
+                    (['martell', 'jameson', 'rash', 'verdant'].includes(project?.slug || '')) ? (
                       <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {section.images.map((image, imgIndex) => (
                           <div
@@ -705,6 +705,19 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       />
                     </div>
                   )}
+                  {section.video && (() => {
+                    const src = section.video.match(/src="([^"]+)"/)?.[1]
+                    return src ? (
+                      <iframe
+                        src={src}
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+                        loading="lazy"
+                        style={{ width: '100%', height: '900px', border: 'none', display: 'block', marginTop: '32px', borderRadius: '12px' }}
+                      />
+                    ) : null
+                  })()}
                 </section>
               </FadeIn>
             ))}
