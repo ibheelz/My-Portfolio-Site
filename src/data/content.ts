@@ -147,7 +147,7 @@ export const projects: Project[] = [
       {
         title: 'Brand Strategy',
         content: 'The strategy focuses on the listening experience, not just the products. Whether you are flipping through records or sitting with a drink, sound is the connecting thread. This became the foundation for every design choice.\n\nEvery detail, from color to typeface, was designed to feel intentional and unhurried. The brand does not demand attention. Instead, it draws you in quietly, the way good music does.',
-        image: 'https://framerusercontent.com/images/iFsYnxNfati1W0exANnih8B9Qc.gif?width=1920&height=1440',
+        images: ['/d1.png', '/d2.png', '/d3.png', '/d4.png', '/d5.png', '/d7.png', '/d8.png'],
       },
     ],
   },
