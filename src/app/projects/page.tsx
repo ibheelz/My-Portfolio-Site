@@ -41,7 +41,7 @@ export default function ProjectsPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px', margin: 0 }}>
             {/* Headline */}
             <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, marginTop: '-0.2em', maxWidth: 'clamp(100%, 100%, 876px)' }}>
-              Building value into brands through design.
+              Selected Projects
             </h1>
 
             {/* What I do block */}
