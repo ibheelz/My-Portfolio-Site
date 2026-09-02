@@ -563,24 +563,29 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     (['martell', 'jameson', 'rash', 'verdant', 'duskline'].includes(project?.slug || '')) ? (
                       <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {section.images.map((image, imgIndex) => (
-                          <div
-                            key={imgIndex}
-                            className="w-full rounded-xl overflow-hidden"
-                            style={{ position: 'relative', width: '100%', paddingBottom: '75%' }}
-                          >
-                            <Image
-                              src={image}
-                              alt={`${section.title} - Image ${imgIndex + 1}`}
-                              fill
-                              loading="eager"
-                              quality={75}
-                              className="w-full h-full rounded-xl"
-                              style={{ objectFit: 'cover', userSelect: 'none', borderRadius: '12px' }}
-                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
-                              onContextMenu={(e) => handleImageContextMenu(e as any)}
-                              onDragStart={handleImageDrag}
-                            />
-                          </div>
+                          <>
+                            <div
+                              key={imgIndex}
+                              className="w-full rounded-xl overflow-hidden"
+                              style={{ position: 'relative', width: '100%', paddingBottom: '75%' }}
+                            >
+                              <Image
+                                src={image}
+                                alt={`${section.title} - Image ${imgIndex + 1}`}
+                                fill
+                                loading="eager"
+                                quality={75}
+                                className="w-full h-full rounded-xl"
+                                style={{ objectFit: 'cover', userSelect: 'none', borderRadius: '12px' }}
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
+                                onContextMenu={(e) => handleImageContextMenu(e as any)}
+                                onDragStart={handleImageDrag}
+                              />
+                            </div>
+                            {section.video && imgIndex === 0 && (
+                              <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                            )}
+                          </>
                         ))}
                       </div>
                     ) : (
