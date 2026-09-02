@@ -93,7 +93,7 @@ export const projects: Project[] = [
     type: 'project',
     slug: 'martell',
     title: 'Martell',
-    description: 'OOH monument installation strategically positioned at Lagos' most trafficked roundabout.',
+    description: 'OOH monument installation strategically positioned at Lagos most trafficked roundabout.',
     label1: 'OOH',
     label2: '3D Modelling',
     duration: '2 Months',
