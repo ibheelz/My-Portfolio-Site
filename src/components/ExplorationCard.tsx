@@ -12,7 +12,7 @@ interface ExplorationCardProps {
 export default function ExplorationCard({ exploration }: ExplorationCardProps) {
   return (
     <Link
-      href={`/explore/${exploration.slug}`}
+      href={`/${exploration.slug}`}
       className="exploration-card group"
       style={{
         width: '100%',

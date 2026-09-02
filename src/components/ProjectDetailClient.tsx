@@ -749,7 +749,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                 More projects
               </h2>
               <Link
-                href="/projects"
+                href="/"
                 style={{
                   display: 'flex',
                   alignItems: 'center',

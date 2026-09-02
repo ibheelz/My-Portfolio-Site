@@ -24,10 +24,13 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
   const pathname = usePathname()
   const [hoveredNav, setHoveredNav] = useState<string | null>(null)
 
-  const isActive = (path: string) => path === '/projects' ? pathname === '/projects' || pathname.startsWith('/projects/') : pathname.startsWith(path)
+  const isActive = (path: string) => {
+    if (path === '/') return pathname === '/'
+    return pathname.startsWith(path)
+  }
 
   const navItems = [
-    { href: '/projects', label: 'Projects', icon: Briefcase },
+    { href: '/', label: 'Projects', icon: Briefcase },
     { href: '/about-me', label: 'About', icon: UserIcon },
   ]
 

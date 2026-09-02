@@ -13,10 +13,16 @@ export default function Home() {
   const router = useRouter()
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
   const [selectedService, setSelectedService] = useState<string | null>(null)
+  const [showHero, setShowHero] = useState(true)
 
   useEffect(() => {
-    router.replace('/projects')
+    const timer = setTimeout(() => {
+      setShowHero(false)
+    }, 3000)
+    return () => clearTimeout(timer)
   }, [])
+
+  // Removed automatic redirect to allow hero section to display
 
   const getYear = (dateStr?: string) => {
     if (!dateStr) return 0
@@ -37,30 +43,59 @@ export default function Home() {
       <div className="fixed-top-margin" />
       <div className="fixed-bottom-margin" />
 
+      {/* Hero Cover - Full Screen */}
+      {showHero && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '16px',
+            backgroundColor: 'rgb(2, 1, 10)',
+            zIndex: 200,
+            animation: 'fadeOut 0.8s ease-out forwards',
+            animationDelay: '2.2s',
+          }}
+        >
+          <style>{`
+            @keyframes fadeOut {
+              0% {
+                opacity: 1;
+              }
+              100% {
+                opacity: 0;
+                pointer-events: none;
+              }
+            }
+          `}</style>
+          <FadeIn delay={0}>
+            <h1 className="font-heading text-[clamp(48px,10vw,72px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, textAlign: 'center' }}>
+              Abiola Adeyeye
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p style={{ fontSize: 'clamp(18px, 3vw, 24px)', color: 'rgb(138, 138, 138)', margin: 0, textAlign: 'center', letterSpacing: '0.05em' }}>
+              Creative Designer
+            </p>
+          </FadeIn>
+        </div>
+      )}
+
       {/* Content container */}
       <div className="content-container">
-          {/* SECTION 1 - Hero */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: '50px' }} className="sm:mb-[50px] max-sm:mb-0">
-            {/* Top row with dot */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
-              <div></div>
-              <div
-                style={{
-                  width: '4px',
-                  height: '4px',
-                  backgroundColor: 'var(--grey-border)',
-                  borderRadius: '4px',
-                }}
-              />
-            </div>
 
+          {/* SECTION 1 - Services + Projects */}
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: '50px' }} className="sm:mb-[50px] max-sm:mb-0">
             {/* Headline + What I do */}
             <FadeIn>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', padding: '0px', margin: 0 }}>
                 {/* Headline */}
-                <h1 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, marginTop: '-0.2em', maxWidth: 'clamp(100%, 100%, 876px)' }}>
-                  Building value into brands through design.
-                </h1>
+                <h2 className="font-heading text-[clamp(32px,8vw,45px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0, marginTop: '-0.2em', maxWidth: 'clamp(100%, 100%, 876px)' }}>
+                  Selected Projects
+                </h2>
 
                 {/* What I do block */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -187,7 +222,7 @@ export default function Home() {
                   Featured
                 </h2>
                 <Link
-                  href="/projects"
+                  href="/"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -208,7 +243,7 @@ export default function Home() {
               {featuredProjects.map((project, index) => (
                 <FadeIn key={project.slug} delay={index * 0.08}>
                   <Link
-                    href={`/projects/${project.slug}`}
+                    href={`/${project.slug}`}
                     className="project-card project-card-home group"
                     style={{
                       width: '100%',
@@ -285,7 +320,7 @@ export default function Home() {
               {featuredExplorations.map((exploration, index) => (
                 <FadeIn key={exploration.slug} delay={index * 0.08}>
                   <Link
-                    href={`/explore/${exploration.slug}`}
+                    href={`/${exploration.slug}`}
                     className="exploration-card exploration-card-home group"
                     style={{
                       width: '100%',
