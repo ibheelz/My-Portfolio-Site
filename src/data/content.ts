@@ -231,7 +231,7 @@ export const explorations: Exploration[] = [
     tools: ['Photoshop', 'Illustrator', 'Figma'],
     isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/FpnS05Dyr8VS33BysFtyZYsoxo.webp?width=1842&height=1754',
-    randomizeImages: true,
+    randomizeImages: false,
     images: [
       'https://framerusercontent.com/images/FpnS05Dyr8VS33BysFtyZYsoxo.webp?width=1842&height=1754',
       'https://framerusercontent.com/images/lbe2UvK4F3tucUOwQMZWrh2NE.jpg?width=4096&height=4096',

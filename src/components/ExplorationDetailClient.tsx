@@ -139,7 +139,8 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
         <div className="mx-4 lg:mx-4 my-4 rounded-2xl overflow-hidden bg-[rgb(14,14,18)]">
 
           {/* Header Section */}
-          <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-4 px-8 py-4" style={{ marginTop: '0', scrollMarginTop: '60px' }}>
+          <FadeIn>
+            <div className="exploration-header border-b-2 border-[rgb(2,1,10)] pb-4 px-8 py-4" style={{ marginTop: '0', scrollMarginTop: '60px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
               <div>
                 {exploration.description && (
@@ -219,10 +220,12 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                 </a>
               )}
             </div>
-          </div>
+            </div>
+          </FadeIn>
 
           {/* Grid Section */}
-          <div className="exploration-grid p-8">
+          <FadeIn delay={0.1}>
+            <div className="exploration-grid p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[18px] md:gap-[5px]">
               {exploration.images.map((image, index) => (
                 <div key={index} className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group" onClick={() => setIsModalOpen(true)}>
@@ -237,10 +240,12 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                 </div>
               ))}
             </div>
-          </div>
+            </div>
+          </FadeIn>
 
           {/* Second Section - More Explorations Grid */}
-          <section className="px-4 py-16">
+          <FadeIn delay={0.2}>
+            <section className="px-4 py-16">
             <h2 className="font-heading text-[16px] leading-[1.2] tracking-[-0.02em] text-white uppercase mb-8" style={{ fontFamily: 'Mortend' }}>
               More explorations
             </h2>
@@ -249,17 +254,15 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
                 <ExplorationCard key={e.slug} exploration={e} />
               ))}
             </div>
-          </section>
+            </section>
+          </FadeIn>
 
         </div>
       </div>
 
       {/* Modal for full screen image view */}
       {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-black z-[100] flex items-center justify-center py-16 px-4"
-          onClick={() => setIsModalOpen(false)}
-        >
+        <FadeIn className="fixed inset-0 bg-black z-[100] flex items-center justify-center py-16 px-4" onClick={() => setIsModalOpen(false)}>
           {/* Close button - top right */}
           <button
             onClick={() => setIsModalOpen(false)}
@@ -280,13 +283,14 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
             </button>
 
             {/* Image */}
-            <div className="flex items-center justify-center max-w-4xl max-h-screen">
+            <div className="flex items-center justify-center flex-1 max-w-4xl max-h-screen" key={currentImageIndex}>
               <Image
+                key={`${exploration.slug}-${currentImageIndex}`}
                 src={exploration.images[currentImageIndex]}
                 alt={`${exploration.title} - Image ${currentImageIndex + 1}`}
                 width={1200}
                 height={800}
-                className="object-contain rounded-lg"
+                className="object-contain rounded-lg w-full h-auto"
                 priority
                 sizes="(max-width: 768px) 90vw, (max-width: 1024px) 80vw, 1000px"
               />
@@ -307,7 +311,7 @@ export default function ExplorationDetailClient({ slug }: ExplorationDetailClien
           <div className="absolute bottom-[calc(1.5rem-20px)] left-1/2 transform -translate-x-1/2 font-gucina text-[14px] text-[rgb(138,138,138)]">
             {currentImageIndex + 1} / {exploration.images.length}
           </div>
-        </div>
+        </FadeIn>
       )}
     </>
   )
