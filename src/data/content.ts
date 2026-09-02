@@ -178,12 +178,12 @@ export const projects: Project[] = [
       {
         title: 'Brand Strategy',
         content: 'The strategy is built on genuine human connection over coffee. Marcus Chen built the brand around his story of finding friendship again through coffee.\n\nVerdant is playful but premium. It targets men who care about quality but do not want coffee snobbery. The promise is simple: good coffee from farmers we know, in a place where you can relax and talk.',
-        image: '/verdant-strategy.webp',
+        image: '/verdant-strategy.png',
       },
       {
         title: 'Visual Identity',
         content: 'The bearded mascot icon represents Marcus. It also reads as two coffee cups toasting together.\n\nWarm earthy colors, deep teal and cream, and simple typefaces create a design that feels handmade and real, not corporate.',
-        images: ['/verdant-identity-v1.webp', '/verdant-identity-v3.webp', '/verdant-identity-v4.webp', '/verdant-identity-v5.webp', '/verdant-identity-v6.webp', '/verdant-identity-v7.webp', '/verdant-identity-v8.webp', '/verdant-identity-v9.webp', '/verdant-identity-v10.webp'],
+        images: ['/verdant-identity-v1.png', '/verdant-identity-v3.png', '/verdant-identity-v4.png', '/verdant-identity-v5.png', '/verdant-identity-v6.png', '/verdant-identity-v7.png', '/verdant-identity-v8.png', '/verdant-identity-v9.png', '/verdant-identity-v10.png'],
         video: '<iframe src="https://player.vimeo.com/video/1171161744?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&h=2160" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>',
       },
     ],
