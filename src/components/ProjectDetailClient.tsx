@@ -564,9 +564,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block', marginTop: '32px' }}>
                         <source src={(section as any).videoFile} type="video/mp4" />
                       </video>
-                    ) : (
+                    ) : section.video ? (
                       <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
-                    )
+                    ) : null
                   ) : section.images && section.images.length > 0 ? (
                     (['martell', 'jameson', 'rash', 'verdant', 'duskline'].includes(project?.slug || '')) ? (
                       <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
