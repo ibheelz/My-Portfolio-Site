@@ -174,7 +174,7 @@ export default function ProjectsPage() {
             Explorations
           </h2>
         </FadeIn>
-        <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(50px, 1fr))', columnGap: 'clamp(12px, 3vw, 24px)', rowGap: 'clamp(12px, 4vw, 64px)' }}>
+        <div className="explorations-grid" style={{ display: 'grid', rowGap: 'clamp(12px, 4vw, 64px)' }}>
           {explorations.map((exploration, index) => (
             <FadeIn key={exploration.slug} delay={(index + sortedProjects.length) * 0.08}>
               <ExplorationCard exploration={exploration} />

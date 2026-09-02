@@ -544,7 +544,7 @@ nav.project-detail-nav {
 }
 
 .explorations-grid {
-  grid-template-columns: repeat(3, minmax(50px, 1fr)) !important;
+  grid-template-columns: repeat(4, minmax(50px, 1fr)) !important;
   column-gap: clamp(12px, 3vw, 24px) !important;
   row-gap: clamp(32px, 6vw, 64px) !important;
 }
