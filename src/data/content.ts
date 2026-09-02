@@ -19,6 +19,7 @@ export interface Project {
     image?: string
     images?: string[]
     video?: string
+    videoFile?: string
   }>
 }
 
