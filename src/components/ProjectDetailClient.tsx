@@ -706,7 +706,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     </div>
                   )}
                   {section.video && (
-                    <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                    <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px' }} dangerouslySetInnerHTML={{ __html: section.video }} />
                   )}
                 </section>
               </FadeIn>
