@@ -559,7 +559,15 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   <p className="font-body text-[clamp(14px,2vw,16px)] leading-[1.6] text-[rgb(138,138,138)] whitespace-pre-wrap">
                     {renderStyledContent(section.content)}
                   </p>
-                  {section.images && section.images.length > 0 ? (
+                  {((section as any).videoFile || section.video) && !section.images ? (
+                    (section as any).videoFile ? (
+                      <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block', marginTop: '32px' }}>
+                        <source src={(section as any).videoFile} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                    )
+                  ) : section.images && section.images.length > 0 ? (
                     (['martell', 'jameson', 'rash', 'verdant', 'duskline'].includes(project?.slug || '')) ? (
                       <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {section.images.map((image, imgIndex) => (
@@ -582,8 +590,13 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                                 onDragStart={handleImageDrag}
                               />
                             </div>
-                            {section.video && imgIndex === 0 && (
-                              <div style={{ position: 'relative', width: '100%', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                            {section.video && imgIndex === 0 && section.title === 'Project Overview' && (
+                              <div style={{ position: 'relative', width: '100%', maxWidth: '100%', height: '900px', borderRadius: '12px', overflow: 'hidden', boxSizing: 'border-box' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                            )}
+                            {(section as any).videoFile && imgIndex === 0 && section.title === 'Project Overview' && (
+                              <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block' }}>
+                                <source src={(section as any).videoFile} type="video/mp4" />
+                              </video>
                             )}
                           </>
                         ))}
@@ -710,8 +723,14 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                       />
                     </div>
                   )}
-                  {section.video && (
-                    <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                  {(section.video || (section as any).videoFile) && section.title !== 'Project Overview' && (
+                    section.video ? (
+                      <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                    ) : (
+                      <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block', marginTop: '32px' }}>
+                        <source src={(section as any).videoFile} type="video/mp4" />
+                      </video>
+                    )
                   )}
                 </section>
               </FadeIn>
