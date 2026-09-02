@@ -5,9 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import {
-  Compass,
   Briefcase,
-  Path,
   User as UserIcon,
   LinkedinLogo,
   BehanceLogo,
@@ -30,7 +28,6 @@ export default function SideNav({ hideProfile = false, collapsed = false, onTogg
 
   const navItems = [
     { href: '/projects', label: 'Projects', icon: Briefcase },
-    { href: '/explore', label: 'Explore', icon: Path },
     { href: '/about-me', label: 'About', icon: UserIcon },
   ]
 
