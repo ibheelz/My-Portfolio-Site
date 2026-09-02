@@ -560,7 +560,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                     {renderStyledContent(section.content)}
                   </p>
                   {section.images && section.images.length > 0 ? (
-                    (['martell', 'jameson', 'rash', 'verdant'].includes(project?.slug || '')) ? (
+                    (['martell', 'jameson', 'rash', 'verdant', 'duskline'].includes(project?.slug || '')) ? (
                       <div className="w-full flex flex-col gap-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {section.images.map((image, imgIndex) => (
                           <div
