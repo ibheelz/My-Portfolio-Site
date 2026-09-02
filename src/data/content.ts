@@ -240,6 +240,13 @@ export const explorations: Exploration[] = [
       'https://framerusercontent.com/images/TZ87NRylhvnOTFPfdO9D0ajJeio.png?width=2048&height=2048',
       'https://framerusercontent.com/images/LbnvzXqr3P4LBJV2Q1gES4NauU.png?width=2000&height=2000',
       'https://framerusercontent.com/images/gItAqlwvxAL4vL9GothXOsAIo.png?width=2000&height=2000',
+      '/posters-1.png',
+      '/posters-2.png',
+      '/posters-3.png',
+      '/posters-4.png',
+      '/posters-5.png',
+      '/posters-6.png',
+      '/posters-7.png',
       ],
   },
   {
