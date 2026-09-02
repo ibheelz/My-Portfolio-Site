@@ -46,10 +46,7 @@ export default function ExplorationCard({ exploration }: ExplorationCardProps) {
       {/* Text Area */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(4px, 1vw, 8px)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-          <h3
-            className="font-body text-[clamp(16px,3vw,18px)] leading-[1.5]"
-            style={{ color: 'rgb(250, 250, 250)', fontFamily: "'Gucina'", fontWeight: 600 }}
-          >
+          <h3 className="heading-3">
             {exploration.title}
           </h3>
           {exploration.tools && exploration.tools.length > 0 && !['lucia', 'posters'].includes(exploration.slug) && (
