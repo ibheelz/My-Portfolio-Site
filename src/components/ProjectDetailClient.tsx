@@ -679,7 +679,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   ) : section.image && (
                     <div
                       className={`w-full rounded-xl overflow-hidden group ${(['martell', 'jameson', 'rash', 'duskline', 'verdant'].includes(project?.slug || '') && !isMobile) ? '' : 'cursor-pointer'}`}
-                      style={{ maxHeight: (['duskline', 'verdant', 'rash'].includes(project?.slug || '')) ? 'auto' : '70vh' }}
+                      style={{ maxHeight: (['duskline', 'verdant', 'rash'].includes(project?.slug || '')) ? 'auto' : (['martell', 'jameson'].includes(project?.slug || '') ? 'auto' : '70vh') }}
                       onClick={() => {
                         const noModalProjects = ['martell', 'jameson', 'rash', 'duskline', 'verdant']
                         if (isMobile || !noModalProjects.includes(project?.slug || '')) {

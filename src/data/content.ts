@@ -71,17 +71,17 @@ export const projects: Project[] = [
       {
         title: 'Process',
         content: 'I modeled the container and the barrel man from scratch in Blender. The figure had to look like it was moving, like it was actually heading somewhere. Because it was.\n\nEvery joint, every proportion, every angle was worked out in 3D before anything was built in real life.',
-        images: ['/jameson-process-1.webp', '/jameson-process-2.webp', '/jameson-process-3.webp', '/jameson-process-4.webp'],
+        images: ['/jameson-process-1.webp', '/jameson-process-2.webp'],
       },
       {
         title: 'Visualization',
         content: 'The renders showed exactly what would go up. Jameson green, the barrel man mid-stride, the branded container underneath him with the event details on every face.\n\nWhat you see in the render is what showed up on the street.',
-        images: ['/jameson-vis-1.webp', '/jameson-vis-2.webp', '/jameson-vis-3.webp', '/jameson-vis-4.webp', '/jameson-vis-5.webp', '/jameson-vis-6.webp'],
+        images: ['/jameson-vis-1.webp', '/jameson-vis-2.webp', '/jameson-vis-3.webp'],
       },
       {
         title: 'Result',
         content: 'It went up on one of the busiest roads on Lagos Island and stayed through the full run of JDOT at Fidelity Bank Grounds Oniru.\n\nPeople in traffic saw a giant green figure carrying a barrel and pointing the way. The barrel man was the first thing they saw. The event was the second.',
-        images: ['/jameson-result-1.jpg', '/jameson-result-2.jpg', '/jameson-result-3.jpg', '/jameson-result-4.jpg', '/jameson-result-5.jpg', '/jameson-result-6.jpg', '/jameson-result-7.jpg', '/jameson-result-8.jpg', '/jameson-result-9.jpg'],
+        images: ['/jameson-result-3.jpg', '/jameson-result-4.jpg', '/jameson-result-7.jpg', '/jameson-result-8.jpg', '/jameson-result-9.jpg'],
       },
     ],
   },
@@ -106,17 +106,17 @@ export const projects: Project[] = [
       {
         title: 'Process',
         content: 'I handled the 3D modeling and visualization in Blender as part of the creative team at Eyekontact.\n\nEvery surface and proportion was built to real world scale before fabrication began.',
-        images: ['/martell-pro-1.webp', '/martell-pro-2.webp', '/martell-pro-3.webp'],
+        images: ['/martell-pro-1.webp', '/martell-pro-3.webp'],
       },
       {
         title: 'Visualization',
         content: 'The renders showed exactly what would be built. Navy background, white letters, gold swallow.\n\nThe swallow was the most detailed part. Each fin was modeled separately so it would catch shadow properly at that size. What you see in the render is what went up at the roundabout.',
-        images: ['/martell-vis-1.webp', '/martell-vis-3.webp', '/martell-vis-2.webp'],
+        images: ['/martell-vis-1.webp', '/martell-vis-3.webp'],
       },
       {
         title: 'Result',
         content: 'The installation went up at the Admiralty Way roundabout in Lekki, one of the most trafficked junctions on the Lagos Island corridor. Day or night, from ground level or above, it held.\n\nThe ground lanterns framing the black platform, the backlit lettering cutting through Lagos traffic at night, the swallow visible from every approach. It was not just seen. It was felt.\n\nThat is what happens when the location is the strategy.',
-        images: ['/martell-res-1.webp', '/martell-res-2.webp', '/martell-res-3.webp', '/martell-res-4.webp'],
+        images: ['/martell-res-1.webp', '/martell-res-3.webp', '/martell-res-4.webp'],
       },
     ],
   },
