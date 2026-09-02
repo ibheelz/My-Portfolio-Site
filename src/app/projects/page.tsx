@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { projects } from '@/src/data/content'
+import { projects, explorations } from '@/src/data/content'
 import ProjectCard from '@/src/components/ProjectCard'
+import ExplorationCard from '@/src/components/ExplorationCard'
 import { FadeIn } from '@/src/components/FadeIn'
 
 export default function ProjectsPage() {
@@ -161,6 +162,22 @@ export default function ProjectsPage() {
           {sortedProjects.map((project, index) => (
             <FadeIn key={project.slug} delay={index * 0.08}>
               <ProjectCard project={project} />
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 3 - Explorations */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <FadeIn>
+          <h2 className="font-heading text-[clamp(18px,3vw,24px)] leading-[1.2] tracking-[-0.02em] uppercase" style={{ fontFamily: 'Mortend', margin: 0 }}>
+            Explorations
+          </h2>
+        </FadeIn>
+        <div className="explorations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(50px, 1fr))', columnGap: 'clamp(12px, 3vw, 24px)', rowGap: 'clamp(12px, 4vw, 64px)' }}>
+          {explorations.map((exploration, index) => (
+            <FadeIn key={exploration.slug} delay={(index + sortedProjects.length) * 0.08}>
+              <ExplorationCard exploration={exploration} />
             </FadeIn>
           ))}
         </div>
