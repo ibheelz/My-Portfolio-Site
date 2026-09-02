@@ -137,7 +137,7 @@ export const projects: Project[] = [
       {
         title: 'Project Overview',
         content: 'Duskline is a vinyl record shop that becomes a listening bar at night. It serves people who care about music and want a warm, welcoming place to enjoy it.\n\nThe brand captures the dual experience. It feels dark and atmospheric at night, but always friendly. Every design choice started with one principle: sound first.',
-        image: 'https://framerusercontent.com/images/jdAWGQ79Ef5Oq9ifYlVLjaQ4E.gif?width=800&height=600',
+        video: '<iframe src="https://player.vimeo.com/video/1174499085?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&h=2160" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>',
       },
       {
         title: 'The Challenge',
