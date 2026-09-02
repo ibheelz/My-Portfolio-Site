@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
 
           {/* Text Area */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '0px', paddingRight: '0px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingLeft: '0px', paddingRight: '0px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
               <h3 className="heading-3">{project.title}</h3>
               {project.date && (
@@ -36,6 +36,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </span>
               )}
             </div>
+            {project.description && (
+              <p style={{ fontSize: '14px', color: 'rgb(138, 138, 138)', lineHeight: '1.5', margin: 0 }}>
+                {project.description}
+              </p>
+            )}
           </div>
         </div>
       </Link>

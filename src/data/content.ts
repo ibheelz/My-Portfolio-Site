@@ -4,6 +4,7 @@ export interface Project {
   type: 'project'
   slug: string
   title: string
+  description?: string
   label1: string
   label2: string
   duration: string
@@ -56,6 +57,7 @@ export const projects: Project[] = [
     type: 'project',
     slug: 'jameson',
     title: 'Jameson',
+    description: 'A monumental 3D-modeled installation that brings the distillery experience to Lagos streets.',
     label1: 'OOH',
     label2: '3D Modelling',
     duration: '2 Months',
@@ -91,6 +93,7 @@ export const projects: Project[] = [
     type: 'project',
     slug: 'martell',
     title: 'Martell',
+    description: 'A permanent branded monument strategically positioned at Lagos' most trafficked roundabout.',
     label1: 'OOH',
     label2: '3D Modelling',
     duration: '2 Months',
@@ -126,6 +129,7 @@ export const projects: Project[] = [
     type: 'project',
     slug: 'duskline',
     title: 'Duskline',
+    description: 'A vinyl record shop and listening bar with a unified brand identity for two distinct experiences.',
     label1: 'Listening Bar',
     label2: 'Branding',
     duration: '4 Weeks',
@@ -156,6 +160,7 @@ export const projects: Project[] = [
     type: 'project',
     slug: 'verdant',
     title: 'Verdant',
+    description: 'A Portland specialty coffee brand combining playful design with premium quality and genuine human connection.',
     label1: 'Cafe',
     label2: 'Branding',
     duration: '4 Weeks',
