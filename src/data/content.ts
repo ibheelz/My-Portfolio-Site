@@ -142,12 +142,12 @@ export const projects: Project[] = [
       {
         title: 'The Challenge',
         content: 'Duskline is two things at once: a record shop during the day and a listening bar at night. The challenge was creating one brand identity that worked for both without feeling split.\n\nThe design needed to feel warm and easy to browse during the day, then shift into something darker and moodier at night. One visual language for two very different experiences.',
-        image: '/d6.png',
+        image: '/6.png',
       },
       {
         title: 'Brand Strategy',
         content: 'The strategy focuses on the listening experience, not just the products. Whether you are flipping through records or sitting with a drink, sound is the connecting thread. This became the foundation for every design choice.\n\nEvery detail, from color to typeface, was designed to feel intentional and unhurried. The brand does not demand attention. Instead, it draws you in quietly, the way good music does.',
-        images: ['/d1.png', '/d2.png', '/d3.png', '/d4.png', '/d5.png', '/d7.png', '/d8.png'],
+        images: ['/1.png', '/2.png', '/3.png', '/4.png', '/5.png', '/7.png'],
       },
     ],
   },
