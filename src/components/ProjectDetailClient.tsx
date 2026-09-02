@@ -708,14 +708,16 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   {section.video && (() => {
                     const src = section.video.match(/src="([^"]+)"/)?.[1]
                     return src ? (
-                      <iframe
-                        src={src}
-                        frameBorder="0"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
-                        loading="lazy"
-                        style={{ width: '100%', height: '900px', border: 'none', display: 'block', marginTop: '32px', borderRadius: '12px' }}
-                      />
+                      <div style={{ position: 'relative', width: 'calc(100vw - 32px)', marginLeft: 'calc(-50vw + 50%)', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }}>
+                        <iframe
+                          src={src}
+                          frameBorder="0"
+                          allow="autoplay; fullscreen; picture-in-picture"
+                          sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+                          loading="lazy"
+                          style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                        />
+                      </div>
                     ) : null
                   })()}
                 </section>
