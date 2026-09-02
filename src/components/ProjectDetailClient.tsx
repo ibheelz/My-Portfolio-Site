@@ -561,11 +561,11 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   </p>
                   {((section as any).videoFile || section.video) && !section.images ? (
                     (section as any).videoFile ? (
-                      <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block', marginTop: '32px' }}>
+                      <video autoPlay muted loop playsInline style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block', marginTop: '32px' }}>
                         <source src={(section as any).videoFile} type="video/mp4" />
                       </video>
                     ) : section.video ? (
-                      <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                      <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
                     ) : null
                   ) : section.images && section.images.length > 0 ? (
                     (['martell', 'jameson', 'rash', 'verdant', 'duskline'].includes(project?.slug || '')) ? (
@@ -585,16 +585,16 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                                 quality={75}
                                 className="w-full h-full rounded-xl"
                                 style={{ objectFit: 'cover', userSelect: 'none', borderRadius: '12px' }}
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) calc(100vw - 32px), 900px"
                                 onContextMenu={(e) => handleImageContextMenu(e as any)}
                                 onDragStart={handleImageDrag}
                               />
                             </div>
                             {section.video && imgIndex === 0 && section.title === 'Project Overview' && (
-                              <div style={{ position: 'relative', width: '100%', maxWidth: '100%', height: '900px', borderRadius: '12px', overflow: 'hidden', boxSizing: 'border-box' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                              <div style={{ position: 'relative', width: '100%', maxWidth: '100%', paddingBottom: '75%', borderRadius: '12px', overflow: 'hidden', boxSizing: 'border-box' }} dangerouslySetInnerHTML={{ __html: section.video }} />
                             )}
                             {(section as any).videoFile && imgIndex === 0 && section.title === 'Project Overview' && (
-                              <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block' }}>
+                              <video autoPlay muted loop playsInline style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block' }}>
                                 <source src={(section as any).videoFile} type="video/mp4" />
                               </video>
                             )}
@@ -626,7 +626,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                           resumeCarouselAutoplay(index, section.images!.length)
                         }}
                       >
-                        <div className="relative" style={{ width: '100%', ...((['duskline', 'verdant'].includes(project?.slug || '')) ? { position: 'relative', minHeight: 'auto' } : { paddingBottom: '75%', position: 'relative' }) }}>
+                        <div className="relative" style={{ width: '100%', ...((['duskline', 'verdant'].includes(project?.slug || '')) ? { position: 'relative', minHeight: 'auto', maxHeight: 'clamp(400px, 60vh, 800px)' } : { paddingBottom: '75%', position: 'relative' }) }}>
                           {section.images.map((image, imgIndex) => (
                             <div
                               key={imgIndex}
@@ -644,7 +644,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                                 quality={75}
                                 className="w-full h-full"
                                 style={{ objectFit: (project.slug === 'duskline' || project.slug === 'verdant') ? 'contain' : 'cover', userSelect: 'none' }}
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) 100vw, 1000px"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1240px) calc(100vw - 32px), 900px"
                                 onContextMenu={(e) => handleImageContextMenu(e as any)}
                                 onDragStart={handleImageDrag}
                               />
@@ -725,9 +725,9 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   )}
                   {(section.video || (section as any).videoFile) && section.title !== 'Project Overview' && (
                     section.video ? (
-                      <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', height: '900px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
+                      <div style={{ position: 'relative', width: 'calc(100% + 128px)', marginLeft: '-64px', marginRight: '-64px', marginTop: '32px', borderRadius: '12px', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: section.video }} />
                     ) : (
-                      <video width="100%" height="900" autoPlay muted loop playsInline style={{ borderRadius: '12px', display: 'block', marginTop: '32px' }}>
+                      <video autoPlay muted loop playsInline style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block', marginTop: '32px' }}>
                         <source src={(section as any).videoFile} type="video/mp4" />
                       </video>
                     )
