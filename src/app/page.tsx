@@ -31,11 +31,12 @@ export default function Home() {
   }
 
   const services = ['Branding', '3D Modelling', 'Visual Design', 'Generative AI Design', 'E-commerce Design', 'Marketing Design']
-  const featuredProjects = projects
-    .filter((p) => p.isFeatured)
-    .sort((a, b) => getYear(b.date) - getYear(a.date))
-    .slice(0, 3)
-  const featuredExplorations = explorations.filter((e) => e.isFeatured).slice(0, 3)
+  const featuredProjects = projects.sort((a, b) => getYear(b.date) - getYear(a.date))
+  const featuredExplorations = explorations.sort((a, b) => {
+    const yearA = getYear(b.date)
+    const yearB = getYear(a.date)
+    return yearA - yearB
+  })
 
   return (
     <>
@@ -211,32 +212,6 @@ export default function Home() {
 
           {/* SECTION 2 - Recent Projects */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px, 8vw, 32px)', marginTop: '0px' }} className="max-sm:-mt-5">
-            {/* Section header */}
-            <FadeIn>
-              <div
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '28px', overflow: 'hidden' }}
-                onMouseEnter={() => setHoveredSection('projects')}
-                onMouseLeave={() => setHoveredSection(null)}
-              >
-                <h2 className="heading-2">
-                  Featured
-                </h2>
-                <Link
-                  href="/"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '2px',
-                    color: 'rgb(129, 195, 215)',
-                    fontSize: '12px',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  View all
-                  <ArrowRight size={16} weight="bold" />
-                </Link>
-              </div>
-            </FadeIn>
 
             {/* Projects grid */}
             <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))', columnGap: 'clamp(16px, 4vw, 32px)', rowGap: 'clamp(48px, 10vw, 96px)' }}>
