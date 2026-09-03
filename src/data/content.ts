@@ -134,7 +134,7 @@ export const projects: Project[] = [
     label2: 'Branding',
     duration: '4 Weeks',
     date: 'January – February 2021',
-    isFeatured: false,
+    isFeatured: true,
     cardImage: 'https://framerusercontent.com/images/qXkwFSNeDhLPMrgjgIowdfMR1E.png',
     heroImage: 'https://framerusercontent.com/images/xcKqdi3zJ4mgzPoQhSL5zV6LaM.png',
     roleLabels: ['Brand Design', 'Branding', 'Listening Bar', 'Entertainment'],
